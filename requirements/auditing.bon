@@ -1,0 +1,28 @@
+scenario_chart AUDITING_REQUIREMENTS
+indexing
+  partof: "TECHNICAL_REQUIREMENTS"
+explanation
+  ""
+scenario
+  "LOG BASICS"
+description
+  "The Internet voting system should keep detailed logs of all \
+ \ relevant activity."
+scenario
+  "WRITE-ONCE LOGS"
+description
+  "Logs must be written to write-once media in append-only mode."
+scenario
+  "COMPLETENESS"
+description
+  "The log data should be as complete as possible, consistent with \
+ \ maximum possible vote privacy."
+scenario
+  "PRIVACY/FRAUD TRADEOFF"
+description
+  "If there is a tradeoff between vote privacy and the identification \
+ \ of the perpetrators of fraud, the decision should be made in favor \
+ \ of vote privacy."
+end
+
+

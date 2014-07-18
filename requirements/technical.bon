@@ -1,0 +1,6 @@
+scenario_chart TECHNICAL_REQUIREMENTS
+indexing
+  partof: "E2EVIV_REQUIREMENTS";
+explanation
+  ""
+end

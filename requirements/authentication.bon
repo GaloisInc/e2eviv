@@ -1,0 +1,8 @@
+scenario_chart AUTHENTICATION_REQUIREMENTS
+indexing
+  partof: "TECHNICAL_REQUIREMENTS"
+explanation
+  ""
+end
+
+

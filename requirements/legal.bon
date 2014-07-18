@@ -1,0 +1,6 @@
+scenario_chart LEGAL_REQUIREMENTS
+indexing
+  partof: "NON_FUNCTIONAL_REQUIREMENTS"
+explanation
+  ""
+end

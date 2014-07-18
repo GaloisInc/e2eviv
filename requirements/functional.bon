@@ -1,0 +1,6 @@
+scenario_chart FUNCTIONAL_REQUIREMENTS
+indexing
+  partof: "TECHNICAL_REQUIREMENTS"
+explanation
+  ""
+end

@@ -1,0 +1,33 @@
+scenario_chart SECURITY_REQUIREMENTS
+indexing
+  title: "Requirements for E2EV Voting Systems when Embedded in or Packaged as \
+        \ an Internet Voting System";
+  partof: "TECHNICAL_REQUIREMENTS";
+  author: "David Jefferson <d_jefferson@yahoo.com>";
+  created: "22 June 2014";
+  reviewer: "Joe Kiniry <kiniry@galois.com>";
+  reviewed: "16 July 2014"
+explanation
+  "These are requirements for embedding and E2EV system in an Internet \
+ \ voting environment.  They are over and above the requirements for \
+ \ the core E2EV itself.  We do not consider usability or accessibility \
+ \ requirements here.  Some of these requirements will make \
+ \ accessibility and usability more difficult to achieve.  Still, these \
+ \ are requirements, and if they cannot be met, or cannot be met \
+ \ simultaneously with usability and accessibility requirement, then we \
+ \ have to recommend not implementing an E2EV Internet voting system."
+scenario
+  ""
+description
+  ""
+end
+
+scenario_chart CERTIFICATION_AND_RECERTIFICATION_REQUIREMENTS
+indexing
+  partof: "SECURITY_REQUIREMENTS"
+explanation
+  ""
+end
+
+
+

@@ -1,0 +1,15 @@
+scenario_chart CERTIFICATION_FUNCTIONAL_REQUIREMENTS
+indexing
+  partof: "TECHNICAL_REQUIREMENTS"
+explanation
+  ""
+end
+
+scenario_chart CERTIFICATION_NON_FUNCTIONAL_REQUIREMENTS
+indexing
+  partof: "NON_FUNCTIONAL_REQUIREMENTS"
+explanation
+  ""
+end
+
+

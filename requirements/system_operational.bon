@@ -1,0 +1,6 @@
+scenario_chart SYSTEM_OPERATIONAL_REQUIREMENTS
+indexing
+  partof: "TECHNICAL_REQUIREMENTS"
+explanation
+  ""
+end

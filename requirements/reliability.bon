@@ -1,0 +1,6 @@
+scenario_chart RELIABILITY_REQUIREMENTS
+indexing
+  partof: "SYSTEM_OPERATIONAL_REQUIREMENTS"
+explanation
+  ""
+end

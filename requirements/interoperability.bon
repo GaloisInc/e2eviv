@@ -1,0 +1,12 @@
+scenario_chart INTEROPERABILTY_REQUIREMENTS
+indexing
+  partof: "TECHNICAL_REQUIREMENTS"
+explanation
+  ""
+scenario
+  "OPEN LOG FORMATS"
+description
+  "The log data and documentation of its meaning and format should be \
+ \ available for public download so that anyone can download, inspect, \
+ \ and publish concerns based on the logs."
+end

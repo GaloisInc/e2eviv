@@ -1,0 +1,6 @@
+scenario_chart USABILITY_REQUIREMENTS
+indexing
+  partof: "TECHNICAL_REQUIREMENTS"
+explanation
+  ""
+end
