@@ -1,0 +1,88 @@
+-- This E2E VIV specification is written in the EBON specification
+-- language, based upon the BON specification language from Walden and
+-- Nerson.  See http://bon-method.com/ for more information about BON
+-- and http://kindsoftware.com/ for more information about EBON.  Tool
+-- support for EBON is provided by the BON compiler, bonc, and several
+-- other tools.  See https://github.com/kiniry/BON for more
+-- information.
+
+-- Informal Charts
+
+-- BON Domain Model
+
+system_chart E2EVIV_SYSTEM
+indexing
+  author: "Joseph Kiniry <kiniry@galois.com>";
+  organization: "Galois, Inc.";
+  keywords: "OVF", "end-to-end verifiable internet voting", "e2e", "viv", 
+    "verifiable elections", "software independence", 
+    "high-assurance", "cryptography", "verification", "Galois";
+  created: "Tue Jul 15 16:18:09 PDT 2014";
+  github: "https://github.com/GaloisInc/e2eviv";
+explanation
+  "@todo"
+cluster CORE_CONCEPTS
+description
+  "@todo"
+cluster LEGAL_STANDARDS
+description
+  "@todo"
+end
+
+cluster_chart LEGAL_STANDARDS
+indexing
+explanation
+  "@todo"
+end
+
+-- @todo kiniry July 2014 Concepts to incorporate.
+ACCESSIBLE
+AUTHENTICATE
+BALLOT
+BALLOT_BOX
+CANDIDATE
+CITIZEN
+CONFIDENCE
+DEMOCRACY
+DEVICE
+DISABLED
+EFFICIENT
+ELECTION
+ELECTORAL_AUTHORITIES
+ELECTORATE
+EVOTING
+IDENTITY
+INTERNET
+LEGISLATION
+LOCAL_LEVEL
+NATIONAL_LEVEL
+POLITICAL_PARTY
+POLLING_STATION
+PRINCIPLE
+PROCEDURE
+REFERENDUM
+REGIONAL_LEVEL
+RELIABILITY
+REMOTE
+RESULT
+ROBUST
+SEAL
+SECURITY
+SYSTEM
+TALLY
+TURNOUT
+USABLE
+VERIFIABLE
+VERIFICATION
+VOTE
+VOTER
+VOTER_REGISTRATION
+VOTING_CHANNEL
+VOTING_INTERFACE
+VOTING_OPTION
+VOTERS_REGISTER
+
+-- @todo kiniry July 2014 Clusters to incorporate.
+LEGAL
+OPERATIONAL
+TECHNICAL

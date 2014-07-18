@@ -1,0 +1,57 @@
+-- Appendix 1
+-- Legal Standards
+-- A. Principles
+
+scenario_chart UNIVERSAL_SUFFRAGE_REQUIREMENTS
+indexing
+  reference: "Rec(2004)11, Appendix 1, Section A, Part 1"
+explanation
+  ""
+scenario
+  ""
+description
+  ""
+end
+
+scenario_chart EQUAL_SUFFRAGE_REQUIREMENTS
+indexing
+explanation
+  ""
+scenario
+  ""
+description
+  ""
+end
+
+scenario_chart FREE_SUFFRAGE_REQUIREMENTS
+indexing
+explanation
+  ""
+scenario
+  ""
+description
+  ""
+end
+
+scenario_chart SECRET_SUFFRAGE_REQUIREMENTS
+indexing
+explanation
+  ""
+scenario
+  ""
+description
+  ""
+end
+
+-- B. Procedural Safeguards
+
+scenario_chart TRANSPARENCY_REQUIREMENTS
+indexing
+  reference: "Rec(2004)11, Appendix 1, Section B, Part 1"
+explanation
+  ""
+scenario
+  ""
+description
+  ""
+end
