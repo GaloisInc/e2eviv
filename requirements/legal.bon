@@ -3,4 +3,125 @@ indexing
   partof: "NON_FUNCTIONAL_REQUIREMENTS"
 explanation
   ""
+
+-- @ref Rec(2004)11 Universal Suffrage
+scenario -- @ref Rec(2004)11 Appendix I, A. I. 1. 
+  ""
+description
+  "The voter interface of an e-voting system shall be understandable and \
+ \ easily usable."
+scenario -- @ref Rec(2004)11 Appendix I, A. I. 2.
+  ""
+description "Possible registration requirements for e-voting shall not pose \
+ \ an impediment to the voter participating in e-voting."
+scenario -- @ref Rec(2004)11 Appendix I, A. I. 3.
+  ""
+description
+  "E-voting systems shall be designed, as far as it is practicable, to \
+ \ maximise the opportunities that such systems can provide for persons \
+ \ with disabilities."
+scenario -- @ref Rec(2004)11 Appendix I, A. I. 4.
+  ""
+description
+  "Unless channels of remote e-voting are universally accessible, they shall \
+ \ be only an additional and optional means of voting."
+
+-- @ref Rec(2004)11 Equal suffrage
+scenario -- @ref Rec(2004)11 Appendix I, A. II. 5.
+  ""
+description
+  "In relation to any election or referendum, a voter shall be prevented \
+ \ from inserting more than one ballot into the electronic ballot box. A \
+ \ voter shall be authorised to vote only if it has been established that \
+ \ his/her ballot has not yet been inserted into the ballot box."
+scenario -- @ref Rec(2004)11 Appendix I, A. II. 6.
+  ""
+description
+  "The e-voting system shall prevent any voter from casting a vote by more \
+ \ than one voting channel."
+scenario -- @ref Rec(2004)11 Appendix I, A. II. 7.
+  ""
+description
+  "Every vote deposited in an electronic ballot box shall be counted, and \
+ \ each vote cast in the election or referendum shall be counted only once."
+scenario -- @ref Rec(2004)11 Appendix I, A. II. 8.
+  ""
+description
+  "Where electronic and non-electronic voting channels are used in the same \
+ \ election or referendum, there shall be a secure and reliable method to \
+ \ aggregate all votes and to calculate the correct result."
+
+-- @ref Rec(2004)11 Free suffrage
+scenario "" -- @ref Rec(2004)11 Appendix I, A. III. 9.
+description
+  "The organisation of e-voting shall secure the free formation and \
+ \ expression of the voter's opinion and, where required, the \
+ \ personal exercise of the right to vote."
+scenario "" -- @ref Rec(2004)11 Appendix I, A. III. 10.
+description
+  "The way in which voters are guided through the e-voting process \
+ \ shall be such as to prevent their voting precipitately or without
+ \ reflection."
+scenario "" -- @ref Rec(2004)11 Appendix I, A. III. 11.
+description
+  "Voters shall be able to alter their choice at any point in the \
+ \ e-voting process before casting their vote, or to break off the \
+ \ procedure, without their previous choices being recorded or made \
+ \ available to any other person."
+scenario "" -- @ref Rec(2004)11 Appendix I, A. III. 12.
+description
+  "The e-voting system shall not permit any manipulative influence to \
+ \ be exercised over the voter during the voting."
+scenario "" -- @ref Rec(2004)11 Appendix I, A. III. 13.
+description
+  "The e-voting system shall provide the voter with a means of \
+ \ participating in an election or referendum without the voter \
+ \ exercising a preference for any of the voting options, for example, \
+ \ by casting a blank vote."
+scenario "" -- @ref Rec(2004)11 Appendix I, A. III. 14.
+description
+  "The e-voting system shall indicate clearly to the voter when the \
+ \ vote has been cast successfully and when the whole voting procedure \
+ \ has been completed."
+scenario "" -- @ref Rec(2004)11 Appendix I, A. III. 15.
+description
+  "The e-voting system shall prevent the changing of a vote once that \
+ \ vote has been cast."
+
+-- @ref Rec(2004)11 Secret suffrage
+scenario "" -- @ref Rec(2004)11 Appendix I, A. IV. 16.
+description
+  "E-voting shall be organised in such a way as to exclude at any \
+ \ stage of the voting procedure and, in particular, at voter \
+ \ authentication, anything that would endanger the secrecy of the \
+ \ vote."
+scenario "" -- @ref Rec(2004)11 Appendix I, A. IV. 17.
+description
+  "The e-voting system shall guarantee that votes in the electronic \
+ \ ballot box and votes being counted are, and will remain, anonymous, \
+ \ and that it is not possible to reconstruct a link between the vote \
+ \ and the voter."
+scenario "" -- @ref Rec(2004)11 Appendix I, A. IV. 18.
+description
+  "The e-voting system shall be so designed that the expected number \
+ \ of votes in any electronic ballot box will not allow the result to \
+ \ be linked to individual voters."
+scenario "" -- @ref Rec(2004)11 Appendix I, A. IV. 19.
+description
+  "Measures shall be taken to ensure that the information needed \
+ \ during electronic processing cannot be used to breach the secrecy of \
+ \ the vote."
+
+-- @ref David Jefferson
+scenario
+  "NO_NDAS_FOR_STUDY"
+description
+  "No nondisclosure agreement or any other contract shall be required
+   to download and study the Internet voting system."
+scenario
+  "NO_NDAS_FOR_AUDIT"
+description
+  "No nondisclosure agreement or any other contract shall be required
+   to download, instrument, build, test, and publish test results for
+   an E2EV Internet voting system."
 end

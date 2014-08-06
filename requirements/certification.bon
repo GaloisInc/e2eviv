@@ -10,6 +10,60 @@ indexing
   partof: "NON_FUNCTIONAL_REQUIREMENTS"
 explanation
   ""
+-- @ref Rec(2004)11 Certification
+scenario "" -- @ref Rec(2004)11 Appendix III, F. 111.
+description
+  "Member states shall introduce certification processes that allow
+  for any ICT (Information and Communication Technology) component to
+  be tested and certified as being in conformity with the technical
+  requirements described in this recommendation."
+scenario "" -- @ref Rec(2004)11 Appendix III, F. 112.
+description
+  "In order to enhance international co-operation and avoid
+  duplication of work, member states shall consider whether their
+  respective agencies shall join, if they have not done so already,
+  relevant international mutual recognition arrangements such as the
+  European Co-operation for Accreditation (EA), the International
+  Laboratory Accreditation Co-operation (ILAC), the International
+  Accreditation Forum (IAF) and other bodies of a similar nature."
+
+-- @ref David Jefferson
+scenario
+  "CERTIFICATION_PARTIES_COMPETENCE"
+description
+  "Any E2EV Internet voting system should be certified by competent
+   professionals as meeting the requirements in this document."
+scenario
+  "CERTIFICATION_REPORT_TRANSPARENCY"
+description
+  "Any and all certification reports issued by certification
+   professionals must be public whether the report recommends
+   certification or not."
+scenario
+  "RECERTIFICATION_CONDITIONS"
+description
+  "Any time there is a change in the voting system client or server
+   side or the E2EV system, all of the requirements listed below must
+   be re-established and recertified.  Changes that mandate
+   re-certification include, but are not limited to: new supported
+   hardware platforms, OS's, browsers, etc.; bug fixes and security
+   patches to voting client and/or server; changes or upgrades to
+   voting client or server in response to detected bugs or security
+   vulnerabilities, changes in law, or changes in threat environment."
+scenario
+  "RECERTIFIED_PERIODICITY"
+description
+  "The requirements listed below must be re-established and
+   recertified every four years even if there are no changes, as the
+   relevant threat environment will certainly have changed, or at
+   least must be re-evaluated to see if it has."
+scenario
+  "VALIDATION_PLATFORM_COVERAGE"
+description
+  "The system must be extensively tested on a wide range of platform
+   and software combinations."
+scenario
+  "PUBLIC_VALIDATION_PLATFORM_COVERAGE_RESULTS"
+description
+  "All test results for platform coverage must be public."
 end
-
-

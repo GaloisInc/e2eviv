@@ -3,4 +3,31 @@ indexing
   partof: "TECHNICAL_REQUIREMENTS"
 explanation
   ""
+-- @ref Rec(2004)11 Accessibility
+scenario "" -- @ref Rec(2004)11 Appendix III, A. 61.
+description
+  "Measures shall be taken to ensure that the relevant software and
+  services can be used by all voters and, if necessary, provide access
+  to alternative ways of voting."
+scenario "" -- @ref Rec(2004)11 Appendix III, A. 62.
+description
+  "Users shall be involved in the design of e-voting systems,
+  particularly to identify constraints and test ease of use at each
+  main stage of the development process."
+scenario "" -- @ref Rec(2004)11 Appendix III, A. 63.
+description
+  "Users shall be supplied, whenever required and possible, with
+  additional facilities, such as special interfaces or other
+  equivalent resources, such as personal assistance. User facilities
+  shall comply as much as possible with the guidelines set out in
+  the Web Accessibility Initiative (WAI)."
+scenario "" -- @ref Rec(2004)11 Appendix III, A. 64.
+description
+  "Consideration shall be given, when developing new products, to
+  their compatibility with existing ones, including those using
+  technologies designed to help people with disabilities."
+scenario "" -- @ref Rec(2004)11 Appendix III, A. 65.
+description
+  "The presentation of the voting options shall be optimised for the
+  voter."
 end

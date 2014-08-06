@@ -3,6 +3,37 @@ indexing
   partof: "TECHNICAL_REQUIREMENTS"
 explanation
   ""
+
+scenario
+  "VOTER_AUTHENTICATION"
+description
+  "The voting service must by itself securely authenticate the voter
+   (verify identify the voter and verify his/her registration and/or
+   eligibility according to law to vote in the election) before
+   allowing him/her to cast a ballot (or modify or replace a
+   previously cast ballot)."
+scenario
+  "NO_THIRD_PARTY_AUTHENTICATION"
+description
+  "Authentication must not be done through third party intermediaries
+   such as Facebook, iCloud, Google, Yahoo, Amazon, etc. that offers
+   authentication services."
+scenario
+  "SECRET_AUTHENTICATION_SHARED_SECRETS"
+description
+  "Authentication must not us personal information, government or
+   commercial account identifiers, etc."
+scenario
+  "AUTHENTICATION_DATA_UPDATES"
+description
+  "Authentication secrets must be changeable or revokable at
+   any time at the behest of either the voter of election
+   officials."
+scenario
+  "AUTHENTICATION_DATA_REFRESH_PERIODICITY"
+description
+  "All voter authentication secrets must be changed at least once in
+   every two-year election cycle."
 end
 
 
