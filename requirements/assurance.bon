@@ -2,46 +2,46 @@ scenario_chart ASSURANCE_REQUIREMENTS
 indexing
   partof: "NON_FUNCTIONAL_REQUIREMENTS"
 explanation
-  ""
+  "General non-functional assurance requirements which increase system \
+ \ and election assurance."
 
--- @ref David Jefferson
 scenario
-  "CLIENT_ENVIRONMENTS"
+  "CLIENT_ENVIRONMENTS" -- @ref David Jefferson
 description
-  "Client side software (applications, apps, scripts, etc.) should be
-   free of known bugs on a wide range of platform and software stack
-   combinations intended to be usable as voting terminals."
+  "Client side software (applications, apps, scripts, etc.) should be \
+ \ free of known bugs on a wide range of platform and software stack \
+ \ combinations intended to be usable as voting terminals."
 scenario
-  "AUTHENTICATION_RESILIANCE"
+  "AUTHENTICATION_RESILIANCE" -- @ref David Jefferson
 description
-  "There must be no way to reasonable way to automate forging or
-   invalidation of a large number of voter authentications. (This can
-   only be established by competent security analysis, not testing.)"
+  "There must be no way to reasonable way to automate forging or \
+ \ invalidation of a large number of voter authentications. (This can \
+ \ only be established by competent security analysis, not testing.)"
 scenario
-  "OPEN_DOCUMENTATION"
+  "OPEN_DOCUMENTATION" -- @ref David Jefferson
 description
-  "All aspects of the design, architecture, algorithms and
-   documentation for the entire Internet voting system (not just the
-   E2EV core) should be published and available for free download by
-   anyone."
+  "All aspects of the design, architecture, algorithms and \
+ \ documentation for the entire Internet voting system (not just the \
+ \ E2EV core) should be published and available for free download by \
+ \ anyone."
 scenario
-  "DOCUMENTATION_CONSISTENCY"
+  "DOCUMENTATION_CONSISTENCY" -- @ref David Jefferson
 description
-  "As the system changes, all documentation must be kept up to
-   date. No new version of an E2EV Internet voting system may be
-   certified until all documentation is up to date."
+  "As the system changes, all documentation must be kept up to \
+ \ date.  No new version of an E2EV Internet voting system may be \
+ \ certified until all documentation is up to date."
 scenario
-  "OPEN_SOURCE"
+  "OPEN_SOURCE" -- @ref David Jefferson
 description
-  "The source code, build scripts, issue tracking system, security
-   features, and related development information for the entire
-   Internet voting system (all versions for all platforms) shall be
-   made publicly available for free download and inspection by
-   anyone."
+  "The source code, build scripts, issue tracking system, security \
+ \ features, and related development information for the entire \
+ \ Internet voting system (all versions for all platforms) shall be \
+ \ made publicly available for free download and inspection by \
+ \ anyone."
 scenario
-  "SOURCE_LICENSE"
+  "SOURCE_LICENSE" -- @ref David Jefferson
 description
-  "The source code for all parts of the E2EV Internet voting system
-   shall be made publicly available under a license that permits
-   anyone to download the code and build, instrument, and test it."
+  "The source code for all parts of the E2EV Internet voting system \
+ \ shall be made publicly available under a license that permits \
+ \ anyone to download the code and build, instrument, and test it."
 end

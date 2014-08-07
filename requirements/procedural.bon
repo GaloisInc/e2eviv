@@ -2,109 +2,109 @@ scenario_chart PROCEDURAL_REQUIREMENTS
 indexing
   partof: "NON_FUNCTIONAL_REQUIREMENTS"
 explanation
-  ""
+  "General procedural requirements for digital electoin systems."
+
 -- @ref Rec(2004)11 Transparency
-scenario "" -- @ref Rec(2004)11 Appendix I, B. I. 20.
+scenario "VOTER_COMPREHENSION_AND_CONFIDENCE" -- @ref Rec(2004)11 Appendix I, B. I. 20.
 description
-  "Member states shall take steps to ensure that voters understand and
-  have confidence in the e-voting system in use."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. I. 21.
+  "Member states shall take steps to ensure that voters understand and \
+ \ have confidence in the e-voting system in use."
+scenario "PUBLIC_SYSTEM_FUNCTION" -- @ref Rec(2004)11 Appendix I, B. I. 21.
 description
-  "Information on the functioning of an e-voting system shall be made
-  publicly available."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. I. 22.
+  "Information on the functioning of an e-voting system shall be made \
+ \ publicly available."
+scenario "VOTER_PRACTICE" -- @ref Rec(2004)11 Appendix I, B. I. 22.
 description
-  "Voters shall be provided with an opportunity to practise any new
-  method of e-voting before, and separately from, the moment of
-  casting an electronic vote."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. I. 23.
+  "Voters shall be provided with an opportunity to practise any new \
+ \ method of e-voting before, and separately from, the moment of \
+ \ casting an electronic vote."
+scenario "OBSERVER_INVARIANTS" -- @ref Rec(2004)11 Appendix I, B. I. 23.
 description
-  "Any observers, to the extent permitted by law, shall be able to be
-  present to observe and comment on the e-elections, including the
-  establishing of the results."
+  "Any observers, to the extent permitted by law, shall be able to be \
+ \ present to observe and comment on the e-elections, including the \
+ \ establishing of the results."
 
 -- @ref Rec(2004)11 Verifiability and accountability
-scenario "" -- @ref Rec(2004)11 Appendix I, B. II. 24.
+scenario "DISCLOSURE_OBLIGATIONS" -- @ref Rec(2004)11 Appendix I, B. II. 24.
 description
-  "The components of the e-voting system shall be disclosed, at least
-  to the competent electoral authorities, as required for verification
-  and certification purposes."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. II. 25.
+  "The components of the e-voting system shall be disclosed, at least \
+ \ to the competent electoral authorities, as required for verification \
+ \ and certification purposes."
+scenario "CERTIFICATION_OBLIGATIONS" -- @ref Rec(2004)11 Appendix I, B. II. 25.
 description
-  "Before any e-voting system is introduced, and at appropriate
-  intervals thereafter, and in particular after any changes are made
-  to the system, an independent body, appointed by the electoral
-  authorities, shall verify that the e-voting system is working
-  correctly and that all the necessary security measures have been
-  taken."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. II. 26.
+  "Before any e-voting system is introduced, and at appropriate \
+ \ intervals thereafter, and in particular after any changes are made \
+ \ to the system, an independent body, appointed by the electoral \
+ \ authorities, shall verify that the e-voting system is working \
+ \ correctly and that all the necessary security measures have been \
+ \ taken."
+scenario "RECOUNT_SUPPORTED" -- @ref Rec(2004)11 Appendix I, B. II. 26.
 description
-  "There shall be the possibility for a recount. Other features of the
-  e-voting system that may influence the correctness of the results
-  shall be verifiable."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. II. 27.
+  "There shall be the possibility for a recount.  Other features of the \
+ \ e-voting system that may influence the correctness of the results \
+ \ shall be verifiable."
+scenario "RERUN_SUPPORTED" -- @ref Rec(2004)11 Appendix I, B. II. 27.
 description
-  "The e-voting system shall not prevent the partial or complete
-  re-run of an election or a referendum."
+  "The e-voting system shall not prevent the partial or complete \
+ \ re-run of an election or a referendum."
 
 -- @ref Rec(2004)11 Reliability and security
-scenario "" -- @ref Rec(2004)11 Appendix I, B. III. 28.
+scenario "RELIABILITY_AND_SECURITY" -- @ref Rec(2004)11 Appendix I, B. III. 28.
 description
-  "The member state's authorities shall ensure the reliability and
-  security of the e-voting system."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. III. 29.
+  "The member state's authorities shall ensure the reliability and \
+ \ security of the e-voting system."
+scenario "NO_FRAUD_OR_INTERVENTION" -- @ref Rec(2004)11 Appendix I, B. III. 29.
 description
-  "All possible steps shall be taken to avoid the possibility of fraud
-  or unauthorized intervention affecting the system during the whole
-  voting process."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. III. 30.
+  "All possible steps shall be taken to avoid the possibility of fraud \
+ \ or unauthorized intervention affecting the system during the whole \
+ \ voting process."
+scenario "SYSTEM_AVAILABILITY" -- @ref Rec(2004)11 Appendix I, B. III. 30.
 description
-  "The e-voting system shall contain measures to preserve the
-  availability of its services during the e-voting process. It shall
-  resist, in particular, malfunction, breakdowns or denial of service
-  attacks."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. III. 31.
+  "The e-voting system shall contain measures to preserve the \
+ \ availability of its services during the e-voting process.  It shall \
+ \ resist, in particular, malfunction, breakdowns or denial of service \
+ \ attacks."
+scenario "SYSTEM_GENUINE_AND_CORRECT" -- @ref Rec(2004)11 Appendix I, B. III. 31.
 description
-  "Before any e-election or e-referendum takes place, the competent
-  electoral authority shall satisfy itself that the e-voting system
-  is genuine and operates correctly."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. III. 32.
+  "Before any e-election or e-referendum takes place, the competent \
+ \ electoral authority shall satisfy itself that the e-voting system \
+ \ is genuine and operates correctly."
+scenario "SYSTEM_AND_DATA_ACCESS_CONTROL" -- @ref Rec(2004)11 Appendix I, B. III. 32.
 description
-  "Only persons appointed by the electoral authority shall have access
-  to the central infrastructure, the servers and the election
-  data. There shall be clear rules established for such
-  appointments. Critical technical activities shall be carried out by
-  teams of at least two people. The composition of the teams shall be
-  regularly changed. As far as possible, such activities shall be
-  carried out outside election periods."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. III. 33.
+  "Only persons appointed by the electoral authority shall have access \
+ \ to the central infrastructure, the servers and the election \
+ \ data.  There shall be clear rules established for such \
+ \ appointments.  Critical technical activities shall be carried out by \
+ \ teams of at least two people.  The composition of the teams shall be \
+ \ regularly changed.  As far as possible, such activities shall be \
+ \ carried out outside election periods."
+scenario "OPEN_BALLOT_BOX_INVARIANTS" -- @ref Rec(2004)11 Appendix I, B. III. 33.
 description
-  "While an electronic ballot box is open, any authorised intervention
-  affecting the system shall be carried out by teams of at least two
-  people, be the subject of a report, be monitored by
-  representatives of the competent electoral authority and any
-  election observers."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. III. 34.
+  "While an electronic ballot box is open, any authorised intervention \
+ \ affecting the system shall be carried out by teams of at least two \
+ \ people, be the subject of a report, be monitored by \
+ \ representatives of the competent electoral authority and any \
+ \ election observers."
+scenario "VOTES_INVARIANTS" -- @ref Rec(2004)11 Appendix I, B. III. 34.
 description
-  "The e-voting system shall maintain the availability and integrity
-  of the votes. It shall also maintain the confidentiality of the
-  votes and keep them sealed until the counting process. If stored or
-  communicated outside controlled environments, the votes shall be
-  encrypted."
-scenario "" -- @ref Rec(2004)11 Appendix I, B. III. 35.
+  "The e-voting system shall maintain the availability and integrity \
+ \ of the votes.  It shall also maintain the confidentiality of the \
+ \ votes and keep them sealed until the counting process.  If stored or \
+ \ communicated outside controlled environments, the votes shall be \
+ \ encrypted."
+scenario "SEALED_VOTES_VOTER_RELATION" -- @ref Rec(2004)11 Appendix I, B. III. 35.
 description
-  "Votes and voter information shall remain sealed as long as the data
-  is held in a manner where they can be associated. Authentication
-  information shall be separated from the voter's decision at a
-  pre-defined stage in the e-election or e-referendum."
+  "Votes and voter information shall remain sealed as long as the data \
+ \ is held in a manner where they can be associated.  Authentication \
+ \ information shall be separated from the voter's decision at a \
+ \ pre-defined stage in the e-election or e-referendum."
 
--- @ref David Jefferson
 scenario
-  "VERIFICATION_FAILURE_PROCEDURES"
+  "VERIFICATION_FAILURE_PROCEDURES" -- @ref David Jefferson
 description
-  "There must be clear technical and legal procedures for how to
-   proceed in the event that voters can prove that their votes were
-   not received accurately or counted, or if the official election
-   verification application does not verify that the Internet part of
-   the election was correct."
+  "There must be clear technical and legal procedures for how to \
+ \ proceed in the event that voters can prove that their votes were \
+ \ not received accurately or counted, or if the official election \
+ \ verification application does not verify that the Internet part of \
+ \ the election was correct."
 end

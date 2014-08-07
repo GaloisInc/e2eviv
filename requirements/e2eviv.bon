@@ -4,5 +4,6 @@ indexing
   editor: "Joe Kiniry <kiniry@galois.com>";
   created: "16 July 2014"
 explanation
-  ""
+  "Functional and non-functional requirements for end-to-end \
+ \ verifiable internet voting systems."
 end

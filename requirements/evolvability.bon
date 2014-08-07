@@ -2,5 +2,6 @@ scenario_chart EVOLVABILITY_REQUIREMENTS
 indexing
   partof: "NON_FUNCTIONAL_REQUIREMENTS"
 explanation
-  ""
+  "General requirements on the evolvability of digital election \
+ \ systems."
 end

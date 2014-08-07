@@ -2,17 +2,16 @@ scenario_chart USABILITY_REQUIREMENTS
 indexing
   partof: "TECHNICAL_REQUIREMENTS"
 explanation
-  ""
+  "General usability requirements of digital elections systems."
 
--- @ref David Jefferson
 scenario
-  "VOTE_CONFIRMATION"
+  "VOTE_CONFIRMATION" -- @ref David Jefferson
 description
-  "If a voter receives the final `Thank you for voting' confirmation,
-   then she/he can be certain the ballot was recorded."
+  "If a voter receives the final `Thank you for voting' confirmation, \
+ \ then she/he can be certain the ballot was recorded."
 scenario
-  "UNCERTAIN_VOTER_REVOTE"
+  "UNCERTAIN_VOTER_REVOTE" -- @ref David Jefferson
 description
-  "If the voter is uncertain about the state of their ballot, he/she
-   is free to attempt to vote again."
+  "If the voter is uncertain about the state of their ballot, he/she \
+ \ is free to attempt to vote again."
 end

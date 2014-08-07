@@ -2,75 +2,74 @@ scenario_chart RELIABILITY_REQUIREMENTS
 indexing
   partof: "SYSTEM_OPERATIONAL_REQUIREMENTS"
 explanation
-  ""
+  "General reliability requirements for any internet election system."
 
--- @ref David Jefferson
 scenario
-  "GENERAL_MTBF"
+  "GENERAL_MTBF" -- @ref David Jefferson
 description
-  "The entire voting service (server side) must have a proven MTBF of
-   >168 hours (1 week) under peak expected voting loads the entire
-   time."
+  "The entire voting service (server side) must have a proven MTBF of \
+ \ >168 hours (1 week) under peak expected voting loads the entire \
+ \ time."
 scenario
-  "LIVE_ELECTION_MTBF"
+  "LIVE_ELECTION_MTBF" -- @ref David Jefferson
 description
-  "MTBF validation must be demonstrated in multiple tests of
-   actual mock elections."
+  "MTBF validation must be demonstrated in multiple tests of \
+ \ actual mock elections."
 scenario
-  "MTBF_CONTRA_DDOS"
+  "MTBF_CONTRA_DDOS" -- @ref David Jefferson
 description
-  "MTBF requirements apply only during normal peak operation, not
-   during attacks, e.g. DDoS."
+  "MTBF requirements apply only during normal peak operation, not \
+ \ during attacks (e.g., DDoS)."
 scenario
-  "SYSTEM_RECOVERY_TIME"
+  "SYSTEM_RECOVERY_TIME" -- @ref David Jefferson
 description
-  "If service goes down for any reason other than regional natural
-   disaster or malicious attack, service must be restored in no more
-   than 10 minutes."
+  "If service goes down for any reason other than regional natural \
+ \ disaster or malicious attack, service must be restored in no more \
+ \ than 10 minutes."
 scenario
-  "UPTIME"
+  "UPTIME" -- @ref David Jefferson
 description
   "The system must have three nines (99.9%) uptime."
 scenario
-  "FAILURE_VALIDATION"
+  "FAILURE_VALIDATION" -- @ref David Jefferson
 description
-  "Uptime must be demonstrated in by failures in actual mock election
-   situations, e.g. tested by sudden loss of power to any server."
+  "Uptime must be demonstrated in by failures in actual mock election \
+ \ situations, e.g. tested by sudden loss of power to any server."
 scenario
-  "MIRRORED_FAILOVER_SERVICE"
+  "MIRRORED_FAILOVER_SERVICE" -- @ref David Jefferson
 description
-  "The system must have warm spare in second data center that can take
-   over in case of major failure."
+  "The system must have warm spare in second data center that can take \
+ \ over in case of major failure."
 scenario
-  "FAILOVER_STAFFING"
+  "FAILOVER_STAFFING" -- @ref David Jefferson
 description
-  "System must be staffed at all times to guarantee the 10 minute
-   recovery time."
+  "System must be staffed at all times to guarantee the 10 minute \
+ \ recovery time."
 scenario
-  "OPERATION_UNDER_DDOS"
+  "OPERATION_UNDER_DDOS" -- @ref David Jefferson
 description
-  "In a federal election the voting system must remain available even
-   during a large distributed denial of service attack. It must be
-   able to continue correct operation during a sustained DDoS attack
-   on any combination of server side IP addresses (whether at the
-   primary server data center or its ISP) at a total level of 100 Gb/s
-   with no more than 15s degradation of response time to voters during
-   the attack."
+  "In a federal election the voting system must remain available even \
+ \ during a large distributed denial of service attack.  It must be \
+ \ able to continue correct operation during a sustained DDoS attack \
+ \ on any combination of server side IP addresses (whether at the \
+ \ primary server data center or its ISP) at a total level of 100 Gb/s \
+ \ with no more than 15s degradation of response time to voters during \
+ \ the attack."
 scenario
-  "DDOS_REFRESH_PERIODICITY"
+  "DDOS_REFRESH_PERIODICITY" -- @ref David Jefferson
 description
-  "The DDOS threshold (initially 100 Gb/s) should be evaluated every
-   two year election cycle to see if it has to be raised due to newer
-   DDoS attack technologies."
+  "The DDOS threshold (initially 100 Gb/s) should be evaluated every \
+ \ two year election cycle to see if it has to be raised due to newer \
+ \ DDoS attack technologies."
 scenario
-  "DDOS_ATTACK_VALIDATION"
+  "DDOS_ATTACK_VALIDATION" -- @ref David Jefferson
 description
-  "The ability to survive a DDoS attack must be actually demonstrated
-   in the actual network configuration to be used prior to each
-   federal election."
+  "The ability to survive a DDoS attack must be actually demonstrated \
+ \ in the actual network configuration to be used prior to each \
+ \ federal election."
 scenario
-  "DDOS_LOCAL_ELECTION"
+  "DDOS_LOCAL_ELECTION" -- @ref David Jefferson
 description
-  "Reduced DDoS defense requirements might be acceptable for
-   non-federal elections."
+  "Reduced DDoS defense requirements might be acceptable for \
+ \ non-federal elections."
 end

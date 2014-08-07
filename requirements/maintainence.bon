@@ -2,5 +2,7 @@ scenario_chart MAINTAINENCE_REQUIREMENTS
 indexing
   partof: "NON_FUNCTIONAL_REQUIREMENTS"
 explanation
-  ""
+  "General requirements relating to the maintainence of digital election \
+ \ systems."
 end
+

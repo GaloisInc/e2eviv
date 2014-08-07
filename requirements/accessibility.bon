@@ -2,32 +2,33 @@ scenario_chart ACCESSIBILITY_REQUIREMENTS
 indexing
   partof: "TECHNICAL_REQUIREMENTS"
 explanation
-  ""
+  "General requirements for accessibility of digital election systems."
+
 -- @ref Rec(2004)11 Accessibility
-scenario "" -- @ref Rec(2004)11 Appendix III, A. 61.
+scenario "UNIVERSAL_ACCESSIBILITY" -- @ref Rec(2004)11 Appendix III, A. 61.
 description
-  "Measures shall be taken to ensure that the relevant software and
-  services can be used by all voters and, if necessary, provide access
-  to alternative ways of voting."
-scenario "" -- @ref Rec(2004)11 Appendix III, A. 62.
+  "Measures shall be taken to ensure that the relevant software and \
+ \ services can be used by all voters and, if necessary, provide access \
+ \ to alternative ways of voting."
+scenario "ACCESSIBILITY_STAKEHOLDERS" -- @ref Rec(2004)11 Appendix III, A. 62.
 description
-  "Users shall be involved in the design of e-voting systems,
-  particularly to identify constraints and test ease of use at each
-  main stage of the development process."
-scenario "" -- @ref Rec(2004)11 Appendix III, A. 63.
+  "Users shall be involved in the design of e-voting systems, \
+ \ particularly to identify constraints and test ease of use at each \
+ \ main stage of the development process."
+scenario "USER_FACILITIES_FOR_ACCESSIBILITY" -- @ref Rec(2004)11 Appendix III, A. 63.
 description
-  "Users shall be supplied, whenever required and possible, with
-  additional facilities, such as special interfaces or other
-  equivalent resources, such as personal assistance. User facilities
-  shall comply as much as possible with the guidelines set out in
-  the Web Accessibility Initiative (WAI)."
-scenario "" -- @ref Rec(2004)11 Appendix III, A. 64.
+  "Users shall be supplied, whenever required and possible, with \
+ \ additional facilities, such as special interfaces or other \
+ \ equivalent resources, such as personal assistance.  User facilities \
+ \ shall comply as much as possible with the guidelines set out in \
+ \ the Web Accessibility Initiative (WAI)."
+scenario "COMPLEMENT_ACCESSIBILITY_TECHNOLOGIES" -- @ref Rec(2004)11 Appendix III, A. 64.
 description
-  "Consideration shall be given, when developing new products, to
-  their compatibility with existing ones, including those using
-  technologies designed to help people with disabilities."
-scenario "" -- @ref Rec(2004)11 Appendix III, A. 65.
+  "Consideration shall be given, when developing new products, to \
+ \ their compatibility with existing ones, including those using \
+ \ technologies designed to help people with disabilities."
+scenario "ACCESSIBLE_VOTING_OPTIONS" -- @ref Rec(2004)11 Appendix III, A. 65.
 description
-  "The presentation of the voting options shall be optimised for the
-  voter."
+  "The presentation of the voting options shall be optimised for the \
+ \ voter."
 end
