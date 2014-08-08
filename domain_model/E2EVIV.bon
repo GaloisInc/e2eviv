@@ -29,60 +29,284 @@ description
   "@todo"
 end
 
+-- @todo kiniry Fri Aug  8 2014 Clustering of core concepts to follow.
+cluster_chart CORE_CONCEPTS
+explanation
+  "@todo"
+class ACCESSIBLE description "@todo"
+class AUTHENTICATE description "@todo"
+class BALLOT description "@todo"
+class BALLOT_BOX description "@todo"
+class CANDIDATE description "@todo"
+class CITIZEN description "@todo"
+class CONFIDENCE description "@todo"
+class DEMOCRACY description "@todo"
+class DEVICE description "@todo"
+class DISABLED description "@todo"
+class EFFICIENT description "@todo"
+class ELECTION description "@todo"
+class ELECTORAL_AUTHORITIES description "@todo"
+class ELECTORATE description "@todo"
+class EVOTING description "@todo"
+class IDENTITY description "@todo"
+class INTERNET description "@todo"
+class LEGISLATION description "@todo"
+class LOCAL_LEVEL description "@todo"
+class NATIONAL_LEVEL description "@todo"
+class POLITICAL_PARTY description "@todo"
+class POLLING_STATION description "@todo"
+class PRINCIPLE description "@todo"
+class PROCEDURE description "@todo"
+class REFERENDUM description "@todo"
+class REGIONAL_LEVEL description "@todo"
+class RELIABILITY description "@todo"
+class REMOTE description "@todo"
+class RESULT description "@todo"
+class ROBUST description "@todo"
+class SEAL description "@todo"
+class SECURITY description "@todo"
+class SYSTEM description "@todo"
+class TALLY description "@todo"
+class TURNOUT description "@todo"
+class USABLE description "@todo"
+class VERIFIABLE description "@todo"
+class VERIFICATION description "@todo"
+class VOTE description "@todo"
+class VOTER description "@todo"
+class VOTER_REGISTRATION description "@todo"
+class VOTING_CHANNEL description "@todo"
+class VOTING_INTERFACE description "@todo"
+class VOTING_OPTION description "@todo"
+class VOTERS_REGISTER description "@todo"
+end
+
 cluster_chart LEGAL_STANDARDS
-indexing
 explanation
   "@todo"
 end
 
 -- @todo kiniry July 2014 Concepts to incorporate.
-ACCESSIBLE
-AUTHENTICATE
-BALLOT
-BALLOT_BOX
-CANDIDATE
-CITIZEN
-CONFIDENCE
-DEMOCRACY
-DEVICE
-DISABLED
-EFFICIENT
-ELECTION
-ELECTORAL_AUTHORITIES
-ELECTORATE
-EVOTING
-IDENTITY
-INTERNET
-LEGISLATION
-LOCAL_LEVEL
-NATIONAL_LEVEL
-POLITICAL_PARTY
-POLLING_STATION
-PRINCIPLE
-PROCEDURE
-REFERENDUM
-REGIONAL_LEVEL
-RELIABILITY
-REMOTE
-RESULT
-ROBUST
-SEAL
-SECURITY
-SYSTEM
-TALLY
-TURNOUT
-USABLE
-VERIFIABLE
-VERIFICATION
-VOTE
-VOTER
-VOTER_REGISTRATION
-VOTING_CHANNEL
-VOTING_INTERFACE
-VOTING_OPTION
-VOTERS_REGISTER
+class_chart ACCESSIBLE
+explanation
+  "@todo"
+end
 
--- @todo kiniry July 2014 Clusters to incorporate.
-LEGAL
-OPERATIONAL
-TECHNICAL
+class_chart AUTHENTICATE
+explanation
+  "@todo"
+end
+
+class_chart BALLOT
+explanation
+  "@todo"
+end
+
+class_chart BALLOT_BOX
+explanation
+  "@todo"
+end
+
+class_chart CANDIDATE
+explanation
+  "@todo"
+end
+
+class_chart CITIZEN
+explanation
+  "@todo"
+end
+
+class_chart CONFIDENCE
+explanation
+  "@todo"
+end
+
+class_chart DEMOCRACY
+explanation
+  "@todo"
+end
+
+class_chart DEVICE
+explanation
+  "@todo"
+end
+
+class_chart DISABLED
+explanation
+  "@todo"
+end
+
+class_chart EFFICIENT
+explanation
+  "@todo"
+end
+
+class_chart ELECTION
+explanation
+  "@todo"
+end
+
+class_chart ELECTORAL_AUTHORITIES
+explanation
+  "@todo"
+end
+
+class_chart ELECTORATE
+explanation
+  "@todo"
+end
+
+class_chart EVOTING
+explanation
+  "@todo"
+end
+
+class_chart IDENTITY
+explanation
+  "@todo"
+end
+
+class_chart INTERNET
+explanation
+  "@todo"
+end
+
+class_chart LEGISLATION
+explanation
+  "@todo"
+end
+
+class_chart LOCAL_LEVEL
+explanation
+  "@todo"
+end
+
+class_chart NATIONAL_LEVEL
+explanation
+  "@todo"
+end
+
+class_chart POLITICAL_PARTY
+explanation
+  "@todo"
+end
+
+class_chart POLLING_STATION
+explanation
+  "@todo"
+end
+
+class_chart PRINCIPLE
+explanation
+  "@todo"
+end
+
+class_chart PROCEDURE
+explanation
+  "@todo"
+end
+
+class_chart REFERENDUM
+explanation
+  "@todo"
+end
+
+class_chart REGIONAL_LEVEL
+explanation
+  "@todo"
+end
+
+class_chart RELIABILITY
+explanation
+  "@todo"
+end
+
+class_chart REMOTE
+explanation
+  "@todo"
+end
+
+class_chart RESULT
+explanation
+  "@todo"
+end
+
+class_chart ROBUST
+explanation
+  "@todo"
+end
+
+class_chart SEAL
+explanation
+  "@todo"
+end
+
+class_chart SECURITY
+explanation
+  "@todo"
+end
+
+class_chart SYSTEM
+explanation
+  "@todo"
+end
+
+class_chart TALLY
+explanation
+  "@todo"
+end
+
+class_chart TURNOUT
+explanation
+  "@todo"
+end
+
+class_chart USABLE
+explanation
+  "@todo"
+end
+
+class_chart VERIFIABLE
+explanation
+  "@todo"
+end
+
+class_chart VERIFICATION
+explanation
+  "@todo"
+end
+
+class_chart VOTE
+explanation
+  "@todo"
+end
+
+class_chart VOTER
+explanation
+  "@todo"
+end
+
+class_chart VOTER_REGISTRATION
+explanation
+  "@todo"
+end
+
+class_chart VOTING_CHANNEL
+explanation
+  "@todo"
+end
+
+class_chart VOTING_INTERFACE
+explanation
+  "@todo"
+end
+
+class_chart VOTING_OPTION
+explanation
+  "@todo"
+end
+
+class_chart VOTERS_REGISTER
+explanation
+  "@todo"
+end
