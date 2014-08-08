@@ -64,7 +64,7 @@ scenario -- @ref Rec(2004)11 Appendix I, A. III. 10.
   "REFLECTIVE_VOTING_PROCESS"
 description
   "The way in which voters are guided through the e-voting process \
- \ shall be such as to prevent their voting precipitately or without
+ \ shall be such as to prevent their voting precipitately or without \
  \ reflection."
 scenario -- @ref Rec(2004)11 Appendix I, A. III. 11.
   "FLEXIBLE_VOTING_PROCESS"
@@ -128,12 +128,12 @@ description
 scenario
   "NO_NDAS_FOR_STUDY" -- @ref David Jefferson 22-6-2014
 description
-  "No nondisclosure agreement or any other contract shall be required
-   to download and study the Internet voting system."
+  "No nondisclosure agreement or any other contract shall be required \
+ \ to download and study the Internet voting system."
 scenario
   "NO_NDAS_FOR_AUDIT" -- @ref David Jefferson 22-6-2014
 description
-  "No nondisclosure agreement or any other contract shall be required
-   to download, instrument, build, test, and publish test results for
-   an E2EV Internet voting system."
+  "No nondisclosure agreement or any other contract shall be required \
+ \ to download, instrument, build, test, and publish test results for \
+ \ an E2EV Internet voting system."
 end

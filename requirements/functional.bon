@@ -11,59 +11,59 @@ description
 scenario
   "DETERMINISTIC_VOTING_PROCESS" -- @ref David Jefferson
 description
-  "If a server side failure occurs, no voter's balloting can be
-   left in an intermediate state."
+  "If a server side failure occurs, no voter's balloting can be \
+ \ left in an intermediate state."
 scenario
   "BALLOT_FINAL_STATES" -- @ref David Jefferson
 description
-  "The ballot must either be securely and completely cast and the
-   voter marked as having voted, or no ballot is recorded and the
-   voter is considered not to have voted."
+  "The ballot must either be securely and completely cast and the \
+ \ voter marked as having voted, or no ballot is recorded and the \
+ \ voter is considered not to have voted."
 scenario
   "VOTE_RECORD_MONOTONICITY" -- @ref David Jefferson
 description
-  "If the system and the law allows a voter to cast multiple votes
-   with only the last one counting, or to cast a partial ballot with
-   the option of modifying it later, then each voting session must be
-   atomic wrt server failures, and if a failure occurs during the
-   voter's last session, then the votes cast as of his or her previous
-   session will count."
+  "If the system and the law allows a voter to cast multiple votes \
+ \ with only the last one counting, or to cast a partial ballot with \
+ \ the option of modifying it later, then each voting session must be \
+ \ atomic wrt server failures, and if a failure occurs during the \
+ \ voter's last session, then the votes cast as of his or her previous \
+ \ session will count."
 scenario
   "RECEIPT_FREEDOM" -- @ref David Jefferson
 description
-  "There must be no way for voters to prove to another party any
-   information regarding how they voted in any race (beyond what is
-   mathematically deducible from the final distribution of votes)."
+  "There must be no way for voters to prove to another party any \
+ \ information regarding how they voted in any race (beyond what is \
+ \ mathematically deducible from the final distribution of votes)."
 scenario
   "VALID_BALLOT_PROVENANCE" -- @ref David Jefferson
 description
-  "Once it is determined that a ballot will be counted, the ballot
-   should be irrevocably separated from the identification of the
-   voter who cast it.  It must be information theoretically impossible
-   to determine who cast a particular ballot, or what ballot was cast
-   by a particular voter."
+  "Once it is determined that a ballot will be counted, the ballot \
+ \ should be irrevocably separated from the identification of the \
+ \ voter who cast it.  It must be information theoretically impossible \
+ \ to determine who cast a particular ballot, or what ballot was cast \
+ \ by a particular voter."
 scenario
   "MULTI_BALLOT_RECORD" -- @ref David Jefferson
 description
-  "If the voting system permits voters to modify or replace their
-   previously cast ballots, the system should retain only the latest
-   votes in each race, and retain no record of the previous modified
-   votes."
+  "If the voting system permits voters to modify or replace their \
+ \ previously cast ballots, the system should retain only the latest \
+ \ votes in each race, and retain no record of the previous modified \
+ \ votes."
 scenario
   "NO_DOUBLE_VOTE" -- @ref David Jefferson
 description
-  "But for systems supporting MULTI_BALLOT_RECORD, the voting system
-   should not record more than one vote for any voter in any race."
+  "But for systems supporting MULTI_BALLOT_RECORD, the voting system \
+ \ should not record more than one vote for any voter in any race."
 scenario
   "NO_ADVERTISING" -- @ref David Jefferson
 description
-  "The voting system client must not display or permit displaying of
-   any advertising or commercial logos in the window that contains the
-   voting session, other than that for the election jurisdiction
-   itself."
+  "The voting system client must not display or permit displaying of \
+ \ any advertising or commercial logos in the window that contains the \
+ \ voting session, other than that for the election jurisdiction \
+ \ itself."
 scenario
   "NO_EXTERNAL_LINKS" -- @ref David Jefferson
 description
-  "The voting system client must not display any links to other sites
-   except for help in the mechanics of voting."
+  "The voting system client must not display any links to other sites \
+ \ except for help in the mechanics of voting."
 end
