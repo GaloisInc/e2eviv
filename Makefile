@@ -1,51 +1,26 @@
+INFORMAL_BON_FILES = domain_model/E2EVIV.bon
+FORMAL_BON_FILES = 
+REQUIREMENTS = requirements/accessibility.bon requirements/assurance.bon requirements/auditing.bon requirements/authentication.bon requirements/certification.bon requirements/e2eviv.bon requirements/evolvability.bon requirements/functional.bon requirements/interoperability.bon requirements/legal.bon requirements/maintainence.bon requirements/non-functional.bon requirements/operational.bon requirements/procedural.bon requirements/reliability.bon requirements/security.bon requirements/system_operational.bon requirements/technical.bon requirements/usability.bon
+BON_FILES = $(INFORMAL_BON_FILES) $(FORMAL_BON_FILES) $(REQUIREMENTS)
+
 .PHONY: all bonc
 
-all: bonc
+all: bonc e2eviv-iig.dot index.txt index.html html/index.html
 
 bonc:
-	bonc -i domain_model/E2EVIV.bon requirements/*.bon
+	bonc -i $(BON_FILES)
 
+e2eviv-icg.dot: $(BON_FILES)
+	bonc -g ICG $(BON_FILES) > e2eviv-icg.dot
 
+e2eviv-iig.dot: $(BON_FILES)
+	bonc -p IIG -po e2eviv-iig.dot $(BON_FILES)
 
+index.txt: $(BON_FILES)
+	bonc -po index.txt -p TXT $(BON_FILES)
 
-# INFORMAL_BON_FILES = HACrypto.bon \
-#                      CoreInformal.bon \
-#                      CiphersInformal.bon \
-#                      HashesInformal.bon \
-#                      KeysInformal.bon \
-#                      MACInformal.bon \
-#                      SignaturesInformal.bon \
-#                      TextInformal.bon \
-#                      ThreatsInformal.bon
-# FORMAL_BON_FILES = Hashes.bon 
-# REQUIREMENTS = Creation.bon \
-#                Events.bon \
-#                Scenarios.bon
-# BON_FILES = $(INFORMAL_BON_FILES) $(FORMAL_BON_FILES) $(REQUIREMENTS)
+index.html: $(BON_FILES)
+	bonc -po index.html -p HTML $(BON_FILES)
 
-# .PHONY: all java
-
-# all: hacrypto-iig.dot index.txt index.html html/index.html java jmlunitng
-
-# java:
-# 	CLASSPATH=".:../Java/BouncyCastle-1.50/jars/bcprov-jdk15on-150.jar:" ;\
-# 	javac hacrypto/*.java
-
-# jmlunitng:
-# 	CLASSPATH=".:../Java/BouncyCastle-1.50/jars/bcprov-jdk15on-150.jar:" ;\
-# 	mkdir -p validation && jmlunitng -d hacrypto/validation --children --literals --spec-literals hacrypto
-
-# hacrypto-icg.dot: $(BON_FILES)
-# 	bonc -g ICG $(BON_FILES) > hacrypto-icg.dot
-
-# hacrypto-iig.dot: $(BON_FILES)
-# 	bonc -p IIG -po hacrypto-iig.dot $(BON_FILES)
-
-# index.txt: $(BON_FILES)
-# 	bonc -po index.txt -p TXT $(BON_FILES)
-
-# index.html: $(BON_FILES)
-# 	bonc -po index.html -p HTML $(BON_FILES)
-
-# html/index.html: $(BON_FILES)
-# 	bonc -p NEWHTML -po html $(BON_FILES)
+html/index.html: $(BON_FILES)
+	bonc -p NEWHTML -po html $(BON_FILES)
