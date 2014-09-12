@@ -32,63 +32,172 @@ end
 -- @todo kiniry Fri Aug  8 2014 Clustering of core concepts to follow.
 cluster_chart CORE_CONCEPTS
 explanation
-  "@todo"
-class ACCESSIBLE description "@todo"
-class AUTHENTICATE description "@todo"
-class BALLOT description "@todo"
-class BALLOT_BOX description "@todo"
-class CANDIDATE description "@todo"
-class CITIZEN description "@todo"
-class CONFIDENCE description "@todo"
+  "Domain concepts core to the idea of elections."
+cluster ACTIONS
+description "@todo"
+cluster BACKGROUND
+description "Election background concepts."
+cluster ELECTION_DAY_ARTIFACTS
+description "Artifacts relevant to election day."
+cluster PEOPLE
+description "People that part of an electoral system."
+cluster PROPERTIES
+description "Properties of elections and their artifacts."
+cluster OTHERS
+description "Placeholder for concepts waiting to be clustered."
+end
+
+cluster_chart BACKGROUND
+explanation
+  "Background concepts relevant to elections in the general."
 class DEMOCRACY description "@todo"
-class DEVICE description "@todo"
-class DISABLED description "@todo"
-class EFFICIENT description "@todo"
 class ELECTION description "@todo"
-class ELECTORAL_AUTHORITIES description "@todo"
 class ELECTORATE description "@todo"
 class EVOTING description "@todo"
-class IDENTITY description "@todo"
 class INTERNET description "@todo"
-class LEGISLATION description "@todo"
-class LOCAL_LEVEL description "@todo"
-class NATIONAL_LEVEL description "@todo"
-class POLITICAL_PARTY description "@todo"
-class POLLING_STATION description "@todo"
+class PARTY description "@todo"
 class PRINCIPLE description "@todo"
 class PROCEDURE description "@todo"
-class REFERENDUM description "@todo"
-class REGIONAL_LEVEL description "@todo"
-class RELIABILITY description "@todo"
-class REMOTE description "@todo"
-class RESULT description "@todo"
-class ROBUST description "@todo"
-class SEAL description "@todo"
-class SECURITY description "@todo"
 class SYSTEM description "@todo"
-class TALLY description "@todo"
-class TURNOUT description "@todo"
-class USABLE description "@todo"
-class VERIFIABLE description "@todo"
-class VERIFICATION description "@todo"
-class VOTE description "@todo"
-class VOTER description "@todo"
-class VOTER_REGISTRATION description "@todo"
 class VOTING_CHANNEL description "@todo"
+cluster ELECTIONS description "@todo"
+cluster PROCESSES description "@todo"
+end
+
+cluster_chart ELECTIONS
+explanation
+  "@todo"
+class DIGITAL_ELECTION description "@todo"
+class INTERNET_ELECTION description "@todo"
+class SUPERVISED_ELECTION description "@todo"
+class REMOTE_ELECTION description "@todo"
+class TRADITIONAL_ELECTION description "@todo"
+class UNSUPERVISED_ELECTION description "@todo"
+class VERIFIABLE_ELECTION description "@todo"
+end
+
+cluster_chart ELECTION_DAY_ARTIFACTS
+explanation
+  "Physical and digital artifacts relevant to election day."
+class BALLOT description "@todo"
+class BALLOT_BOX description "@todo"
+class CANDIDATES_REGISTER description "@todo"
+class REFERENDUM description "@todo"
+class RESULT description "@todo"
+class TALLY description "@todo"
+class VOTE description "@todo"
+class VOTERS_REGISTER description "@todo"
 class VOTING_INTERFACE description "@todo"
 class VOTING_OPTION description "@todo"
-class VOTERS_REGISTER description "@todo"
+cluster PHYSICAL_ARTIFACTS description "@todo"
+cluster DIGITAL_ARTIFACTS description "@todo"
+end
+
+cluster_chart PHYSICAL_ARTIFACTS
+explanation
+  "@todo"
+class DEVICE description "@todo"
+class PLASTIC_BALLOT_BOX description "@todo"
+class PAPER_BALLOT description "@todo"
+class POLLING_STATION description "@todo"
+class PAPER_VOTE description "@todo"
+class SEAL description "@todo"
+end
+
+cluster_chart DIGITAL_ARTIFACTS
+explanation
+  "@todo"
+class DIGITAL_BALLOT description "@todo"
+class DIGITAL_BALLOT_BOX description "@todo"
+class DIGITAL_VOTE description "@todo"
+end
+
+cluster_chart PROPERTIES
+explanation
+  "Properties of elections and their artifacts."
+class AUTHENTICATED description "@todo"
+class CONFIDENT description "@todo"
+class DIGITAL description "@todo"
+class DISABLED description "@todo"
+class EFFICIENT description "@todo"
+class REMOTE description "@todo"
+class ROBUST description "@todo"
+class PHYSICAL description "@todo"
+class SUPERVISED description "@todo"
+class TURNOUT description "@todo"
+class UNSUPERVISED description "@todo"
+class VERIFIABLE description "@todo"
+cluster ELECTION_PROPERTIES description "@todo"
+cluster SYSTEM_PROPERTIES description "@todo"
+end
+
+cluster_chart PROCESSES
+class AUDIT description "@todo"
+class CANDIDATE_REGISTRATION description "@todo"
+class CANDIDATE_VALIDATION description "@todo"
+class VOTER_REGISTRATION description "@todo"
+class VOTER_VALIDATION description "@todo"
+class VERIFICATION description "@todo"
+end
+
+cluster_chart ACTIONS
+explanation
+  "State transitions that take place in the course of an election."
+class AUTHENTICATE description "@todo"
+class REGISTER_VOTER description "@todo"
+class REGISTER_CANDIDATE description "@todo"
+end
+
+cluster_chart ELECTION_PROPERTIES
+explanation
+  "@todo"
+class SECURITY description "@todo"
+cluster SCOPE description "@todo"
+end
+
+cluster_chart SCOPE
+explanation
+  "@todo"
+class LOCAL description "@todo"
+class NATIONAL description "@todo"
+class REGIONAL description "@todo"
+end
+
+cluster_chart SYSTEM_PROPERTIES
+explanation
+  "Properties held by election systems, digital or physical."
+class ACCESSIBLE
+  description "An artifact is accessible if it is usable and useful to \
+             \ the disabled."
+class RELIABLE description "@todo"
+class USABLE description "@todo"
+end
+
+cluster_chart PEOPLE
+explanation
+  "The people that are part of an electoral system."
+class CANDIDATE description "@todo"
+class CITIZEN description "@todo"
+class ELECTORAL_AUTHORITY description "@todo"
+class IDENTITY description "@todo"
+class VOTER description "@todo"
 end
 
 cluster_chart LEGAL_STANDARDS
 explanation
   "@todo"
+class LEGISLATION description "@todo"
 end
 
 -- @todo kiniry July 2014 Concepts to incorporate.
 class_chart ACCESSIBLE
+indexing
+  applicable_law: "http://www.section508.gov"
 explanation
-  "@todo"
+  "An artifact is accessible if it is usable and useful to the \
+ \ disabled.  The details of such a notion are often codified in \
+ \ federal law (e.g., U.S. Section 508) and are the results of \
+ \ researchers focused on user experiences for the disabled."
 end
 
 class_chart AUTHENTICATE
@@ -96,7 +205,7 @@ explanation
   "@todo"
 end
 
-class_chart BALLOT
+class_chart PAPER_BALLOT
 explanation
   "@todo"
 end
@@ -116,7 +225,7 @@ explanation
   "@todo"
 end
 
-class_chart CONFIDENCE
+class_chart CONFIDENT
 explanation
   "@todo"
 end
@@ -146,7 +255,7 @@ explanation
   "@todo"
 end
 
-class_chart ELECTORAL_AUTHORITIES
+class_chart ELECTORAL_AUTHORITY
 explanation
   "@todo"
 end
@@ -176,17 +285,17 @@ explanation
   "@todo"
 end
 
-class_chart LOCAL_LEVEL
+class_chart LOCAL
 explanation
   "@todo"
 end
 
-class_chart NATIONAL_LEVEL
+class_chart NATIONAL
 explanation
   "@todo"
 end
 
-class_chart POLITICAL_PARTY
+class_chart PARTY
 explanation
   "@todo"
 end
@@ -211,12 +320,12 @@ explanation
   "@todo"
 end
 
-class_chart REGIONAL_LEVEL
+class_chart REGIONAL
 explanation
   "@todo"
 end
 
-class_chart RELIABILITY
+class_chart RELIABLE
 explanation
   "@todo"
 end
