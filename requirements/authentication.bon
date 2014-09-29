@@ -18,18 +18,18 @@ scenario
   "NO_THIRD_PARTY_AUTHENTICATION" -- @ref David Jefferson
 description
   "Authentication must not be done through third party intermediaries \
- \ such as Facebook, iCloud, Google, Yahoo, Amazon, etc. that offers \
+ \ such as Facebook, iCloud, Google, Yahoo, Amazon, etc. that offer \
  \ authentication services."
 scenario
   "SECRET_AUTHENTICATION_SHARED_SECRETS" -- @ref David Jefferson
 description
-  "Authentication must not us personal information, government or \
+  "Authentication must not use personal information, government or \
  \ commercial account identifiers, etc."
 scenario
   "AUTHENTICATION_DATA_UPDATES" -- @ref David Jefferson
 description
   "Authentication secrets must be changeable or revokable at \
- \ any time at the behest of either the voter of election \
+ \ any time at the behest of either the voter or election \
  \ officials."
 scenario
   "AUTHENTICATION_DATA_REFRESH_PERIODICITY" -- @ref David Jefferson

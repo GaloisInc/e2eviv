@@ -1,4 +1,4 @@
-scenario_chart MAINTAINENCE_REQUIREMENTS
+scenario_chart MAINTENANCE_REQUIREMENTS
 indexing
   partof: "NON_FUNCTIONAL_REQUIREMENTS"
 explanation

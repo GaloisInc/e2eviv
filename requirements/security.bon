@@ -186,7 +186,7 @@ description
  -- Eligibility & Registration (online registration, automated
  -- registration fraud, and change of credentials): DJ doesn't know yet
  -- what to write here regarding requirements.  But obviously any
- -- automated registration fraud can be used to affect the out come of
+ -- automated registration fraud can be used to affect the outcome of
  -- elections.
 scenario
   "CLIENT_SIDE_AUTHENTICITY" -- @ref David Jefferson
