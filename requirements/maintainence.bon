@@ -1,8 +1,0 @@
-scenario_chart MAINTENANCE_REQUIREMENTS
-indexing
-  partof: "NON_FUNCTIONAL_REQUIREMENTS"
-explanation
-  "General requirements relating to the maintenance of digital election \
- \ systems."
-end
-

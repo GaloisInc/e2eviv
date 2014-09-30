@@ -34,13 +34,13 @@ cluster_chart CORE_CONCEPTS
 explanation
   "Domain concepts core to the idea of elections."
 cluster ACTIONS
-description "@todo"
+description "State transitions that take place in the course of an election."
 cluster BACKGROUND
 description "Election background concepts."
 cluster ELECTION_DAY_ARTIFACTS
 description "Artifacts relevant to election day."
 cluster PEOPLE
-description "People that part of an electoral system."
+description "People that are part of an electoral system."
 cluster PROPERTIES
 description "Properties of elections and their artifacts."
 cluster OTHERS
@@ -50,11 +50,17 @@ end
 cluster_chart BACKGROUND
 explanation
   "Background concepts relevant to elections in the general."
-class DEMOCRACY description "@todo"
-class ELECTION description "@todo"
-class ELECTORATE description "@todo"
+class DEMOCRACY 
+  description "A system of government by an entire population or \
+             \ eligible members thereof."
+class ELECTION
+  description "A formal indication of a choice between two or more \
+             \ candidates or courses of action."
+class ELECTORATE 
+  description "The individuals that are eligible to vote in an election."
 class EVOTING description "@todo"
-class INTERNET description "@todo"
+class INTERNET 
+  description "A global system of interconnected computer networks."
 class PARTY description "@todo"
 class PRINCIPLE description "@todo"
 class PROCEDURE description "@todo"
@@ -66,12 +72,21 @@ end
 
 cluster_chart ELECTIONS
 explanation
-  "@todo"
-class DIGITAL_ELECTION description "@todo"
-class INTERNET_ELECTION description "@todo"
+  "Types and attributes of elections."
+class DIGITAL_ELECTION 
+  description "An election carried out, in whole or in part, \
+             \ by electronic means."
+class INTERNET_ELECTION 
+  description "An election carried out, in whole or in part, \
+             \ using the Internet for the transmission of votes."
 class SUPERVISED_ELECTION description "@todo"
-class REMOTE_ELECTION description "@todo"
-class TRADITIONAL_ELECTION description "@todo"
+class REMOTE_ELECTION 
+  description "An election in which some or all of the ballots \
+             \ are not cast at specified polling places."
+class TRADITIONAL_ELECTION 
+  description "An election carried out entirely using physical 
+             \ ballots cast at specified polling places during \
+             \ a fixed election period."
 class UNSUPERVISED_ELECTION description "@todo"
 class VERIFIABLE_ELECTION description "@todo"
 end
@@ -79,56 +94,96 @@ end
 cluster_chart ELECTION_DAY_ARTIFACTS
 explanation
   "Physical and digital artifacts relevant to election day."
-class BALLOT description "@todo"
-class BALLOT_BOX description "@todo"
+class BALLOT 
+  description "The legally recognized means by which a voter can \
+             \ express his or her choice of voting option."
+class BALLOT_BOX 
+  description "The means by which votes are stored pending being \
+             \ counted."
 class CANDIDATES_REGISTER description "@todo"
-class REFERENDUM description "@todo"
-class RESULT description "@todo"
-class TALLY description "@todo"
-class VOTE description "@todo"
+class REFERENDUM 
+  description "A decision among two or more courses of action."
+class RESULT 
+  description "The outcome of an election."
+class SEAL
+  description "A device that provides evidence for the integrity \
+             \ of a ballot box."
+class TALLY 
+  description "The count of all the votes in an election."
+class VOTE 
+  description "The expression of the choice of voting option."
 class VOTERS_REGISTER description "@todo"
-class VOTING_INTERFACE description "@todo"
-class VOTING_OPTION description "@todo"
-cluster PHYSICAL_ARTIFACTS description "@todo"
-cluster DIGITAL_ARTIFACTS description "@todo"
+class VOTING_INTERFACE 
+  description "The medium through which a voter makes his or \
+             \ her choices of voting option known to the voting \
+             \ system."
+class VOTING_OPTION 
+  description "A selection from among the possible outcomes of \
+             \ an election."
+cluster PHYSICAL_ARTIFACTS 
+  description "Physical artifacts relevant to election day."
+cluster DIGITAL_ARTIFACTS 
+  description "Digital artifacts relevant to election day."
 end
 
 cluster_chart PHYSICAL_ARTIFACTS
 explanation
-  "@todo"
+  "Physical artifacts relevant to election day."
 class DEVICE description "@todo"
-class PLASTIC_BALLOT_BOX description "@todo"
-class PAPER_BALLOT description "@todo"
+class PHYSICAL_BALLOT_BOX 
+  description "A box used to store paper votes pending being counted."
+class PAPER_BALLOT 
+  description "A ballot comprised of one or more pieces of paper."
 class POLLING_STATION description "@todo"
-class PAPER_VOTE description "@todo"
-class SEAL description "@todo"
+class PAPER_VOTE 
+  description "A vote expressed with a paper ballot."
+class PHYSICAL_SEAL 
+  description "A piece of material that serves as evidence that \
+             \ a physical ballot box has not been opened."
 end
 
 cluster_chart DIGITAL_ARTIFACTS
 explanation
-  "@todo"
-class DIGITAL_BALLOT description "@todo"
-class DIGITAL_BALLOT_BOX description "@todo"
-class DIGITAL_VOTE description "@todo"
+  "Digital artifacts relevant to election day."
+class DIGITAL_BALLOT 
+  description "A ballot comprised of one or more digital artifacts."
+class DIGITAL_BALLOT_BOX 
+  description "The electronic means by which digital votes are \
+             \ stored pending being counted."
+class DIGITAL_VOTE 
+  description "A vote expressed with a digital ballot."
+class DIGITAL_SEAL
+  description "A digital artifact that serves as evidence that \
+             \ a digital ballot box has not been tampered with."
 end
 
 cluster_chart PROPERTIES
 explanation
-  "Properties of elections and their artifacts."
+  "Properties of elections and related artifacts."
+class ACCESSIBLE
+  description "Usable by and useful to the disabled."
 class AUTHENTICATED description "@todo"
 class CONFIDENT description "@todo"
 class DIGITAL description "@todo"
-class DISABLED description "@todo"
+class DISABLED 
+  description "Having a physical or mental condition \
+             \ that limits movements, senses, or activities."
 class EFFICIENT description "@todo"
-class REMOTE description "@todo"
+class REMOTE 
+  description "Located somewhere other than a specified \
+             \ election location."
 class ROBUST description "@todo"
-class PHYSICAL description "@todo"
+class PHYSICAL 
+  description "Manifested as a tangible artifact."
 class SUPERVISED description "@todo"
 class TURNOUT description "@todo"
 class UNSUPERVISED description "@todo"
 class VERIFIABLE description "@todo"
-cluster ELECTION_PROPERTIES description "@todo"
-cluster SYSTEM_PROPERTIES description "@todo"
+cluster ELECTION_PROPERTIES 
+  description "Properties specific to elections."
+cluster SYSTEM_PROPERTIES 
+  description "Properties specific to systems used to \
+             \ carry out elections."
 end
 
 cluster_chart PROCESSES
@@ -144,8 +199,14 @@ cluster_chart ACTIONS
 explanation
   "State transitions that take place in the course of an election."
 class AUTHENTICATE description "@todo"
-class REGISTER_VOTER description "@todo"
-class REGISTER_CANDIDATE description "@todo"
+class REGISTER_VOTER 
+  description "The addition of a voter to the voters register."
+class REGISTER_CANDIDATE 
+  description "The addition of a candidate to the ballot."
+class UNREGISTER_VOTER
+  description "The removal of a voter from the voters register."
+class UNREGISTER_CANDIDATE
+  description "The removal of a candidate from the ballot."
 end
 
 cluster_chart ELECTION_PROPERTIES
@@ -194,7 +255,7 @@ class_chart ACCESSIBLE
 indexing
   applicable_law: "http://www.section508.gov"
 explanation
-  "An artifact is accessible if it is usable and useful to the \
+  "An artifact is accessible if it is usable by and useful to the \
  \ disabled.  The details of such a notion are often codified in \
  \ federal law (e.g., U.S. Section 508) and are the results of \
  \ researchers focused on user experiences for the disabled."
@@ -205,19 +266,32 @@ explanation
   "@todo"
 end
 
+class_chart BALLOT
+explanation
+  "A ballot is the legally recognized means by which a voter \
+ \ can express his or her choice of voting option. A ballot \ 
+ \ contains a set of possible options, either candidates for \
+ \ a position or courses of action to be taken."
+end
+
 class_chart PAPER_BALLOT
 explanation
-  "@todo"
+  "A paper ballot is a ballot implemented using paper, which \
+ \ the voter marks in some fashion to indicate his or her choice."
 end
 
 class_chart BALLOT_BOX
 explanation
-  "@todo"
+  "A ballot box is the means by which votes are stored pending \
+ \ being counted. It may take various forms, including physical \
+ \ containers (from which the name derives) and electronic \
+ \ storage media."
 end
 
 class_chart CANDIDATE
 explanation
-  "@todo"
+  "A candidate is a citizen who is listed on the ballot as a \
+ \ possible choice to fill some position."
 end
 
 class_chart CITIZEN
@@ -232,7 +306,11 @@ end
 
 class_chart DEMOCRACY
 explanation
-  "@todo"
+  "Democracy is a system of government (of a nation, \
+ \ state, locality, or other organization) by an entire \
+ \ population or eligible members thereof, typically \
+ \ carried out through elections of leaders and \
+ \ representatives, through referenda, or both."
 end
 
 class_chart DEVICE
@@ -240,9 +318,20 @@ explanation
   "@todo"
 end
 
+class_chart DIGITAL_SEAL
+inherit SEAL
+explanation
+  "A digital seal is a piece of evidence that a digital \
+ \ ballot box has not been tampered with. Such seals \
+ \ typically take the form of cryptographic hashes."
+end
+
 class_chart DISABLED
 explanation
-  "@todo"
+  "An individual is disabled if he or she has a physical or \
+ \ mental condition that limits movements, senses, or \
+ \ activities in a way that affects his or her ability to \
+ \ participate in an election."
 end
 
 class_chart EFFICIENT
@@ -252,7 +341,8 @@ end
 
 class_chart ELECTION
 explanation
-  "@todo"
+  "An election is a formal indication of a choice \
+ \ between two or more candidates or courses of action."
 end
 
 class_chart ELECTORAL_AUTHORITY
@@ -262,7 +352,9 @@ end
 
 class_chart ELECTORATE
 explanation
-  "@todo"
+  "The electorate for a given election comprises all the \
+ \ individuals that are eligible to vote in that election, \
+ \ according to applicable laws and regulations."
 end
 
 class_chart EVOTING
@@ -277,7 +369,9 @@ end
 
 class_chart INTERNET
 explanation
-  "@todo"
+  "The Internet is a global system of interconnected computer \
+ \ networks that use the standard Internet Protocol suite to \
+ \ link billions of connected devices."
 end
 
 class_chart LEGISLATION
@@ -300,6 +394,16 @@ explanation
   "@todo"
 end
 
+class_chart PHYSICAL_SEAL
+inherit SEAL
+explanation
+  "A physical seal is a piece of material (such as tape) that \
+ \ serves as evidence that a ballot box has not been opened. \
+ \ Such a seal typically has a distinctive design and other \
+ \ features that make it obvious when a sealed box has been \
+ \ tampered with."
+end
+
 class_chart POLLING_STATION
 explanation
   "@todo"
@@ -317,7 +421,8 @@ end
 
 class_chart REFERENDUM
 explanation
-  "@todo"
+  "A referendum is a decision among two or more courses of \
+ \ action. "
 end
 
 class_chart REGIONAL
@@ -346,8 +451,11 @@ explanation
 end
 
 class_chart SEAL
-explanation
-  "@todo"
+explanation 
+  "A seal provides some evidence of the integrity of a \
+ \ ballot box. Its form depends on the form of the ballot \
+ \ box and the ballots within, as well as other system \
+ \ characteristics."
 end
 
 class_chart SECURITY
