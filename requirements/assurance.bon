@@ -14,7 +14,7 @@ description
 scenario
   "AUTHENTICATION_RESILIANCE" -- @ref David Jefferson
 description
-  "There must be no way to reasonable way to automate forging or \
+  "There must be no reasonable way to automate forging or \
  \ invalidation of a large number of voter authentications. (This can \
  \ only be established by competent security analysis, not testing.)"
 scenario

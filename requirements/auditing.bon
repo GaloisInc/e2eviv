@@ -106,7 +106,7 @@ explanation
 scenario
   "VERIFICATION_PARTIAL_FAILURE" -- @ref David Jefferson
 description
-  "The system, in the event that it does not verify that the online \
+  "The system, in the event that it does not verify the online \
  \ votes cast, must be capable of giving a close upper bound on the \
  \ number of ballots that may have been affected."
  -- This will guide officials of courts in their decision regarding
@@ -115,6 +115,6 @@ scenario
   "VERIFICATION_SOURCE" -- @ref David Jefferson
 description
   "Official verification applications, like voting software, must be \
- \ published in source form, along with documentation, build \
+ \ published in source form along with documentation, build \
  \ directions, and a standard cryptographic hash of the source code."
 end

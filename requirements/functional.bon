@@ -57,9 +57,9 @@ description
 scenario
   "NO_ADVERTISING" -- @ref David Jefferson
 description
-  "The voting system client must not display or permit displaying of \
+  "The voting system client must not display or permit the display of \
  \ any advertising or commercial logos in the window that contains the \
- \ voting session, other than that for the election jurisdiction \
+ \ voting session, other than those of the election jurisdiction \
  \ itself."
 scenario
   "NO_EXTERNAL_LINKS" -- @ref David Jefferson
