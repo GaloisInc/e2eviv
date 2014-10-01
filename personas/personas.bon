@@ -1,0 +1,167 @@
+-- Initial set of persona classes defined by Keith Instone, Morgan
+-- Miller, and Joe Kiniry in September, 2014.  Input on persona
+-- coverage was provided by Ron Rivest.
+
+cluster_chart PERSONAS
+explanation
+  "@todo"
+cluster APTS description "@todo"
+cluster ARMED_FORCES description "@todo"
+cluster ELECTION_APPARATUS description "@todo"
+cluster EXECUTIVE description "@todo"
+cluster HACKERS description "@todo"
+cluster INFRASTRUCTURE description "@todo"
+cluster JUDICIAL description "@todo"
+cluster LEGISLATIVE description "@todo"
+cluster VENDORS description "@todo"
+cluster VOTERS description "@todo"
+cluster ORTHOGONAL_PROPERTIES description "@todo"
+cluster OVF_E2E_ADVERSARIES description "@todo"
+end
+
+cluster_chart APTS
+explanation
+  "@todo"
+class APT description "Advanced Persistent Threat"
+
+class ALLY description "@todo"
+class ENEMY description "@todo"
+class NEUTRAL description "@todo"
+
+class NATION_STATE description "@todo"
+class INTELLIGENCE_AGENCY description "@todo"
+class CRIMINAL_ORGANIZATION description "@todo"
+end
+
+cluster_chart ELECTION_APPARATUS
+explanation
+  "@todo"
+-- Note that SCOPE's classes can be applied to refine.
+class ELECTION_OFFICIAL description "@todo"
+class ELECTION_OBSERVER description "@todo"
+end
+
+cluster_chart EXECUTIVE
+explanation
+  "@todo"
+class PRESIDENT description "@todo"
+end
+
+cluster_chart HACKERS
+explanation
+  "@todo"
+class WHITEHAT description "@todo"
+class GREYHAT description "@todo"
+class BLACKHAT description "@todo"
+end
+
+cluster_chart JUDICIAL
+explanation
+  "@todo"
+class ELECTION_JUDGE description "@todo"
+end
+
+cluster_chart ARMED_FORCES
+explanation
+  "@todo"
+class MILITARY description "@todo"
+class POLICE description "@todo"
+end
+
+cluster_chart LEGISLATIVE
+explanation
+  "@todo"
+class CANDIDATE description "@todo"
+class LEGISLATOR description "@todo"
+class LOBBYIST description "@todo"
+end
+
+cluster_chart VENDORS
+explanation
+  "@todo"
+class ELECTIONS_INTEGRATION_VENDOR description "@todo"
+class ELECTIONS_TECHNOLOGY_VENDOR description "@todo"
+end
+
+cluster_chart INFRASTRUCTURE
+explanation
+  "@todo"
+class INTERNET_SERVICE_PROVIDER description "@todo"
+class OPERATING_SYSTEMS_VENDOR description "@todo"
+end
+
+cluster_chart VOTERS
+explanation
+  "@todo"
+class LEGITIMATE_VOTER description "@todo"
+class ILLEGITIMATE_VOTER description "@todo"
+class NON_VOTER description "@todo"
+end
+
+-- Each of these pairs of properties are mutually-exclusive.
+cluster_chart ORTHOGONAL_PROPERTIES
+explanation
+  "@todo"
+class CORRUPT description "@todo"
+class HONEST description "@todo"
+
+class SIGHTED description "@todo"
+class UNSIGHTED description "@todo"
+
+class DISABLED description "@todo"
+class ABLE_BODIED description "@todo"
+
+class TECHNICALLY_SAVVY description "@todo"
+class TECHNICALLY_IGNORANT description "@todo"
+
+class LITERATE description "@todo"
+class ILLITERATE description "@todo"
+
+class OVERSEAS description "@todo"
+class DOMESTIC description "@todo"
+
+class UNFUNDED description "@todo"
+class FUNDED description "@todo"
+class WELL_FUNDED description "@todo"
+end
+
+-- Example reification of a specific persona: a corrupt, sighted,
+-- able-bodied, technically savvy, literate, blackhat voter, overseas,
+-- legitimate voter who is moderately funded by bad actors.
+
+cluster_chart OVF_E2E_ADVERSARIES
+explanation
+  "@todo"
+class REMOTE_BLACKHAT description "@todo"
+end
+
+class_chart CORRUPT
+end
+
+class_chart SIGHTED
+end
+
+class_chart ABLE_BODIED
+end
+
+class_chart TECHNICALLY_SAVVY
+end
+
+class_chart LITERATE
+end
+
+class_chart BLACKHAT
+end
+
+class_chart OVERSEAS
+end
+
+class_chart LEGITIMATE_VOTER
+end
+
+class_chart REMOTE_BLACKHAT
+explanation
+  "@todo"
+inherit CORRUPT, SIGHTED, ABLE_BODIED, TECHNICALLY_SAVVY, LITERATE, BLACKHAT, 
+        OVERSEAS, LEGITIMATE_VOTER
+end
