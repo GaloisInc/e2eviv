@@ -9,9 +9,11 @@ scenario
 description
   "If a voter receives the final `Thank you for voting' confirmation, \
  \ then she/he can be certain the ballot was recorded."
+
 scenario
   "UNCERTAIN_VOTER_REVOTE" -- @ref David Jefferson
 description
   "If the voter is uncertain about the state of their ballot, he/she \
  \ is free to attempt to vote again."
+
 end

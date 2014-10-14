@@ -17,23 +17,27 @@ description
  \ installing updated versions and corrections of the relevant \
  \ protection software.  It shall be possible to check the state of \
  \ protection of the voting equipment at any time."
+
 scenario "SYSTEM_FAILOVER_INVARIANTS" -- @ref Rec(2004)11 Appendix III, C. 70.
 description
   "Those responsible for operating the equipment shall draw up a \
  \ contingency procedure.  Any backup system shall conform to the same \
  \ standards and requirements as the original system."
+
 scenario "DATA_BACKUP_INVARIANTS" -- @ref Rec(2004)11 Appendix III, C. 71.
 description
   "Sufficient backup arrangements shall be in place and be permanently \
  \ available to ensure that voting proceeds smoothly.  The staff \
  \ concerned shall be ready to intervene rapidly according to a \
  \ procedure drawn up by the competent electoral authorities."
+
 scenario "SYSTEM_INVARIANTS_DURING_ELECTION" -- @ref Rec(2004)11 Appendix III, C. 72.
 description
   "Those responsible for the equipment shall use special procedures to \
  \ ensure that during the polling period the voting equipment and its \
  \ use satisfy requirements.  The backup services shall be regularly \
  \ supplied with monitoring protocols."
+
 scenario "PRE_ELECTION_CERTIFICATION_INVARIANTS" -- @ref Rec(2004)11 Appendix III, C. 73.
 description
   "Before each election or referendum, the equipment shall be checked \
@@ -41,11 +45,13 @@ description
  \ electoral authorities.  The equipment shall be checked to ensure that \
  \ it complies with technical specifications.  The findings shall be \
  \ submitted to the competent electoral authorities."
+
 scenario "FORMAL_CONTROL_PROCEDURE" -- @ref Rec(2004)11 Appendix III, C. 74.
 description
   "All technical operations shall be subject to a formal control \
  \ procedure.  Any substantial changes to key equipment shall be \
  \ notified."
+
 scenario "PHYSICAL_SECURITY_OF_SYSTEMS_INVARIANTS" -- @ref Rec(2004)11 Appendix III, C. 75.
 description
   "Key e-election or e-referendum equipment shall be located in a \
@@ -55,12 +61,14 @@ description
  \ physical disaster recovery plan shall be in place.  Furthermore, any \
  \ data retained after the election or referendum period shall be \
  \ stored securely."
+
 scenario "INCIDENT_RESPONSE_INVARIANTS" -- @ref Rec(2004)11 Appendix III, C. 76.
 description
   "Where incidents that could threaten the integrity of the system \
  \ occur, those responsible for operating the equipment shall \
  \ immediately inform the competent electoral authorities, who will \
  \ take the necessary steps to mitigate the effects of the \
- \ incident.  The level of incident which shall be reported shall be \
+ \ incident.  The level of incident that shall be reported shall be \
  \ specified in advance by the electoral authorities."
+
 end

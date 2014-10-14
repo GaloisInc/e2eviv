@@ -9,15 +9,18 @@ scenario "VOTER_COMPREHENSION_AND_CONFIDENCE" -- @ref Rec(2004)11 Appendix I, B.
 description
   "Member states shall take steps to ensure that voters understand and \
  \ have confidence in the e-voting system in use."
+
 scenario "PUBLIC_SYSTEM_FUNCTION" -- @ref Rec(2004)11 Appendix I, B. I. 21.
 description
   "Information on the functioning of an e-voting system shall be made \
  \ publicly available."
+
 scenario "VOTER_PRACTICE" -- @ref Rec(2004)11 Appendix I, B. I. 22.
 description
-  "Voters shall be provided with an opportunity to practise any new \
+  "Voters shall be provided with an opportunity to practice any new \
  \ method of e-voting before, and separately from, the moment of \
  \ casting an electronic vote."
+
 scenario "OBSERVER_INVARIANTS" -- @ref Rec(2004)11 Appendix I, B. I. 23.
 description
   "Any observers, to the extent permitted by law, shall be able to be \
@@ -30,6 +33,7 @@ description
   "The components of the e-voting system shall be disclosed, at least \
  \ to the competent electoral authorities, as required for verification \
  \ and certification purposes."
+
 scenario "CERTIFICATION_OBLIGATIONS" -- @ref Rec(2004)11 Appendix I, B. II. 25.
 description
   "Before any e-voting system is introduced, and at appropriate \
@@ -38,11 +42,13 @@ description
  \ authorities, shall verify that the e-voting system is working \
  \ correctly and that all the necessary security measures have been \
  \ taken."
+
 scenario "RECOUNT_SUPPORTED" -- @ref Rec(2004)11 Appendix I, B. II. 26.
 description
   "There shall be the possibility for a recount.  Other features of the \
  \ e-voting system that may influence the correctness of the results \
  \ shall be verifiable."
+
 scenario "RERUN_SUPPORTED" -- @ref Rec(2004)11 Appendix I, B. II. 27.
 description
   "The e-voting system shall not prevent the partial or complete \
@@ -53,22 +59,26 @@ scenario "RELIABILITY_AND_SECURITY" -- @ref Rec(2004)11 Appendix I, B. III. 28.
 description
   "The member state's authorities shall ensure the reliability and \
  \ security of the e-voting system."
+
 scenario "NO_FRAUD_OR_INTERVENTION" -- @ref Rec(2004)11 Appendix I, B. III. 29.
 description
   "All possible steps shall be taken to avoid the possibility of fraud \
  \ or unauthorized intervention affecting the system during the whole \
  \ voting process."
+
 scenario "SYSTEM_AVAILABILITY" -- @ref Rec(2004)11 Appendix I, B. III. 30.
 description
   "The e-voting system shall contain measures to preserve the \
  \ availability of its services during the e-voting process.  It shall \
  \ resist, in particular, malfunction, breakdowns or denial of service \
  \ attacks."
+
 scenario "SYSTEM_GENUINE_AND_CORRECT" -- @ref Rec(2004)11 Appendix I, B. III. 31.
 description
   "Before any e-election or e-referendum takes place, the competent \
  \ electoral authority shall satisfy itself that the e-voting system \
  \ is genuine and operates correctly."
+
 scenario "SYSTEM_AND_DATA_ACCESS_CONTROL" -- @ref Rec(2004)11 Appendix I, B. III. 32.
 description
   "Only persons appointed by the electoral authority shall have access \
@@ -78,6 +88,7 @@ description
  \ teams of at least two people.  The composition of the teams shall be \
  \ regularly changed.  As far as possible, such activities shall be \
  \ carried out outside election periods."
+
 scenario "OPEN_BALLOT_BOX_INVARIANTS" -- @ref Rec(2004)11 Appendix I, B. III. 33.
 description
   "While an electronic ballot box is open, any authorised intervention \
@@ -85,6 +96,7 @@ description
  \ people, be the subject of a report, be monitored by \
  \ representatives of the competent electoral authority and any \
  \ election observers."
+
 scenario "VOTES_INVARIANTS" -- @ref Rec(2004)11 Appendix I, B. III. 34.
 description
   "The e-voting system shall maintain the availability and integrity \
@@ -92,6 +104,7 @@ description
  \ votes and keep them sealed until the counting process.  If stored or \
  \ communicated outside controlled environments, the votes shall be \
  \ encrypted."
+
 scenario "SEALED_VOTES_VOTER_RELATION" -- @ref Rec(2004)11 Appendix I, B. III. 35.
 description
   "Votes and voter information shall remain sealed as long as the data \
@@ -107,4 +120,5 @@ description
  \ not received accurately or counted, or if the official election \
  \ verification application does not verify that the Internet part of \
  \ the election was correct."
+ 
 end

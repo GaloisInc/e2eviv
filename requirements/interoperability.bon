@@ -11,6 +11,7 @@ description
   "Open standards shall be used to ensure that the various technical \
  \ components or services of an e-voting system, possibly derived \
  \ from a variety of sources, interoperate."
+
 scenario "EML" -- @ref Rec(2004)11 Appendix III, B. 67.
 description
   "At present, the Election Markup Language (EML) standard is such an \
@@ -20,6 +21,7 @@ description
  \ member states.  The EML standard valid at the time of adoption of \
  \ this recommendation, and supporting documentation are available on \
  \ the Council of Europe website."
+
 scenario "DATA_LOCALIZATION" -- @ref Rec(2004)11 Appendix III, B. 68.
 description
   "In cases which imply specific election or referendum data \
@@ -35,4 +37,5 @@ description
   "The log data and documentation of its meaning and format should be \
  \ available for public download so that anyone can download, inspect, \
  \ and publish concerns based on the logs."
+
 end

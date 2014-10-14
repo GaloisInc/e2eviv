@@ -18,8 +18,9 @@ scenario "" -- @ref Rec(2004)11 Appendix III, F. 111.
 description
   "Member states shall introduce certification processes that allow \
  \ for any ICT (Information and Communication Technology) component to \
- \ be tested and certified as being in conformity with the technical \
- \ requirements described in this recommendation."
+ \ be tested and certified as being in conformity with technical \
+ \ requirements."
+
 scenario "" -- @ref Rec(2004)11 Appendix III, F. 112.
 description
   "In order to enhance international co-operation and avoid \
@@ -34,13 +35,15 @@ scenario
   "CERTIFICATION_PARTIES_COMPETENCE" -- @ref David Jefferson
 description
   "Any E2EV Internet voting system should be certified by competent \
- \ professionals as meeting the requirements in this document."
+ \ professionals."
+
 scenario
   "CERTIFICATION_REPORT_TRANSPARENCY" -- @ref David Jefferson
 description
   "Any and all certification reports issued by certification \
- \ professionals must be public whether the report recommends \
+ \ professionals must be public, whether they recommend \
  \ certification or not."
+
 scenario
   "RECERTIFICATION_CONDITIONS" -- @ref David Jefferson
 description
@@ -52,6 +55,7 @@ description
  \ patches to voting client and/or server; changes or upgrades to \
  \ voting client or server in response to detected bugs or security \
  \ vulnerabilities, changes in law, or changes in threat environment."
+
 scenario
   "RECERTIFIED_PERIODICITY" -- @ref David Jefferson
 description
@@ -59,13 +63,16 @@ description
  \ recertified every four years even if there are no changes, as the \
  \ relevant threat environment will certainly have changed, or at \
  \ least must be re-evaluated to see if it has."
+
 scenario
   "VALIDATION_PLATFORM_COVERAGE" -- @ref David Jefferson
 description
   "The system must be extensively tested on a wide range of platform \
  \ and software combinations."
+
 scenario
   "PUBLIC_VALIDATION_PLATFORM_COVERAGE_RESULTS" -- @ref David Jefferson
 description
   "All test results for platform coverage must be public."
+
 end

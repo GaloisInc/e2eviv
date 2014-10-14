@@ -11,18 +11,19 @@ description
   "The audit system shall be designed and implemented as part of the \
  \ e-voting system.  Audit facilities shall be present on different \
  \ levels of the system: logical, technical and application."
+
 scenario "AUDITING_COMPLETENESS" -- @ref Rec(2004)11 Appendix III, E. I. 101.
 description
   "End-to-end auditing of an e-voting system shall include recording, \
  \ providing monitoring facilities and providing verification \
- \ facilities.  Audit systems with the features set out in sections II – \
- \ V below shall therefore be used to meet these requirements."
+ \ facilities."
 
 -- @ref Rec(2004)11 Audit, II. Recording
 scenario "AUDIT_SYSTEM_BASELINE" -- @ref Rec(2004)11 Appendix III, E. II. 102.
 description
   "The audit system shall be open and comprehensive, and actively \
  \ report on potential issues and threats."
+
 scenario "AUDIT_SYSTEM_DATA" -- @ref Rec(2004)11 Appendix III, E. II. 103.
 description
   "The audit system shall record times, events and actions, including: \
@@ -38,10 +39,12 @@ description
   "The audit system shall provide the ability to oversee the election \
  \ or referendum and to verify that the results and procedures are in \
  \ accordance with the applicable legal provisions."
+
 scenario "AUDIT_DATA_SECURITY" -- @ref Rec(2004)11 Appendix III, E. IIi. 105.
 description
   "Disclosure of the audit information to unauthorised persons shall \
  \ be prevented."
+
 scenario "AUDIT_DATA_SECRECY" -- @ref Rec(2004)11 Appendix III, E. III. 106.
 description
   "The audit system shall maintain voter anonymity at all times."
@@ -53,6 +56,7 @@ description
  \ verify the correct operation of the e-voting system and the accuracy \
  \ of the result, to detect voter fraud and to prove that all counted \
  \ votes are authentic and that all votes have been counted."
+
 scenario "AUDIT_SYSTEM_FOR_LEGAL_COMPLIANCE" -- @ref Rec(2004)11 Appendix III, E. IV. 108.
 description
   "The audit system shall provide the ability to verify that an \
@@ -63,8 +67,9 @@ description
 -- @ref Rec(2004)11 Audit, II. Other
 scenario "AUDIT_DATA_VALIDITY" -- @ref Rec(2004)11 Appendix III, E. V. 109.
 description
-  "The audit system shall be protected against attacks which may \
+  "The audit system shall be protected against attacks that may \
  \ corrupt, alter or lose records in the audit system."
+
 scenario "AUDIT_DATA_CONFIDENTIALITY" -- @ref Rec(2004)11 Appendix III, E. V. 110.
 description
   "Member states shall take adequate steps to ensure that the \
@@ -76,21 +81,25 @@ scenario
 description
   "The Internet voting system should keep detailed logs of all \
  \ relevant activity."
+
 scenario
   "WRITE_ONCE_LOGS" -- @ref David Jefferson
 description
   "Logs must be written to write-once media in append-only mode."
+
 scenario
   "LOG_DATA_COMPLETENESS" -- @ref David Jefferson
 description
   "The log data should be as complete as possible, consistent with \
  \ maximum possible vote privacy."
+
 scenario
   "PRIVACY_VS_FRAUD_TRADEOFF" -- @ref David Jefferson
 description
   "If there is a tradeoff between vote privacy and the identification \
  \ of the perpetrators of fraud, the decision should be made in favor \
  \ of vote privacy."
+
 scenario
   "VOTER_LIST" -- @ref David Jefferson
 description
@@ -111,6 +120,7 @@ description
  \ number of ballots that may have been affected."
  -- This will guide officials of courts in their decision regarding
  -- what to do.
+
 scenario
   "VERIFICATION_SOURCE" -- @ref David Jefferson
 description

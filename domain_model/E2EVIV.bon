@@ -58,7 +58,8 @@ class ELECTION
              \ candidates or courses of action."
 class ELECTORATE 
   description "The individuals that are eligible to vote in an election."
-class EVOTING description "@todo"
+class EVOTING 
+  description "A voting process carried out with the aid of electronic devices."
 class INTERNET 
   description "A global system of interconnected computer networks."
 class PARTY description "@todo"
@@ -66,7 +67,8 @@ class PRINCIPLE description "@todo"
 class PROCEDURE description "@todo"
 class SYSTEM description "@todo"
 class VOTING_CHANNEL description "@todo"
-cluster ELECTIONS description "@todo"
+cluster ELECTIONS 
+	description "Types and attributes of elections."
 cluster PROCESSES description "@todo"
 end
 
@@ -100,7 +102,8 @@ class BALLOT
 class BALLOT_BOX 
   description "The means by which votes are stored pending being \
              \ counted."
-class CANDIDATES_REGISTER description "@todo"
+class CANDIDATES_REGISTER 
+  description "The set of candidates standing for election."
 class REFERENDUM 
   description "A decision among two or more courses of action."
 class RESULT 
@@ -112,7 +115,8 @@ class TALLY
   description "The count of all the votes in an election."
 class VOTE 
   description "The expression of the choice of voting option."
-class VOTERS_REGISTER description "@todo"
+class VOTERS_REGISTER 
+  description "The set of eligible voters for an election."
 class VOTING_INTERFACE 
   description "The medium through which a voter makes his or \
              \ her choices of voting option known to the voting \
@@ -134,7 +138,9 @@ class PHYSICAL_BALLOT_BOX
   description "A box used to store paper votes pending being counted."
 class PAPER_BALLOT 
   description "A ballot comprised of one or more pieces of paper."
-class POLLING_STATION description "@todo"
+class POLLING_STATION 
+  description "A location at which physical ballot boxes and devices \
+             \ are available for members of the electorate to use."
 class PAPER_VOTE 
   description "A vote expressed with a paper ballot."
 class PHYSICAL_SEAL 
@@ -187,10 +193,15 @@ cluster SYSTEM_PROPERTIES
 end
 
 cluster_chart PROCESSES
-class AUDIT description "@todo"
-class CANDIDATE_REGISTRATION description "@todo"
+class AUDIT 
+  description "A review of the election artifacts to detect \ 
+             \ abnormalities and errors."
+class CANDIDATE_REGISTRATION 
+  description "The process by which a candidate is added to the ballot."
 class CANDIDATE_VALIDATION description "@todo"
-class VOTER_REGISTRATION description "@todo"
+class VOTER_REGISTRATION 
+  description "The process by which a member of the electorate adds himself \
+             \ to the voter register."
 class VOTER_VALIDATION description "@todo"
 class VERIFICATION description "@todo"
 end
@@ -211,14 +222,14 @@ end
 
 cluster_chart ELECTION_PROPERTIES
 explanation
-  "@todo"
+  "Properties specific to elections."
 class SECURITY description "@todo"
 cluster SCOPE description "@todo"
 end
 
 cluster_chart SCOPE
 explanation
-  "@todo"
+  "The geographic or logical area affected by an election."
 class LOCAL description "@todo"
 class NATIONAL description "@todo"
 class REGIONAL description "@todo"
@@ -347,7 +358,8 @@ end
 
 class_chart ELECTORAL_AUTHORITY
 explanation
-  "@todo"
+  "An electoral authority is an individual or group responsible \
+ \ for setting up, running, and disclosing the results of an election."
 end
 
 class_chart ELECTORATE
@@ -359,7 +371,9 @@ end
 
 class_chart EVOTING
 explanation
-  "@todo"
+  "E-Voting, or electronic voting, is the process of voting either \
+ \ entirely using, or with substantial assistance from, electronic \
+ \ devices."
 end
 
 class_chart IDENTITY
@@ -406,7 +420,11 @@ end
 
 class_chart POLLING_STATION
 explanation
-  "@todo"
+  "A polling station is a location at which physical ballot \
+ \ boxes and devices are available for members of the \
+ \ electorate to use during an election. Polling stations \
+ \ are typically staffed by poll workers and have well-publicized \
+ \ hours of operation."
 end
 
 class_chart PRINCIPLE
@@ -422,7 +440,8 @@ end
 class_chart REFERENDUM
 explanation
   "A referendum is a decision among two or more courses of \
- \ action. "
+ \ action. In most cases, referenda take the form of yes/no \
+ \ questions."
 end
 
 class_chart REGIONAL
@@ -495,7 +514,8 @@ end
 
 class_chart VOTE
 explanation
-  "@todo"
+  "A vote is an expression of the choice of voting option made by \
+ \ a voter during an election."
 end
 
 class_chart VOTER
@@ -525,5 +545,7 @@ end
 
 class_chart VOTERS_REGISTER
 explanation
-  "@todo"
+  "A voters' register is a set containing all the voters \
+ \ eligible to vote in an election, as well as information \
+ \ indicating whether each has actually voted."
 end

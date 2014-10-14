@@ -7,25 +7,29 @@ explanation
 -- @ref Rec(2004)11 Security, I. General requirements
 scenario "NO_DATA_LOSS" -- @ref Rec(2004)11 Appendix III, D. I. 77.
 description
-  "Technical and organisational measures shall be taken to ensure that \
+  "Technical and organizational measures shall be taken to ensure that \
  \ no data will be permanently lost in the event of a breakdown or a \
  \ fault affecting the e-voting system."
+
 scenario "VOTER_PRIVACY_INVARIANTS" -- @ref Rec(2004)11 Appendix III, D. I. 78.
 description
   "The e-voting system shall maintain the privacy of \
  \ individuals.  Confidentiality of voters' registers stored in or \
  \ communicated by the e-voting system shall be maintained."
+
 scenario "SYSTEM_SELF_CHECKS" -- @ref Rec(2004)11 Appendix III, D. I. 79.
 description
   "The e-voting system shall perform regular checks to ensure that its \
  \ components operate in accordance with its technical specifications \
  \ and that its services are available."
+
 scenario "SYSTEM_ACCESS_CONTROL" -- @ref Rec(2004)11 Appendix III, D. I. 80.
 description
   "The e-voting system shall restrict access to its services, \
  \ depending on the user identity or the user role, to those services \
  \ explicitly assigned to this user or role.  User authentication shall \
  \ be effective before any action can be carried out."
+
 scenario "DATA_PROTECTION" -- @ref Rec(2004)11 Appendix III, D. I. 81.
 description
   "The e-voting system shall protect authentication data so that \
@@ -33,11 +37,13 @@ description
  \ gain knowledge of all or some of this data.  In uncontrolled \
  \ environments, authentication based on cryptographic mechanisms is \
  \ advisable."
+
 scenario "UNIQUE_IDENTIFICATION" -- @ref Rec(2004)11 Appendix III, D. I. 82.
 description
   "Identification of voters and candidates in a way that they can \
  \ unmistakably be distinguished from other persons (unique \
  \ identification) shall be ensured."
+
 scenario "OBSERVATION_DATA" -- @ref Rec(2004)11 Appendix III, D. I. 83.
 description
   "E-voting systems shall generate reliable and sufficiently detailed \
@@ -45,6 +51,7 @@ description
  \ out.  The time at which an event generated observation data shall be \
  \ reliably determinable.  The authenticity, availability and \
  \ integrity of the data shall be maintained."
+
 scenario "TIME_SYNCHRONIZATION" -- @ref Rec(2004)11 Appendix III, D. I. 84.
 description
   "The e-voting system shall maintain reliable synchronised time \
@@ -52,6 +59,7 @@ description
  \ maintain time marks for audit trails and observations data, as well \
  \ as for maintaining the time limits for registration, nomination, \
  \ voting, or counting."
+
 scenario "SECURITY_COMPLIANCE_RESPONSIBILITY" -- @ref Rec(2004)11 Appendix III, D. I. 85.
 description
   "Electoral authorities have overall responsibility for compliance \
@@ -65,12 +73,14 @@ description
  \ registers and lists of candidates shall be maintained.  The source of \
  \ the data shall be authenticated.  Provisions on data protection shall \
  \ be respected."
+
 scenario "CANDIDATE_PROCESS_TIME_PROVENANCE" -- @ref Rec(2004)11 Appendix III, D. II. 87.
 description
   "The fact that candidate nomination and, if required, the decision \
  \ of the candidate and/or the competent electoral authority to accept \
  \ a nomination has happened within the prescribed time limits shall be \
  \ ascertainable."
+
 scenario "VOTER_PROCESS_TIME_PROVENANCE" -- @ref Rec(2004)11 Appendix III, D. II. 88.
 description
   "The fact that voter registration has happened within the prescribed \
@@ -82,6 +92,7 @@ description
   "The integrity of data communicated from the pre-voting stage \
  \ (e.g., voters' registers and lists of candidates) shall be \
  \ maintained.  Data-origin authentication shall be carried out."
+
 scenario "BALLOT_AUTHENTICITY_INVARIANTS" -- @ref Rec(2004)11 Appendix III, D. III. 90.
 description
   "It shall be ensured that the e-voting system presents an authentic \
@@ -89,15 +100,18 @@ description
  \ be informed about the means to verify that a connection to the \
  \ official server has been established and that the authentic ballot \
  \ has been presented."
+
 scenario "CAST_VOTE_TIME_PROVENANCE" -- @ref Rec(2004)11 Appendix III, D. III. 91.
 description
   "The fact that a vote has been cast within the prescribed time \
  \ limits shall be ascertainable."
+
 scenario "SYSTEMS_AND_VOTE_INTEGRITY" -- @ref Rec(2004)11 Appendix III, D. III. 92.
 description
   "Sufficient means shall be provided to ensure that the systems that \
  \ are used by the voters to cast the vote can be protected against \
  \ influence that could modify the vote."
+
 scenario "NO_BREADCRUMBS" -- @ref Rec(2004)11 Appendix III, D. III. 93.
 description
   "Residual information holding the voter's decision or the display of \
@@ -105,17 +119,20 @@ description
  \ cast.  In the case of remote e-voting, the voter shall be provided \
  \ with information on how to delete, where that is possible, traces \
  \ of the vote from the device used to cast the vote."
+
 scenario "ELIGIBILITY_IMPLIES_VOTE_VOTER_INVARIANTS" -- @ref Rec(2004)11 Appendix III, D. III. 94.
 description
   "The e-voting system shall at first ensure that a user who tries to \
  \ vote is eligible to vote.  The e-voting system shall authenticate \
  \ the voter and shall ensure that only the appropriate number of votes \
  \ per voter is cast and stored in the electronic ballot box."
+
 scenario "VOTE_CHOICE_INVARIANTS" -- @ref Rec(2004)11 Appendix III, D. III. 95.
 description
   "The e-voting system shall ensure that the voter's choice is \
  \ accurately represented in the vote and that the sealed vote enters \
  \ the electronic ballot box."
+
 scenario "END_OF_VOTE_PERIOD_INVARIANTS" -- @ref Rec(2004)11 Appendix III, D. III. 96.
 description
   "After the end of the e-voting period, no voter shall be allowed to \
@@ -130,15 +147,18 @@ description
   "The integrity of data communicated during the voting stage \
  \ (e.g. votes, voters' registers, lists of candidates) shall be \
  \ maintained.  Data-origin authentication shall be carried out."
+
 scenario "TALLY_INVARIANTS" -- @ref Rec(2004)11 Appendix III, D. IV. 98.
 description
   "The counting process shall accurately count the votes.  The counting \
  \ of votes shall be reproducible."
+
 scenario "BALLOT_BOX_AND_TALLY_INVARIANTS" -- @ref Rec(2004)11 Appendix III, D. IV. 99.
 description
   "The e-voting system shall maintain the availability and integrity \
  \ of the electronic ballot box and the output of the counting process \
  \ as long as required."
+
 end
 
 scenario_chart E2EVIV_SECURITY_REQUIREMENTS
@@ -165,8 +185,9 @@ scenario
   "NATIONAL_SECURITY" -- @ref David Jefferson
 description
   "If used in federal elections, an Internet voting system is also a \
- \ national security system, and thus must be subject the highest \
+ \ national security system, and thus must be subject to the highest \
  \ security requirements."
+
 scenario
   "FEDERAL_REQUIREMENTS" -- @ref David Jefferson
 description
@@ -174,11 +195,13 @@ description
  \ election in the U.S. for federal or state legislative, executive, \
  \ or judicial office, or recall election, or statewide initiative or \
  \ referendum, must meet all of the requirements in this document."
+
 scenario
   "LOCAL_REQUIREMENTS" -- @ref David Jefferson
 description
   "Reduced security requirements might be appropriate for county, \
  \ municipal, or other kinds of elections"
+
 scenario
   "AUTOMATED_REGISTRATION_FRAUD" -- @ref David Jefferson
 description
@@ -188,6 +211,7 @@ description
  -- what to write here regarding requirements.  But obviously any
  -- automated registration fraud can be used to affect the outcome of
  -- elections.
+
 scenario
   "CLIENT_SIDE_AUTHENTICITY" -- @ref David Jefferson
 description
@@ -197,17 +221,20 @@ description
  -- here.  The intent is to somehow ascertain that the E2EV software
  -- on the client-side is genuine.  Presumably that E2EV software will
  -- authenticate the remote server.
+
 scenario
   "AUTHENTICATION_INDEPENDENCE" -- @ref David Jefferson
 description
   "The security of authentication must not be affected by \
  \ any potential breach of any public or commercial databases."
+
 scenario
   "ZERO_KNOWLEDGE_AUTHENTICATION" -- @ref David Jefferson
 description
   "It should not be possible for an attacker to impersonate voters \
  \ even if the entire server database used for authentication is \
  \ compromised."
+
 scenario
   "AUTHENTICATION_CREDENTIAL_REESTABLISHMENT" -- @ref David Jefferson
 description
@@ -231,10 +258,12 @@ scenario
 description
   "Vote privacy must be preserved end-to-end insofar as mathematically \
  \ possible."
+
 scenario
   "VOTE_PRIVACY_INVIOLATE" -- @ref David Jefferson
 description
   "Vote privacy cannot be waived by voters."
+
 scenario
   "MALWARE_PRESENCE" -- @ref David Jefferson
 description
@@ -245,6 +274,7 @@ description
  \ keyloggers, etc."
  -- This requirement will seriously complicate the user interface an
  -- usability of the system, but is absolutely essential.
+
 scenario
   "REMOTE_MONITORING" -- @ref David Jefferson
 description
@@ -253,22 +283,26 @@ description
  \ or log voting activity and that cannot be turned off by the voter. \
  \ (All mobile platforms had, and probably still do have, such remote \
  \ monitoring software.)"
+
 scenario
   "CLIENT_SIDE_CHANNELS" -- @ref David Jefferson
 description
   "The client software of the voting system must not send data to any \
  \ IP address except those associated with the voter server and the \
  \ basic infrastructure servers of the Internet."
+
 scenario
   "SOCIAL_MEDIA_SIDE_CHANNELS" -- @ref David Jefferson
 description
   "The client should not provide any information to third parties, \
  \ e.g., Facebook, Twitter, etc. regarding the act of voting."
+
 scenario
   "TRACKING" -- @ref David Jefferson
 description
   "There must be no tracking devices or tracking logic in the vote \
  \ client."
+
 scenario
   "NO_BREADCRUMBS_DETAILS" -- @ref David Jefferson
 description
@@ -277,24 +311,28 @@ description
  \ file containing information needed for subsequent verification that \
  \ the voter's ballot is included in the election canvass: no cookies \
  \ or other session files, no temporary files."
+
 scenario
   "TRANSIENT_DATA_CLEANUP" -- @ref David Jefferson
 description
   "The client software should explicitly erase (i.e., overwrite) all \
  \ transient copies of vote-transaction data, e.g. data in registers, \
  \ caches, RAM, and virtual memory."
+
 scenario
   "FORENSICALLY_SECURE" -- @ref David Jefferson
 description
   "It should not be possible even for client-side forensic tools to \
  \ retrieve any information regarding the voting transaction after the \
  \ voting session is ended."
+
 scenario
   "REMOTE_ADMINISTRATION_FORBIDDEN" -- @ref David Jefferson
 description
   "The voting system should not support platforms that have remote \
  \ administration or remote control tools installed that cannot be \
  \ turned off by the voter."
+
 scenario
   "INVUNERABLE_TO_ELECTION_MALWARE" -- @ref David Jefferson
 description
@@ -304,6 +342,7 @@ description
  -- of the voting system, but is absolutely essential.  Malware can be
  -- in many forms: completely phony or “alternative” client app,
  -- client wrapper, client-side MITM, browser plugin, client APT, etc.
+
 scenario
   "CLIENT_SYSTEM_AUTHENTICATION" -- @ref David Jefferson
 description
@@ -311,21 +350,25 @@ description
  \ with a genuine vote client during a voting session."
  -- This will complicate, but not eliminate, the possibility of
  -- client-side malware.  @see CLIENT_SIDE_AUTHENTICITY.
+
 scenario
   "PENETRATION_ATTACKS" -- @ref David Jefferson
 description
   "Deny penetration attacks. (DJ doesn't know what to write about \
  \ this.)"
+
 scenario
   "APT_ATTACKS" -- @ref David Jefferson
 description
   "Deny advanced persistent threat attacks.  (DJ doesn't know what to \
  \ write about this.)"
+
 scenario
   "INSIDER_ATTACKS" -- @ref David Jefferson
 description
   "Something about insider attacks being impossible.  (DJ doesn't know \
  \ what to write about this.)"
+
 scenario
   "COERCION_PREVENTION" -- @ref David Jefferson
 description
@@ -333,6 +376,7 @@ description
  \ information regarding how they voted in any race beyond what is \
  \ mathematically deducible from the final distribution of votes."
   -- @see RECEIPT_FREEDOM
+
 end
 
 scenario_chart CERTIFICATION_AND_RECERTIFICATION_REQUIREMENTS
