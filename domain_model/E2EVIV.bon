@@ -27,6 +27,9 @@ description
 cluster LEGAL_STANDARDS
 description
   "@todo"
+cluster PERSONAS
+description
+  "@todo"
 end
 
 -- @todo kiniry Fri Aug  8 2014 Clustering of core concepts to follow.

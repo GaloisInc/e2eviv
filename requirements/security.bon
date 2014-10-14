@@ -377,6 +377,11 @@ description
  \ mathematically deducible from the final distribution of votes."
   -- @see RECEIPT_FREEDOM
 
+scenario
+  "SOFTWARE_INDEPENDENCE" -- @ref Ron Rivest
+description
+  "The system must witness software independence: the tabulation \
+ \ record must not rely solely on software."
 end
 
 scenario_chart CERTIFICATION_AND_RECERTIFICATION_REQUIREMENTS
