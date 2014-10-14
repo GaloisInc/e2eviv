@@ -87,10 +87,10 @@ class INTERNET_ELECTION
 class SUPERVISED_ELECTION description "@todo"
 class REMOTE_ELECTION 
   description "An election in which some or all of the ballots \
-             \ are not cast at specified polling places."
+             \ are not cast at polling stations."
 class TRADITIONAL_ELECTION 
-  description "An election carried out entirely using physical 
-             \ ballots cast at specified polling places during \
+  description "An election carried out entirely using physical \
+             \ ballots cast at polling stations during \
              \ a fixed election period."
 class UNSUPERVISED_ELECTION description "@todo"
 class VERIFIABLE_ELECTION description "@todo"
@@ -179,8 +179,7 @@ class DISABLED
              \ that limits movements, senses, or activities."
 class EFFICIENT description "@todo"
 class REMOTE 
-  description "Located somewhere other than a specified \
-             \ election location."
+  description "Located somewhere other than a polling station."
 class ROBUST description "@todo"
 class PHYSICAL 
   description "Manifested as a tangible artifact."
@@ -286,12 +285,27 @@ explanation
  \ can express his or her choice of voting option. A ballot \ 
  \ contains a set of possible options, either candidates for \
  \ a position or courses of action to be taken."
+query
+  "Have you been cast?",
+  "Have you been spoiled?", 
+  "What choices do you represent?"
+command
+  "You are cast!",
+  "You are spoiled!",
+  "You represent the_choice!"
+constraint
+  "Initially, a ballot is not cast, not spoiled, and represents no choices.",
+  "Once a ballot is cast or spoiled, its choices cannot be changed.",
+  "Once a ballot is cast, it remains cast forever.",
+  "Once a ballot is spoiled, it remains spoiled forever.",
+  "A ballot cannot be both cast and spoiled."
 end
 
 class_chart PAPER_BALLOT
 explanation
   "A paper ballot is a ballot implemented using paper, which \
  \ the voter marks in some fashion to indicate his or her choice."
+inherit BALLOT
 end
 
 class_chart BALLOT_BOX
@@ -300,6 +314,21 @@ explanation
  \ being counted. It may take various forms, including physical \
  \ containers (from which the name derives) and electronic \
  \ storage media."
+query
+  "Are you full?",
+  "What is your capacity?",
+  "How many ballots do you contain?",
+  "What ballots do you contain?"
+command
+  "You contain the_ballot!",
+  "You no longer contain the_ballot!"
+constraint
+  "Only cast ballots may be added to the ballot box.",
+  "Ballots that are not in the ballot box cannot be \
+ \ removed from the ballot box.",
+  "Ballots may not be added to a full ballot box.",
+  "A ballot box is full if it contains a number of ballots \
+ \ equal to its capacity."
 end
 
 class_chart CANDIDATE
@@ -332,12 +361,26 @@ explanation
   "@todo"
 end
 
+class_chart DIGITAL_BALLOT
+explanation
+  "A digital ballot is a ballot comprised of one or more \
+ \ digital artifacts."
+inherit BALLOT
+end
+
+class_chart DIGITAL_BALLOT_BOX
+explanation
+  "A digital ballot box is the electronic means by which \
+ \ digital votes are stored pending being counted."
+inherit BALLOT_BOX
+end
+
 class_chart DIGITAL_SEAL
-inherit SEAL
 explanation
   "A digital seal is a piece of evidence that a digital \
  \ ballot box has not been tampered with. Such seals \
  \ typically take the form of cryptographic hashes."
+inherit SEAL
 end
 
 class_chart DISABLED
@@ -412,13 +455,13 @@ explanation
 end
 
 class_chart PHYSICAL_SEAL
-inherit SEAL
 explanation
   "A physical seal is a piece of material (such as tape) that \
  \ serves as evidence that a ballot box has not been opened. \
  \ Such a seal typically has a distinctive design and other \
  \ features that make it obvious when a sealed box has been \
  \ tampered with."
+inherit SEAL
 end
 
 class_chart POLLING_STATION
@@ -459,7 +502,7 @@ end
 
 class_chart REMOTE
 explanation
-  "@todo"
+  "Located somewhere other than a polling station."
 end
 
 class_chart RESULT
