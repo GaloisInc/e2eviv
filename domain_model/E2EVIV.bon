@@ -12,15 +12,16 @@
 
 system_chart E2EVIV_SYSTEM
 indexing
-  author: "Joseph Kiniry <kiniry@galois.com>";
+  author: "Joseph Kiniry <kiniry@galois.com>", "Daniel M. Zimmerman <dmz@galois.com>";
   organization: "Galois, Inc.";
   keywords: "OVF", "end-to-end verifiable internet voting", "e2e", "viv", 
     "verifiable elections", "software independence", 
     "high-assurance", "cryptography", "verification", "Galois";
   created: "Tue Jul 15 16:18:09 PDT 2014";
+  revised: "October 2014";
   github: "https://github.com/GaloisInc/e2eviv";
 explanation
-  "@todo"
+  "An end-to-end verifiable Internet voting system"
 cluster CORE_CONCEPTS
 description
   "@todo"
@@ -65,13 +66,17 @@ class EVOTING
   description "A voting process carried out with the aid of electronic devices."
 class INTERNET 
   description "A global system of interconnected computer networks."
-class PARTY description "@todo"
+class PARTY 
+  description "An organized group of people with at least roughly similar \
+             \ political aims and opinions, that seeks to influence public \
+             \ policy by getting its candidates elected to public office."
 class PRINCIPLE description "@todo"
 class PROCEDURE description "@todo"
 class SYSTEM description "@todo"
-class VOTING_CHANNEL description "@todo"
+class VOTING_CHANNEL 
+  description "Methods by which voters are enabled to vote in elections."
 cluster ELECTIONS 
-	description "Types and attributes of elections."
+  description "Types and attributes of elections."
 cluster PROCESSES description "@todo"
 end
 
@@ -106,20 +111,20 @@ class BALLOT_BOX
   description "The means by which votes are stored pending being \
              \ counted."
 class CANDIDATES_REGISTER 
-  description "The set of candidates standing for election."
+  description "A listing of the candidates standing for election."
 class REFERENDUM 
   description "A decision among two or more courses of action."
 class RESULT 
   description "The outcome of an election."
 class SEAL
   description "A device that provides evidence for the integrity \
-             \ of a ballot box."
+             \ of an object."
 class TALLY 
   description "The count of all the votes in an election."
 class VOTE 
   description "The expression of the choice of voting option."
 class VOTERS_REGISTER 
-  description "The set of eligible voters for an election."
+  description "A listing of the eligible voters for an election."
 class VOTING_INTERFACE 
   description "The medium through which a voter makes his or \
              \ her choices of voting option known to the voting \
@@ -148,7 +153,7 @@ class PAPER_VOTE
   description "A vote expressed with a paper ballot."
 class PHYSICAL_SEAL 
   description "A piece of material that serves as evidence that \
-             \ a physical ballot box has not been opened."
+             \ a physical artifact has not been tampered with."
 end
 
 cluster_chart DIGITAL_ARTIFACTS
@@ -163,7 +168,7 @@ class DIGITAL_VOTE
   description "A vote expressed with a digital ballot."
 class DIGITAL_SEAL
   description "A digital artifact that serves as evidence that \
-             \ a digital ballot box has not been tampered with."
+             \ another digital artifact has not been tampered with."
 end
 
 cluster_chart PROPERTIES
@@ -199,13 +204,21 @@ class AUDIT
   description "A review of the election artifacts to detect \ 
              \ abnormalities and errors."
 class CANDIDATE_REGISTRATION 
-  description "The process by which a candidate is added to the ballot."
-class CANDIDATE_VALIDATION description "@todo"
+  description "The process by which a candidate is added to \
+             \ the candidates register."
+class CANDIDATE_VALIDATION 
+  description "The process by which a candidate's identity and \
+             \ eligibility to stand for election are verified."
 class VOTER_REGISTRATION 
-  description "The process by which a member of the electorate adds himself \
+  description "The process by which a member of the electorate is added \
              \ to the voter register."
-class VOTER_VALIDATION description "@todo"
-class VERIFICATION description "@todo"
+class VOTER_VALIDATION 
+  description "The process by which a voter's identity and \
+             \ eligibility to vote are verified."
+class VERIFICATION 
+  description "A process by which the the election protocols, \
+             \ processes, and device implementations are proven \
+             \ to be correct with respect to their specifications."
 end
 
 cluster_chart ACTIONS
@@ -215,11 +228,11 @@ class AUTHENTICATE description "@todo"
 class REGISTER_VOTER 
   description "The addition of a voter to the voters register."
 class REGISTER_CANDIDATE 
-  description "The addition of a candidate to the ballot."
+  description "The addition of a candidate to the candidates register."
 class UNREGISTER_VOTER
   description "The removal of a voter from the voters register."
 class UNREGISTER_CANDIDATE
-  description "The removal of a candidate from the ballot."
+  description "The removal of a candidate from the candidates register."
 end
 
 cluster_chart ELECTION_PROPERTIES
@@ -272,6 +285,14 @@ explanation
  \ disabled.  The details of such a notion are often codified in \
  \ federal law (e.g., U.S. Section 508) and are the results of \
  \ researchers focused on user experiences for the disabled."
+end
+
+class_chart AUDIT
+explanation
+  "An audit is a review of the election artifacts to detect \ 
+ \ abnormalities and errors."
+query
+  "Were any errors detected?"
 end
 
 class_chart AUTHENTICATE
@@ -342,6 +363,19 @@ explanation
   "@todo"
 end
 
+class_chart CANDIDATES_REGISTER
+explanation
+  "A candidates' register contains all the candidates \
+ \ standing for election."
+query
+  "Is the_candidate in the register?"
+command
+  "Add the_candidate to the register!",
+  "Remove the_candidate from the register!"
+constraint
+  "A candidate may not be added to the register more than once."
+end
+
 class_chart CONFIDENT
 explanation
   "@todo"
@@ -378,7 +412,7 @@ end
 class_chart DIGITAL_SEAL
 explanation
   "A digital seal is a piece of evidence that a digital \
- \ ballot box has not been tampered with. Such seals \
+ \ artifact has not been tampered with. Such seals \
  \ typically take the form of cryptographic hashes."
 inherit SEAL
 end
@@ -457,10 +491,10 @@ end
 class_chart PHYSICAL_SEAL
 explanation
   "A physical seal is a piece of material (such as tape) that \
- \ serves as evidence that a ballot box has not been opened. \
- \ Such a seal typically has a distinctive design and other \
- \ features that make it obvious when a sealed box has been \
- \ tampered with."
+ \ serves as evidence that a physical artifact has not been \
+ \ tampered with. Such a seal typically has a distinctive design \
+ \ and other features that make it obvious when a sealed artifact \
+ \ has been tampered with."
 inherit SEAL
 end
 
@@ -517,10 +551,23 @@ end
 
 class_chart SEAL
 explanation 
-  "A seal provides some evidence of the integrity of a \
- \ ballot box. Its form depends on the form of the ballot \
- \ box and the ballots within, as well as other system \
+  "A seal provides some evidence of the integrity of another \
+ \ entity (such as a ballot or ballot box). Its form depends on \
+ \ the form of the entity being sealed, as well as other system \
  \ characteristics."
+query
+  "Are you applied?",
+  "What are you applied to?",
+  "Are you broken?"
+command
+  "Apply yourself to the_entity!",
+  "Break!"
+constraint
+  "A seal is initially not applied.",
+  "A seal may only be applied if it has not been previously applied.",
+  "A seal may only be broken if it has not been previously broken.",
+  "Once applied, a seal remains applied forever.",
+  "Once broken, a seal remains broken forever."
 end
 
 class_chart SECURITY
@@ -562,6 +609,10 @@ class_chart VOTE
 explanation
   "A vote is an expression of the choice of voting option made by \
  \ a voter during an election."
+query
+  "What choice do you represent?"
+command
+  "You represent the_choice!"
 end
 
 class_chart VOTER
@@ -591,7 +642,18 @@ end
 
 class_chart VOTERS_REGISTER
 explanation
-  "A voters' register is a set containing all the voters \
- \ eligible to vote in an election, as well as information \
+  "A voters' register contains all the voters eligible \
+ \ to vote in an election, as well as information \
  \ indicating whether each has actually voted."
+query
+  "Is the_voter in the register?",
+  "Has the_voter voted?"
+command
+  "Add the_voter to the register!",
+  "Remove the_voter from the register!",
+  "the_voter has voted!"
+constraint
+  "A voter may not be added to the register more than once.",
+  "A voter may not be removed from the register if he has voted.",
+  "Once a voter is marked as having voted, he remains so marked forever."
 end
