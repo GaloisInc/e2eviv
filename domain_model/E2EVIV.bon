@@ -31,6 +31,7 @@ description
 cluster PERSONAS
 description
   "@todo"
+  -- dmz: it is not clear to me how this is meant to differ from PEOPLE
 end
 
 -- @todo kiniry Fri Aug  8 2014 Clustering of core concepts to follow.
@@ -160,7 +161,7 @@ cluster_chart DIGITAL_ARTIFACTS
 explanation
   "Digital artifacts relevant to election day."
 class DIGITAL_BALLOT 
-  description "A ballot comprised of one or more digital artifacts."
+  description "A digital manifestation of a paper ballot record."
 class DIGITAL_BALLOT_BOX 
   description "The electronic means by which digital votes are \
              \ stored pending being counted."
@@ -224,7 +225,8 @@ end
 cluster_chart ACTIONS
 explanation
   "State transitions that take place in the course of an election."
-class AUTHENTICATE description "@todo"
+class AUTHENTICATE 
+  description "@todo"
 class REGISTER_VOTER 
   description "The addition of a voter to the voters register."
 class REGISTER_CANDIDATE 
@@ -239,15 +241,23 @@ cluster_chart ELECTION_PROPERTIES
 explanation
   "Properties specific to elections."
 class SECURITY description "@todo"
-cluster SCOPE description "@todo"
+cluster SCOPE 
+  description "The geographic or logical area affected by an election."
 end
 
 cluster_chart SCOPE
 explanation
   "The geographic or logical area affected by an election."
-class LOCAL description "@todo"
-class NATIONAL description "@todo"
-class REGIONAL description "@todo"
+class INTERNATIONAL
+  description "A scope comprised of multiple nations."
+class LOCAL 
+  description "A scope comprised of a single locality or \
+             \ small group of localities."
+class NATIONAL 
+  description "A scope comprised of a single nation."
+class REGIONAL
+  description "A scope comprised of a large group of localities \
+             \ or a single state, territory, or similar region"
 end
 
 cluster_chart SYSTEM_PROPERTIES
@@ -256,18 +266,32 @@ explanation
 class ACCESSIBLE
   description "An artifact is accessible if it is usable and useful to \
              \ the disabled."
-class RELIABLE description "@todo"
-class USABLE description "@todo"
+class RELIABLE 
+  description "An artifact is reliable if it is guaranteed to be \
+             \ available for use, and to work properly, for a \
+             \ specified percentage of time."
+class USABLE 
+  description "An artifact is usable if it can successfully be \
+             \ used for its stated purpose."
 end
 
 cluster_chart PEOPLE
 explanation
   "The people that are part of an electoral system."
-class CANDIDATE description "@todo"
-class CITIZEN description "@todo"
-class ELECTORAL_AUTHORITY description "@todo"
+class CANDIDATE 
+  description "A citizen who is standing for election."
+class CITIZEN 
+  description "A person who legally belongs to a place and \ 
+             \ has the rights and protections of that place."
+  -- dmz: should we distinguish between CITIZEN and RESIDENT, or
+  -- is CITIZEN effectively "RESIDENT at a particular election's SCOPE"?
+  -- does CITIZEN automatically mean "has the right to vote"?
+class ELECTORAL_AUTHORITY 
+  description "An individual or group responsible for setting up, \
+ \ running, and disclosing the results of an election."
 class IDENTITY description "@todo"
-class VOTER description "@todo"
+class VOTER 
+  description "A citizen who is eligible to vote in an election."
 end
 
 cluster_chart LEGAL_STANDARDS
@@ -360,7 +384,11 @@ end
 
 class_chart CITIZEN
 explanation
-  "@todo"
+  "A citizen is a person who legally belongs to a place and \ 
+ \ has the rights and protections of that place. The place can \
+ \ be at any election scope; for example, a particular person \
+ \ may be a citizen of the United States, of Oregon, and of \
+ \ Portland simultaneously."
 end
 
 class_chart CANDIDATES_REGISTER
@@ -461,6 +489,12 @@ explanation
   "@todo"
 end
 
+class_chart INTERNATIONAL
+explanation
+  "An international scope is comprised of multiple nations; \
+ \ for example, the European Union."
+end
+
 class_chart INTERNET
 explanation
   "The Internet is a global system of interconnected computer \
@@ -475,12 +509,13 @@ end
 
 class_chart LOCAL
 explanation
-  "@todo"
+  "A local scope is comprised of a single locality or a small \
+ \ group of localities. Examples include individual towns and counties."
 end
 
 class_chart NATIONAL
 explanation
-  "@todo"
+  "A national scope is comprised of a single nation."
 end
 
 class_chart PARTY
@@ -526,12 +561,21 @@ end
 
 class_chart REGIONAL
 explanation
-  "@todo"
+  "A regional scope is comprised of a large group of localities \
+ \ or a single state, territory, or similar region. For example, \
+ \ the state of California."
 end
 
 class_chart RELIABLE
 explanation
-  "@todo"
+  "An artifact is reliable if it is guaranteed to be \
+ \ available for use, and to work properly, for a \
+ \ specified percentage of time."
+query
+  "What is your reliability percentage?"
+constraint
+  "The reliability percentage must be between 0 and 100, \
+ \ inclusive"
 end
 
 class_chart REMOTE

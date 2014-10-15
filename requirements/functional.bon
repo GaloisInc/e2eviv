@@ -38,10 +38,6 @@ description
   "There must be no way for voters to prove to another party any \
  \ information regarding how they voted in any race (beyond what is \
  \ mathematically deducible from the final distribution of votes)."
-  -- dmz: I believe this to be impossible with an Internet voting
-  -- system - as it is, in fact, today at regular polling places -
-  -- because a voter can simply videorecord their screen with an 
-  -- external camera, such as on their cellphone, as they vote
   
 scenario
   "VALID_BALLOT_PROVENANCE" -- @ref David Jefferson
