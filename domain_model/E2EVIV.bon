@@ -74,8 +74,8 @@ class PRINCIPLE
 class PROCEDURE 
   description "An established or official way of doing something."
 class SYSTEM 
-  description "A set of connected digital and physical parts, including computers,
-               people, organizations, and more, forming a complex whole."
+  description "A set of connected digital and physical parts, including computers, \
+             \ people, organizations, and more, forming a complex whole."
 class VOTING_CHANNEL 
   description "Methods by which voters are enabled to vote in elections."
 cluster ELECTIONS 
@@ -97,7 +97,7 @@ class INTERNET_ELECTION
 class SUPERVISED_ELECTION 
   description "An election where election officials, and perhaps the public, \
              \ watch over the election, primarily to ensure that voters have \
-             \ privacy when voting.
+             \ privacy when voting."
 class REMOTE_ELECTION 
   description "An election in which some or all of the ballots \
              \ are not cast at polling stations."
@@ -106,7 +106,8 @@ class TRADITIONAL_ELECTION
              \ ballots cast at polling stations during \
              \ a fixed election period."
 class UNSUPERVISED_ELECTION 
-  description "An election where 
+  description "An election where there are no observers ensuring voter \
+             \ privacy."
 class VERIFIABLE_ELECTION 
   description "An election scheme whereby one or more formal \
              \ properties of the election can be independently checked \
