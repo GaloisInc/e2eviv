@@ -27,7 +27,7 @@ description
  \ in order to participate and vote."
 
 -- @ref Rec(2004)11 Voters
-scenario "PUBLIC_VOTER_REGISTER" -- @ref Rec(2004)11 Appendix II, II. 39.
+scenario "VOTER_VERIFIABLE_VOTER_REGISTER" -- @ref Rec(2004)11 Appendix II, II. 39.
 description
   "There shall be a voters' register that is regularly updated.  The \
  \ voter shall be able to check, as a minimum, the information that is \
@@ -62,9 +62,9 @@ description
 -- @ref Rec(2004)11 Voting
 scenario "MULTIPLE_CHANNELS_ONE_VOTE" -- @ref Rec(2004)11 Appendix II, IV. 44.
 description
-  "It is particularly important, where remote e-voting takes place \
- \ while polling stations are open, that the system shall be so \
- \ designed that it prevents any voter from voting more than once."
+  "Where remote e-voting takes place while polling stations are open, \
+ \ the system shall be so designed that it prevents any voter from \
+ \ voting more than once."
 
 scenario "VOTING_PERIOD_INVARIANT" -- @ref Rec(2004)11 Appendix II, IV. 45.
 description
@@ -77,7 +77,7 @@ description
   "For every e-voting channel, support and guidance arrangements on \
  \ voting procedures shall be set up for, and be available to, the \
  \ voter.  In the case of remote e-voting, such arrangements shall also \
- \ be available through a different, widely available communication \
+ \ be available through a different, widely-available communication \
  \ channel."
 
 scenario "FAIR_VOTING_OPTIONS" -- @ref Rec(2004)11 Appendix II, IV. 47.
@@ -160,7 +160,7 @@ description
 scenario "INTEGRITY_VIOLATION_RECORD" -- @ref Rec(2004)11 Appendix II, V. 58.
 description
   "In the event of any irregularity affecting the integrity of votes, \
- \ the affected votes shall be recorded as such."
+ \ the affected votes shall be recorded as having their integrity violated."
 
 -- @ref Rec(2004)11 Audit
 scenario "SYSTEM_AUDITABILITY" -- @ref Rec(2004)11 Appendix II, VI. 59.
@@ -175,15 +175,15 @@ description
 scenario
   "OPEN_SYSTEM" -- @ref David Jefferson
 description
-  "An Internet voting system is an open system, meaning that large \
- \ parts of it (the mix of client hardware and software in fact) are \
- \ unknown, unsecured, uncertified, and completely out of control \
- \ of election officials."
+  "The e-voting system must function correctly as an open system, \
+ \ where large parts (the mix of client hardware and software in \
+ \ fact) are unknown, unsecured, uncertified, and completely out \
+ \ of control of election officials."
 
 scenario
   "SUPPORTED_CLIENTS" -- @ref David Jefferson
 description
-  "Operators of voting system must document exactly what client \
+  "Operators of voting systems must document exactly what client \
  \ configurations are required or supported, including: \
  \  - versions of hardware platforms (PCs, mobile devices, etc.) \
  \  - versions of specific operating systems for those platforms \
@@ -193,21 +193,21 @@ description
 scenario
   "CLIENT_INTERFERENCE" -- @ref David Jefferson
 description
-  "Operators of voting system must document exactly which common \
+  "Operators of voting systems must document exactly which common \
  \ components, plugins, or other software interfere with voting (e.g., \
  \ flash blockers, popup blockers, script blockers, etc.)."
 
 scenario
   "MANDATORY_CLIENT_TECHNOLOGY" -- @ref David Jefferson
 description
-  "Operators of voting system must document exactly what configuration \
+  "Operators of voting systems must document exactly what configuration \
  \ choices the voter must make to successfully vote (e.g., mandate \
  \ Javascript)."
 
 scenario
   "PRIVACY_ENHANCING_VOTER_OPTIONS" -- @ref David Jefferson
 description
-  "Operators of voting system must document exactly what configuration \
+  "Operators of voting systems must document exactly what configuration \
  \ choices the voter might wish to make to more strongly protect \
  \ his/her vote privacy; e.g., disable cookies, run privacy-protecting \
  \ browser plugins, vote from virtual machine that is later destroyed, \

@@ -7,7 +7,7 @@ explanation
 -- @ref Rec(2004)11 Transparency
 scenario "VOTER_COMPREHENSION_AND_CONFIDENCE" -- @ref Rec(2004)11 Appendix I, B. I. 20.
 description
-  "Member states shall take steps to ensure that voters understand and \
+  "The electoral authority shall take steps to ensure that voters understand and \
  \ have confidence in the e-voting system in use."
 
 scenario "PUBLIC_SYSTEM_FUNCTION" -- @ref Rec(2004)11 Appendix I, B. I. 21.
@@ -57,7 +57,7 @@ description
 -- @ref Rec(2004)11 Reliability and security
 scenario "RELIABILITY_AND_SECURITY" -- @ref Rec(2004)11 Appendix I, B. III. 28.
 description
-  "The member state's authorities shall ensure the reliability and \
+  "The electoral authority shall ensure the reliability and \
  \ security of the e-voting system."
 
 scenario "NO_FRAUD_OR_INTERVENTION" -- @ref Rec(2004)11 Appendix I, B. III. 29.
@@ -93,7 +93,7 @@ scenario "OPEN_BALLOT_BOX_INVARIANTS" -- @ref Rec(2004)11 Appendix I, B. III. 33
 description
   "While an electronic ballot box is open, any authorised intervention \
  \ affecting the system shall be carried out by teams of at least two \
- \ people, be the subject of a report, be monitored by \
+ \ people, be the subject of a report, and be monitored by \
  \ representatives of the competent electoral authority and any \
  \ election observers."
 
