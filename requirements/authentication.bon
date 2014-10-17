@@ -25,8 +25,8 @@ description
 scenario
   "SECRET_AUTHENTICATION_SHARED_SECRETS" -- @ref David Jefferson
 description
-  "Authentication must not use personal information, government or \
- \ commercial account identifiers, etc."
+  "Authentication for remote voting systems must not use personal \
+ \ information, government or commercial account identifiers, etc."
 
 scenario
   "AUTHENTICATION_DATA_UPDATES" -- @ref David Jefferson
@@ -40,7 +40,7 @@ scenario
 description
   "All voter authentication secrets must be changed at least once in \
  \ every election cycle."
-  -- "two-year" election cycle is too U.S. Federal election-centric
+
 end
 
 

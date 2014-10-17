@@ -5,12 +5,12 @@ explanation
   "Requirements relating to the functional certification of digital \
  \ election systems and elections."
 
-scenario "AUTOMATED_TESTING"
+scenario "AUTOMATED_TESTING" -- @ref Kiniry/Zimmerman
 description
   "Each functional requirement must have an associated set of automated \
  \ tests that provide evidence that the requirement is fulfilled."
   
-scenario "ELECTION_PROTOCOL_PROOFS"
+scenario "ELECTION_PROTOCOL_PROOFS" -- @ref Kiniry/Zimmerman
 description
   "The election protocol shall have associated formal proofs of correctness \
  \ and security."
