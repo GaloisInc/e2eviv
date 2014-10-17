@@ -4,6 +4,14 @@ indexing
 explanation
   "General requirements for accessibility of digital election systems."
 
+scenario
+  "MANDATORY_ACCESSIBILITY_TESTING" -- @ref Kiniry/Zimmerman
+description
+  "Accessibility testing for disabled and abled voters shall be performed, \
+ \ and the reports of the testing made public. The system must achieve \
+ \ satisfactory accessibility testing results before being used in a \
+ \ binding election."
+
 -- @ref Rec(2004)11 Accessibility
 scenario "UNIVERSAL_ACCESSIBILITY" -- @ref Rec(2004)11 Appendix III, A. 61.
 description
@@ -21,9 +29,7 @@ scenario "USER_FACILITIES_FOR_ACCESSIBILITY" -- @ref Rec(2004)11 Appendix III, A
 description
   "Users shall be supplied, whenever required and possible, with \
  \ additional facilities, such as special interfaces or other \
- \ equivalent resources, such as personal assistance.  User facilities \
- \ shall comply as much as possible with the guidelines set out in \
- \ the Web Accessibility Initiative (WAI)."
+ \ equivalent resources, such as personal assistance."
 
 scenario "COMPLEMENT_ACCESSIBILITY_TECHNOLOGIES" -- @ref Rec(2004)11 Appendix III, A. 64.
 description

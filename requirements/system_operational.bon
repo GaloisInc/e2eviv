@@ -6,51 +6,62 @@ explanation
  \ systems."
 
 -- @ref Rec(2004)11 Systems Operation
-scenario "SYSTEM_MANIFEST" -- @ref Rec(2004)11 Appendix III, C. 69.
+scenario "PUBLIC_SYSTEM_MANIFEST" -- @ref derived from Rec(2004)11 Appendix III, C. 69.
 description
-  "The competent electoral authorities shall publish an official list \
- \ of the software used in an e-election or e-referendum.  Member \
- \ states may exclude from this list data protection software for \
- \ security reasons.  At the very least it shall indicate the software \
- \ used, the versions, its date of installation and a brief \
- \ description.  A procedure shall be established for regularly \
- \ installing updated versions and corrections of the relevant \
- \ protection software.  It shall be possible to check the state of \
- \ protection of the voting equipment at any time."
+  "The electoral authority shall publish an official manifest of the \
+ \ software used in an e-election or e-referendum.  It may exclude \
+ \ from the public manifest data protection software for security \
+ \ reasons. At the very least the manifest shall indicate the software \
+ \ used, the versions, its date of installation and a brief description. \
+ \ A procedure shall be established for updating the manifest to reflect \
+ \ changes to the installed software."
+ 
+scenario "PRIVATE_SYSTEM_MANIFEST" -- @ref derived from Rec(2004)11 Appendix III, C. 69.
+description
+  "The electoral authority shall maintain a manifest of all software, \
+ \ including data protection software, used in the system. This manifest \
+ \ shall contain at least the same information as the public manifest. \
+ \ A procedure shall be established for updating the manifest to reflect \
+ \ changes to the installed software."
+
+scenario "MANIFEST_ACCURACY" -- @ref derived from Rec(2004)11 Appendix III, C. 69.
+description
+  "It shall be possible for the electoral authority to check the installed \
+ \ software against the system manifests at any time."
 
 scenario "SYSTEM_FAILOVER_INVARIANTS" -- @ref Rec(2004)11 Appendix III, C. 70.
 description
   "Those responsible for operating the equipment shall draw up a \
- \ contingency procedure.  Any backup system shall conform to the same \
- \ standards and requirements as the original system."
+ \ contingency procedure for system failures.  Any backup system shall \
+ \ conform to the same standards and requirements as the original system."
 
 scenario "DATA_BACKUP_INVARIANTS" -- @ref Rec(2004)11 Appendix III, C. 71.
 description
   "Sufficient backup arrangements shall be in place and be permanently \
  \ available to ensure that voting proceeds smoothly.  The staff \
  \ concerned shall be ready to intervene rapidly according to a \
- \ procedure drawn up by the competent electoral authorities."
+ \ procedure drawn up by the electoral authority."
 
 scenario "SYSTEM_INVARIANTS_DURING_ELECTION" -- @ref Rec(2004)11 Appendix III, C. 72.
 description
   "Those responsible for the equipment shall use special procedures to \
  \ ensure that during the polling period the voting equipment and its \
  \ use satisfy requirements.  The backup services shall be regularly \
- \ supplied with monitoring protocols."
+ \ monitored."
 
 scenario "PRE_ELECTION_CERTIFICATION_INVARIANTS" -- @ref Rec(2004)11 Appendix III, C. 73.
 description
   "Before each election or referendum, the equipment shall be checked \
- \ and approved in accordance with a protocol drawn up by the competent \
- \ electoral authorities.  The equipment shall be checked to ensure that \
+ \ and approved in accordance with a protocol drawn up by the \
+ \ electoral authority.  The equipment shall be checked to ensure that \
  \ it complies with technical specifications.  The findings shall be \
- \ submitted to the competent electoral authorities."
+ \ submitted to the electoral authority."
 
 scenario "FORMAL_CONTROL_PROCEDURE" -- @ref Rec(2004)11 Appendix III, C. 74.
 description
   "All technical operations shall be subject to a formal control \
  \ procedure.  Any substantial changes to key equipment shall be \
- \ notified."
+ \ performed with advance notice."
 
 scenario "PHYSICAL_SECURITY_OF_SYSTEMS_INVARIANTS" -- @ref Rec(2004)11 Appendix III, C. 75.
 description
@@ -66,9 +77,16 @@ scenario "INCIDENT_RESPONSE_INVARIANTS" -- @ref Rec(2004)11 Appendix III, C. 76.
 description
   "Where incidents that could threaten the integrity of the system \
  \ occur, those responsible for operating the equipment shall \
- \ immediately inform the competent electoral authorities, who will \
+ \ immediately inform the electoral authority, which will \
  \ take the necessary steps to mitigate the effects of the \
  \ incident.  The level of incident that shall be reported shall be \
- \ specified in advance by the electoral authorities."
+ \ specified in advance by the electoral authority."
+
+scenario "OPERATIONAL_TRANSPARENCY" -- @ref Kiniry/Zimmerman
+description
+  "A report containing every manifest change, every data or system \
+ \ invariant violation, every control procedure violation, and every \
+ \ physical security violation shall be prepared and made public by \
+ \ the electoral authority after every election."
 
 end

@@ -67,8 +67,8 @@ description
 scenario
   "DDOS_REFRESH_PERIODICITY" -- @ref David Jefferson
 description
-  "The DDOS threshold (initially 100 Gb/s) should be evaluated every \
- \ two year election cycle to see if it has to be raised due to newer \
+  "The DDoS threshold (initially 100 Gb/s) should be evaluated every \
+ \ election cycle to see if it has to be raised due to newer \
  \ DDoS attack technologies."
 
 scenario

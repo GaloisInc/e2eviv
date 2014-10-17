@@ -42,7 +42,7 @@ description
 
 scenario "AUDIT_DATA_SECURITY" -- @ref Rec(2004)11 Appendix III, E. IIi. 105.
 description
-  "Disclosure of the audit information to unauthorised persons shall \
+  "Disclosure of the audit information to unauthorized persons shall \
  \ be prevented."
 
 scenario "AUDIT_DATA_SECRECY" -- @ref Rec(2004)11 Appendix III, E. III. 106.
@@ -54,15 +54,14 @@ scenario "AUDIT_SYSTEM_CAPABILITY" -- @ref Rec(2004)11 Appendix III, E. IV. 107.
 description
   "The audit system shall provide the ability to cross-check and \
  \ verify the correct operation of the e-voting system and the accuracy \
- \ of the result, to detect voter fraud and to prove that all counted \
+ \ of the result, to detect voter fraud, and to prove that all counted \
  \ votes are authentic and that all votes have been counted."
 
 scenario "AUDIT_SYSTEM_FOR_LEGAL_COMPLIANCE" -- @ref Rec(2004)11 Appendix III, E. IV. 108.
 description
   "The audit system shall provide the ability to verify that an \
  \ e-election or e-referendum has complied with the applicable legal \
- \ provisions, the aim being to verify that the results are an accurate \
- \ representation of the authentic votes."
+ \ provisions."
 
 -- @ref Rec(2004)11 Audit, II. Other
 scenario "AUDIT_DATA_VALIDITY" -- @ref Rec(2004)11 Appendix III, E. V. 109.
@@ -72,7 +71,7 @@ description
 
 scenario "AUDIT_DATA_CONFIDENTIALITY" -- @ref Rec(2004)11 Appendix III, E. V. 110.
 description
-  "Member states shall take adequate steps to ensure that the \
+  "The electoral authority shall take adequate steps to ensure that the \
  \ confidentiality of any information obtained by any person while \
  \ carrying out auditing functions is guaranteed."
 
@@ -116,15 +115,13 @@ scenario
   "VERIFICATION_PARTIAL_FAILURE" -- @ref David Jefferson
 description
   "The system, in the event that it does not verify the online \
- \ votes cast, must be capable of giving a close upper bound on the \
+ \ votes cast, must be capable of giving an upper bound on the \
  \ number of ballots that may have been affected."
- -- This will guide officials of courts in their decision regarding
- -- what to do.
 
 scenario
   "VERIFICATION_SOURCE" -- @ref David Jefferson
 description
-  "Official verification applications, like voting software, must be \
- \ published in source form along with documentation, build \
+  "Official verification applications, like the voting software itself, \
+ \ must be published in source form along with documentation, build \
  \ directions, and a standard cryptographic hash of the source code."
 end

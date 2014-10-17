@@ -5,6 +5,14 @@ explanation
   "General usability requirements of digital elections systems."
 
 scenario
+  "MANDATORY_USABILITY_TESTING" -- @ref Kiniry/Zimmerman
+description
+  "Usability testing for disabled and abled voters shall be performed, \
+ \ and the reports of the testing made public. The system must achieve \
+ \ satisfactory usability testing results before being used in a \
+ \ binding election."
+  
+scenario
   "VOTE_CONFIRMATION" -- @ref David Jefferson
 description
   "If a voter receives the final `Thank you for voting' confirmation, \
