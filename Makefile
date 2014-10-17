@@ -1,6 +1,6 @@
 INFORMAL_BON_FILES = domain_model/E2EVIV.bon
 FORMAL_BON_FILES = 
-REQUIREMENTS = requirements/accessibility.bon requirements/assurance.bon requirements/auditing.bon requirements/authentication.bon requirements/certification.bon requirements/e2eviv.bon requirements/evolvability.bon requirements/functional.bon requirements/interoperability.bon requirements/legal.bon requirements/maintainence.bon requirements/non-functional.bon requirements/operational.bon requirements/procedural.bon requirements/reliability.bon requirements/security.bon requirements/system_operational.bon requirements/technical.bon requirements/usability.bon
+REQUIREMENTS = requirements/accessibility.bon requirements/assurance.bon requirements/auditing.bon requirements/authentication.bon requirements/certification.bon requirements/e2eviv.bon requirements/evolvability.bon requirements/functional.bon requirements/interoperability.bon requirements/legal.bon requirements/maintenance.bon requirements/non-functional.bon requirements/operational.bon requirements/procedural.bon requirements/reliability.bon requirements/security.bon requirements/system_operational.bon requirements/technical.bon requirements/usability.bon
 BON_FILES = $(INFORMAL_BON_FILES) $(FORMAL_BON_FILES) $(REQUIREMENTS)
 
 .PHONY: all bonc
