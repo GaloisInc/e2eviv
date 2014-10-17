@@ -384,6 +384,13 @@ description
  \ record must not rely solely on software."
 end
 
+scenario
+  "DIGITAL_EVIDENCE_NOT_A_RECEIPT"
+description
+  "Digital evidence (e.g., photographing a ballot or video recording \
+ \ the casting process) of the voting process must not violate receipt \
+ \ freedom."
+
 scenario_chart CERTIFICATION_AND_RECERTIFICATION_REQUIREMENTS
 indexing
   partof: "SECURITY_REQUIREMENTS"
