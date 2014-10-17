@@ -7,13 +7,13 @@ explanation
 scenario
   "CASTING_ATOMIC" -- @ref David Jefferson
 description
-  "Ballot casting should be atomic with respect to server failures."
+  "Ballot casting shall be atomic with respect to server failures."
 
 scenario
   "DETERMINISTIC_VOTING_PROCESS" -- @ref David Jefferson
 description
   "If a server side failure occurs, no voter's balloting can be \
- \ left in an intermediate state."
+ \ left in an unknown state."
 
 scenario
   "BALLOT_FINAL_STATES" -- @ref David Jefferson
@@ -43,24 +43,21 @@ scenario
   "VALID_BALLOT_PROVENANCE" -- @ref David Jefferson
 description
   "Once it is determined that a ballot will be counted, the ballot \
- \ should be irrevocably separated from the identification of the \
- \ voter who cast it.  It must be information theoretically impossible \
- \ to determine who cast a particular ballot, or what ballot was cast \
- \ by a particular voter."
+ \ shall be irrevocably separated from the identification of the \
+ \ voter who cast it."
  
 scenario
   "MULTI_BALLOT_RECORD" -- @ref David Jefferson
 description
   "If the voting system permits voters to modify or replace their \
- \ previously cast ballots, the system should retain only the latest \
- \ votes in each race, and retain no record of the previous modified \
- \ votes."
+ \ previously cast ballots, only the latest vote by each voter in \
+ \ each race shall be counted in the final tally."
 
 scenario
   "NO_DOUBLE_VOTE" -- @ref David Jefferson
 description
   "But for systems supporting MULTI_BALLOT_RECORD, the voting system \
- \ should not record more than one vote for any voter in any race."
+ \ shall not record more than one vote for any voter in any race."
 
 scenario
   "NO_ADVERTISING" -- @ref David Jefferson

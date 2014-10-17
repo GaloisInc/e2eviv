@@ -4,6 +4,16 @@ indexing
 explanation
   "Requirements relating to the functional certification of digital \
  \ election systems and elections."
+
+scenario "AUTOMATED_TESTING"
+description
+  "Each functional requirement must have an associated set of automated \
+ \ tests that provide evidence that the requirement is fulfilled."
+  
+scenario "ELECTION_PROTOCOL_PROOFS"
+description
+  "The election protocol shall have associated formal proofs of correctness \
+ \ and security."
 end
 
 scenario_chart CERTIFICATION_NON_FUNCTIONAL_REQUIREMENTS
@@ -14,22 +24,12 @@ explanation
  \ election systems and elections."
 
 -- @ref Rec(2004)11 Certification
-scenario "" -- @ref Rec(2004)11 Appendix III, F. 111.
+scenario "CERTIFICATION_PROCESSES" -- @ref Rec(2004)11 Appendix III, F. 111.
 description
-  "Member states shall introduce certification processes that allow \
+  "The electoral authority shall introduce certification processes that allow \
  \ for any ICT (Information and Communication Technology) component to \
  \ be tested and certified as being in conformity with technical \
  \ requirements."
-
-scenario "" -- @ref Rec(2004)11 Appendix III, F. 112.
-description
-  "In order to enhance international co-operation and avoid \
- \ duplication of work, member states shall consider whether their \
- \ respective agencies shall join, if they have not done so already, \
- \ relevant international mutual recognition arrangements such as the \
- \ European Co-operation for Accreditation (EA), the International \
- \ Laboratory Accreditation Co-operation (ILAC), the International \
- \ Accreditation Forum (IAF) and other bodies of a similar nature."
 
 scenario
   "CERTIFICATION_PARTIES_COMPETENCE" -- @ref David Jefferson
@@ -57,12 +57,10 @@ description
  \ vulnerabilities, changes in law, or changes in threat environment."
 
 scenario
-  "RECERTIFIED_PERIODICITY" -- @ref David Jefferson
+  "RECERTIFICATION_PERIODICITY" -- @ref David Jefferson
 description
-  "The requirements must be re-established and \
- \ recertified every four years even if there are no changes, as the \
- \ relevant threat environment will certainly have changed, or at \
- \ least must be re-evaluated to see if it has."
+  "The requirements must be re-established and recertified every \
+ \ election cycle even if there are no changes."
 
 scenario
   "VALIDATION_PLATFORM_COVERAGE" -- @ref David Jefferson
@@ -73,6 +71,6 @@ description
 scenario
   "PUBLIC_VALIDATION_PLATFORM_COVERAGE_RESULTS" -- @ref David Jefferson
 description
-  "All test results for platform coverage must be public."
+  "All test procedures and results for platform coverage must be public."
 
 end

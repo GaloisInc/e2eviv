@@ -55,7 +55,7 @@ description
 scenario -- @ref Rec(2004)11 Appendix I, A. III. 9.
   "FREE_SUFFRAGE"
 description
-  "The organisation of e-voting shall secure the free formation and \
+  "The organization of e-voting shall secure the free formation and \
  \ expression of the voter's opinion and, where required, the \
  \ personal exercise of the right to vote."
 
@@ -105,7 +105,7 @@ description
 scenario -- @ref Rec(2004)11 Appendix I, A. IV. 16.
   "SECRET_SUFFRAGE"
 description
-  "E-voting shall be organised in such a way as to exclude at any \
+  "E-voting shall be organized in such a way as to exclude at any \
  \ stage of the voting procedure and, in particular, at voter \
  \ authentication, anything that would endanger the secrecy of the \
  \ vote."
