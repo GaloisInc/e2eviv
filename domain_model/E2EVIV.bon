@@ -130,8 +130,8 @@ class REFERENDUM
 class RESULT 
   description "The outcome of an election."
 class SEAL
-  description "A device that provides evidence for the integrity \
-             \ of an object."
+  description "A device, algorithm, or process that provides evidence \
+             \ for the integrity of an object."
 class TALLY 
   description "The count of all the votes in an election."
 class VOTE 
