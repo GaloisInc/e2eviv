@@ -149,7 +149,7 @@ end
 cluster_chart OVF_E2E_ADVERSARIES
 explanation
   "@todo"
-class REMOTE_BLACKHAT description "@todo"
+class DOMESTIC_BLACKHAT description "@todo"
 end
 
 class_chart BLACKHAT
@@ -185,14 +185,53 @@ end
 class_chart OVERSEAS
 end
 
+class_chart DOMESTIC
+end
+
 class_chart LEGITIMATE_VOTER
 end
 
-class_chart REMOTE_BLACKHAT
+class_chart DOMESTIC_BLACKHAT
 explanation
   "@todo"
 inherit CORRUPT, SIGHTED, ABLE_BODIED, TECHNICALLY_SAVVY, LITERATE, BLACKHAT, 
-        OVERSEAS, LEGITIMATE_VOTER
+        DOMESTIC, LEGITIMATE_VOTER
+constraint
+  "My name is Harrison MacArthur.",
+  "I'm 24 years old.",
+  "I use a smartphone and a laptop to vote.",
+  "I live in Fargo, ND.",
+  "I am a civilian.",
+  "I'm an domestic hacker.",
+
+  "My priorities are (1) important dates, (2) technical security \
+ \ guarantees, (3) technical system implementation, (4) security \
+ \ assumptions, and (5) fraud consequences",
+
+  "Always curious about how far he can go, Harrison has taken to \
+ \ testing out the security of local government and banking \
+ \ websites.  Interested in putting to use all his hours of reading and \
+ \ hacking, Harrison decides to see if he can alter the outcome of a \
+ \ recent local election that was run online.  He reads through the \
+ \ election official materials, internet voting protocol, and system \
+ \ specifications and then sets to work pressure testing.",
+
+  "I am interested in incorrect security implementations, weak \
+ \ encryption, and the accessibility of credentials.",
+
+  "I am adept at exploiting weaknesses introduced by implementation \
+ \ errors.  I am not very comfortable with technology.",
+
+  "Anonymously Google searches for 'Fargo election handbook' and sees \
+ \ several PDF results > Downloads two PDFs > Continues searching \
+ \ online for further e-voting protocol information as well as Fargo \
+ \ government infrastructure Opens an anonymous browsing session \
+ \ through Tor > Searches for 'Fargo election website' > Clicks \
+ \ through to the homepage and launches a script to attempt to \
+ \ fraudulently log in > After 10 attempts, the system begins to slow \
+ \ increasingly with each failed attempt > Soon the computer slows \
+ \ enough where Harrison decides to try another method."
+
 end
 
 class_chart OVERSEAS_BUSINESSWOMAN
@@ -206,6 +245,37 @@ constraint
   "I use a desktop PC to vote.",
   "I live in Nice, France.",
   "I am a civilian.",
-  ""
-end
+  "I'm an overseas businesswoman.",
 
+  "My priorities are (1) basic voter introduction and registration,  \
+ \ (2) in-line tooltips, (3) important dates, (4) required \
+ \ authentication materials, and (5) error recovery help",
+
+  "Olivia moved to Nice, France with just a month's notice to land her \
+\ dream job.  She's been having a great time but is overwhelmed with \
+\ all the cultural differences not to mention negotiating a lease in a \
+\ foreign language.  Now it has been a few months and she's settled in \
+\ a bit.  While skyping with her sister back in Iowa, she is reminded \
+\ to register to vote.  Honestly, Olivia had forgotten.  She recalls \
+\ receiving something in the mail, but she's lost it by now.  She \
+\ jumped on Google to see how she could even get started.",
+
+  "I want elections to be Convenient, Easy, and Friendly.",
+
+  "I am not very comfortable with technology. I struggle with mobile \
+ \ technology and avoid digital interfaces.",
+
+  "After registering, Olivia receives an email inviting her to create an \
+ \ account to vote online > She clicks the link the email which opens in \
+ \ her default browser > The page asks her to authenticate > Olivia \
+ \ completes the authentication and chooses an image to associate to her \
+ \ account > She begins the voting process > She enters text and after \
+ \ moving to the next field sees a red outline around the box and an \
+ \ error message next the field explaining why her input was invalid > \
+ \ She corrects the input and the read line and error text are removed \
+ \ and replaced with a small green checkmark > Olivia finishes her vote \
+ \ and submits > Olivia sees a confirmation message that her vote was \
+ \ submitted > Olivia receives a confirmation message that her vote was \
+ \ submitted and information on how to verify it."
+
+end
