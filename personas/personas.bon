@@ -188,6 +188,48 @@ end
 class_chart LEGITIMATE_VOTER
 end
 
+class_chart BLACK_HAT_ELECTION_TECHNOLOGY_VENDOR
+explanation
+  "Honest Elections, Inc. is an election technology vendor. Their technology \
+ \ looks good and can pass certification at all applicable levels, but they \
+ \ have actually embedded an ability to subtly modify election outcomes. Thus, \
+ \ they can profit both from selling the technology and from being hired to \
+ \ manipulate elections carried out with it."
+inherit CORRUPT, TECHNICALLY_SAVVY, LITERATE, BLACKHAT
+constraint
+  "Honest Elections Inc. (HE) is a company that develops and sells election technology.",
+  "HE employs about 10 blackhat hackers, in addition to about the same number of \
+ \ non-black-hat software engineers.", 
+  "HE's profits come directly from sales and services related to their proprietary \
+ \ election technology.",
+  "HE wants to maximize profits by having their election technology trusted and \
+ \ adopted as widely as possible in preference to other technologies.",
+  "In order to foster distrust of other election technologies, HE aims to \
+ \ publicly disrupt elections carried out with them through denial of service \
+ \ attacks.",
+
+  "HE's priorities are (1) technical security guarantees, (2) technical system \
+ \ implementation, (3) security assumptions, and (4) fraud identification (in \
+ \ that HE does not want its own fraud to be identified).",
+ 
+  "Upon learning that an Internet-based U.S. federal election will be held, HE \
+ \ plans to disrupt it. > HE's black hat hackers identify several key servers \
+ \ that will be used during the election. > HE hires botnet operators in \
+ \ the Eastern Bloc to target those servers intermittently during the election \
+ \ period - not enough to bring the system down entirely, but enough to cause \
+ \ annoying delays to voters. > HE also arranges for a mass email, spoofing official \
+ \ email sent by the election system, to distribute incorrect credentials to large \
+ \ numbers of U.S. citizens. > When some of these citizens trigger password resets \
+ \ by following the instructions in the email, they trigger MITM attacks on the \
+ \ password reset system. > HE's hackers use the resulting compromised credentials \
+ \ to vote the citizens' ballots for a specific candidate, both to demonstrate their \
+ \ abilities to potential future clients and to create specific instances of fraud \
+ \ that can be reported to the electoral authority after the election is complete. \
+ \ > Having successfully inconvenienced many voters and illegitimately cast the \
+ \ ballots of many others, HE steps in to 'solve' the problem for the next election."
+ 
+end
+
 class_chart REMOTE_BLACKHAT
 explanation
   "@todo"

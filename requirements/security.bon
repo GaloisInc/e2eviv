@@ -163,6 +163,11 @@ description
  \ of the electronic ballot box and the output of the counting process \
  \ as long as required."
 
+scenario "ADVERSARY_RESOURCES" -- @ref Kiniry/Zimmerman
+description
+  "The e-voting system shall be designed and tested with the assumption \
+ \ that an adversary has a budget of $10 per voter per election, which they \
+ \ can apply toward any critical subset of votes/voters of their choosing."
 end
 
 scenario_chart E2EVIV_SECURITY_REQUIREMENTS

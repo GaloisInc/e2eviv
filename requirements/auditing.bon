@@ -82,10 +82,17 @@ description
  \ relevant activity."
 
 scenario
-  "WRITE_ONCE_LOGS" -- @ref David Jefferson
+  "LOG_IMMUTABILITY" -- @ref David Jefferson
 description
-  "Logs must be written to write-once media in append-only mode."
+  "Log entries must be unmodifiable once written."
 
+scenario
+  "LOG_COMMITMENT" -- @ref Ron Rivest
+description
+  "Log entries must accurately reflect the commitment character \
+ \ of elections and the relationships among election events \
+ \ (e.g., ballot, vote, voter, and election state transitions)."
+  
 scenario
   "LOG_DATA_COMPLETENESS" -- @ref David Jefferson
 description
