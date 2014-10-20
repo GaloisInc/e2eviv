@@ -254,7 +254,7 @@ constraint
  \ adopted as widely as possible in preference to other technologies.",
   "In order to foster distrust of other election technologies, HE aims to \
  \ publicly disrupt elections carried out with them through denial of service \
- \ attacks.",
+ \ attacks and vote manipulation.",
 
   "HE's priorities are (1) technical security guarantees, (2) technical system \
  \ implementation, (3) security assumptions, and (4) fraud identification (in \
