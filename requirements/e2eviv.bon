@@ -6,5 +6,10 @@ indexing
   revised: "October 2014"
 explanation
   "Functional and non-functional requirements for end-to-end \
- \ verifiable internet voting systems."
+ \ verifiable internet voting systems.  Requirements consisting of two \
+ \ or more sentences are in fact stipulating multiple, related \
+ \ requiremenets in a since scenario.  We index requirements from one, \
+ \ thus SYSTEM_AND_DATA_ACCESS_CONTROL requirement 1 is 'Only persons \
+ \ appointed by the electoral authority shall have access to the \
+ \ central infrastructure, the servers and the election data.'."
 end

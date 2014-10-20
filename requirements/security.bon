@@ -33,8 +33,8 @@ description
 scenario "DATA_PROTECTION" -- @ref Rec(2004)11 Appendix III, D. I. 81.
 description
   "The e-voting system shall protect authentication data so that \
- \ unauthorised entities cannot misuse, intercept, modify, or otherwise \
- \ gain knowledge of all or some of this data.  In uncontrolled \
+ \ unauthorized entities cannot misuse, intercept, modify, or otherwise \
+ \ gain knowledge of any of this data.  In uncontrolled \
  \ environments, authentication based on cryptographic mechanisms is \
  \ advisable."
 
@@ -54,16 +54,16 @@ description
 
 scenario "TIME_SYNCHRONIZATION" -- @ref Rec(2004)11 Appendix III, D. I. 84.
 description
-  "The e-voting system shall maintain reliable synchronised time \
- \ sources.  The accuracy of the time source shall be sufficient to \
+  "The e-voting system shall maintain reliable synchronized time \
+ \ sources.  The accuracy of the time sources shall be sufficient to \
  \ maintain time marks for audit trails and observations data, as well \
  \ as for maintaining the time limits for registration, nomination, \
  \ voting, or counting."
 
 scenario "SECURITY_COMPLIANCE_RESPONSIBILITY" -- @ref Rec(2004)11 Appendix III, D. I. 85.
 description
-  "Electoral authorities have overall responsibility for compliance \
- \ with these security requirements, which shall be assessed by \
+  "The electoral authority has overall responsibility for compliance \
+ \ with these security requirements, and such compliance shall be assessed by \
  \ independent bodies."
 
 -- @ref Rec(2004)11 Security, II. Requirements in pre-voting stages
@@ -77,8 +77,8 @@ description
 scenario "CANDIDATE_PROCESS_TIME_PROVENANCE" -- @ref Rec(2004)11 Appendix III, D. II. 87.
 description
   "The fact that candidate nomination and, if required, the decision \
- \ of the candidate and/or the competent electoral authority to accept \
- \ a nomination has happened within the prescribed time limits shall be \
+ \ of the candidate and/or the electoral authority to accept a \
+ \ nomination has happened within the prescribed time limits shall be \
  \ ascertainable."
 
 scenario "VOTER_PROCESS_TIME_PROVENANCE" -- @ref Rec(2004)11 Appendix III, D. II. 88.
@@ -106,11 +106,15 @@ description
   "The fact that a vote has been cast within the prescribed time \
  \ limits shall be ascertainable."
 
-scenario "SYSTEMS_AND_VOTE_INTEGRITY" -- @ref Rec(2004)11 Appendix III, D. III. 92.
+scenario "CONTROLLED_SYSTEMS_AND_VOTE_INTEGRITY" -- @design derived from Rec(2004)11 Appendix III, D. III. 92.
 description
-  "Sufficient means shall be provided to ensure that the systems that \
- \ are used by the voters to cast the vote can be protected against \
- \ influence that could modify the vote."
+  "Election equipment under the control of the electoral authority \
+ \ shall be protected against influence that could modify the vote."
+ 
+scenario "UNCONTROLLED_SYSTEMS_AND_VOTE_INTEGRITY" -- @ref Kiniry/Zimmerman 
+description
+  "The integrity of the vote must not depend on the security of election \
+ \ equipment not under the control of the electoral authority."
 
 scenario "NO_BREADCRUMBS" -- @ref Rec(2004)11 Appendix III, D. III. 93.
 description
@@ -159,6 +163,11 @@ description
  \ of the electronic ballot box and the output of the counting process \
  \ as long as required."
 
+scenario "ADVERSARY_RESOURCES" -- @ref Kiniry/Zimmerman
+description
+  "The e-voting system shall be designed and tested with the assumption \
+ \ that an adversary has a budget of $10 per voter per election, which they \
+ \ can apply toward any critical subset of votes/voters of their choosing."
 end
 
 scenario_chart E2EVIV_SECURITY_REQUIREMENTS
@@ -172,7 +181,7 @@ explanation
   "General security requirements for end-to-end verifiable internet \
  \ election systems."
 
- -- These are requirements for embedding and E2EV system in an Internet
+ -- These are requirements for embedding an E2EV system in an Internet
  -- voting environment.  They are over and above the requirements for
  -- the core E2EV itself.  We do not consider usability or accessibility
  -- requirements here.  Some of these requirements will make
@@ -238,7 +247,7 @@ description
 scenario
   "AUTHENTICATION_CREDENTIAL_REESTABLISHMENT" -- @ref David Jefferson
 description
-  "In some cases of security breach it may be necessary to require all \
+  "In some cases of security breach it must be possible to require all \
  \ voters in a jurisdiction to re-establish credentials."
 end
 
@@ -288,7 +297,7 @@ scenario
   "CLIENT_SIDE_CHANNELS" -- @ref David Jefferson
 description
   "The client software of the voting system must not send data to any \
- \ IP address except those associated with the voter server and the \
+ \ IP address except those associated with the vote server and the \
  \ basic infrastructure servers of the Internet."
 
 scenario
@@ -298,7 +307,7 @@ description
  \ e.g., Facebook, Twitter, etc. regarding the act of voting."
 
 scenario
-  "TRACKING" -- @ref David Jefferson
+  "NO_TRACKING" -- @ref David Jefferson
 description
   "There must be no tracking devices or tracking logic in the vote \
  \ client."
@@ -334,7 +343,7 @@ description
  \ turned off by the voter."
 
 scenario
-  "INVUNERABLE_TO_ELECTION_MALWARE" -- @ref David Jefferson
+  "INVULNERABLE_TO_ELECTION_MALWARE" -- @ref David Jefferson
 description
   "The voting system must not be vulnerable to malware designed to \
  \ modify votes before they are input to the E2EV system."
@@ -382,6 +391,13 @@ scenario
 description
   "The system must witness software independence: the tabulation \
  \ record must not rely solely on software."
+
+scenario
+  "DIGITAL_EVIDENCE_NOT_A_RECEIPT"
+description
+  "Digital evidence (e.g., photographing a ballot or video recording \
+ \ the casting process) of the voting process must not violate receipt \
+ \ freedom."
 end
 
 scenario_chart CERTIFICATION_AND_RECERTIFICATION_REQUIREMENTS

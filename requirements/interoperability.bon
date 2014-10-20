@@ -14,27 +14,19 @@ description
 
 scenario "EML" -- @ref Rec(2004)11 Appendix III, B. 67.
 description
-  "At present, the Election Markup Language (EML) standard is such an \
- \ open standard and in order to guarantee interoperability, EML shall \
- \ be used whenever possible for e-election and e-referendum \
- \ applications.  The decision of when to adopt EML is a matter for \
- \ member states.  The EML standard valid at the time of adoption of \
- \ this recommendation, and supporting documentation are available on \
- \ the Council of Europe website."
+  "The Election Markup Language (EML) shall be used whenever possible \
+ \ for e-election and e-referendum applications."
 
 scenario "DATA_LOCALIZATION" -- @ref Rec(2004)11 Appendix III, B. 68.
 description
-  "In cases which imply specific election or referendum data \
- \ requirements, a localisation procedure shall be used to accommodate \
- \ these needs.  This would allow for extending or restricting the \
- \ information to be provided, whilst still remaining compatible with \
- \ the generic version of EML. The recommended procedure is to use \
- \ structured schema languages and pattern languages."
+  "In cases that imply specific election or referendum data \
+ \ requirements, a localization procedure shall be used to accommodate \
+ \ these needs."
 
 scenario
   "OPEN_LOG_FORMATS" -- @ref David Jefferson
 description
-  "The log data and documentation of its meaning and format should be \
+  "The log data and documentation of its meaning and format shall be \
  \ available for public download so that anyone can download, inspect, \
  \ and publish concerns based on the logs."
 end

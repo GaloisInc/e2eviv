@@ -5,7 +5,8 @@
 cluster_chart PERSONAS
 explanation
   "@todo"
-cluster APTS description "@todo"
+class PERSONA description "Basic properties of all personas."
+cluster ADVANCED_PERSISTENT_THREATS description "@todo"
 cluster ARMED_FORCES description "@todo"
 cluster ELECTION_APPARATUS description "@todo"
 cluster EXECUTIVE description "@todo"
@@ -17,12 +18,22 @@ cluster VENDORS description "@todo"
 cluster VOTERS description "@todo"
 cluster ORTHOGONAL_PROPERTIES description "@todo"
 cluster OVF_E2E_ADVERSARIES description "@todo"
+cluster VOTER_PERSONAS description "@todo"
 end
 
-cluster_chart APTS
+class_chart PERSONA
+explanation
+  "Basic properties of all personas."
+query
+  "Name", "Age", "Technology", "Location", "Military status",
+  "User type", "System information priorities", "Description",
+  "Key needs", "Comfort technology", "User paths"
+end
+
+cluster_chart ADVANCED_PERSISTENT_THREATS
 explanation
   "@todo"
-class APT description "Advanced Persistent Threat"
+class ADVANCED_PERSISTENT_THREAT description "Advanced Persistent Threat"
 
 class ALLY description "@todo"
 class ENEMY description "@todo"
@@ -31,6 +42,41 @@ class NEUTRAL description "@todo"
 class NATION_STATE description "@todo"
 class INTELLIGENCE_AGENCY description "@todo"
 class CRIMINAL_ORGANIZATION description "@todo"
+end
+
+class_chart ADVANCED_PERSISTENT_THREAT
+explanation
+  "@todo"
+end
+
+class_chart ALLY
+explanation
+  "@todo"
+end
+
+class_chart ENEMY
+explanation
+  "@todo"
+end
+
+class_chart NEUTRAL
+explanation
+  "@todo"
+end
+
+class_chart NATION_STATE
+explanation
+  "@todo"
+end
+
+class_chart INTELLIGENCE_AGENCY
+explanation
+  "@todo"
+end
+
+class_chart CRIMINAL_ORGANIZATION
+explanation
+  "@todo"
 end
 
 cluster_chart ELECTION_APPARATUS
@@ -125,6 +171,12 @@ class FUNDED description "@todo"
 class WELL_FUNDED description "@todo"
 end
 
+cluster_chart VOTER_PERSONAS
+explanation
+  "Distinct personas representing archetypical classes of voters."
+class OVERSEAS_BUSINESSWOMAN description "A typical overseas businesswoman."
+end
+
 -- Example reification of a specific persona: a corrupt, sighted,
 -- able-bodied, technically savvy, literate, blackhat voter, overseas,
 -- legitimate voter who is moderately funded by bad actors.
@@ -132,13 +184,23 @@ end
 cluster_chart OVF_E2E_ADVERSARIES
 explanation
   "@todo"
-class REMOTE_BLACKHAT description "@todo"
+class DOMESTIC_BLACKHAT description "@todo"
+class ENEMY_INTELLIGENCE_AGENCY description "The CIA of East Insanistan."
+end
+
+class_chart BLACKHAT
 end
 
 class_chart CORRUPT
 end
 
+class_chart HONEST
+end
+
 class_chart SIGHTED
+end
+
+class_chart UNSIGHTED
 end
 
 class_chart ABLE_BODIED
@@ -147,21 +209,223 @@ end
 class_chart TECHNICALLY_SAVVY
 end
 
+class_chart TECHNICALLY_IGNORANT
+end
+
 class_chart LITERATE
 end
 
-class_chart BLACKHAT
+class_chart ILLITERATE
 end
 
 class_chart OVERSEAS
 end
 
+class_chart DOMESTIC
+end
+
+class_chart UNFUNDED
+end
+
+class_chart FUNDED
+end
+
+class_chart WELL_FUNDED
+end
+
 class_chart LEGITIMATE_VOTER
 end
 
-class_chart REMOTE_BLACKHAT
+class_chart BLACK_HAT_ELECTION_TECHNOLOGY_VENDOR
+explanation
+  "Honest Elections, Inc. is an election technology vendor. Their technology \
+ \ looks good and can pass certification at all applicable levels, but they \
+ \ have actually embedded an ability to subtly modify election outcomes. Thus, \
+ \ they can profit both from selling the technology and from being hired to \
+ \ manipulate elections carried out with it."
+inherit CORRUPT, TECHNICALLY_SAVVY, LITERATE, BLACKHAT
+constraint
+  "Honest Elections Inc. (HE) is a company that develops and sells election technology.",
+  "HE employs about 10 blackhat hackers, in addition to about the same number of \
+ \ non-black-hat software engineers.", 
+  "HE's profits come directly from sales and services related to their proprietary \
+ \ election technology.",
+  "HE wants to maximize profits by having their election technology trusted and \
+ \ adopted as widely as possible in preference to other technologies.",
+  "In order to foster distrust of other election technologies, HE aims to \
+ \ publicly disrupt elections carried out with them through denial of service \
+ \ attacks and vote manipulation.",
+
+  "HE's priorities are (1) technical security guarantees, (2) technical system \
+ \ implementation, (3) security assumptions, and (4) fraud identification (in \
+ \ that HE does not want its own fraud to be identified).",
+ 
+  "Upon learning that an Internet-based U.S. federal election will be held, HE \
+ \ plans to disrupt it. > HE's black hat hackers identify several key servers \
+ \ that will be used during the election. > HE hires botnet operators in \
+ \ the Eastern Bloc to target those servers intermittently during the election \
+ \ period - not enough to bring the system down entirely, but enough to cause \
+ \ annoying delays to voters. > HE also arranges for a mass email, spoofing official \
+ \ email sent by the election system, to distribute incorrect credentials to large \
+ \ numbers of U.S. citizens. > When some of these citizens trigger password resets \
+ \ by following the instructions in the email, they trigger MITM attacks on the \
+ \ password reset system. > HE's hackers use the resulting compromised credentials \
+ \ to vote the citizens' ballots for a specific candidate, both to demonstrate their \
+ \ abilities to potential future clients and to create specific instances of fraud \
+ \ that can be reported to the electoral authority after the election is complete. \
+ \ > Having successfully inconvenienced many voters and illegitimately cast the \
+ \ ballots of many others, HE steps in to 'solve' the problem for the next election."
+ 
+end
+
+class_chart ENEMY_INTELLIGENCE_AGENCY
+explanation
+  "The Central Insanity Agency of East Insanistan wants to prevent \
+ \ American voters who live within its borders from participating in \
+ \ U.S. elections, because it does not want its own citizens to get any \
+ \ fancy ideas about citizens having the right to decide upon their \
+ \ government's structure and nature."
+inherit ENEMY, INTELLIGENCE_AGENCY, CORRUPT, SIGHTED, ABLE_BODIED,
+        LITERATE, OVERSEAS, FUNDED
+constraint
+  "We are the Central Insanity Agency (CIA) of East Insanistan (EI).",
+  "We employ several dozen middle-aged blackhat hackers.",
+  "Our hackers use desktop PCs running a variety of OSes.",
+  "We all live in the capital of East Insanistan, Arkham.",
+  "We are employed by the CIA, which is a part of the EI military.",
+  "We are overseas hackers working for an enemy intelligence agency.",
+
+  "Our priorities are (1) important dates, (2) technical security \
+ \ guarantees, (3) technical system implementation, (4) security \
+ \ assumptions, and (5) identification of U.S. citizens living within \
+ \ our borders.",
+
+  "East Insanistan's Prime Nutjob, His Excellence X Y, dislikes the \
+ \ idea of his citizens getting any bright ideas about democratic \
+ \ elections.  While he has quashed all mention of U.S. elections in \
+ \ the EI media, and while the Great Firewall of EI is blocking all \
+ \ searches for matters relating to elections, he still has the tricky \
+ \ problem of several thousand friendly, loud, extroverted, and proud \
+ \ U.S. citizens living within EI's boarders to deal with.  He \
+ \ decides to ask his CIA to prevent all Americans living within \
+ \ EI from voting in the upcoming election using any non-invasive \
+ \ digital means necessary.",
+
+  "Surreptitious prevention of U.S. citizens from participating in \
+ \ U.S. elections, ensure that in no way can U.S. voters show off fancy \
+ \ U.S. verifiable elections technology to their friends and \
+ \ neighbors.",
+
+  "We have a crack team of EI hackers and control the network \
+ \ infrastructure of the country.",
+
+  "The CIA anti-happy-voter squad is tasked by their boss with \
+ \ preventing U.S. citizens from voting in the upcoming internet \
+ \ election > prior to the start of the election, CIA hackers read \
+ \ public documents relating to the targeted internet e-voting system, \
+ \ identify and probe key servers used within the internet election \
+ \ system, identify the residences and digital access channels (i.e., \
+ \ ISPs and broadband modems plus telecom providers and SIM card \
+ \ ICCIDs) of all U.S. citizens living in EI > they drop in place \
+ \ custom routing rules on all edge backbone routers in the country to \
+ \ prevent any access to U.S. election servers from all IPs within EI > \
+ \ they augment their Great Firewall to prevent any mention of e-voting \
+ \ from the results of any search query on major search engines > and \
+ \ they setup a MITM attack targeted all network equipment owned or \
+ \ used by U.S. citizens during the election so that U.S. voters see a \
+ \ fictitious response from election servers claiming that the servers \
+ \ are temporarily unavailable or that their authentication information \
+ \ is incorrect."
+
+end
+
+class_chart DOMESTIC_BLACKHAT
+explanation
+  "A technically adept troublemaking youth in North Dakota tried to \
+ \ change the outcome of an ongoing local election that is taking place \
+ \ over the internet."
+inherit CORRUPT, SIGHTED, ABLE_BODIED, TECHNICALLY_SAVVY, LITERATE, BLACKHAT, 
+        DOMESTIC, LEGITIMATE_VOTER
+constraint
+  "My name is Harrison MacArthur.",
+  "I'm 24 years old.",
+  "I use a smartphone and a laptop to vote.",
+  "I live in Fargo, ND.",
+  "I am a civilian.",
+  "I'm an domestic hacker.",
+
+  "My priorities are (1) important dates, (2) technical security \
+ \ guarantees, (3) technical system implementation, (4) security \
+ \ assumptions, and (5) fraud consequences",
+
+  "Always curious about how far he can go, Harrison has taken to \
+ \ testing out the security of local government and banking \
+ \ websites.  Interested in putting to use all his hours of reading and \
+ \ hacking, Harrison decides to see if he can alter the outcome of a \
+ \ recent local election that was run online.  He reads through the \
+ \ election official materials, internet voting protocol, and system \
+ \ specifications and then sets to work pressure testing.",
+
+  "I am interested in incorrect security implementations, weak \
+ \ encryption, and the accessibility of credentials.",
+
+  "I am adept at exploiting weaknesses introduced by implementation \
+ \ errors.  I am not very comfortable with technology.",
+
+  "Anonymously Google searches for 'Fargo election handbook' and sees \
+ \ several PDF results > Downloads two PDFs > Continues searching \
+ \ online for further e-voting protocol information as well as Fargo \
+ \ government infrastructure Opens an anonymous browsing session \
+ \ through Tor > Searches for 'Fargo election website' > Clicks \
+ \ through to the homepage and launches a script to attempt to \
+ \ fraudulently log in > After 10 attempts, the system begins to slow \
+ \ increasingly with each failed attempt > Soon the computer slows \
+ \ enough where Harrison decides to try another method."
+
+end
+
+class_chart OVERSEAS_BUSINESSWOMAN
 explanation
   "@todo"
-inherit CORRUPT, SIGHTED, ABLE_BODIED, TECHNICALLY_SAVVY, LITERATE, BLACKHAT, 
-        OVERSEAS, LEGITIMATE_VOTER
+inherit HONEST, SIGHTED, ABLE_BODIED, TECHNICALLY_IGNORANT, LITERATE, OVERSEAS,
+        LEGITIMATE_VOTER
+constraint
+  "My name is Olivia Brown.",
+  "I'm 57 years old.",
+  "I use a desktop PC to vote.",
+  "I live in Nice, France.",
+  "I am a civilian.",
+  "I'm an overseas businesswoman.",
+
+  "My priorities are (1) basic voter introduction and registration,  \
+ \ (2) in-line tooltips, (3) important dates, (4) required \
+ \ authentication materials, and (5) error recovery help",
+
+  "Olivia moved to Nice, France with just a month's notice to land her \
+\ dream job.  She's been having a great time but is overwhelmed with \
+\ all the cultural differences not to mention negotiating a lease in a \
+\ foreign language.  Now it has been a few months and she's settled in \
+\ a bit.  While skyping with her sister back in Iowa, she is reminded \
+\ to register to vote.  Honestly, Olivia had forgotten.  She recalls \
+\ receiving something in the mail, but she's lost it by now.  She \
+\ jumped on Google to see how she could even get started.",
+
+  "I want elections to be Convenient, Easy, and Friendly.",
+
+  "I am not very comfortable with technology. I struggle with mobile \
+ \ technology and avoid digital interfaces.",
+
+  "After registering, Olivia receives an email inviting her to create an \
+ \ account to vote online > She clicks the link the email which opens in \
+ \ her default browser > The page asks her to authenticate > Olivia \
+ \ completes the authentication and chooses an image to associate to her \
+ \ account > She begins the voting process > She enters text and after \
+ \ moving to the next field sees a red outline around the box and an \
+ \ error message next the field explaining why her input was invalid > \
+ \ She corrects the input and the read line and error text are removed \
+ \ and replaced with a small green checkmark > Olivia finishes her vote \
+ \ and submits > Olivia sees a confirmation message that her vote was \
+ \ submitted > Olivia receives a confirmation message that her vote was \
+ \ submitted and information on how to verify it."
+
 end

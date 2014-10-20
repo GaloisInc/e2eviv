@@ -22,7 +22,7 @@ scenario -- @ref Rec(2004)11 Appendix I, A. I. 3.
   "MAXIMIZE_DISABLED_ACCESSIBILITY"
 description
   "E-voting systems shall be designed, as far as it is practicable, to \
- \ maximise the opportunities that such systems can provide for persons \
+ \ maximize the opportunities that such systems can provide for persons \
  \ with disabilities."
 
 scenario -- @ref Rec(2004)11 Appendix I, A. I. 4.
@@ -32,19 +32,11 @@ description
  \ shall be only an additional and optional means of voting."
 
 -- @ref Rec(2004)11 Equal suffrage
-scenario -- @ref Rec(2004)11 Appendix I, A. II. 5.
-  "SINGLE_TALLIED_VOTE_PER_VOTER"
+scenario -- @ref Rec(2004)11 Appendix I, A. II. 5--6.
+  "AT_MOST_ONE_VOTE_PER_VOTER"
 description
-  "In relation to any election or referendum, a voter shall be prevented \
- \ from inserting more than one ballot into the electronic ballot box.  A \
- \ voter shall be authorised to vote only if it has been established that \
- \ his/her ballot has not yet been inserted into the ballot box."
-
-scenario -- @ref Rec(2004)11 Appendix I, A. II. 6.
-  "MULTIPLE_DIGITAL_CHANNELS_ONE_VOTE"
-description
-  "The e-voting system shall prevent any voter from casting a vote by more \
- \ than one voting channel."
+  "The e-voting system shall ensure that at most one electronic vote from \
+ \ each voter is included in the final tally."
 
 scenario -- @ref Rec(2004)11 Appendix I, A. II. 7.
   "VALID_TALLY"
@@ -63,7 +55,7 @@ description
 scenario -- @ref Rec(2004)11 Appendix I, A. III. 9.
   "FREE_SUFFRAGE"
 description
-  "The organisation of e-voting shall secure the free formation and \
+  "The organization of e-voting shall secure the free formation and \
  \ expression of the voter's opinion and, where required, the \
  \ personal exercise of the right to vote."
 
@@ -113,7 +105,7 @@ description
 scenario -- @ref Rec(2004)11 Appendix I, A. IV. 16.
   "SECRET_SUFFRAGE"
 description
-  "E-voting shall be organised in such a way as to exclude at any \
+  "E-voting shall be organized in such a way as to exclude at any \
  \ stage of the voting procedure and, in particular, at voter \
  \ authentication, anything that would endanger the secrecy of the \
  \ vote."
