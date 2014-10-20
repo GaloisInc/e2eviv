@@ -5,7 +5,8 @@
 cluster_chart PERSONAS
 explanation
   "@todo"
-cluster APTS description "@todo"
+class PERSONA description "Basic properties of all personas."
+cluster ADVANCED_PERSISTENT_THREATS description "@todo"
 cluster ARMED_FORCES description "@todo"
 cluster ELECTION_APPARATUS description "@todo"
 cluster EXECUTIVE description "@todo"
@@ -17,12 +18,22 @@ cluster VENDORS description "@todo"
 cluster VOTERS description "@todo"
 cluster ORTHOGONAL_PROPERTIES description "@todo"
 cluster OVF_E2E_ADVERSARIES description "@todo"
+cluster VOTER_PERSONAS description "@todo"
 end
 
-cluster_chart APTS
+class_chart PERSONA
+explanation
+  "Basic properties of all personas."
+query
+  "Name", "Age", "Technology", "Location", "Military status",
+  "User type", "System information priorities", "Description",
+  "Key needs", "Comfort technology", "User paths"
+end
+
+cluster_chart ADVANCED_PERSISTENT_THREATS
 explanation
   "@todo"
-class APT description "Advanced Persistent Threat"
+class ADVANCED_PERSISTENT_THREAT description "Advanced Persistent Threat"
 
 class ALLY description "@todo"
 class ENEMY description "@todo"
@@ -125,6 +136,12 @@ class FUNDED description "@todo"
 class WELL_FUNDED description "@todo"
 end
 
+cluster_chart VOTER_PERSONAS
+explanation
+  "Distinct personas representing archetypical classes of voters."
+class OVERSEAS_BUSINESSWOMAN description "A typical overseas businesswoman."
+end
+
 -- Example reification of a specific persona: a corrupt, sighted,
 -- able-bodied, technically savvy, literate, blackhat voter, overseas,
 -- legitimate voter who is moderately funded by bad actors.
@@ -135,10 +152,19 @@ explanation
 class REMOTE_BLACKHAT description "@todo"
 end
 
+class_chart BLACKHAT
+end
+
 class_chart CORRUPT
 end
 
+class_chart HONEST
+end
+
 class_chart SIGHTED
+end
+
+class_chart UNSIGHTED
 end
 
 class_chart ABLE_BODIED
@@ -147,10 +173,13 @@ end
 class_chart TECHNICALLY_SAVVY
 end
 
+class_chart TECHNICALLY_IGNORANT
+end
+
 class_chart LITERATE
 end
 
-class_chart BLACKHAT
+class_chart ILLITERATE
 end
 
 class_chart OVERSEAS
@@ -165,3 +194,18 @@ explanation
 inherit CORRUPT, SIGHTED, ABLE_BODIED, TECHNICALLY_SAVVY, LITERATE, BLACKHAT, 
         OVERSEAS, LEGITIMATE_VOTER
 end
+
+class_chart OVERSEAS_BUSINESSWOMAN
+explanation
+  "@todo"
+inherit HONEST, SIGHTED, ABLE_BODIED, TECHNICALLY_IGNORANT, LITERATE, OVERSEAS,
+        LEGITIMATE_VOTER
+constraint
+  "My name is Olivia Brown.",
+  "I'm 57 years old.",
+  "I use a desktop PC to vote.",
+  "I live in Nice, France.",
+  "I am a civilian.",
+  ""
+end
+
