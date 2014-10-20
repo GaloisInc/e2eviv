@@ -44,6 +44,41 @@ class INTELLIGENCE_AGENCY description "@todo"
 class CRIMINAL_ORGANIZATION description "@todo"
 end
 
+class_chart ADVANCED_PERSISTENT_THREAT
+explanation
+  "@todo"
+end
+
+class_chart ALLY
+explanation
+  "@todo"
+end
+
+class_chart ENEMY
+explanation
+  "@todo"
+end
+
+class_chart NEUTRAL
+explanation
+  "@todo"
+end
+
+class_chart NATION_STATE
+explanation
+  "@todo"
+end
+
+class_chart INTELLIGENCE_AGENCY
+explanation
+  "@todo"
+end
+
+class_chart CRIMINAL_ORGANIZATION
+explanation
+  "@todo"
+end
+
 cluster_chart ELECTION_APPARATUS
 explanation
   "@todo"
@@ -150,6 +185,7 @@ cluster_chart OVF_E2E_ADVERSARIES
 explanation
   "@todo"
 class DOMESTIC_BLACKHAT description "@todo"
+class ENEMY_INTELLIGENCE_AGENCY description "The CIA of East Insanistan."
 end
 
 class_chart BLACKHAT
@@ -188,12 +224,84 @@ end
 class_chart DOMESTIC
 end
 
+class_chart UNFUNDED
+end
+
+class_chart FUNDED
+end
+
+class_chart WELL_FUNDED
+end
+
 class_chart LEGITIMATE_VOTER
+end
+
+class_chart ENEMY_INTELLIGENCE_AGENCY
+explanation
+  "The Central Insanity Agency of East Insanistan wants to prevent \
+ \ American voters who live within its borders from participating in \
+ \ U.S. elections, because it does not want its own citizens to get any \
+ \ fancy ideas about citizens having the right to decide upon their \
+ \ government's structure and nature."
+inherit ENEMY, INTELLIGENCE_AGENCY, CORRUPT, SIGHTED, ABLE_BODIED,
+        LITERATE, OVERSEAS, FUNDED
+constraint
+  "We are the Central Insanity Agency (CIA) of East Insanistan (EI).",
+  "We employ several dozen middle-aged blackhat hackers.",
+  "Our hackers use desktop PCs running a variety of OSes.",
+  "We all live in the capital of East Insanistan, Arkham.",
+  "We are employed by the CIA, which is a part of the EI military.",
+  "We are overseas hackers working for an enemy intelligence agency.",
+
+  "Our priorities are (1) important dates, (2) technical security \
+ \ guarantees, (3) technical system implementation, (4) security \
+ \ assumptions, and (5) identification of U.S. citizens living within \
+ \ our borders.",
+
+  "East Insanistan's Prime Nutjob, His Excellence X Y, dislikes the
+  idea of his citizens getting any bright ideas about democratic
+  elections.  While he has quashed all mention of U.S. elections in
+  the EI media, and while the Great Firewall of EI is blocking all
+  searches for matters relating to elections, he still has the tricky
+  problem of several thousand friendly, loud, extroverted, and proud
+  U.S. citizens living within EI's boarders to deal with.  He
+  decides to ask his CIA to prevent all Americans living within
+  EI from voting in the upcoming election using any non-invasive
+  digital means necessary.",
+
+  "Surreptitious prevention of U.S. citizens from participating in \
+ \ U.S. elections, ensure that in no way can U.S. voters show off fancy \
+ \ U.S. verifiable elections technology to their friends and
+ \ neighbors.",
+
+  "We have a crack team of EI hackers and control the network \
+ \ infrastructure of the country.",
+
+  "The CIA anti-happy-voter squad is tasked by their boss with
+  preventing U.S. citizens from voting in the upcoming internet
+  election > prior to the start of the election, CIA hackers read
+  public documents relating to the targeted internet e-voting system,
+  identify and probe key servers used within the internet election
+  system, identify the residences and digital access channels (i.e.,
+  ISPs and broadband modems plus telecom providers and SIM card
+  ICCIDs) of all U.S. citizens living in EI > they drop in place
+  custom routing rules on all edge backbone routers in the country to
+  prevent any access to U.S. election servers from all IPs within EI >
+  they augment their Great Firewall to prevent any mention of e-voting
+  from the results of any search query on major search engines > and
+  they setup a MITM attack targeted all network equipment owned or
+  used by U.S. citizens during the election so that U.S. voters see a
+  fictitious response from election servers claiming that the servers
+  are temporarily unavailable or that their authentication information
+  is incorrect."
+
 end
 
 class_chart DOMESTIC_BLACKHAT
 explanation
-  "@todo"
+  "A technically adept troublemaking youth in North Dakota tried to \
+ \ change the outcome of an ongoing local election that is taking place \
+ \ over the internet."
 inherit CORRUPT, SIGHTED, ABLE_BODIED, TECHNICALLY_SAVVY, LITERATE, BLACKHAT, 
         DOMESTIC, LEGITIMATE_VOTER
 constraint
