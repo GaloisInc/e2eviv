@@ -1,2 +1,4 @@
 .DS_Store
 *~
+/src/append-only-bb/data/SECRET
+/src/append-only-bb/data/bb.sqlite
