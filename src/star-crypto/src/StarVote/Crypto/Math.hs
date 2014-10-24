@@ -52,17 +52,33 @@ extendedGcd a b
                                 r
                                 s
 
--- Recall that the multiplicative group of units (Z/mZ)*
--- is given by those `a` coprime to m, i.e. gcd(a, m) = 1.
+-- The canonical projection Z -> Z/mZ
+asIntegerMod :: Integer -> Integer -> Maybe Integer
+asIntegerMod 0 a = Just a
+asIntegerMod 1 _ = Just 0
+asIntegerMod m a
+  | m < 0     = Nothing
+  | a < 0     = asIntegerMod m $ a + m * ((abs a `div` m) + 1)
+  | otherwise = Just $ a `mod` m
+
+unsafeAsIntegerMod m a = fromJust $ asIntegerMod m a
+
+-- Recall that the multiplicative group of units (Z/mZ)* is
+-- given by those `a` in Z/mZ coprime to m, i.e. gcd(a, m) = 1.
 -- Thus, the modular inverse is in general partial on Integer.
 modInverse :: Integer -> Integer -> Maybe Integer
+modInverse 1 _ = Just 0   -- (Z/1Z)* is the degenerate zero ring
 modInverse m a
-  | g == 1    = Just y  -- Since mx + ay = 1
-                        --   ==> ay = 1 - mx
-                        --   ==> ay = 1 (mod m)
-                        --   ==> y = a^(-1) (mod m)
+  -- 0 is not a unit for m > 1
+  | 0 == a `mod` m = Nothing
+  | g == 1         = Just y'  -- Since mx + ay = 1
+                              --   ==> ay = 1 - mx
+                              --   ==> ay = 1 (mod m)
+                              --   ==> y = a^(-1) (mod m)
+  -- No inverse exists
   | otherwise = Nothing
-  where (g, x, y) = extendedGcd m a
+  where (g, x, y) = extendedGcd m $ fromJust $ asIntegerMod m a
+        y' = fromJust $ asIntegerMod m y
 
 unsafeModInverse m = fromJust . (modInverse m)
 
