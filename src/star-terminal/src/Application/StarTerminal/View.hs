@@ -1,4 +1,9 @@
 {-# LANGUAGE OverloadedStrings #-}
+
+{-|
+Module      : Application.StarTerminal.View
+Description : HTML views
+ -}
 module Application.StarTerminal.View where
 
 import           Data.List (foldl')
@@ -20,12 +25,15 @@ import qualified Application.Star.BallotStyle as BS
 import           Application.StarTerminal.LinkHelper
 import           Application.StarTerminal.Localization
 
+-- | Defines URLs for links in the navigation bar when viewing ballot steps.
+-- If no link is given, the corresponding button is not drawn.
 data NavLinks = NavLinks
-  { _prev :: Maybe Text
-  , _next :: Maybe Text
-  , _index :: Maybe Text
+  { _prev :: Maybe Text   -- ^ "previous step" button URL
+  , _next :: Maybe Text   -- ^ "next step" button URL
+  , _index :: Maybe Text  -- ^ "show progress" button URL
   }
 
+-- | Page that prompts voter to enter a ballot code.
 codeEntryView :: Translations -> Html
 codeEntryView ts =
   div ! class_ "container" $ do
@@ -39,6 +47,7 @@ codeEntryView ts =
       H.button ! type_ "submit" ! class_ "btn btn-default" $ do
         (t "submit" ts)
 
+-- | Displays a single race, prompts voter to make a selection.
 ballotStepView :: Translations -> NavLinks -> BallotStyle -> Race -> Maybe Selection -> Html
 ballotStepView ts navLinks bStyle r s = withNav ts navLinks $
   div ! class_ "container" $ do
@@ -73,6 +82,8 @@ selectionDescription o = do
   whitespace
   maybe mempty (\party -> toHtml (T.concat ["(", party, ")"])) (_oParty o)
 
+-- | After ballot steps are complete,
+-- displays summary of selections that the voter has made.
 summaryView :: Translations -> BallotCode -> BallotStyle -> Ballot -> Html
 summaryView ts code bStyle ballot =
   H.form ! method "post" $ do
@@ -100,6 +111,7 @@ summaryItemView _ code bStyle race ballot =
     bgClass = if isJust mOpt then "" else " bg-warning"
     rId = _rId race
 
+-- | Message that is shown after a ballot has been finalized.
 exitInstructionsView :: Translations -> Html
 exitInstructionsView ts =
   div ! class_ "container" $ do
@@ -107,7 +119,8 @@ exitInstructionsView ts =
       h1 (t "successful_vote" ts)
     p (t "collect_ballot_and_receipt" ts)
 
--- TODO: Serve our own jquery, IE shims.
+-- | Page layout -
+-- produces markup that appears on every page.
 page :: Text -> Html -> Html
 page pageTitle pageContent = docTypeHtml ! lang "en" $ do
   H.head $ do
@@ -120,8 +133,6 @@ page pageTitle pageContent = docTypeHtml ! lang "en" $ do
     ieShims
   body $ do
     pageContent
-    script mempty ! src "https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
-    script mempty ! src "/static/bootstrap-3.2.0-dist/js/bootstrap.min.js"
     script mempty ! src "/static/js/site.js"
 
 withNav :: Translations -> NavLinks -> Html -> Html
@@ -153,8 +164,8 @@ navSummary ts code bStyle =
       t "previous_step" ts
     button ! class_ "btn btn-default navbar-btn navbar-right" ! type_ "submit" $ do
       t "print_ballot" ts
-    navLink "navbar-left" (progressUrl code Nothing) $ do
-      t "show_progress" ts
+    -- navLink "navbar-left" (progressUrl code Nothing) $ do
+    --   t "show_progress" ts
 
 bottomNav :: Html -> Html
 bottomNav c =
@@ -171,6 +182,7 @@ navLink classes url l =
 role :: AttributeValue -> Attribute
 role = attribute "role" " role=\""
 
+-- TODO: Serve our own IE shims.
 ieShims :: Html
 ieShims = preEscapedToHtml $ T.unlines
   [ "<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->"

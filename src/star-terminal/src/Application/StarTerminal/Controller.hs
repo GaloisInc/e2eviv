@@ -2,6 +2,55 @@
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE OverloadedStrings #-}
 
+{-|
+Module      : Application.StarTerminal.Controller
+Description : Defines web server actions
+
+Defines handlers, which are called from `Main`.
+Handles state changes,
+invokes functions in `Application.StarTerminal.View` to render pages.
+
+The terminal must be given ballot code mappings.
+Voters will enter codes to get access to appropriate ballot styles.
+Code mappings are communicated to the terminal via POST requests,
+which are handled by `recordBallotStyleCode`.
+
+The first page that a voter should see is handled by `askForBallotCode`.
+
+Filling out a ballot involves multiple steps,
+where each step is a separate page that prompts the user to make a selection in
+a single race.
+`showBallotStep` handles rendering those pages.
+It requires a ballot code as a parameter.
+This ensures that only a voter with a valid code can view a ballot.
+
+At each step, candidate selections are recorded in browser cookies.
+A cookie is written (or updated) in javascript as soon as the voter makes
+a selection by toggling a radio button.
+But in case javascript is not enabled,
+the voter may make a form submission, which is handled by `recordBallotSelection`.
+The handler sets a cookie as part of a redirect response.
+To enable form submission, a "Submit" button is included in ballot step pages in
+a <noscript> tag.
+
+The voter may navigate forward or backward arbitrarily while filling out the
+ballot.
+
+Upon completing or skipping all ballot steps, the voter is presented with
+a summary of his/her selections.
+This page is produced by `showSummary`.
+Upon selecting "print ballot to proceed", a POST request is made,
+which is handled by `finalize`.
+At this point the vote is encrypted and hashed.
+The hashes and encrypted vote are stored in the terminal's internal state,
+and are also transmitted via HTTP POST to a controller machine.
+
+`finalize` redirects to a page handled by `exitInstructions`.
+This page indicates that in a future version,
+the terminal will actually print the voter's ballot at this point.
+It also reminds the voter to take the ballot to a ballot box,
+and to keep the printed receipt.
+ -}
 module Application.StarTerminal.Controller where
 
 import           Control.Applicative ((<$>), (<*>))
@@ -42,6 +91,8 @@ import           Application.StarTerminal.State
 
 type StarTerm m = (MonadError Text m, MonadState TerminalState m, MonadSnap m)
 
+-- | Accepts ballot codes and records mappings from codes to ballot styles.
+-- This function updates the `_ballotCodes` field of `TerminalState`.
 recordBallotStyleCode :: StarTerm m => m ()
 recordBallotStyleCode = do
   ballotId  <- param "ballotId"
@@ -55,6 +106,11 @@ recordBallotStyleCode = do
     getResponse >>= finishWith
   state $ ((,) ()) . insertCode (fromJust code) (fromJust style)
 
+-- | This renders the first page that the voter should see:
+-- A prompt asking for a ballot code.
+-- When this handler is invoked with a ballot code parameter,
+-- looks up the corresponding ballot style and redirects to the first-step page
+-- for that ballot style.
 askForBallotCode :: StarTerm m => m ()
 askForBallotCode = do
   mCode  <- paramR "code"
@@ -166,7 +222,7 @@ setSelection style race s = modifyResponse $ addResponseCookie (c s)
       , cookieDomain   = Nothing
       , cookiePath     = Just (e "/")
       , cookieSecure   = False  -- TODO: should be True in production
-      , cookieHttpOnly = True
+      , cookieHttpOnly = False
       }
 
 getBallot :: StarTerm m => BallotCode -> m (Maybe Ballot)
@@ -211,6 +267,7 @@ d = decodeUtf8With ignore
 pg :: Html -> Html
 pg = page (localize "star_terminal" strings)
 
+-- | Adhoc i18n system, for use until a real i18n library is incorporated.
 strings :: Translations
 strings = translations
   [ ("ballot_code_label", "Ballot code:")
@@ -227,6 +284,10 @@ strings = translations
   , ("summary", "Review and finalize your selections")
   ]
 
+-- | An example ballot style.
+-- For now this is the only ballot style that is available to terminals.
+-- In the future ballot styles will be provided during configuration,
+-- rather than hard-coded.
 ballotStyles :: BallotStyles
 ballotStyles =
   [ BallotStyle
