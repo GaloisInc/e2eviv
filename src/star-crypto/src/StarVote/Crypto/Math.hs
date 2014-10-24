@@ -1,25 +1,35 @@
 module StarVote.Crypto.Math where
 
 import Data.Array as A
-import Data.Bits
 import Data.Maybe (fromJust)
 
+
 -- Computes modular exponentation via right-to-left binary algorithm.
+-- We are computing in Z/mZ, so we require that m be positive.
+-- Since b^(-1) exists just when gcd(b, m) == 1, and this is only guaranteed
+-- when m is prime, we leave the result undefined for negative exponents.
 expMod
   :: Integer
   -> Integer
   -> Integer
-  -> Integer
-expMod m b e = next b e 1
+  -> Maybe Integer
+expMod m b e
+  | m <= 0    = Nothing
+  | e < 0     = Nothing
+  | m == 1    = Just 0
+  | e == 0    = Just 1
+  | otherwise = Just $ next b e 1
   where
-    next _ 0 acc = acc
-    next a e acc = next a' e' acc'
+    next _ 0 acc = mod acc m
+    next b e acc = next b' e' acc'
       where
-        a' = mod (a*a) m
-        e' = shiftR e 1
-        acc' = if testBit e 0
-               then mod (acc*a) m
-               else acc
+        b' = mod (b * b) m
+        e' = div e 2
+        acc' = if even e
+               then acc
+               else mod (acc * b) m
+
+unsafeExpMod m b e = fromJust (expMod m b e)
 
 -- Computes GCD using extended euclidean algorithm
 -- as described in Stein's "ENT", p. 33, Algorithm 2.3.7.
