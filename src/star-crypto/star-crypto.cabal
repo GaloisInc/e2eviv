@@ -23,7 +23,8 @@ library
                        base >=4.7 && <4.8,
                        bytestring >=0.10,
                        crypto-api >= 0.13,
-                       monadcryptorandom >= 0.6
+                       monadcryptorandom >= 0.6,
+                       star-types
   hs-source-dirs:      src
   default-language:    Haskell2010
 
@@ -31,11 +32,13 @@ test-suite test-all
   type:                exitcode-stdio-1.0
   hs-source-dirs:      src
                        test
-  main-is:             All.hs
+  main-is:             Test.hs
   build-depends:       array >= 0.5,
                        base >=4.7 && <4.8,
                        bytestring >=0.10,
                        crypto-api >= 0.13,
                        monadcryptorandom >= 0.6,
-                       QuickCheck >= 2
+                       QuickCheck >= 2,
+                       test-framework,
+                       test-framework-quickcheck2
   default-language:    Haskell2010
