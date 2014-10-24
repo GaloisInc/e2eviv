@@ -15,6 +15,14 @@ import StarVote.Crypto.Math
 import StarVote.Crypto.Types
 
 
+-- Helper to extract DH data
+dhParams :: TEGParams -> (Integer, Integer, Integer)
+dhParams params = (size, order, generator)
+  where grp   = tegGroup params
+        size  = dhgSize grp
+        order = dhgOrder grp
+        generator = dhgGenerator grp
+
 -- Reference:
 --   [HAC] Menezes, van Oorschot, Vanstone.
 --         "Handbook of Applied Cryptography".
@@ -29,14 +37,15 @@ buildKeyPair :: (CryptoRandomGen rng)
              -> TEGParams
              -> Either GenError ((TEGPublicKey, TEGPrivateKey), rng)
 buildKeyPair rng params = do
-  let p = tegOrder params
-      k = tegBits params
-      g = tegGenerator params
+  let (k, p, g) = dhParams params
+      -- p = dhgOrder $ tegGroup params
+      -- k = dhgSize  $ tegGroup params
+      -- g = dhgGenerator $ tegGroup params
       bl = div k 8
       lb = 1
       ub = p - 2
   (privateExponent, rng') <- crandomR (lb, ub) rng
-  let publicKey  = TEGPublicKey  params (expMod p g privateExponent)
+  let publicKey  = TEGPublicKey  params (unsafeExpMod p g privateExponent)
       privateKey = TEGPrivateKey params privateExponent
   return ((publicKey, privateKey), rng')
 
@@ -48,17 +57,18 @@ encryptAsym :: (CryptoRandomGen rng)
             -> Integer
             -> Either GenError (TEGCipherText, rng)
 encryptAsym rng (TEGPublicKey params halfSecret) msg = do
-  let p = tegOrder params
-      k = tegBits params
-      g = tegGenerator params
+  let (k, p, g) = dhParams params
+      -- p = tegOrder params
+      -- k = tegBits params
+      -- g = tegGenerator params
       bl = div k 8
       lb = 1
       ub = p - 2
   (privateExponent, rng') <- crandomR (lb, ub) rng
   (privateExponent, rng'') <- crandomR (lb, ub) rng'
 
-  let gamma = expMod p g privateExponent
-      delta = msg * (expMod p halfSecret privateExponent)
+  let gamma = unsafeExpMod p g privateExponent
+      delta = msg * (unsafeExpMod p halfSecret privateExponent)
   return (TEGCipherText gamma delta, rng'')
 
 -- ElGamal public-key encryption (Decryption).
@@ -69,9 +79,9 @@ decryptAsym :: TEGPrivateKey
 decryptAsym pk c = mod (gamma' * delta) p
   where (TEGPrivateKey params privateExponent) = pk
         (TEGCipherText gamma delta) = c
-        p = tegOrder params
 
-        g = tegGenerator params
+        (_, p, g) = dhParams params
+
         gamma' = unsafeModInverse p gamma
 
 -- Shamir's (t, n) threshold scheme (Setup)
@@ -84,7 +94,7 @@ buildShares :: (CryptoRandomGen rng)
             -> Shares
 buildShares rng params secret =
   let
-    p = tegOrder params
+    (_, p, _) = dhParams params
     n = tegTrustees params
     th = tegThreshold params
     lb = 0
@@ -101,7 +111,7 @@ recoverKeyFromShares :: TEGParams
                      -> Integer
 recoverKeyFromShares params (Shares shares) = sum $ map term (assocs shares)
   where
-    p = tegOrder params
+    (_, p, _) = dhParams params
     term (i, s) = (lagrangeBasisAt i) * s `mod` p
     lagrangeBasisAt i = product [ basisFactor
                                 | j <- [lb..ub],
