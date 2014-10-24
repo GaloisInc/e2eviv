@@ -70,8 +70,8 @@ encryptAsym rng (TEGPublicKey params halfSecret) msg = do
 decryptAsym :: TEGPrivateKey
             -> TEGCipherText
             -> Integer
-decryptAsym pk c = mod (gamma' * delta) p
-  where (TEGPrivateKey params privateExponent) = pk
+decryptAsym privateKey c = mod (gamma' * delta) p
+  where (TEGPrivateKey params privateExponent) = privateKey
         (TEGCipherText gamma delta) = c
 
         (_, p, g) = dhParams params
