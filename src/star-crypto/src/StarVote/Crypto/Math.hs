@@ -44,7 +44,7 @@ extendedGcd a b
   | a > b     = next a b r s x y
   | otherwise = next b a r s x y
   where (r, s, x, y) = (0, 1, 1, 0)
-        next g 0 r s x y = (g, x, y)
+        next g 0 r s x y = (abs g, x, y)
         next a b r s x y = next b
                                 (rem a b)
                                 (x - (div a b) * r)
