@@ -38,9 +38,6 @@ buildKeyPair :: (CryptoRandomGen rng)
              -> Either GenError ((TEGPublicKey, TEGPrivateKey), rng)
 buildKeyPair rng params = do
   let (k, p, g) = dhParams params
-      -- p = dhgOrder $ tegGroup params
-      -- k = dhgSize  $ tegGroup params
-      -- g = dhgGenerator $ tegGroup params
       bl = div k 8
       lb = 1
       ub = p - 2
@@ -58,9 +55,6 @@ encryptAsym :: (CryptoRandomGen rng)
             -> Either GenError (TEGCipherText, rng)
 encryptAsym rng (TEGPublicKey params halfSecret) msg = do
   let (k, p, g) = dhParams params
-      -- p = tegOrder params
-      -- k = tegBits params
-      -- g = tegGenerator params
       bl = div k 8
       lb = 1
       ub = p - 2
