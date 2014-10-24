@@ -24,11 +24,10 @@ import StarVote.Crypto.Types
 
 -- Key generation for ElGamal public-key encryption.
 -- [HAC 294] Algorithm 8.17
-buildKeyPair
-  :: (CryptoRandomGen rng)
-  => rng
-  -> TEGParams
-  -> Either GenError ((TEGPublicKey, TEGPrivateKey), rng)
+buildKeyPair :: (CryptoRandomGen rng)
+             => rng
+             -> TEGParams
+             -> Either GenError ((TEGPublicKey, TEGPrivateKey), rng)
 buildKeyPair rng params = do
   let p = tegOrder params
       k = tegBits params
@@ -43,12 +42,11 @@ buildKeyPair rng params = do
 
 -- ElGamal public-key encryption (Encryption).
 -- [HAC 295] Algorithm 8.18.1
-encryptAsym
-  :: (CryptoRandomGen rng)
-  => rng
-  -> TEGPublicKey
-  -> Integer
-  -> Either GenError (TEGCipherText, rng)
+encryptAsym :: (CryptoRandomGen rng)
+             => rng
+            -> TEGPublicKey
+            -> Integer
+            -> Either GenError (TEGCipherText, rng)
 encryptAsym rng (TEGPublicKey params halfSecret) msg = do
   let p = tegOrder params
       k = tegBits params
@@ -65,10 +63,9 @@ encryptAsym rng (TEGPublicKey params halfSecret) msg = do
 
 -- ElGamal public-key encryption (Decryption).
 -- [HAC 295] Algorithm 8.18.2
-decryptAsym
-  :: TEGPrivateKey
-  -> TEGCipherText
-  -> Integer
+decryptAsym :: TEGPrivateKey
+            -> TEGCipherText
+            -> Integer
 decryptAsym pk c = mod (gamma' * delta) p
   where (TEGPrivateKey params privateExponent) = pk
         (TEGCipherText gamma delta) = c
@@ -80,12 +77,11 @@ decryptAsym pk c = mod (gamma' * delta) p
 -- Shamir's (t, n) threshold scheme (Setup)
 -- [HAC 526] Mechanism 12.71.1
 -- (!) Throws away rng due to use of `crandomRs`
-buildShares
-  :: (CryptoRandomGen rng)
-  => rng        -- You will lose this!
-  -> TEGParams
-  -> Integer
-  -> Shares
+buildShares :: (CryptoRandomGen rng)
+            => rng        -- You will lose this!
+            -> TEGParams
+            -> Integer
+            -> Shares
 buildShares rng params secret =
   let
     p = tegOrder params
@@ -100,10 +96,9 @@ buildShares rng params secret =
 
 -- Shamir's (t, n) threshold scheme (Pooling)
 -- [HAC 526] Mechanism 12.71.2
-recoverKeyFromShares
-  :: TEGParams
-  -> Shares
-  -> Integer
+recoverKeyFromShares :: TEGParams
+                     -> Shares
+                     -> Integer
 recoverKeyFromShares params (Shares shares) = sum $ map term (assocs shares)
   where
     p = tegOrder params
