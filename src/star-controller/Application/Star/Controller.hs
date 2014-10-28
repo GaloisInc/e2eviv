@@ -1,4 +1,4 @@
-{-# LANGUAGE FlexibleContexts, OverloadedStrings, Rank2Types, TemplateHaskell #-}
+{-# LANGUAGE FlexibleContexts, FlexibleInstances, OverloadedStrings, Rank2Types, TemplateHaskell #-}
 module Application.Star.Controller where
 
 import Application.Star.Ballot
@@ -9,35 +9,87 @@ import Application.Star.SerializableBS
 import Application.Star.Util
 import Application.Star.CommonImports hiding (method)
 import Control.Arrow
+import Control.Concurrent
 import Control.Lens
+import Data.Aeson
 import Data.Char
+import Data.List.Split
+import Data.Maybe
+import Network.HTTP.Client hiding (method)
+import Network.HTTP.Client.TLS
+import System.Environment
 import System.Random
 
 import qualified Control.Concurrent.STM as STM
+import qualified Data.HashMap.Lazy as HM
 import qualified Data.Map  as M
 import qualified Data.Set  as S
 import qualified Data.Text as T
+import qualified Network.HTTP.Client as HTTP
+
+-- entry points:
+-- POST generateCode
+-- 	input:  POST body parameter named "style" containing UTF-8 encoded text
+-- 	        specifying a ballot style (which will be passed off to the voting
+-- 	        terminals)
+-- 	output: a ballot code
+-- POST fillOut
+-- 	input:  POST body containing a JSON-encoded EncryptedRecord describing a
+-- 	        ballot; this is automatically called by the voting terminal
+-- 	output: none
+-- POST cast, POST spoil
+-- 	input:  POST body parameter named "bcid" containing UTF-8 encoded ballot
+-- 	        casting ID to be marked as cast or spoiled
+-- 	output: none
+-- GET ballotBox
+-- 	input:  none
+-- 	output: all filled out ballots as reported by voting terminals
+
+-- An example of using the controller and terminal together on one machine
+-- might look like this (assuming the appropriate executables are in your
+-- PATH):
+--
+-- # environment setup for star-terminal elided; see star-terminal/start.sh for
+-- # an example
+--
+-- STAR_POST_VOTE_URL=localhost:8000 star-terminal -p 8001 &
+--
+-- STAR_POST_BALLOT_CODE_URLS=localhost:8001 star-controller -p 8000 &
+--
+-- curl -X POST localhost:8000/generateCode -d style=oregon-2014
+--
+-- # visit localhost:8001/ballots in your browser and type in the code printed
+-- # by the previous curl command; after being told you voted, you can then...
+--
+-- # visit localhost:8000/ballotBox in your browser
 
 type TMap k v = Map k (TVar v)
 data ControllerState = ControllerState
 	{ _seed :: StdGen
+	-- TODO: following discussions with Jesse, we think it may make more sense
+	-- to ask terminals to check in when they start up and build the terminal
+	-- list that way than to get the list of terminals from the environment
+	, _broadcastURLs :: [String]
 	, _ballotStyles :: Set BallotCode
 	-- ballotBox invariant: the bcid in the EncryptedRecord matches the key it's filed under in the Map
 	, _ballotBox :: TMap BallotCastingId (BallotStatus, EncryptedRecord)
 	}
 
 makeLenses ''ControllerState
+instance ToJSON v => ToJSON (Map BallotCastingId v) where
+	toJSON m = Object $ HM.fromList [(k, toJSON v) | (BallotCastingId k, v) <- M.toList m]
 
 main :: IO ()
 main = do
 	seed <- getStdGen
-	statefulErrorServe controller $ ControllerState seed def def
+	urls <- maybe ["http://terminal/ballots"] (splitOn ";") <$> lookupEnv "STAR_POST_BALLOT_CODE_URLS"
+	statefulErrorServe controller $ ControllerState seed urls def def
 
 controller :: (MonadError Text m, MonadTransaction ControllerState m, MonadSnap m) => m ()
 controller = route $
 	[ ("generateCode", do
 		method POST
-		styleID <- readBodyParam "style"
+		styleID <- decodeParam rqPostParams "style"
 		code    <- generateCode
 		broadcast code styleID
 		writeShow code
@@ -56,6 +108,11 @@ controller = route $
 		method POST
 		castingID <- BallotCastingId <$> readBodyParam "bcid"
 		setUnknownBallotTo Spoiled castingID
+	  )
+	, ("ballotBox", do
+		method GET
+		v <- readEntireBallotBox
+		writeLBS . encode $ v
 	  )
 	-- TODO: provisional casting
 	]
@@ -90,9 +147,18 @@ registerCode code db
 	| otherwise = (False, db)
 -- }}}
 
--- TODO
-broadcast :: MonadSnap m => BallotCode -> ID BallotStyle -> m ()
-broadcast code styleID = return ()
+broadcast :: (MonadState ControllerState m, MonadError Text m, MonadSnap m)
+          => BallotCode -> BallotStyleId -> m ()
+broadcast code styleID = do
+	bases <- gets _broadcastURLs
+	urlRequests <- mapM (errorT . parseUrl . urlFor) bases
+	-- for now, no error-handling of any kind
+	mapM_ (liftIO . forkIO . void . post) urlRequests
+	where
+	urlFor base = base <> "/" <> T.unpack styleID <> "/codes/" <> show code
+	errorT (Left  e) = throwError . T.pack . show $ e
+	errorT (Right v) = return v
+	post r = withManager tlsManagerSettings (httpNoBody r { HTTP.method = "POST" })
 
 fillOut :: EncryptedRecord -> ControllerState -> STM ((), ControllerState)
 fillOut ballot s = do
@@ -110,6 +176,9 @@ setUnknownBallotTo status bcid = join . transaction_ $ \s -> do
 				Unknown -> STM.writeTVar p (status, record) >> return (return ())
 				_ -> return (throwError $ T.pack (show bcid) <> " was already " <> T.pack (map toLower (show status)))
 		_ -> return (throwError $ "Unknown " <> T.pack (show bcid))
+
+readEntireBallotBox :: MonadTransaction ControllerState m => m (Map BallotCastingId (BallotStatus, EncryptedRecord))
+readEntireBallotBox = transaction_ $ traverse STM.readTVar . _ballotBox
 
 state' :: MonadState s m => Lens s s t t -> (t -> (a, t)) -> m a
 state' lens f = state (\s -> second (flip (set lens) s) (f (view lens s)))

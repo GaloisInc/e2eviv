@@ -2,3 +2,5 @@
 *~
 /src/append-only-bb/data/SECRET
 /src/append-only-bb/data/bb.sqlite
+/src/append-only-bb/data/BOARDS
+/src/append-only-bb/data/PUBLIC
