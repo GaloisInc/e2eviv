@@ -1,10 +1,13 @@
+{-# LANGUAGE
+    NamedFieldPuns
+  #-}
 module StarVote.Crypto.Types where
 
 import Data.Array (Array)
 
 data TEGParams
   = TEGParams {
-    tegGroup     :: DiffieHellmanGroup
+      tegGroup     :: DiffieHellmanGroup
     , tegTrustees  :: Integer
     , tegThreshold :: Integer
     }
@@ -48,3 +51,13 @@ makeDiffieHellmanGroup :: Integer
                        -> Integer
                        -> DiffieHellmanGroup
 makeDiffieHellmanGroup = undefined
+
+-- Helper to extract DH data
+dhParams :: TEGParams -> (Integer, Integer, Integer)
+dhParams params = (dhgSize, dhgOrder, dhgGenerator)
+  where
+    (TEGParams {tegGroup}) = params
+    (DiffieHellmanGroup { dhgSize
+                        , dhgOrder
+                        , dhgGenerator
+                        }) = tegGroup
