@@ -16,7 +16,7 @@ unsafeExpModAgreesWithNaive (Positive m) b (NonNegative e) =
   unsafeExpMod m b e == (b ^ e) `mod` m
 
 extendedGcdAgreesWithPrelude a b =
-    g == gcd a b where (g, x, y) = extendedGcd a b
+  g == gcd a b where (g, x, y) = extendedGcd a b
 
 modInverseReturnsInverses (Positive m) a =
     0 /= a `mod` m

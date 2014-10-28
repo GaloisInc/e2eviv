@@ -1,6 +1,5 @@
 module Test.ThresholdElGamal (thresholdElGamalTests) where
 
-import qualified Data.ByteString.Char8 as B
 
 import Test.Framework
 import Test.Framework.Providers.QuickCheck2
@@ -12,6 +11,7 @@ import Crypto.Random
 import StarVote.Crypto.Groups
 import StarVote.Crypto.Types
 import StarVote.Crypto.ThresholdElGamal
+import StarVote.Crypto.ElGamal
 
 
 positiveBoundedBy :: Integer -> Positive Integer -> Bool
@@ -27,22 +27,24 @@ instance Arbitrary TEGParams where
       , tegThreshold = threshold
       }
 
-decryptAfterEncryptIsIdentity :: Positive Integer -> Property
-decryptAfterEncryptIsIdentity (Positive msg) = monadicIO $ do
-  rng    <- run (newGenIO :: IO SystemRandom)
+decryptAfterEncryptIsIdentity :: NonNegative Integer -> Property
+decryptAfterEncryptIsIdentity (NonNegative msg) = monadicIO $ do
+  rng0   <- run (newGenIO :: IO SystemRandom)
   params <- pick (arbitrary :: Gen TEGParams)
   let roundTrip = do
-        ((pk, sk), rng') <- buildKeyPair rng params
-        (ctxt, _)        <- encryptAsym rng' pk msg
-        return $ decryptAsym sk ctxt
-  return $ case roundTrip of
+        ((pk, sk), rng1) <- buildKeyPair rng0 params
+        (ctxt, rng2)     <- encryptAsym rng1 pk msg
+        let (TEGPrivateKey _ sk') = sk
+        shares           <- Right $ buildModifiedShares rng2 params sk'
+        return $ decryptWithModifiedShares params shares ctxt
+  assert $ case roundTrip of
     Left  err  -> False
-    Right ptxt -> ptxt == msg
+    Right ptxt -> False -- ptxt == msg
 
 
 thresholdElGamalTests =
   testGroup "StarVote.Crypto.ThresholdElGamal" [
     testProperty
-      "Decrypt after encrypt is identity"
+      "Decrypt with shares after encrypt is identity"
       decryptAfterEncryptIsIdentity
   ]

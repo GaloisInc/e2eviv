@@ -10,5 +10,5 @@ main =
   defaultMain [
       elGamalTests
     , mathTests
-    -- , thresholdElGamalTests
+    , thresholdElGamalTests
     ]

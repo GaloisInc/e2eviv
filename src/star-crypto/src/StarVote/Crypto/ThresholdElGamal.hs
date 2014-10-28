@@ -13,81 +13,21 @@ import qualified Data.ByteString as B
 
 import StarVote.Crypto.Math
 import StarVote.Crypto.Types
-
-
--- Helper to extract DH data
-dhParams :: TEGParams -> (Integer, Integer, Integer)
-dhParams params = (size, order, generator)
-  where grp   = tegGroup params
-        size  = dhgSize grp
-        order = dhgOrder grp
-        generator = dhgGenerator grp
+import StarVote.Crypto.ElGamal
 
 -- Reference:
---   [HAC] Menezes, van Oorschot, Vanstone.
---         "Handbook of Applied Cryptography".
---          CRC Press, 1996
---          www.cacr.math.uwaterloo.ca/hac
+--   [DF] Yvo Desmedt, Yair Frankel.
+--        "Threshold cryptosystems".
+--        http://dl.acm.org/citation.cfm?id=118237
 
-
--- Key generation for ElGamal public-key encryption.
--- [HAC 294] Algorithm 8.17
-buildKeyPair :: (CryptoRandomGen rng)
-             => rng
-             -> TEGParams
-             -> Either GenError ((TEGPublicKey, TEGPrivateKey), rng)
-buildKeyPair rng params = do
-  let (k, p, g) = dhParams params
-      bl = div k 8
-      lb = 1
-      ub = p - 2
-  (privateExponent, rng') <- crandomR (lb, ub) rng
-  let publicKey  = TEGPublicKey  params (unsafeExpMod p g privateExponent)
-      privateKey = TEGPrivateKey params privateExponent
-  return ((publicKey, privateKey), rng')
-
--- ElGamal public-key encryption (Encryption).
--- [HAC 295] Algorithm 8.18.1
-encryptAsym :: (CryptoRandomGen rng)
-             => rng
-            -> TEGPublicKey
-            -> Integer
-            -> Either GenError (TEGCipherText, rng)
-encryptAsym rng (TEGPublicKey params halfSecret) msg = do
-  let (k, p, g) = dhParams params
-      bl = div k 8
-      lb = 1
-      ub = p - 2
-  (privateExponent, rng') <- crandomR (lb, ub) rng
-  (privateExponent, rng'') <- crandomR (lb, ub) rng'
-
-  let gamma = unsafeExpMod p g privateExponent
-      delta = msg * (unsafeExpMod p halfSecret privateExponent)
-  return (TEGCipherText gamma delta, rng'')
-
--- ElGamal public-key encryption (Decryption).
--- [HAC 295] Algorithm 8.18.2
-decryptAsym :: TEGPrivateKey
-            -> TEGCipherText
-            -> Integer
-decryptAsym privateKey c = mod (gamma' * delta) p
-  where (TEGPrivateKey params privateExponent) = privateKey
-        (TEGCipherText gamma delta) = c
-
-        (_, p, g) = dhParams params
-
-        gamma' = unsafeModInverse p gamma
-
--- Shamir's (t, n) threshold scheme (Setup)
--- [HAC 526] Mechanism 12.71.1
 -- (!) Throws away rng due to use of `crandomRs`
-buildShares :: (CryptoRandomGen rng)
-            => rng        -- You will lose this!
-            -> TEGParams
-            -> Integer
-            -> Shares
-buildShares rng params secret =
-  let
+buildModifiedShares :: (CryptoRandomGen rng)
+                    => rng        -- You will lose this!
+                    -> TEGParams
+                    -> Integer
+                    -> Shares
+buildModifiedShares rng params secret = Shares $ fmap modifyShare shares
+  where
     (_, p, _) = dhParams params
     n = tegTrustees params
     th = tegThreshold params
@@ -95,18 +35,7 @@ buildShares rng params secret =
     ub = p - 1
     coeffs = take (fromIntegral (th - 1)) $ crandomRs (lb, ub) rng
     poly = Polynomial $ listArray (0, th-1) (secret:coeffs)
-  in
-   Shares $ listArray (1, n) $ map (evalPolyMod p poly) [1..n]
-
--- Shamir's (t, n) threshold scheme (Pooling)
--- [HAC 526] Mechanism 12.71.2
-recoverKeyFromShares :: TEGParams
-                     -> Shares
-                     -> Integer
-recoverKeyFromShares params (Shares shares) = sum $ map term (assocs shares)
-  where
-    (_, p, _) = dhParams params
-    term (i, s) = (lagrangeBasisAt i) * s `mod` p
+    shares = listArray (1, n) $ map (evalPolyMod p poly) [1..n]
     lagrangeBasisAt i = product [ basisFactor
                                 | j <- [lb..ub],
                                   i /= j,
@@ -114,4 +43,27 @@ recoverKeyFromShares params (Shares shares) = sum $ map term (assocs shares)
                                       x_i = shares ! i
                                       basisFactor = x_j `div` (x_j - x_i)
                                 ]
-    (lb, ub) = bounds shares
+    modifyShare i = (lagrangeBasisAt i) * (shares ! i) `mod` p
+
+
+buildPartialResult :: TEGParams
+                   -> Integer
+                   -> TEGCipherText
+                   -> Integer
+buildPartialResult params share ctext = unsafeExpMod p gamma share
+  where
+    (_, p, _) = dhParams params
+    (TEGCipherText gamma delta) = ctext
+
+
+decryptWithModifiedShares :: TEGParams
+                          -> Shares         -- Modified shares
+                          -> TEGCipherText  -- Fully unencrypted ciphertext
+                          -> Integer
+decryptWithModifiedShares params (Shares shares) ctext = ptext
+  where
+    (_, p, _) = dhParams params
+    (TEGCipherText gamma delta) = ctext
+    step share = buildPartialResult params share ctext
+    pooledModifiedShares = (product $ elems $ fmap step shares) `mod` p
+    ptext = (pooledModifiedShares * delta) `mod` p
