@@ -40,9 +40,9 @@ data DiffieHellmanGroup
 
 
 -- TODO: Write smart constructor that checks that:
--- -- `size` is positive
--- -- `order` is probable prime
--- -- `generator` is an integer in [2, order)
+-- - `size` is positive
+-- - `order` is probable prime
+-- - `generator` is an integer in [2, order)
 makeDiffieHellmanGroup :: Integer
                        -> Integer
                        -> Integer
