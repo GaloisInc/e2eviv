@@ -9,7 +9,6 @@ import Crypto.Random
 
 import StarVote.Crypto.Groups
 import StarVote.Crypto.Types
--- import StarVote.Crypto.ThresholdElGamal
 import StarVote.Crypto.ElGamal
 
 
