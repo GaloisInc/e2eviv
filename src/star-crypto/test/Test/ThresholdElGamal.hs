@@ -27,21 +27,17 @@ instance Arbitrary TEGParams where
       , tegThreshold = threshold
       }
 
--- TODO: make PropertyM, IO, and Either cohere so no indent drift
 decryptAfterEncryptIsIdentity :: Positive Integer -> Property
 decryptAfterEncryptIsIdentity (Positive msg) = monadicIO $ do
-  rng     <- run (newGenIO :: IO SystemRandom)
-  params  <- pick (arbitrary :: Gen TEGParams)
-  keyPair <- run $ return $ buildKeyPair rng params
-  case keyPair of
-    Left err               -> return False
-    Right ((pk, sk), rng') -> do
-      cipherText <- run $ return $ encryptAsym rng' pk msg
-      case cipherText of
-        Left err -> return False
-        Right (c, _)  -> do
-          p <- return $ decryptAsym sk c
-          return $ p == msg
+  rng    <- run (newGenIO :: IO SystemRandom)
+  params <- pick (arbitrary :: Gen TEGParams)
+  let roundTrip = do
+        ((pk, sk), rng') <- buildKeyPair rng params
+        (ctxt, _)        <- encryptAsym rng' pk msg
+        return $ decryptAsym sk ctxt
+  return $ case roundTrip of
+    Left  err  -> False
+    Right ptxt -> ptxt == msg
 
 
 thresholdElGamalTests =
