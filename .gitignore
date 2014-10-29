@@ -4,3 +4,5 @@
 /src/append-only-bb/data/bb.sqlite
 /src/append-only-bb/data/BOARDS
 /src/append-only-bb/data/PUBLIC
+.cabal-sandbox
+cabal.sandbox.config
