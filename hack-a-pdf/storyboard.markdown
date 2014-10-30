@@ -47,6 +47,9 @@
 
 # Transcript
 
+[comment]: # (timings for each paragraph (in seconds): 25, 45, 55, 39, 62, 15)
+[comment]: # (total runtime 4:00.38)
+
 Many governments have recently expressed interest in re-examining their voting
 systems, lured in part by the promise of low-cost, high-accuracy automated vote
 counting. One simple proposal under consideration is vote by email, in which
