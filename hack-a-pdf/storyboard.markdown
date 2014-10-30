@@ -27,8 +27,18 @@
 4. our hack (20s)
     - description
         - voter sends in intended vote... but government receives something different!
+        - contact home routers with default password
+        - patch the software on the router to rewrite email attachments
+        - looks for a specific vote, replace it with another specific vote
+        - essentially invisible: patched software is, to all outward appearances, identical to the factory default software
     - ease of development: took two people two days [get the real data to put here] from inception to execution
     - failing mitigations
+        - things that require more technical expertise/coordination than can be expected of the general public
+            - end-to-end encrypted email connections
+            - use digital signatures on the votes
+            - harden all routers... and all hardware on the Internet
+        - use encrypted PDFs (but still vulnerable to compromised software on voter's computer)
+        - try to detect malfunctioning hardware (an unwinnable arms race)
 5. conclusion (5s)
     - serious, easily-exploitable problems with vote-by-email
     - now watch it in action
