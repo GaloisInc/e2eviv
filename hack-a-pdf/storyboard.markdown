@@ -47,9 +47,9 @@
 
 # Transcript
 
-[comment]: # (timings for each paragraph (in seconds): 17, 19, 24, 24, 40, 12)
+[comment]: # (timings for each paragraph (in seconds): 17, 19, 24, 18, 23, 12)
 [comment]: # (desired timings:                         15, 10,     30, 20,  5)
-[comment]: # (total runtime 2:15.98)
+[comment]: # (total runtime 1:52)
 
 Many governments have recently expressed interest in re-examining their voting
 systems, lured in part by the promise of low-cost, high-accuracy automated vote
@@ -69,22 +69,17 @@ network, then through the voter's computer's operating system, email, and PDF
 programs, and back again through the same process in reverse.
 
 If an attacker can compromise any part of this chain, they can influence the
-outcome of the voting experience. Attacks can include preventing the ballot from
-ever arriving at the intended recipient (perhaps diverting it so that the
-attacker may cast a vote in their place); modifying or incorrectly displaying
-the ballot to misrepresent the candidates; and even modifying the vote the user
-has cast.
+outcome of the voting experience. Attacks include diverting a ballot from
+its intended recipient so that the attacker may vote in their place or modifying
+a ballot before or after the voter has cast their vote.
 
-We have showed that the final attack -- modifying a voter's intended vote before
-it returns to the government -- can be easily realized. In our proof-of-concept,
-we connect remotely to the router on a home network and update its software to
-modify votes in PDF email attachments. From the voter's point of view, they send
-an email with their intended vote, but the government receives an entirely
-different vote! This kind of attack is not even hard: from inception to
-execution, this idea took two people two days to develop. The obvious ways to
-prevent an attack like this are unrealistic because they require widespread
-coordination or technically sophisticated voters.
+We have showed that the latter attack can be easily realized. In our
+proof-of-concept, we remotely patch a router to modify votes contained in
+emails. From the voter's point of view, they send an email with their intended
+vote, but the government receives an entirely different vote! This kind of
+attack is not even hard: from inception to execution, the idea took two people
+two days to develop.
 
 There are simply too many untrusted, unverifiable, insecure links in the chain
 of voting for it to hold its weight. As attractive as it is, voting by email in
-this way is deeply flawed. Stay tuned to see a demonstration!
+this way is deeply flawed. Stay tuned to see a demonstration.
