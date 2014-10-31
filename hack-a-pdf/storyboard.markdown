@@ -9,7 +9,7 @@ There is a lot to like about this system. It allows remote voting, and email is
 a fast and familiar delivery mechanism for this. Because vote counting can be
 automated, there is hope that this can be done without mistakes, and the system
 can be deployed with low hardware, software, and election-day costs compared to
-other evoting systems.
+other voting systems.
 
 Unfortunately, the system also has serious security flaws. In a typical voting
 lifecycle, a PDF flows through many pieces of untrusted hardware and software:
