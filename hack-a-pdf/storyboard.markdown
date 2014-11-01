@@ -1,36 +1,28 @@
-Many governments have recently expressed interest in re-examining their voting
-systems, lured in part by the promise of low-cost, high-accuracy automated vote
-counting. One simple proposal has the government send each voter a PDF ballot
-by email, which is filled out and emailed back to the government for counting.
+Many governments are considering how to incorporate computers in their voting
+systems, lured in part by the promise of cheap, accurate vote counting. One way
+is to have voters fill out a ballot using standard software and return it to the
+government by email.
 
-![simplified system architecture](simple_architecture.jpg)
+There is a lot to like about this system. Voters can vote from the comfort of
+their own home, and email is much faster than regular mail for returning the
+ballot. Email software is familiar and inexpensive, and potentially makes voting
+accessible to some people who cannot vote today. Counting votes can be
+automated, decreasing costs and human mistakes.
 
-There is a lot to like about this system. It allows remote voting, and email is
-a fast and familiar delivery mechanism for this. Because vote counting can be
-automated, there is hope that this can be done without mistakes, and the system
-can be deployed with low hardware, software, and election-day costs compared to
-other voting systems.
+Unfortunately, the system also has serious security flaws. When you download a
+file or send an email, the data flows through many untrusted computer systems.
+The ballot can be intercepted or modified on the way to the voter, viruses on
+the voter's computer can change the vote, or the vote can be changed on its
+return trip to the government. If any one of these attacks works, it can change
+the outcome of an entire election.
 
-Unfortunately, the system also has serious security flaws. In a typical voting
-lifecycle, a PDF flows through many pieces of untrusted hardware and software:
-from the government's computers via Internet infrastructure to the voter's home
-network, then through the voter's computer's operating system, email, and PDF
-programs, and back again through the same process in reverse.
+To prove that this is not just a theoretical danger, we have demonstrated that a
+normal home wireless router can be taken over from anywhere on the Internet.
+Afterwards, the router will silently modify emailed votes after they leave the
+voter's computer but before they arrive at the government. The demonstration
+took only a few days to develop, and could easily be made very difficult to
+detect, even for security experts.
 
-![more realistic system architecture](architecture.jpg)
-
-If an attacker can compromise any part of this chain, they can influence the
-outcome of the voting experience. Attacks include diverting a ballot from
-its intended recipient so that the attacker may vote in their place or modifying
-a ballot before or after the voter has cast their vote.
-
-We have showed that the latter attack can be easily realized. In our
-proof-of-concept, we remotely patch a router to modify votes contained in
-emails. From the voter's point of view, they send an email with their intended
-vote, but the government receives an entirely different vote! This kind of
-attack is not even hard: from inception to execution, the idea took two people
-two days to develop.
-
-There are simply too many untrusted, unverifiable, insecure links in the chain
-of voting for it to hold its weight. As attractive as it is, voting by email in
-this way is deeply flawed. Stay tuned to see a demonstration.
+Despite its benefits, voting by email is deeply flawed. We must demand a system
+where we can be confident that our votes are counted. Stay tuned for a
+demonstration.
