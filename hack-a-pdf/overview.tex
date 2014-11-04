@@ -156,14 +156,14 @@ as described above.
 
 Since the PDF file is transmitted as an email attachment, the actual
 strings replaced are Base64 encoded versions of the strings within the
-PDF file. Base64, described in RFC 3548, is the standard encoding
-mechanism for sending binary files as email attachments. It converts
-every 3 bytes of the binary file to 4 6-bit values, each of which is
-then sent as a single textual character chosen from a 64-character
-alphabet. Using our previous ``candidates'', we see that the Base64
-encoding of ``\texttt{<{}< /V /Aardvark}'' is
-``\texttt{PDwgL1YgL0FhcmR2YXJr}'' and the Base64 encoding of
-``\texttt{<{}< /V
+PDF file. Base64, described in RFC 3548,~\cite{RFC3548} is the
+standard encoding mechanism for sending binary files as email
+attachments. It converts every 3 bytes of the binary file to 4 6-bit
+values, each of which is then sent as a single textual character
+chosen from a 64-character alphabet. Using our previous
+``candidates'', we see that the Base64 encoding of ``\texttt{<{}< /V
+  /Aardvark}'' is ``\texttt{PDwgL1YgL0FhcmR2YXJr}'' and the Base64
+encoding of ``\texttt{<{}< /V
   /Zebra\textvisiblespace\textvisiblespace\textvisiblespace}'' is
 ``\texttt{PDwgL1YgL1plYnJhICAg}''. Our attack monitors connections on
 standard email submission ports, replacing the former string with the
@@ -327,6 +327,7 @@ way to determine the extent of the corruption of votes.
 \bibliographystyle{acm}
 \bibliography{overview}
 
+\pagebreak
 \appendix
 \section{Source Code}
 \label{section:source}
@@ -353,8 +354,6 @@ module instead. It could also be extended to Base64 decode and
 re-encode packets on the fly as necessary, rather than depending on a
 priori knowledge of the offset (modulo 3) of the string to replace
 in the PDF ballot.
-
-\pagebreak
 
 \lstinputlisting{votehack-for-paper.c}
 
