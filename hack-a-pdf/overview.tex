@@ -62,25 +62,26 @@ successfully attacked by an academic research group;~\cite{DCVoting}
 and the nation of Estonia, which has had Internet voting since 2005
 that exhibits significant security flaws.~\cite{EstoniaEVoting}
 
-One mechanism proposed for Internet voting, which was (ironically)
-used as a fallback mechanism after the Washington, D.C. Internet
-voting system was successfully hacked and removed from service,
-involves ballots rendered as standard Adobe Portable Document Format
-(PDF) forms. These forms would be made available to voters on a web
-site; the voters would then use standard software (\eg Acrobat Reader,
-Preview, \etc) to fill out the forms and submit the completed forms
-via electronic mail to the appropriate election authority.
+One mechanism proposed for Internet voting, which was used as a
+fallback mechanism after the Washington, D.C. Internet voting system
+was successfully hacked and removed from service and is also available
+to current Alaska voters, involves ballots rendered as standard Adobe
+Portable Document Format (PDF) forms. These forms are made available
+to voters on a web site; the voters then use standard software (\eg
+Acrobat Reader, Preview, \etc) to fill out the forms and submit the
+completed forms via electronic mail to the appropriate election
+authority.
 
-Unfortunately, the mechanism of filling in a PDF form and emailing it
-to an election authority is vulnerable to attack at several levels:
-malicious software on the user's computer could modify or invalidate a
-vote; a malicious election authority could intentionally miscount (or
-simply ``lose'') received votes; malicious third parties could
-masquerade as the election authority, or perform denial of service
-attacks against the actual election authority to prevent votes from
-being cast; and more. Here, we describe an attack at the transport
-level, on the raw data traveling through the electronic mail system
-between the voter's computer and the election authority.
+Unfortunately, this mechanism is vulnerable to attack at several
+levels: malicious software on the user's computer could modify or
+invalidate a vote; a malicious election authority could intentionally
+miscount (or simply ``lose'') received votes; malicious third parties
+could masquerade as the election authority, or perform denial of
+service attacks against the actual election authority to prevent votes
+from being cast or to flood them with invalid ballots; and more. Here
+we describe a more subtle attack at the transport level, which changes
+the raw data traveling through the electronic mail system between the
+voter's computer and the election authority.
 
 \section{The Attack}
 
@@ -102,25 +103,25 @@ of one or more characters. The selected button is indicated in the PDF
 with a string of the form ``\texttt{<{}< /V /ID}'', where
 ``\texttt{ID}'' is the identifier. If we want to change a vote for the
 candidate with identifier ``\texttt{ID1}'' to a vote for the candidate
-with identifier ``\texttt{ID2}'', it suffices to replace the strings
+with identifier ``\texttt{ID2}'', it suffices to replace the string
 ``\texttt{<{}< /V /ID1}'' with the string ``\texttt{<{}< /V /ID2}'' in
 the PDF file. In the event that the two identifiers do not have the
-same length, the process is only slightly more complicated by the fact
-that we need to maintain the length of the file (more specifically, of
-each packet within the file) to carry out the attack as the file is
-transferred over the Internet.
+same length, the process is only slightly more complicated because we
+need to maintain the length of the file (more specifically, of each
+packet within the file) to carry out the attack transparently as the
+file is transferred over the Internet.
 
 Consider the case where one candidate (Candidate A) has identifier
 ``\texttt{Aardvark}'' and the other (Candidate Z) has identifier
-``\texttt{Zebra}''. If we want to change a vote for Candidate A
-into a vote for Candidate Z, we simply replace the string ``\texttt{<{}<
-  /V /Aardvark}'' with the string ``\texttt{<{}< /V
-  /Zebra\textvisiblespace\textvisiblespace\textvisiblespace}'';
-the 3 spaces at the end of our replacement string pad it to the same
-length as the original string. These extra spaces are ignored by PDF
-readers; though they might be noticed in a close inspection of the
-file, the result is still valid PDF and could conceivably have been
-generated when the voter initially filled out the form.
+``\texttt{Zebra}''. If we want to change a vote for Candidate A into a
+vote for Candidate Z, we replace the string ``\texttt{<{}< /V
+  /Aardvark}'' with the string ``\texttt{<{}< /V
+  /Zebra\textvisiblespace\textvisiblespace\textvisiblespace}''; the 3
+spaces at the end of our replacement string pad it to the same length
+as the original string. These extra spaces are ignored by PDF readers;
+though they might be noticed in a close inspection of the file, the
+result is still valid PDF and could conceivably have been generated
+when the voter initially filled out the form.
 
 On the other hand, if we want to change a vote for Candidate Z into a
 vote for Candidate A we must perform multiple string replacements to
@@ -133,18 +134,19 @@ than) the identifier for Candidate Z; in this case, perhaps we choose
 ``\texttt{<{}< /Aardvark}'' with ``\texttt{<{}<
   /Aard\textvisiblespace\textvisiblespace\textvisiblespace\textvisiblespace}''. As
 before, the extra spaces pad the strings to the same length as in the
-original file, and are ignored by PDF readers.
+original file and are ignored by PDF readers.
 
 While a shortening of the chosen identifier is difficult to notice, a
 lengthening of the chosen identifier (and the resulting wholesale
 identifier change required to make it fit in the same number of
-characters) is easy to spot. However, in a real election, the
-candidate identifiers would most likely already be the same
-length. For example, the default identifiers assigned to buttons in a
-group when creating a form in Adobe Acrobat Professional are
-``\texttt{Choice1}'', ``\texttt{Choice2}'', \etc With a ballot form
-containing all equal-length identifiers, it would be effectively
-impossible to detect this sort of tampering.
+characters) is easy to spot. However, in any given PDF form, the
+identifiers are most likely already the same length. For example, the
+default identifiers assigned to buttons in a group when creating a
+form in Adobe Acrobat Professional are ``\texttt{Choice1}'',
+``\texttt{Choice2}'', \etc With a ballot form containing all
+equal-length identifiers, as would be generated by a typical PDF form
+generator, it would be effectively impossible to detect this sort of
+tampering.
 
 \subsection{Implementation}
 
@@ -158,44 +160,67 @@ Since the PDF file is transmitted as an email attachment, the actual
 strings replaced are Base64 encoded versions of the strings within the
 PDF file. Base64, described in RFC 3548,~\cite{RFC3548} is the
 standard encoding mechanism for sending binary files as email
-attachments. It converts every 3 bytes of the binary file to 4 6-bit
-values, each of which is then sent as a single textual character
-chosen from a 64-character alphabet. Using our previous
-``candidates'', we see that the Base64 encoding of ``\texttt{<{}< /V
-  /Aardvark}'' is ``\texttt{PDwgL1YgL0FhcmR2YXJr}'' and the Base64
-encoding of ``\texttt{<{}< /V
-  /Zebra\textvisiblespace\textvisiblespace\textvisiblespace}'' is
-``\texttt{PDwgL1YgL1plYnJhICAg}''. Our attack monitors connections on
-standard email submission ports, replacing the former string with the
-latter when encountered. Because the replacement is performed by
-modifying single packets at the TCP protocol level, it cannot be
-detected in real time unless the connection is actively monitored at
-both ends to ensure that packet contents are unmodified.
+attachments. It converts every three bytes of the binary file to four
+6-bit fields. Each of these fields can take one of $2^6=64$ possible
+values, and can thus be sent as a single printable character chosen
+from a 64-character alphabet. 
+
+Using our previous ``candidates'', we see that the Base64 encodings of
+``\texttt{<{}< /V /Aardvark}'' and ``\texttt{<{}< /V
+  /Zebra\textvisiblespace\textvisiblespace\textvisiblespace}'' are
+``\texttt{PDwgL1YgL0FhcmR2YXJr}'' and
+``\texttt{PDwgL1YgL1plYnJhICAg}'', respectively. Depending on the
+offset in the file at which the target string appears, the encoding
+actually present in the PDF file might be different from that computed
+for the string in isolation. If the first character of the target
+string is the first in an encoded group of 3 characters, direct
+encodings like the ones shown above are correct (note that each of our
+target strings has a length, 15, that is a multiple of 3); however, if
+the first character of the target string is the second or third in an
+encoded group, or if the target string has a length that is not a
+multiple of 3, the encoding depends on the previous or subsequent
+characters in the file. We use knowledge of the actual structure of
+the ballot under attack to compile suitable encoded strings into our
+attack code; however, a more robust implementation that does not
+depend on known character offsets in the Base64 encoding is easily
+achievable.
+
+Our attack code monitors connections on standard email submission
+ports, replacing the first encoded string with the second when
+encountered. The replacement is performed by modifying a single packet
+(per ballot) at the TCP protocol level, and cannot be detected in real
+time unless the connection is actively monitored at both ends to
+ensure that packet contents are transferred unmodified.
 
 For this demonstration, we chose to attack an off-the-shelf home
-wireless router purchased at a big-box electronics retailer. Nearly
-all such routers on the market today are based on embedded versions of
-the Linux operating system and therefore, in accordance with the GNU
-General Public License, the source code for their firmware is freely
-available. We downloaded a complete distribution of our router's
-firmware and made a small (under 50 lines of code; see the full source
-in \autoref{section:source}) modification to the kernel code that
-handles transmission of packets on network device. We then built new
-firmware that, to the vast majority of consumers, is completely
-indistinguishable from the manufacturer's official firmware. It
-behaves identically to the manufacturer's firmware except in two
-respects: first, TCP connections to ports 25 and 587 (the standard
-email submission ports) are slower than on the manufacturer's
-firmware; second, a particular sequence of bytes sent to these ports
-is replaced with a different sequence of bytes.
+wireless router purchased at a local big-box electronics
+retailer. Nearly all such routers on the market today are based on
+embedded versions of the Linux operating system and therefore, in
+accordance with the GNU General Public License, the source code for
+their firmware is freely available. We downloaded a complete
+distribution of our router's firmware source code and made a small
+modification to the kernel code that handles transmission of packets
+on network devices. The modification has fewer than 50 lines of code,
+of which about 1/3 comprise a simple string search and replace
+algorithm. We then built new firmware that, to any observer who does
+not perform detailed analysis of its traffic handling or a detailed
+inspection of the compiled code, is completely indistinguishable from
+the manufacturer's official firmware. It behaves identically to the
+manufacturer's firmware except in two respects: first, TCP connections
+to ports 25 and 587 (the standard email submission ports) are slower
+than on the manufacturer's firmware; second, a particular sequence of
+bytes sent to these ports is replaced with a different sequence of
+bytes.
 
 To ensure that our attack had minimal impact on router performance, we
-ran several benchmarks to gauge its effect. On ports 25 and 587, we
-observed a slowdown of approximately 20\%. This would definitely be a
-noticeable performance hit, but all commonly-used email clients send
-mail asynchronously in the background and end users typically do not
-monitor the speed of their outgoing email. Thus, we believe that it
-would not be noticed. On all other TCP ports, and with UDP-based
+ran several benchmarks to gauge its effect. On TCP connections to
+ports 25 and 587, we observed a slowdown of approximately 20\%. This
+would definitely be a noticeable performance hit, but all
+commonly-used email clients send mail asynchronously in the background
+and end users typically do not monitor the speed of their outgoing
+email. Thus, we believe that it would either not be noticed in
+practice, or would be attributed to general network or server
+performance issues. On all other TCP connections, and with UDP-based
 protocols, there was effectively no impact on performance; in a few
 cases performance \emph{increased} slightly with our modified
 firmware, probably due to compiler optimizations or other effects of
@@ -208,7 +233,7 @@ In order to actually install the modified firmware on an end user's
 wireless router, we can take advantage of one of many security
 vulnerabilities. One common vulnerability is that most home routers
 ship with Universal Plug and Play activated; there are well-documented
-ways to take advantage of this to run arbitrary code on some
+ways to take advantage of this to run arbitrary code on several
 Linux-based routers.~\cite{UPnP} Some home routers are also vulnerable
 to ``magic packets'' sent to particular ports that enable
 administrator-level backdoors, while others have remote administration
@@ -223,24 +248,23 @@ hostname, downloads a firmware information file, determines whether
 the firmware is new, and then downloads the firmware from the same FTP
 server. While the router does compute an MD5 checksum of the
 downloaded firmware and compare it to the checksum in the firmware
-information file, the fact that both the checksum and the file come
-from the same source means that DNS spoofing of the firmware upgrade
-server can easily fool the router into installing our modified
-firmware. The same is true for firmware update mechanisms from other
-manufacturers; for example, it was recently publicized that ASUS RT
-Series routers are vulnerable to man-in-the-middle attacks against
-their software update mechanism for much the same
+information file, the fact that both the checksum and the firmware
+come from the same source means that DNS-based spoofing of the
+firmware upgrade server can easily fool the router into installing our
+modified firmware. The same is true for firmware update mechanisms
+from other manufacturers; for example, it was recently publicized that
+ASUS RT Series routers are vulnerable to man-in-the-middle attacks
+against their software update mechanism for much the same
 reason.~\cite{AsusMITM}
 
 Another, more brute-force, technique is to simply ``war drive''
 through neighborhoods where a campaign wants to change the vote,
 taking advantage of the default weak passwords on wireless networks
 and wireless router administrative interfaces that the vast majority
-of end users never change.
-
-Finally, social engineering attacks, either via DNS spoofing or via
-authentic-looking email notifications, are another promising avenue
-for placing modified firmware on users' home routers.
+of end users never change. Finally, social engineering attacks, either
+via DNS spoofing or via authentic-looking email notifications, are
+another promising avenue for placing modified firmware on users' home
+routers.
 
 Once the modified firmware is installed, regardless of the method
 used, it is straightforward for it to (1) ensure that it remains
@@ -249,14 +273,14 @@ reset or other drastic action by the user), by hiding firmware update
 notifications and ignoring explicit update requests, and (2) eliminate
 evidence of tampering after the election, or after the user has voted,
 by replacing itself with ``good'' firmware downloaded directly from
-the manufacturer's FTP or web site.
+the manufacturer's FTP or web site. We did not implement this
+functionality, but a real attacker would certainly do so.
 
 \section{Possible Mitigation Strategies}
 
 There are several ways to mitigate the effect of this attack, but all
-are impractical (without completely changing the nature of the ballot
-submission) because of the difficulty in patching the large existing
-population of home routers, the fact that they would require
+are impractical because of the difficulty in patching the large
+existing population of home routers, the fact that they would require
 unreasonable amounts of technical knowledge from voters, or inherent
 properties of the current electronic mail and Internet infrastructure.
 
@@ -320,41 +344,43 @@ work, it would be exceedingly difficult to find conclusive evidence of
 the vote tampering after the fact.
 
 The overall conclusion is inescapable: unencrypted PDF ballots sent
-via electronic mail can be altered transparently, with no way to
-determine where on the network the alterations took place and thus no
-way to determine the extent of the corruption of votes. 
+via electronic mail can be altered transparently, potentially with no
+obvious sign of alteration, and certainly with no way to determine
+where on the network any alterations took place or the extent to which
+votes have been corrupted.
 
 \bibliographystyle{acm}
 \bibliography{overview}
 
-\pagebreak
-\appendix
-\section{Source Code}
-\label{section:source}
 
-\definecolor{keywordcolor}{rgb}{0.5,0,0.33}
-\definecolor{identifiercolor}{rgb}{0,0,0.75}
-\definecolor{commentcolor}{rgb}{0.3,0.3,0.3} 
+% \pagebreak
+% \appendix
+% \section{Source Code}
+% \label{section:source}
 
-\lstset{language={[ANSI]C},
-  basicstyle={\scriptsize\ttfamily\mdseries},
-  keywordstyle={\color{keywordcolor}},
-  identifierstyle={\color{identifiercolor}},
-  commentstyle={\color{commentcolor}}
-}
+% \definecolor{keywordcolor}{rgb}{0.5,0,0.33}
+% \definecolor{identifiercolor}{rgb}{0,0,0.75}
+% \definecolor{commentcolor}{rgb}{0.3,0.3,0.3} 
 
-The following is the source code for our attack on Linux-based home
-routers. It patches a critical piece of the Linux network stack that
-handles the transmission of packets on hardware devices. While we
-patched a router with firmware based on Linux 2.6.31, the same patch
-would work equally well on any other recent Linux-based firmware. 
+% \lstset{language={[ANSI]C},
+%   basicstyle={\scriptsize\ttfamily\mdseries},
+%   keywordstyle={\color{keywordcolor}},
+%   identifierstyle={\color{identifiercolor}},
+%   commentstyle={\color{commentcolor}}
+% }
 
-Our code could, with minimal effort, be implemented as a netfilter
-module instead. It could also be extended to Base64 decode and
-re-encode packets on the fly as necessary, rather than depending on a
-priori knowledge of the offset (modulo 3) of the string to replace
-in the PDF ballot.
+% The following is the source code for our attack on Linux-based home
+% routers. It patches a critical piece of the Linux network stack that
+% handles the transmission of packets on hardware devices. While we
+% patched a router with firmware based on Linux 2.6.31, the same patch
+% would work equally well on any other recent Linux-based firmware. 
 
-\lstinputlisting{votehack-for-paper.c}
+% Our code could, with minimal effort, be implemented as a netfilter
+% module instead. It could also be extended to Base64 decode and
+% re-encode packets on the fly as necessary, rather than depending on a
+% priori knowledge of the offset (modulo 3) of the string to replace
+% in the PDF ballot.
+
+% \lstinputlisting{votehack-for-paper.c}
 
 \end{document}
