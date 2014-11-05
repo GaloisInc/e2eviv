@@ -2,7 +2,7 @@
 % Galois, Inc.
 
 \documentclass{article}
-\usepackage{lucidbry}
+%\usepackage{lucidbry}
 
 \setlength{\textwidth}{6.5in}
 \setlength{\oddsidemargin}{0pt}
@@ -55,22 +55,26 @@
 
 A number of governments, at various levels, have expressed interest in
 the establishment of Internet voting systems. Examples include the
-state of Alaska, which is carrying out an Internet voting trial for
-the 2014 midterm elections; Washington, D.C., which in 2010 developed
-an Internet voting pilot project for absentee voters that was
-successfully attacked by an academic research group;~\cite{DCVoting}
-and the nation of Estonia, which has had Internet voting since 2005
-that exhibits significant security flaws.~\cite{EstoniaEVoting}
+state of Alaska, which has carryed out an Internet voting trial for
+the 2012 and 2014 elections; Washington, D.C., which in 2010 developed
+an Internet voting pilot project with the OSET Foundation for absentee
+voters that was successfully attacked by an academic research
+group;~\cite{DCVoting} and the nation of Estonia, which has had
+Internet voting since 2005 that exhibits significant security
+flaws.~\cite{EstoniaEVoting}
 
-One mechanism proposed for Internet voting, which was used as a
-fallback mechanism after the Washington, D.C. Internet voting system
-was successfully hacked and removed from service and is also available
-to current Alaska voters, involves ballots rendered as standard Adobe
-Portable Document Format (PDF) forms. These forms are made available
-to voters on a web site; the voters then use standard software (\eg
-Acrobat Reader, Preview, \etc) to fill out the forms and submit the
-completed forms via electronic mail to the appropriate election
-authority.
+One mechanism proposed for Internet voting involves ballots rendered
+as standard Adobe Portable Document Format (PDF) forms. These forms
+are made available to voters on a web site; the voters then use
+standard software (\eg Acrobat Reader, Preview, \etc) to fill out the
+forms and submit the completed forms via electronic mail to the
+appropriate election authority.
+
+This ballot-return mechanism was used as a fallback mechanism after
+the Washington, D.C. Internet voting system was successfully hacked
+and removed from service, it was used as an emergency measure in New
+Jersey elections in 2012 because of the impact of superstorm Sandy,
+and is also available to current Alaska voters.
 
 Unfortunately, this mechanism is vulnerable to attack at several
 levels: malicious software on the user's computer could modify or
