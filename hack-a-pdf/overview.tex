@@ -60,9 +60,9 @@ state of Alaska, which has carryed out an Internet voting trial for
 the 2012 and 2014 elections; Washington, D.C., which in 2010 developed
 an Internet voting pilot project with the OSET Foundation for absentee
 voters that was successfully attacked by an academic research
-group;~\cite{DCVoting} and the nation of Estonia, which has had
+group~\cite{DCVoting}; and the nation of Estonia, which has had
 Internet voting since 2005 that exhibits significant security
-flaws.~\cite{EstoniaEVoting}
+flaws~\cite{EstoniaEVoting}.
 
 One mechanism proposed for Internet voting involves ballots rendered
 as standard Adobe Portable Document Format (PDF) forms. These forms
@@ -78,16 +78,16 @@ and removed from service, it was used as an emergency measure in New
 Jersey elections in 2012 because of the impact of superstorm Sandy,
 and it is also available to current Alaska voters.
 
-Unfortunately, this mechanism is vulnerable to attack at several
-levels: malicious software on the user's computer could modify or
-invalidate a vote; a malicious election authority could intentionally
-miscount (or simply ``lose'') received votes; malicious third parties
-could masquerade as the election authority or perform denial of
-service attacks against the actual election authority to prevent votes
-from being cast or flood them with invalid ballots; and more. Here
-we describe a more subtle attack at the transport level, which changes
-the raw data traveling through the electronic mail system between the
-voter's computer and the election authority.
+Unfortunately, this mechanism is vulnerable to fairly obvious attacks
+at several levels: malicious software on the user's computer could
+modify or invalidate a vote; a malicious election authority could
+intentionally miscount (or simply ``lose'') received votes; malicious
+third parties could masquerade as the election authority or perform
+denial of service attacks against the actual election authority to
+prevent votes from being cast or flood them with invalid ballots; and
+more. Here we describe a more subtle attack at the transport level,
+which changes the raw data traveling through the electronic mail
+system between the voter's computer and the election authority.
 
 \section{The Attack}
 
@@ -276,6 +276,10 @@ ballot (or may partially modify it, depending on which strings are
 split across packets). However, given typical TCP packet sizes and the
 relatively short lengths of the target strings, it is likely that our
 attack can successfully modify most ballots it encounters.
+Additionally, making the attack capable of performing the update
+across packets is not technical challenging.
+
+\subsection{Deployment}
 
 For this demonstration, we chose to attack an off-the-shelf home
 wireless router purchased at a local big-box electronics
@@ -319,7 +323,7 @@ wireless router, we can take advantage of one of many security
 vulnerabilities. One common vulnerability is that most home routers
 ship with Universal Plug and Play activated; there are well-documented
 ways to take advantage of this to run arbitrary code on several
-Linux-based routers.~\cite{UPnP} Some home routers are also vulnerable
+Linux-based routers~\cite{UPnP}. Some home routers are also vulnerable
 to ``magic packets'' sent to particular ports that enable
 administrator-level backdoors, while others have remote administration
 enabled by default with typically weak default passwords.
@@ -340,7 +344,7 @@ modified firmware. The same is true for firmware update mechanisms
 from other manufacturers; for example, it was recently publicized that
 ASUS RT Series routers are vulnerable to man-in-the-middle attacks
 against their software update mechanism for much the same
-reason.~\cite{AsusMITM}
+reason~\cite{AsusMITM}.
 
 Another, more brute-force, technique is to simply ``war drive''
 through neighborhoods where a campaign wants to change the vote,
@@ -357,9 +361,10 @@ installed until after the user has voted (in the absence of a hardware
 reset or other drastic action by the user), by hiding firmware update
 notifications and ignoring explicit update requests, and (2) eliminate
 evidence of tampering after the election, or after the user has voted,
-by replacing itself with ``good'' firmware downloaded directly from
-the manufacturer's FTP or web site. We did not implement this
-functionality, but a real attacker would certainly do so.
+by replacing itself in the middle of the night with ``good'' firmware
+downloaded directly from the manufacturer's FTP or web site. We did
+not implement this functionality, but a real attacker would certainly
+do so.
 
 \section{Possible Mitigation Strategies}
 
@@ -369,21 +374,21 @@ existing population of home routers, the fact that they would require
 unreasonable amounts of technical knowledge from voters, or inherent
 properties of the current electronic mail infrastructure.
 
-\paragraph{Encrypted PDF}
+\paragraph{Encrypted PDF.}
 
 Perhaps the most obvious way to prevent the type of attack we have
-described here is to encrypt the PDF file before emailing it. The PDF
-standard provides a built-in password protection system that, when
-properly used, gives a good level of cryptographic security. However,
-it is unlikely that voters would use the mechanism properly, and some
-PDF readers are incapable of using it at all. There are also clear
-issues with password distribution, especially if we already have
-control of users' home Internet routers; it is essentially as easy to
-include a man-in-the-middle attack against the election authority in
-the router firmware as it is to transparently change PDF files in
-transit to email servers. For this same reason, requiring that the PDF
-files be submitted to a secure website also does not prevent vote
-tampering.
+described here is to sign or encrypt the PDF file before emailing
+it. The PDF standard provides a built-in password protection system
+that, when properly used, gives a good level of cryptographic
+security. However, it is unlikely that voters would use the mechanism
+properly, and some PDF readers are incapable of using it at all. There
+are also clear issues with key and password distribution, especially
+if we already have control of users' home Internet routers; it is as
+easy to include a man-in-the-middle attack against the election
+authority in the router firmware as it is to transparently change PDF
+files in transit to email servers. For this same reason, requiring
+that the PDF files be submitted to a secure website also does not
+prevent vote tampering.
 
 \paragraph{Encrypted SMTP}
 
@@ -410,7 +415,7 @@ with security certificates and SSL connections. However, this would
 leave open a number of other avenues of firmware installation,
 including security vulnerabilities such as those we have discussed
 above, and would have no impact on most of the existing base of
-installed routers.
+installed routers, which number in the millions.
 
 \section{Conclusion}
 
@@ -418,7 +423,7 @@ Attacks on home networking devices have already been carried out at
 large scale. For example, in March 2012 over 4.5 million DSL modems in
 Brazil were found to have been compromised through a combination of
 malicious DNS servers and automated exploit
-scripts.~\cite{BrazilExploit} The goal of that particular compromise
+scripts~\cite{BrazilExploit}. The goal of that particular compromise
 was to obtain customers' banking credentials for financial gain, and
 it was discovered in part because the illegitimate use of those
 credentials alerted customers to the security breach. Our attack, by
