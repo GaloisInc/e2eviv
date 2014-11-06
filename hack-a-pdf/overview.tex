@@ -210,18 +210,18 @@ the string ``\texttt{<{}< /V /Zebra}'' with the string ``\texttt{<{}<
 before, the extra spaces pad the strings to the same length as in the
 original file and are ignored by PDF readers.
 
-While a shortening of the chosen identifier is difficult to notice, a
-lengthening of the chosen identifier (and the resulting wholesale
-identifier change required to make it fit in the same number of
-characters) is easy to spot. However, in any given PDF form, the
-identifiers are most likely already the same length. For example, the
-default identifiers assigned to buttons in a group when creating a
-form in Adobe Acrobat Professional are ``\texttt{Choice1}'',
-``\texttt{Choice2}'', \etc If the attack is carried out in a way such
-that the selection strings are changed along with the vote string, the
-identifier for the candidate we choose must be limited to at most
-three characters long so as to be able to replace ``\texttt{Off}'' in
-a selection string.
+While replacing a chosen identifier with a shorter one is difficult to
+notice, replacing a chosen identifier with a longer one (and the
+resulting wholesale identifier change required to make the new
+identifier fit in the same number of characters) is easy to
+spot. However, in any given PDF form, the identifiers are most likely
+already the same length. For example, the default identifiers assigned
+to buttons in a group when creating a form in Adobe Acrobat
+Professional are ``\texttt{Choice1}'', ``\texttt{Choice2}'', \etc If
+the attack is carried out in a way such that the selection strings are
+changed along with the vote string, the identifier for the candidate
+we choose must be limited to at most three characters so as to be able
+to replace ``\texttt{Off}'' in a selection string.
 
 
 \subsection{Implementation}
@@ -276,8 +276,8 @@ ballot (or may partially modify it, depending on which strings are
 split across packets). However, given typical TCP packet sizes and the
 relatively short lengths of the target strings, it is likely that our
 attack can successfully modify most ballots it encounters.
-Additionally, making the attack capable of performing the update
-across packets is not technical challenging.
+Additionally, implementing an attack capable of performing the update
+across packets would not be technically challenging.
 
 \subsection{Deployment}
 
@@ -374,7 +374,7 @@ existing population of home routers, the fact that they would require
 unreasonable amounts of technical knowledge from voters, or inherent
 properties of the current electronic mail infrastructure.
 
-\paragraph{Encrypted PDF.}
+\paragraph{Encrypted/Signed PDF.}
 
 Perhaps the most obvious way to prevent the type of attack we have
 described here is to sign or encrypt the PDF file before emailing
@@ -390,7 +390,7 @@ files in transit to email servers. For this same reason, requiring
 that the PDF files be submitted to a secure website also does not
 prevent vote tampering.
 
-\paragraph{Encrypted SMTP}
+\paragraph{Encrypted SMTP.}
 
 An encrypted connection to the SMTP server would prevent our attack on
 end user home routers from changing the PDF file in transit (unless
@@ -406,7 +406,7 @@ the one described here clearly exist; for example, many routers ship
 with GNU Bash installed and are therefore vulnerable to the
 recently-disclosed Bash environment variable command injection flaw.
 
-\paragraph{More Secure Firmware Update Mechanism}
+\paragraph{More Secure Firmware Update Mechanism.}
 
 One measure that could help, by eliminating one avenue of injection
 for the corrupted firmware, is to tighten the security of routers'
