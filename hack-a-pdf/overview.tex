@@ -2,7 +2,7 @@
 % Galois, Inc.
 
 \documentclass{article}
-\usepackage{lucidbry}
+%\usepackage{lucidbry}
 
 \setlength{\textwidth}{6.5in}
 \setlength{\oddsidemargin}{0pt}
@@ -16,7 +16,7 @@
             plainpages=false,naturalnames=true,
             colorlinks=true,pdfstartview=FitV,
             linkcolor=blue,citecolor=blue,urlcolor=blue,
-            pdfauthor="Daniel M. Zimmerman"]{hyperref}
+            pdfauthor="Daniel M. Zimmerman and Joseph R. Kiniry"]{hyperref}
 
 \usepackage{color}
 \usepackage{listings}
@@ -39,7 +39,7 @@
 
 \begin{document}
 
-\title{Modifying an Off-the-Shelf Wireless Router for PDF Ballot Tampering}
+\title{Modifying an Off-the-Shelf Wireless Router for \\ PDF Ballot Tampering}
 \author{Daniel M.~Zimmerman and Joseph R.~Kiniry \\ Galois, Inc. \\
   421 SW 6th Ave., Suite 300, Portland, OR 97204}
 
@@ -47,40 +47,44 @@
 
 \abstract{In order to highlight the dangers associated with Internet
   voting carried out over electronic mail with PDF forms, we show that
-  an off-the-shelf home Internet can be easily modified to silently
-  alter election ballots. The modification is nearly undetectable and
-  can be carried out in a way that leaves no evidence to be found in a
-  post-election investigation.}
+  an off-the-shelf home Internet router can be easily modified to
+  silently alter election ballots. The modification is nearly
+  undetectable and can be carried out in a way that leaves no evidence
+  to be found in a post-election investigation.}
 
 \section{Introduction}
 
 A number of governments, at various levels, have expressed interest in
 the establishment of Internet voting systems. Examples include the
-state of Alaska, which is carrying out an Internet voting trial for
-the 2014 midterm elections; Washington, D.C., which in 2010 developed
-an Internet voting pilot project for absentee voters that was
-successfully attacked by an academic research group;~\cite{DCVoting}
-and the nation of Estonia, which has had Internet voting since 2005
-that exhibits significant security flaws.~\cite{EstoniaEVoting}
+state of Alaska, which has carryed out an Internet voting trial for
+the 2012 and 2014 elections; Washington, D.C., which in 2010 developed
+an Internet voting pilot project with the OSET Foundation for absentee
+voters that was successfully attacked by an academic research
+group;~\cite{DCVoting} and the nation of Estonia, which has had
+Internet voting since 2005 that exhibits significant security
+flaws.~\cite{EstoniaEVoting}
 
-One mechanism proposed for Internet voting, which was used as a
-fallback mechanism after the Washington, D.C. Internet voting system
-was successfully hacked and removed from service and is also available
-to current Alaska voters, involves ballots rendered as standard Adobe
-Portable Document Format (PDF) forms. These forms are made available
-to voters on a web site; the voters then use standard software (\eg
-Acrobat Reader, Preview, \etc) to fill out the forms and submit the
-completed forms via electronic mail to the appropriate election
-authority. The submitted ballots are then printed and counted, either
-by hand or with optical scanners.
+One mechanism proposed for Internet voting involves ballots rendered
+as standard Adobe Portable Document Format (PDF) forms. These forms
+are made available to voters on a web site; the voters then use
+standard software (\eg Acrobat Reader, Preview, \etc) to fill out the
+forms and submit the completed forms via electronic mail to the
+appropriate election authority. The submitted ballots are then printed
+and counted, either by hand or with optical scanners.
+
+This ballot-return mechanism was used as a fallback mechanism after
+the Washington, D.C. Internet voting system was successfully hacked
+and removed from service, it was used as an emergency measure in New
+Jersey elections in 2012 because of the impact of superstorm Sandy,
+and it is also available to current Alaska voters.
 
 Unfortunately, this mechanism is vulnerable to attack at several
 levels: malicious software on the user's computer could modify or
 invalidate a vote; a malicious election authority could intentionally
 miscount (or simply ``lose'') received votes; malicious third parties
-could masquerade as the election authority, or perform denial of
+could masquerade as the election authority or perform denial of
 service attacks against the actual election authority to prevent votes
-from being cast or to flood them with invalid ballots; and more. Here
+from being cast or flood them with invalid ballots; and more. Here
 we describe a more subtle attack at the transport level, which changes
 the raw data traveling through the electronic mail system between the
 voter's computer and the election authority.
@@ -103,13 +107,13 @@ vote.
 In a PDF form with radio buttons, each button has an object identifier
 of one or more characters. Suppose the identifier for the selected
 object is ``\texttt{ABC}''. The selected button is then indicated in
-the PDF with two strings: one of the form ``\texttt{<{}< /V /ABC}''
-and one of the form ``\texttt{/AS /ABC}''. We call the ``\texttt{/V}''
-and ``\texttt{/AS}'' strings the \emph{vote string} and
-\emph{selection string} respectively. There is a single vote string
-per set of buttons, and one selection string for each identifier in
-the set, which appears as ``\texttt{/AS /Off}'' for an unselected
-button.
+the PDF file with two strings: one of the form ``\texttt{<{}< /V
+  /ABC}'' and one of the form ``\texttt{/AS /ABC}''. We call the
+``\texttt{/V}'' and ``\texttt{/AS}'' strings the \emph{vote string}
+and \emph{selection string} respectively. There is a single vote
+string per set of buttons and one selection string for each identifier
+in the set; the latter appears as ``\texttt{/AS /Off}'' for each
+unselected button.
 
 If we want to change a vote for the candidate with identifier
 ``\texttt{ID1}'' to a vote for the candidate with identifier
@@ -130,22 +134,23 @@ changing the selection string for the previous selection to
 selection string for the previous selection to ``\texttt{/Off}'', and
 changing the selection string for the new selection appropriately. All
 three standalone PDF viewers, including Adobe Acrobat (presumably the
-reference implementation), showed our modified vote in all three
-cases; the Chrome, Gmail and PDF.js viewers, all of which are likely
-based on the same JavaScript implementation, showed our modified vote
-only when we changed all three strings and showed either the original
-vote or no vote at all in other cases. 
+reference implementation for PDF form processing), showed our modified
+vote in all three cases; the Chrome, Gmail and PDF.js viewers, all of
+which are likely based on the same JavaScript implementation, showed
+our modified vote only when we changed all three strings and showed
+either the original vote or no vote at all in other cases.
 
 Recall that election authorities print the submitted PDF ballots and
 count them on paper. In all our tests, the printed output from a PDF
-viewer matched its screen output. It is highly unlikely that an
-election authority would print PDFs directly from a web browser, as
-they would (hopefully!) not use a web-based email account to receive
-the votes, so they would almost certainly use a standalone PDF
-viewer. Since all the standalone PDF viewers we tested were convinced
-by a single string change, it is likely that would be sufficient to
-change an election outcome. However, for completeness, we actually
-change all three strings in our implementation of the attack.
+viewer matched its screen output. It is extremely likely that an
+election authority would use a standalone PDF viewer to print the
+votes, rather than printing them directly from a web browser, as they
+would hopefully not use a web-based email account to receive the
+votes. Since all the standalone PDF viewers we tested were convinced
+by a single string change, it is likely that a single string change
+(per targeted ballot) would be sufficient to change an election
+outcome. However, for completeness, we actually change all three
+strings in our implementation of the attack.
 
 \begin{table}[bt]
 \begin{center}
@@ -173,12 +178,12 @@ Skim & Changed & Changed & Changed \\
 \label{table:pdfviewers}
 \end{table}
 
-There is one subtlety in the attack regarding the lengths of
+There is an additional subtlety regarding the lengths of
 identifiers. Since we carry out our attack on information as it is
 transmitted over the Internet, the attack is significantly simplified
 if we can modify the PDF file without changing its length (more
 specifically, without changing the length of any of the individual
-packets that comprise it). 
+packets that comprise it).
 
 Consider the case where one candidate (Candidate A) has identifier
 ``\texttt{Aardvark}'' and the other (Candidate Z) has identifier
@@ -194,12 +199,12 @@ when the voter initially filled out the form.
 
 On the other hand, if we want to change a vote for Candidate Z into a
 vote for Candidate A we must perform multiple string replacements to
-change Candidate A's identifier.  First, we pick a new identifier to
-represent Candidate A with the same length as (or a shorter length
-than) the identifier for Candidate Z. In this case, perhaps we choose
-the identifier ``\texttt{Aard}''. Next, we replace the string
-``\texttt{<{}< /V /Zebra}'' with the string ``\texttt{<{}< /V
-  /Aard\textvisiblespace}'', and also replace two occurrences of
+change Candidate A's identifier throughout the file.  First, we pick a
+new identifier to represent Candidate A with the same length as (or a
+shorter length than) the identifier for Candidate Z. In this case,
+perhaps we choose the identifier ``\texttt{Aard}''. Next, we replace
+the string ``\texttt{<{}< /V /Zebra}'' with the string ``\texttt{<{}<
+  /V /Aard\textvisiblespace}'', and also replace two occurrences of
 ``\texttt{<{}< /Aardvark}'' later in the file with ``\texttt{<{}<
   /Aard\textvisiblespace\textvisiblespace\textvisiblespace\textvisiblespace}''. As
 before, the extra spaces pad the strings to the same length as in the
@@ -212,16 +217,16 @@ characters) is easy to spot. However, in any given PDF form, the
 identifiers are most likely already the same length. For example, the
 default identifiers assigned to buttons in a group when creating a
 form in Adobe Acrobat Professional are ``\texttt{Choice1}'',
-``\texttt{Choice2}'', \etc In any case, if the attack is carried out
-in a way such that the selection strings are changed along with the
-vote string, the identifier for the candidate we choose must be
-limited to at most three characters long so as to be able to replace
-``\texttt{Off}'' in a selection string.
+``\texttt{Choice2}'', \etc If the attack is carried out in a way such
+that the selection strings are changed along with the vote string, the
+identifier for the candidate we choose must be limited to at most
+three characters long so as to be able to replace ``\texttt{Off}'' in
+a selection string.
 
 
 \subsection{Implementation}
 
-The attack is carried out by modifying one of the TCP packets of the
+The attack is carried out by modifying one or more TCP packets of the
 email attachment somewhere along its route between the voter's email
 client and the election authority. The modification replaces the byte
 sequences inside the PDF file that indicate a selected form element,
@@ -240,10 +245,10 @@ Using our previous ``candidates'', we see that the Base64 encodings of
 ``\texttt{<{}< /V /Aardvark}'' and ``\texttt{<{}< /V
   /Zebra\textvisiblespace\textvisiblespace\textvisiblespace}'' are
 ``\texttt{PDwgL1YgL0FhcmR2YXJr}'' and
-``\texttt{PDwgL1YgL1plYnJhICAg}'', respectively; we do similar
+``\texttt{PDwgL1YgL1plYnJhICAg}'', respectively; we compute similar
 encodings for the other strings that need to be changed. Depending on
-the offset in the file at which the target string appears, the
-encoding actually present in the PDF file might be different from that
+the offset in the PDF file at which the target string appears, the
+encoding actually present in the email might be different from that
 computed for the string in isolation. If the first character of the
 target string is the first in an encoded group of 3 characters, direct
 encodings like the ones shown above are correct (note that each of our
@@ -251,11 +256,12 @@ target strings has a length, 15, that is a multiple of 3); however, if
 the first character of the target string is the second or third in an
 encoded group, or if the target string has a length that is not a
 multiple of 3, the encoding depends on the previous or subsequent
-characters in the file. We use knowledge of the actual structure of
-the ballot under attack to compile suitable encoded strings into our
-attack code; however, a more robust implementation that does not
-depend on known character offsets in the Base64 encoding is easily
-achievable.
+characters in the PDF file. We use knowledge of the actual structure
+of the PDF ballot under attack to compile suitable encoded strings
+into our attack code; however, it is easy to imagine a more robust
+implementation that performs the Base64 decoding and re-encoding
+on-the-fly and therefore does not depend on known character offsets in
+the PDF file.
 
 Our attack code monitors connections on standard email submission
 ports, replacing our target encoded strings with our desired
@@ -266,10 +272,10 @@ monitored at both ends to ensure that packet contents are transferred
 unmodified. It is possible that we get unlucky, for a particular
 ballot/email client/network combination, and our target strings end up
 split across TCP packets; in such cases our attack cannot modify the
-ballot (or may partially modify it, depending on which
-strings. However, given the lengths of the target strings and typical
-TCP packet sizes, it is likely that our attack can successfully modify
-most ballots it encounters.
+ballot (or may partially modify it, depending on which strings are
+split across packets). However, given typical TCP packet sizes and the
+relatively short lengths of the target strings, it is likely that our
+attack can successfully modify most ballots it encounters.
 
 For this demonstration, we chose to attack an off-the-shelf home
 wireless router purchased at a local big-box electronics
@@ -280,20 +286,20 @@ their firmware is freely available. We downloaded a complete
 distribution of our router's firmware source code and made a small
 modification to the kernel code that handles transmission of packets
 on network devices. The modification has fewer than 50 lines of code,
-of which about 1/3 comprise a simple string search and replace
-algorithm. We then built new firmware that, to any observer who does
-not perform detailed analysis of its traffic handling or a detailed
-inspection of the compiled code, is completely indistinguishable from
-the manufacturer's official firmware. It behaves identically to the
-manufacturer's firmware except in two respects: first, TCP connections
-to ports 25 and 587 (the standard email submission ports) are slower
-than on the manufacturer's firmware; second, a particular sequence of
-bytes sent to these ports is replaced with a different sequence of
-bytes.
+of which about 1/3 comprise a simple (and completely unoptimized)
+string search and replace algorithm. We then built new firmware that,
+to any observer who does not perform detailed analysis of its traffic
+handling or a detailed inspection of the compiled code, is completely
+indistinguishable from the manufacturer's official firmware. It
+behaves identically to the manufacturer's firmware except in two
+respects: first, TCP connections to ports 25 and 587 (the standard
+email submission ports) are slower than on the manufacturer's
+firmware; second, particular sequences of bytes sent to these ports
+are replaced with different sequences of bytes.
 
 To ensure that our attack had minimal impact on router performance, we
 ran several benchmarks to gauge its effect. On TCP connections to
-ports 25 and 587, we observed a slowdown of approximately 20\%. This
+ports 25 and 587, we observed a slowdown of approximately 25\%. This
 would definitely be a noticeable performance hit, but all
 commonly-used email clients send mail asynchronously in the background
 and end users typically do not monitor the speed of their outgoing
@@ -361,7 +367,7 @@ There are several ways to mitigate the effect of this attack, but all
 are impractical because of the difficulty in patching the large
 existing population of home routers, the fact that they would require
 unreasonable amounts of technical knowledge from voters, or inherent
-properties of the current electronic mail and Internet infrastructure.
+properties of the current electronic mail infrastructure.
 
 \paragraph{Encrypted PDF}
 
@@ -416,7 +422,7 @@ scripts.~\cite{BrazilExploit} The goal of that particular compromise
 was to obtain customers' banking credentials for financial gain, and
 it was discovered in part because the illegitimate use of those
 credentials alerted customers to the security breach. Our attack, by
-contrast, would raise no immediate ``red flags'', as votes would be
+contrast, would raise no immediate ``red flags'' since votes would be
 changed transparently in transit; moreover, because our modified
 firmware could erase evidence of its own existence after doing its
 work, it would be exceedingly difficult to find conclusive evidence of
@@ -426,7 +432,8 @@ The overall conclusion is inescapable: unencrypted PDF ballots sent
 via electronic mail can be altered transparently, potentially with no
 obvious sign of alteration, and certainly with no way to determine
 where on the network any alterations took place or the extent to which
-votes have been corrupted.
+votes have been corrupted. This method of vote submission is
+inherently unsafe, and should not be used in any meaningful election.
 
 \bibliographystyle{acm}
 \bibliography{overview}
