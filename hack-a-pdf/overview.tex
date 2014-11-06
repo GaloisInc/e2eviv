@@ -23,6 +23,7 @@
 \usepackage{cite}
 \usepackage{float}
 \usepackage{xspace}
+\usepackage[margin=1in]{caption}
 
 \definecolor{keywordcolor}{rgb}{0.5,0,0.33}
 \definecolor{identifiercolor}{rgb}{0,0,0.75}
@@ -70,7 +71,8 @@ Portable Document Format (PDF) forms. These forms are made available
 to voters on a web site; the voters then use standard software (\eg
 Acrobat Reader, Preview, \etc) to fill out the forms and submit the
 completed forms via electronic mail to the appropriate election
-authority.
+authority. The submitted ballots are then printed and counted, either
+by hand or with optical scanners.
 
 Unfortunately, this mechanism is vulnerable to attack at several
 levels: malicious software on the user's computer could modify or
@@ -99,17 +101,84 @@ directly modifying the data within the PDF file to change the
 vote. 
 
 In a PDF form with radio buttons, each button has an object identifier
-of one or more characters. The selected button is indicated in the PDF
-with a string of the form ``\texttt{<{}< /V /ID}'', where
-``\texttt{ID}'' is the identifier. If we want to change a vote for the
-candidate with identifier ``\texttt{ID1}'' to a vote for the candidate
-with identifier ``\texttt{ID2}'', it suffices to replace the string
-``\texttt{<{}< /V /ID1}'' with the string ``\texttt{<{}< /V /ID2}'' in
-the PDF file. In the event that the two identifiers do not have the
-same length, the process is only slightly more complicated because we
-need to maintain the length of the file (more specifically, of each
-packet within the file) to carry out the attack transparently as the
-file is transferred over the Internet.
+of one or more characters. Suppose the identifier for the selected
+object is ``\texttt{ABC}''. The selected button is then indicated in
+the PDF with two strings: one of the form ``\texttt{<{}< /V /ABC}''
+and one of the form ``\texttt{/AS /ABC}''. We call the ``\texttt{/V}''
+and ``\texttt{/AS}'' strings the \emph{vote string} and
+\emph{selection string} respectively. There is a single vote string
+per set of buttons, and one selection string for each identifier in
+the set, which appears as ``\texttt{/AS /Off}'' for an unselected
+button.
+
+If we want to change a vote for the candidate with identifier
+``\texttt{ID1}'' to a vote for the candidate with identifier
+``\texttt{ID2}'' in a way that convinces all the PDF readers we have
+tested, we must replace the vote string ``\texttt{<{}< /V /ID1}'' with
+a new vote string ``\texttt{<{}< /V /ID2}'', replace the selection
+string ``\texttt{/AS /ID1}'' with a new selection string ``\texttt{/AS
+  /Off}'', and replace the appropriate selection string for
+``\texttt{ID2}'' (which was ``\texttt{/AS /Off}'' in the original
+file) with ``\texttt{/AS /ID2}''.
+
+In fact, our testing revealed that it was not necessary to make
+\emph{all} these changes in order to convince standalone PDF viewers
+of our changed vote. As shown in \autoref{table:pdfviewers}, we tested
+(1) changing only the vote string, (2) changing the vote string and
+changing the selection string for the previous selection to
+``\texttt{/Off}'', and (3) changing the vote string, changing the
+selection string for the previous selection to ``\texttt{/Off}'', and
+changing the selection string for the new selection appropriately. All
+three standalone PDF viewers, including Adobe Acrobat (presumably the
+reference implementation), showed our modified vote in all three
+cases; the Chrome, Gmail and PDF.js viewers, all of which are likely
+based on the same JavaScript implementation, showed our modified vote
+only when we changed all three strings and showed either the original
+vote or no vote at all in other cases. 
+
+Recall that election authorities print the submitted PDF ballots and
+count them on paper. In all our tests, the printed output from a PDF
+viewer matched its screen output. It is highly unlikely that an
+election authority would print PDFs directly from a web browser, as
+they would (hopefully!) not use a web-based email account to receive
+the votes, so they would almost certainly use a standalone PDF
+viewer. Since all the standalone PDF viewers we tested were convinced
+by a single string change, it is likely that would be sufficient to
+change an election outcome. However, for completeness, we actually
+change all three strings in our implementation of the attack.
+
+\begin{table}[bt]
+\begin{center}
+\begin{tabular}{l|ccc}
+\textbf{PDF Viewer} & \ \ \textbf{Test (1)} \ \ & \ \ \textbf{Test (2)} \ \ & \ \ \textbf{Test (3)} \\
+\hline
+Adobe Acrobat Pro XI & Changed & Changed & Changed \\
+Apple Preview & Changed & Changed & Changed \\
+Google Chrome & Original & None & Changed \\
+Gmail (Any Browser) & Original & None & Changed \\
+Mozilla Firefox & Original & None & Changed \\
+Safari & Changed & Changed & Changed \\
+Skim & Changed & Changed & Changed \\
+\hline
+\end{tabular}
+\end{center}
+\caption{A summary of our testing of various PDF viewers (on Mac OS X
+  10.10) with modified ballot PDFs. For tests (1), (2) and (3)
+  we changed only the vote string, the vote string and the original
+  selection string, and the vote string and both selection strings,
+  respectively. ``Original'' indicates that the voter's original vote
+  was shown after our modifications; ``Changed'' indicates that our
+  changed vote was shown after our modifications; and ``None''
+  indicates that no vote was shown after our modifications.}
+\label{table:pdfviewers}
+\end{table}
+
+There is one subtlety in the attack regarding the lengths of
+identifiers. Since we carry out our attack on information as it is
+transmitted over the Internet, the attack is significantly simplified
+if we can modify the PDF file without changing its length (more
+specifically, without changing the length of any of the individual
+packets that comprise it). 
 
 Consider the case where one candidate (Candidate A) has identifier
 ``\texttt{Aardvark}'' and the other (Candidate Z) has identifier
@@ -127,11 +196,11 @@ On the other hand, if we want to change a vote for Candidate Z into a
 vote for Candidate A we must perform multiple string replacements to
 change Candidate A's identifier.  First, we pick a new identifier to
 represent Candidate A with the same length as (or a shorter length
-than) the identifier for Candidate Z; in this case, perhaps we choose
-``\texttt{Aard}''. Next, we replace the string ``\texttt{<{}< /V
-  /Zebra}'' with the string ``\texttt{<{}< /V
+than) the identifier for Candidate Z. In this case, perhaps we choose
+the identifier ``\texttt{Aard}''. Next, we replace the string
+``\texttt{<{}< /V /Zebra}'' with the string ``\texttt{<{}< /V
   /Aard\textvisiblespace}'', and also replace two occurrences of
-``\texttt{<{}< /Aardvark}'' with ``\texttt{<{}<
+``\texttt{<{}< /Aardvark}'' later in the file with ``\texttt{<{}<
   /Aard\textvisiblespace\textvisiblespace\textvisiblespace\textvisiblespace}''. As
 before, the extra spaces pad the strings to the same length as in the
 original file and are ignored by PDF readers.
@@ -143,10 +212,12 @@ characters) is easy to spot. However, in any given PDF form, the
 identifiers are most likely already the same length. For example, the
 default identifiers assigned to buttons in a group when creating a
 form in Adobe Acrobat Professional are ``\texttt{Choice1}'',
-``\texttt{Choice2}'', \etc With a ballot form containing all
-equal-length identifiers, as would be generated by a typical PDF form
-generator, it would be effectively impossible to detect this sort of
-tampering.
+``\texttt{Choice2}'', \etc In any case, if the attack is carried out
+in a way such that the selection strings are changed along with the
+vote string, the identifier for the candidate we choose must be
+limited to at most three characters long so as to be able to replace
+``\texttt{Off}'' in a selection string.
+
 
 \subsection{Implementation}
 
@@ -169,11 +240,12 @@ Using our previous ``candidates'', we see that the Base64 encodings of
 ``\texttt{<{}< /V /Aardvark}'' and ``\texttt{<{}< /V
   /Zebra\textvisiblespace\textvisiblespace\textvisiblespace}'' are
 ``\texttt{PDwgL1YgL0FhcmR2YXJr}'' and
-``\texttt{PDwgL1YgL1plYnJhICAg}'', respectively. Depending on the
-offset in the file at which the target string appears, the encoding
-actually present in the PDF file might be different from that computed
-for the string in isolation. If the first character of the target
-string is the first in an encoded group of 3 characters, direct
+``\texttt{PDwgL1YgL1plYnJhICAg}'', respectively; we do similar
+encodings for the other strings that need to be changed. Depending on
+the offset in the file at which the target string appears, the
+encoding actually present in the PDF file might be different from that
+computed for the string in isolation. If the first character of the
+target string is the first in an encoded group of 3 characters, direct
 encodings like the ones shown above are correct (note that each of our
 target strings has a length, 15, that is a multiple of 3); however, if
 the first character of the target string is the second or third in an
@@ -186,11 +258,18 @@ depend on known character offsets in the Base64 encoding is easily
 achievable.
 
 Our attack code monitors connections on standard email submission
-ports, replacing the first encoded string with the second when
-encountered. The replacement is performed by modifying a single packet
-(per ballot) at the TCP protocol level, and cannot be detected in real
-time unless the connection is actively monitored at both ends to
-ensure that packet contents are transferred unmodified.
+ports, replacing our target encoded strings with our desired
+replacement strings when they are encountered. The replacement is
+performed by modifying individual packets at the TCP protocol level,
+and cannot be detected in real time unless the connection is actively
+monitored at both ends to ensure that packet contents are transferred
+unmodified. It is possible that we get unlucky, for a particular
+ballot/email client/network combination, and our target strings end up
+split across TCP packets; in such cases our attack cannot modify the
+ballot (or may partially modify it, depending on which
+strings. However, given the lengths of the target strings and typical
+TCP packet sizes, it is likely that our attack can successfully modify
+most ballots it encounters.
 
 For this demonstration, we chose to attack an off-the-shelf home
 wireless router purchased at a local big-box electronics

