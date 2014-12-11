@@ -179,7 +179,45 @@ single contest on a ballot should reset the timer, as should spoiling
 a ballot. Experimentation and consultation with user experience and
 universal accessibility experts can determine the correct duration.
 
+## Invalidating voting codes for cast ballots
 
+In addition to invalidating vote codes after a timeout, we also need a
+mechanism to invalidate them when they are used, and to either
+re-activate them or issue new codes when the ballot is spoiled. This
+is to prevent a voter from casting their ballot and then re-using
+their code in a moment of poll-worker inattention.
+
+In the protocol as-written, there is nothing external to the terminal
+that associates the five-digit voting code with the ballot casting ID
+that is visible on the ballot. If the terminal deactivates the code
+once the ballot is printed (e.g., through a broadcast message to the
+other terminals), then it will be impossible for the controller to
+re-activate it upon spoiling. If the code is *not* deactivated, then
+we risk double voting.
+
+One solution is for the terminal to retain the associate between
+voting codes and BCIDs until the corresponding ballot is cast. In this
+case, the ballot box and spoiling station would send a broadcast
+message containing the BCID of the cast or spoiled ballot. If the
+ballot is cast, then the terminal that was used must arrange for the
+code to be inactivated, either by communicating with the controller or
+by broadcasting the fact to the other terminals. If the ballot is
+spoiled, then the terminal must arrange to reactivate the code.
+
+An alternative solution is to print a new sign-in barcode on each
+ballot, equivalent to the one that was used to check in for the voting
+code. Then, spoiled ballots can be used in the same manner as the
+original stickers to receive new codes, which can then be voted with,
+while cast ballots will be physically unavailable. The check-in
+barcode contains only the precinct and ballot style, which can be
+reconstructed from the selections on the ballot anyway, so there's no
+new information provided.
+
+We have presently not implemented either solution in our
+demonstrator. Also, note that physical processes may be sufficient to
+prevent re-voting, but they will not be sufficient to prevent a voter
+who has told another voter his or her code from voting in the wrong
+precinct or with the wrong ballot style.
 
 ## Ballot IDs vs Ballot Casting IDs
 
