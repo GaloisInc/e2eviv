@@ -60,6 +60,7 @@ import           Control.Monad.Except                  (MonadError)
 import           Control.Monad.IO.Class                (liftIO)
 import qualified Data.Aeson                            as JSON
 import           Data.ByteString                       (ByteString)
+import qualified Data.ByteString.Lazy                  as B
 import           Data.List                             (foldl')
 import           Data.Maybe                            (catMaybes, fromJust,
                                                         isNothing)
@@ -158,10 +159,12 @@ showSummary = do
 -- | Encrypt the vote, send it to the controller, and redirect to a page with instructions
 finalize :: StarTerm m => m ()
 finalize = do
+  liftIO (putStrLn "Beginning the vote finalization process")
   (code, style, ballot) <- ballotParams
   -- TODO: ensure uniqueness of bid and bcid
   ballotId        <- BallotId        . pack . UUID.toString <$> liftIO randomIO
   ballotCastingId <- BallotCastingId . pack . UUID.toString <$> liftIO randomIO
+  liftIO (putStrLn $ "Handling bid and bcid " ++ show (ballotId, ballotCastingId))
   term            <- doQuery GetTerminalConfig
   record          <- errorUpdateShow $ EncryptRecord
                              (view pubkey term)
@@ -172,10 +175,16 @@ finalize = do
                              (view zi0 term)
                              ballot
   now             <- liftIO getCurrentTime
+  liftIO (putStrLn $ "Will send this record to the BB, timestamped " ++ show now ++ ": " ++ show (JSON.toJSON record))
   ballotContents  <- paperBallot ballot ballotId style record term now
+  liftIO (putStrLn $ "Built a ballot with length " ++ show (B.length ballotContents))
   doUpdate $ RecordVote record
+  liftIO (putStrLn $ "Recorded vote in internal database")
   liftIO $ transmit (view postUrl term) record
+  liftIO (putStrLn $ "Sent vote to BB at " ++ view postUrl term)
+  liftIO (putStrLn $ "About to print ballot...")
   printPDF ballotContents
+  liftIO (putStrLn $ "Done printing ballot.")
   redirect (e (exitInstructionsUrl ballotId))
 
 printReceipt :: StarTerm m => m ()

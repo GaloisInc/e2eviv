@@ -48,7 +48,7 @@ import           Data.Text.Encoding
 import           Snap.Core                     hiding (method)
 import           Snap.Http.Server              (quickHttpServe)
 import           Snap.Iteratee                 (TooManyBytesReadException)
-import           System.Process                (StdStream(CreatePipe), createProcess, shell, std_in)
+import           System.Process                (StdStream(CreatePipe), createProcess, shell, std_in, std_out, std_err, waitForProcess)
 import           Text.Blaze.Html.Renderer.Utf8 (renderHtml)
 import           Text.Blaze.Html5              (Html)
 
@@ -105,8 +105,18 @@ method requested = do
 
 printPDF :: MonadIO m => Lazy.ByteString -> m ()
 printPDF bs = liftIO $ do
-  (Just stdin, _, _, _) <- createProcess (shell "lp -- -") { std_in = CreatePipe }
+  putStrLn $ "Received print request of size " ++ show (Lazy.length bs)
+  Lazy.writeFile "/tmp/ballot.pdf" bs
+  putStrLn $ "Wrote contents of ballot to /tmp/ballot.pdf for inspection"
+  (Just stdin, Just stdout, Just stderr, ph) <- createProcess (shell "lp -- -") { std_in = CreatePipe, std_out = CreatePipe, std_err = CreatePipe }
+  putStrLn $ "lp process created"
   Lazy.hPutStr stdin bs
+  out  <- Lazy.hGetContents stdout
+  err  <- Lazy.hGetContents stderr
+  exit <- waitForProcess ph
+  putStrLn $ "lp exited with code " ++ show exit
+  putStrLn $ "stdout was " ++ show out
+  putStrLn $ "stderr was " ++ show err
 
 
 -- This is a bit of an ugly instance - see
