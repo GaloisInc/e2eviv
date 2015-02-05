@@ -53,12 +53,15 @@ end
 cluster_chart BACKGROUND
 explanation
   "Background concepts relevant to elections in the general."
+class CONTEST
+  description "A decision to be made, either the selection of one or  \
+             \ more candidates for an office or the choice of a course of \
+             \ action."
 class DEMOCRACY 
   description "A system of government by an entire population or \
              \ eligible members thereof."
 class ELECTION
-  description "A formal indication of a choice between two or more \
-             \ candidates or courses of action."
+  description "A formal process of selecting choices in one or more contests."
 class ELECTORATE 
   description "The individuals that are eligible to vote in an election."
 class EVOTING 
@@ -119,32 +122,40 @@ explanation
   "Physical and digital artifacts relevant to election day."
 class BALLOT 
   description "The legally recognized means by which a voter can \
-             \ express his or her choice of voting option."
+             \ express his or her choices in one or more contests \
+             \ in an election."
 class BALLOT_BOX 
-  description "The means by which votes are stored pending being \
+  description "The means by which ballots are stored pending being \
              \ counted."
+class BALLOT_CONFIGURATION
+  description "The set of contests in which voters of a particular \
+             \ group are eligible to vote."
+class BALLOT_STYLE
+  description "The concrete presentation of a ballot configuration."
 class CANDIDATES_REGISTER 
   description "A listing of the candidates standing for election."
-class REFERENDUM 
+class CONTEST_CHOICE 
+  description "A selection from among the possible outcomes of \
+             \ a contest."
+class CONTEST_FOR_OFFICE
+  description "A selection of some subset of candidates standing for \
+             \ election to a particular office."
+class REFERENDUM  -- should this be BALLOT_QUESTION, as per IEEE? 
   description "A decision among two or more courses of action."
 class RESULT 
-  description "The outcome of an election."
+  description "The outcome of a contest."
 class SEAL
   description "A device, algorithm, or process that provides evidence \
              \ for the integrity of an object."
 class TALLY 
   description "The count of all the votes in an election."
 class VOTE 
-  description "The expression of the choice of voting option."
+  description "The expression of a contest choice."
 class VOTERS_REGISTER 
   description "A listing of the eligible voters for an election."
 class VOTING_INTERFACE 
   description "The medium through which a voter makes his or \
-             \ her choices of voting option known to the voting \
-             \ system."
-class VOTING_OPTION 
-  description "A selection from among the possible outcomes of \
-             \ an election."
+             \ her contest choices known to the voting system."
 cluster PHYSICAL_ARTIFACTS 
   description "Physical artifacts relevant to election day."
 cluster DIGITAL_ARTIFACTS 
@@ -157,7 +168,7 @@ explanation
 class DEVICE 
   description "A physical artifact that is fit for a particular purpose."
 class PHYSICAL_BALLOT_BOX 
-  description "A box used to store paper votes pending being counted."
+  description "A box used to store paper ballots pending being counted."
 class PAPER_BALLOT 
   description "A ballot comprised of one or more pieces of paper."
 class POLLING_STATION 
@@ -176,7 +187,7 @@ explanation
 class DIGITAL_BALLOT 
   description "A digital manifestation of a paper ballot record."
 class DIGITAL_BALLOT_BOX 
-  description "The electronic means by which digital votes are \
+  description "The electronic means by which digital ballots are \
              \ stored pending being counted."
 class DIGITAL_VOTE 
   description "A vote expressed with a digital ballot."
@@ -319,6 +330,8 @@ class ELECTORAL_AUTHORITY
  \ running, and disclosing the results of an election."
 class IDENTITY 
   description "The fact of being who or what a person or system is."
+class PERSON
+  description "An individual."
 class VOTER 
   description "A person who is eligible to vote in an election."
 end
@@ -356,86 +369,211 @@ end
 class_chart BALLOT
 explanation
   "A ballot is the legally recognized means by which a voter \
- \ can express his or her choice of voting option. A ballot \ 
- \ contains a set of possible options, either candidates for \
- \ a position or courses of action to be taken."
+ \ can express his or her choices for one or more contests in an \
+ \ election. A ballot contains a set of votes corresponding to \
+ \ the contests being decided in the election."
 query
+  "What is your ballot style?",
   "Have you been cast?",
   "Have you been spoiled?", 
-  "What choices do you represent?"
+  "What votes do you contain?",
+  "What vote do you contain for the_contest?"
 command
+  "Your ballot style is the_style!",
   "You are cast!",
   "You are spoiled!",
-  "You represent the_choice!"
+  "You contain the_vote for the_contest!",
+  "You no longer contain a vote for the_contest!"
 constraint
-  "Initially, a ballot is not cast, not spoiled, and represents no choices.",
-  "Once a ballot is cast or spoiled, its choices cannot be changed.",
+  "Initially a ballot is not cast, not spoiled, and contains no votes.",
+  "A ballot's style may only be set once.",
+  "Once a ballot is cast or spoiled, the set of votes it contains \
+ \ cannot be changed.",
   "Once a ballot is cast, it remains cast forever.",
   "Once a ballot is spoiled, it remains spoiled forever.",
-  "A ballot cannot be both cast and spoiled."
-end
-
-class_chart PAPER_BALLOT
-explanation
-  "A paper ballot is a ballot implemented using paper, which \
- \ the voter marks in some fashion to indicate his or her choice."
-inherit BALLOT
+  "A ballot cannot be both cast and spoiled.",
+  "A ballot may contain at most one vote per contest.",
+  "A ballot may only contain votes for contests that are part of its \
+ \ ballot configuration."
 end
 
 class_chart BALLOT_BOX
 explanation
-  "A ballot box is the means by which votes are stored pending \
+  "A ballot box is the means by which ballots are stored pending \
  \ being counted. It may take various forms, including physical \
  \ containers (from which the name derives) and electronic \
  \ storage media."
 query
+  "Are you empty?",
   "Are you full?",
   "What is your capacity?",
   "How many ballots do you contain?",
-  "What ballots do you contain?"
+  "What ballots do you contain?",
+  "What seals are applied to you?",
+  "Are you sealed?"
 command
   "You contain the_ballot!",
-  "You no longer contain the_ballot!"
+  "You no longer contain the_ballot!",
+  "The_seal is applied to you!",
 constraint
-  "Only cast ballots may be added to the ballot box.",
-  "Ballots that are not in the ballot box cannot be \
+  "A ballot box is initially empty and has no seals.",
+  "Only cast ballots may be added to a ballot box.",
+  "Ballots that are not in a ballot box cannot be \
  \ removed from the ballot box.",
-  "Ballots may not be added to a full ballot box.",
-  "A ballot box is full if it contains a number of ballots \
- \ equal to its capacity."
+  "A ballot box is sealed if and only if it has one or \
+ \ more unbroken seals applied to it.",
+  "Ballots may not be added to a full or sealed ballot box.",
+  "Ballots may not be removed from an empty or sealed ballot box.",
+  "A ballot box's capacity is non-negative.",
+  "A ballot box is full if and only if it contains a number of \
+ \ ballots equal to its capacity."
 end
 
+class_chart BALLOT_CONFIGURATION
+explanation
+  "A ballot configuration is the set of contests in which voters \
+ \ of a particular group are eligible to vote."
+query
+  "What contests do you contain?",
+  "Are you locked?"
+command
+  "You contain the_contest!",
+  "You do not contain the_contest!",
+  "You are locked!"
+constraint
+  "A ballot configuration is initially unlocked and contains \
+ \ no contests.",
+  "A contest may not be added to a ballot configuration more \
+ \ than once.",
+  "Ballot configurations that contain no contests may not be \
+ \ locked.",
+  "A contest may not be added to or removed from a locked \
+ \ ballot configuration.",
+  "Once locked, a ballot configuration remains locked forever." 
+end
+
+class_chart BALLOT_STYLE
+explanation
+  "A ballot style is the concrete presentation of a ballot \
+ \ configuration. A single ballot configuration may be realized \
+ \ by several ballot styles, e.g. for different languages or \
+ \ different orderings of contests or contest choices."
+query
+  "What is your ballot configuration?",
+  "What are the details of your presentation?" -- highly implementation dependent
+command
+  "Your ballot configuration is the_configuration!"
+constraint
+  "A ballot style's ballot configuration may only be set once.",
+  "A ballot style's ballot configuration may only be set to a \
+ \ locked ballot configuration."
+end
+ 
 class_chart CANDIDATE
 explanation
   "A candidate is a citizen who is listed on the ballot as a \
  \ possible choice to fill some position."
+inherit CITIZEN
+-- constraint
+ -- various constraints apply to candidates for various offices,
+ -- depending on the office (e.g., >= 35 yrs old, permanent
+ -- resident in the U.S. for >= 14 yrs, and born a U.S.
+ -- citizen are constraints on candidates for President of the
+ -- United States).
+end
+
+class_chart CANDIDATES_REGISTER
+explanation
+  "A candidates' register contains all the candidates standing \
+ \ for election and the offices for which they are standing."
+query
+  "Do you contain the_candidate?",
+  "What candidates do you contain?",
+  "Are you locked?"
+command
+  "You contain the_candidate!",
+  "You do not contain the_candidate!",
+  "You are locked!"
+constraint
+  "A register is initially empty and unlocked.",
+  "A candidate may not be added to the register more than once.",
+  "A candidate who is not in the register cannot be removed from \
+ \ the register.", 
+  "Candidates may not be added to or removed from a locked register.",
+  "A locked register may not be unlocked.",
+  "A candidate added to the register must not be dead at the time of \
+ \ addition."
 end
 
 class_chart CITIZEN
+-- note: we may still have to break this into "citizen" and "person"
 explanation
   "A citizen is a person who legally belongs to a place and \ 
  \ has the rights and protections of that place. The place can \
  \ be at any election scope; for example, a particular person \
  \ may be a citizen of the United States, of Oregon, and of \
  \ Portland simultaneously."
-end
-
-class_chart CANDIDATES_REGISTER
-explanation
-  "A candidates' register contains all the candidates \
- \ standing for election."
 query
-  "Is the_candidate in the register?"
+  "What is your name?",
+  "What is your current residence address?",
+  "What is your citizenship information?",
+  "What is your date of birth?",
+  "Are you dead?"
 command
-  "Add the_candidate to the register!",
-  "Remove the_candidate from the register!"
+  "Your name is the_name!",
+  "Your current residence address is the_address!",
+  "Your citizenship information is the_information!",
+  "Your date of birth is the_date!",
+  "You are dead!"
 constraint
-  "A candidate may not be added to the register more than once."
+  "A citizen is initially alive.",
+  "A citizen's date of birth may only be set once.",
+  "Once a citizen is dead, he stays dead forever."
 end
 
 class_chart CONFIDENT
 explanation
   "A person or system that is certain about a proposition."
+end
+
+class_chart CONTEST
+explanation
+  "A contest is a decision to be made, either the selection of one or  \
+ \ more candidates for an office or the choice of a course of action. \ 
+ \ There may be multiple contests in a single election."
+query
+  "What are your contest choices?",
+  "What is the maximum number of your contest choices that can be chosen \
+ \ on the same ballot?",
+  "What is your result?",
+  "Does the_vote contain valid contest choices?"
+command
+  "Your contest choices are the_choices!",
+  "Your result is the_result!",
+  "The_maximum_number of your contest choices can be chosen on the \
+ \ same ballot!"
+constraint
+  "A contest must have at least one contest choice.",
+  "The result must contain information about every contest choice \
+ \ in the contest.",
+  "The contest choices for a contest may only be set once.",
+  "The result for a contest may only be set once.",
+  "The maximum number of contest choices that can be chosen on the same \
+ \ ballot may only be set once."
+end
+
+class_chart CONTEST_CHOICE
+explanation
+  "A selection from among the possible outcomes of a contest."
+end
+
+class_chart CONTEST_FOR_OFFICE
+explanation
+  "A contest for office is a selection of some subset of candidates \
+ \ standing for election to a particular office."
+inherit CONTEST
+constraint
+  "The contest choices represent individual candidates for an office."
 end
 
 class_chart DEMOCRACY
@@ -462,7 +600,7 @@ end
 class_chart DIGITAL_BALLOT_BOX
 explanation
   "A digital ballot box is the electronic means by which \
- \ digital votes are stored pending being counted."
+ \ digital ballots are stored pending being counted."
 inherit BALLOT_BOX
 end
 
@@ -498,6 +636,13 @@ class_chart ELECTORAL_AUTHORITY
 explanation
   "An electoral authority is an individual or group responsible \
  \ for setting up, running, and disclosing the results of an election."
+query
+  "Who are your members?"
+command
+  "The_citizen is one of your members!",
+  "The_citizen is not one of your members!"
+constraint
+  "An electoral authority must have at least one member."
 end
 
 class_chart ELECTORATE
@@ -548,11 +693,44 @@ explanation
   "A national scope is comprised of a single nation."
 end
 
+class_chart PAPER_BALLOT
+explanation
+  "A paper ballot is a ballot implemented using paper, which \
+ \ the voter marks in some fashion to indicate his or her choice."
+inherit BALLOT
+end
+
+class_chart PAPER_VOTE
+explanation
+  "A paper vote is a vote expressed with a paper ballot."
+inherit VOTE
+-- queries, commands, constraints to do with legibility and
+-- interpretation of voter intent? 
+end
+
 class_chart PARTY
 explanation
   "An organized group of people with at least roughly similar \
  \ political aims and opinions, that seeks to influence public \
  \ policy by getting its candidates elected to public office."
+end
+
+class_chart PHYSICAL_BALLOT_BOX
+explanation
+  "A physical ballot box is a box used to store paper ballots \
+ \ pending being counted."
+inherit BALLOT_BOX
+query
+  "What is your chain of custody?"
+command
+  "Add the_entry to your chain of custody!"
+constraint
+  "The capacity of a physical ballot box is finite.",
+  "A physical ballot box may only be sealed with physical seals.",
+  "A physical ballot box may only contain paper ballots.",
+  "Entries may not be removed from the chain of custody.",
+  "Each entry added to the chain of custody must represent one or \
+ \ more individual people."
 end
 
 class_chart PHYSICAL_SEAL
@@ -563,6 +741,12 @@ explanation
  \ and other features that make it obvious when a sealed artifact \
  \ has been tampered with."
 inherit SEAL
+query
+  "What is your identifier?"
+command
+  "Your identifier is the_identifier!"
+constraint
+  "The identifier of a physical seal may only be set once."
 end
 
 class_chart POLLING_STATION
@@ -590,6 +774,11 @@ explanation
   "A referendum is a decision among two or more courses of \
  \ action. In most cases, referenda take the form of yes/no \
  \ questions."
+inherit CONTEST
+constraint
+  "The maximum number of choices that may be chosen on the same \
+ \ ballot is 1.",
+  "Each choice represents a course of action." 
 end
 
 class_chart REGIONAL
@@ -618,7 +807,14 @@ end
 
 class_chart RESULT
 explanation
-  "The outcome of an election."
+  "The outcome of a contest."
+query
+  "What contest choices do you contain counts for?",
+  "What is the count for the_choice?"
+command
+  "The count for the_choice is the_number_of_votes!"
+constraint
+  "The count for each contest choice may only be set once."
 end
 
 class_chart ROBUST
@@ -637,12 +833,12 @@ query
   "What are you applied to?",
   "Are you broken?"
 command
-  "Apply yourself to the_entity!",
+  "You are applied to the_entity!",
   "Break!"
 constraint
-  "A seal is initially not applied.",
-  "A seal may only be applied if it has not been previously applied.",
-  "A seal may only be broken if it has not been previously broken.",
+  "A seal is initially not applied and not broken.",
+  "A seal may only be applied if it has not previously been applied.",
+  "A seal may only be broken if it has not previously been broken.",
   "Once applied, a seal remains applied forever.",
   "Once broken, a seal remains broken forever."
 end
@@ -662,11 +858,13 @@ end
 class_chart TALLY
 explanation
   "The count of all the votes in an election."
+--todo: is this across all contests, or for a single contest? if the former,
+--we probably also need the latter (is that RESULT?)
 end
 
 class_chart TURNOUT
 explanation
-  "The level of participation of voters in an election."
+  "The level of participation of voters in a contest."
 end
 
 class_chart USABLE
@@ -690,23 +888,57 @@ end
 
 class_chart VOTE
 explanation
-  "A vote is an expression of the choice of voting option made by \
- \ a voter during an election."
+  "A vote is an expression of a contest choice made by a voter \
+ \ during an election."
 query
-  "What choice do you represent?"
+  "What contest choice do you represent?"
 command
   "You represent the_choice!"
+constraint
+  "The choice represented by a vote may only be set once."
 end
 
 class_chart VOTER
 explanation
-  "A person who is eligible to vote in an election."
+  "A person who is eligible to vote in an election. A voter \
+ \ has affiliations with various groups (districts, political \
+ \ parties, etc.) that determine the voter's eligibility to \
+ \ vote in specific contests."
+inherit CITIZEN
+query
+  "What groups are you in?"
+command
+  "You are in the_group!",
+  "You are not in the_group!"
 end
 
 class_chart VOTER_REGISTRATION
 explanation
   "The process by which a member of the electorate is added \
  \ to the voter register."
+end
+
+class_chart VOTERS_REGISTER
+explanation
+  "A voters' register contains all the voters eligible \
+ \ to vote in an election, as well as information \
+ \ indicating the ballot configuration each voter should \
+ \ use and whether each has participated in the election."
+query
+  "Is the_voter in the register?",
+  "What ballot configuration should be used with the_voter?",
+  "Has the_voter voted?"
+command
+  "Add the_voter to the register!",
+  "Remove the_voter from the register!",
+  "Set the_voter's ballot configuration to the_configuration!",
+  "the_voter has voted!"
+constraint
+  "A voter may not be added to the register more than once.",
+  "A voter may not be removed from the register if he has voted.",
+  "Once a voter is marked as having voted, he remains so marked forever.",
+  "Once a voter is marked as having voted, his ballot configuration may \
+ \ not change."
 end
 
 class_chart VOTING_CHANNEL
@@ -717,29 +949,5 @@ end
 class_chart VOTING_INTERFACE
 explanation
   "The medium through which a voter makes his or \
- \ her choices of voting option known to the voting \
- \ system."
-end
-
-class_chart VOTING_OPTION
-explanation
-  "A selection from among the possible outcomes of an election."
-end
-
-class_chart VOTERS_REGISTER
-explanation
-  "A voters' register contains all the voters eligible \
- \ to vote in an election, as well as information \
- \ indicating whether each has actually voted."
-query
-  "Is the_voter in the register?",
-  "Has the_voter voted?"
-command
-  "Add the_voter to the register!",
-  "Remove the_voter from the register!",
-  "the_voter has voted!"
-constraint
-  "A voter may not be added to the register more than once.",
-  "A voter may not be removed from the register if he has voted.",
-  "Once a voter is marked as having voted, he remains so marked forever."
+ \ her contest choices known to the voting system."
 end
