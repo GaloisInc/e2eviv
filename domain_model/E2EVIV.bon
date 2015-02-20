@@ -543,12 +543,14 @@ explanation
  \ There may be multiple contests in a single election."
 query
   "What are your contest choices?",
+  "Do you allow a write-in choice?",
   "What is the maximum number of your contest choices that can be chosen \
  \ on the same ballot?",
   "What is your result?",
   "Does the_vote contain valid contest choices?"
 command
   "Your contest choices are the_choices!",
+  "You do/do not allow a write-in choice!",
   "Your result is the_result!",
   "The_maximum_number of your contest choices can be chosen on the \
  \ same ballot!"
@@ -557,6 +559,7 @@ constraint
   "The result must contain information about every contest choice \
  \ in the contest.",
   "The contest choices for a contest may only be set once.",
+  "The write-in allowed flag may only be set once.",
   "The result for a contest may only be set once.",
   "The maximum number of contest choices that can be chosen on the same \
  \ ballot may only be set once."
