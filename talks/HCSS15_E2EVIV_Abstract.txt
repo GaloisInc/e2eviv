@@ -10,8 +10,8 @@ fulfill even in purely physical voting systems.
 Over the past two decades, various forms of Internet-based voting have
 been proposed and carried out in the United States and other countries.
 A primary motivation for Internet voting is accessibility, both for
-voters with disabilities and for voters who cannot easily visit
-polling places or submit absentee ballots in a timely fashion (e.g.,
+voters with disabilities and for voters who cannot easily visit polling
+places or submit absentee ballots in a timely fashion (e.g.,
 expatriates, those serving abroad in the military, etc.).
 
 Unfortunately, though well-intentioned, these Internet voting systems
@@ -23,25 +23,23 @@ led many activists and technologists to write off Internet voting as
 inherently insecure and unsuitable for use in real elections.
 
 In December 2013 the Overseas Vote Foundation (OVF) announced the
-End-to-End Verifiable Internet Voting Project (E2E VIV). Its goal is
-to study the feasibility of developing an Internet-based system that
+End-to-End Verifiable Internet Voting Project (E2E VIV). Its goal is to
+study the feasibility of developing an Internet-based system that
 fulfills the security and privacy requirements associated with voting
 while providing transparent, trustworthy, auditable elections. Galois
-has been managing the technical aspects of the E2E VIV project. In
-this role we have developed a comprehensive set of requirements that
-an E2E VIV system must satisfy, a high-level architecture for such a
-system, and demonstration implementations of some of its components.
+has been managing the technical aspects of the E2E VIV project. In this
+role we have developed a comprehensive set of requirements that an E2E
+VIV system must satisfy, a high-level architecture for such a system,
+and demonstration implementations of some of its components.
 
-Next, the cryptography, security, auditing, and elections experts
-involved in the project (including the likes of Ron Rivest, Josh
-Beneloh, Aggelos Kiayias, Olivier Pereira, Poorvi Vora, David Wagner,
-Dan Wallach, David Jefferson, Philip Stark, and the elections
+Currently, the cryptography, security, auditing, and elections experts
+involved in the project (including the likes of Josh Beneloh, David
+Wagner, Dan Wallach, David Jefferson, Philip Stark, and the elections
 officials responsible for Los Angeles, Austin, Tallahassee, and
-Albuquerque) reflect upon these artifacts and attempt to design a new
-generation of E2E VIV system that can satisfy the needs of overseas,
-military, and disabled voters.
+Albuquerque) are reflecting upon these artifacts and attempting to
+design a new generation of E2E VIV system that can satisfy the needs of
+overseas, military, and disabled voters.
 
-In this talk we will reflect upon the background and state of the
-project, focusing on the novel privacy-preserving and high-assurance
-aspects of the system from both an algorithm and systems
-point-of-view.
+In this talk we will reflect upon the background and state of the E2E
+VIV project, focusing on the novel privacy-preserving and high-assurance
+aspects of the system from both algorithmic and systems points-of-view.
