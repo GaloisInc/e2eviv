@@ -1,0 +1,33 @@
+Voting systems have strict security and privacy requirements, which are
+different from those in many other domains. They must not expose
+information that connects voters and their votes; moreover, to prevent
+voter coercion, individual voters must not themselves be able to expose
+information that proves how they voted. These requirements are
+fundamentally in tension with exposing enough information to determine
+that the counted votes match the cast votes, and are difficult to
+fulfill even in purely physical voting systems.
+
+Over the past two decades, various forms of Internet-based voting have
+been proposed and carried out in the United States and other countries.
+A primary motivation for Internet voting is accessibility, both for
+voters with disabilities and for voters who cannot easily visit
+polling places or submit absentee ballots in a timely fashion (e.g.,
+expatriates, those serving abroad in the military, etc.).
+
+Unfortunately, though well-intentioned, these Internet voting systems
+have generally been fraught with security and privacy issues. Some
+systems used in national-level elections have been subsequently found to
+leak voter and vote information and to be susceptible to various forms
+of manipulation that can untraceably alter election results. This has
+led many activists and technologists to write off Internet voting as
+inherently insecure and unsuitable for use in real elections.
+
+In December 2013 the Overseas Vote Foundation (OVF) announced the
+End-to-End Verifiable Internet Voting Project (E2E VIV). Its goal is to
+study the feasibility of developing an Internet-based system that
+fulfills the security and privacy requirements associated with voting
+while providing transparent, trustworthy, auditable elections. Galois
+has been managing the technical aspects of the E2E VIV project. In this
+role we have developed a comprehensive set of properties that an E2E
+VIV system must satisfy, a high-level architecture for such a system,
+and demonstration implementations of some of its components.
