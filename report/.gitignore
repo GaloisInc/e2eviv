@@ -8,7 +8,7 @@
 *.log
 *.lot
 *.nav
-./*.pdf
+/*.pdf
 *.pdfsync
 *.toc
 *.vrb
