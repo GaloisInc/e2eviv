@@ -1,7 +1,7 @@
 .PHONY: report.pdf clean
 
 report.pdf:
-	latexmk -pdf report
+	latexmk -pdf -latexoption=-interaction=nonstopmode report
 
 clean:
 	git clean -fX
