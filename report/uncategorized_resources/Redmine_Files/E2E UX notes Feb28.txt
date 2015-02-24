@@ -1,0 +1,46 @@
+﻿Notes from Susan/Keith face-to-face working session in Ann Arbor, 2/28/14.
+
+1. The PROJECT experience
+a. Front end / outcome: a "report" and related activities, by various teams (usability, auditing, security), for Election officials (state, local, NASED, etc.). Also, indirectly for/about vendors.
+b. Back end: the tools we use to communicate within the project team, write, collaborate, project management, …
+- Redmine for project management - play with settings
+c. OVF model: Data + Development + Dialog
+
+2. Helios investigation - https://vote.heliosvoting.org/
+a. Quick review show slots of potential for improvement. Project question: should we use this code to build prototypes for the project (vs. lower fidelity prototypes like paper)?
+b. Mike H. to review quality of open source code, likelihood we could build better front ends on top for the project.
+c. Keith to-do: A deeper analysis, generate list of questions based on what is there (like purpose of "Election Fingerprint" - less about UI review cuz UI is so bad, but around rationale for features)
+
+3. Users of the proposed internet voting system (lunch brainstorming and discussion)
+a. Election officials: set-up, auditing, support. Voting, but registration (online) also considered part of the system from their POV.
+-- Adminsiter: Federal - state *** - local. Centralization admin at state level has many benefits.
+-- Ballots: Federal - state - local.
+b. Public - for auditing of election results (E2E criteria)
+c. Hackers / bad guys - part of the system, design for BAD experience for them
+d. VOTERS
+-- Channels of communication: Snail mail, Fax, Telephone, Email, Http, SMS
+-- Military - Military family - Civilian (e.g. focus on civilian, works for military?)
+-- Technology / devices: Computer, Tablet, Smartphone
+-- Abilities: Few…Lots. Alternate systems for some abilities (e.g., help at polling places)
+-- Familiarity with tech: low..high (young…old) 
+-- Experience with voting: first time (need explanations)….knows what to do/set in ways
+-- Tech fundamentals: Paper, Digital, Both (compare voter views with Election Officials with security experts)
+-- Physical location: Overseas…US. Some fear develop for overseas and then adopted for US.
+-- Away from US timeframe: Temporary/short…Permanent/long
+-- Election situation: Normal…disaster/special concerns.
+
+4. US vote analysis (to compare with, supplement project)
+a. Personas (home page carousel)
+-- Traveling exec --> absentee
+-- Students --> reminders, absentee, out of state
+-- Overseas --> absentee, temporary vs. permanent
+-- Implied disabled --> absentee, cannot get to polls
+-- Poll-place-voter --> Voter reg, contact election officials
+-- Busy/single parent --> choose to absentee, save time. Alternate: Double shift, overworked.
+-- Military
+b. Purpose of site includes awareness of overseas, military voters
+c. Data from customer support
+d. Roadmap for voter account services: aggregate data, as states do better
+
+5. Web for Everyone Personas
+a. Reviewed them on SkyDrive, incorporate into larger set of user descriptions, use as model for others
