@@ -1,10 +1,24 @@
 \documentclass{report}
+\usepackage{times}
+
+\usepackage{ifpdf}
+
+\ifpdf
+\usepackage[pdftex,colorlinks=true,urlcolor=blue,bookmarks=false]{hyperref}
+\else
+\usepackage[dvips]{hyperref}
+\fi
+
+\usepackage[margin=1in]{geometry}
 
 \title{The E2EVIV Report}
+\author{Many People}
 
 \begin{document}
 
 \maketitle
+
+\tableofcontents
 
 \input{introduction.tex}
 \input{problem.tex}
