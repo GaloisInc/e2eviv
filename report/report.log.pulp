@@ -1,5 +1,0 @@
-!( boring | info | message | over | under
- | '   defining Unicode char U\+[0-9A-F]{4} \(decimal [0-9]{3,4}\)'
- | 'Now handling font encoding [^ ]* \.\.\.'
- | '\.\.\. (no|processing) UTF-8 mapping file for font encoding [^ ]*'
- )
