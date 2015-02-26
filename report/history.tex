@@ -117,7 +117,13 @@ voting systems are attempting to solve:
     her vote is completely destroyed. This set of votes may be counted. This
     approach established one of the two main paradigms for later proposals
     for end-to-end verifiable voting.
-  \item \cite{benaloh1985}~introduced \emph{homomorphic encryption} as an
+  % TODO: something odd here; the original draft referred to "Benaloh 1985",
+  % though the URL it had points at a paper by Cohen and Fischer in 1985.
+  % But the Cohen and Fischer paper doesn't seem to propose homomorphic
+  % encryption as an alternative to mix nets on my brief reading. A more
+  % careful reading, or a search for a Benaloh 1985 paper that proposes
+  % homomorphic encryption, seems worthwhile before shipping this report.
+  \item \cite{cohen1985}~introduced \emph{homomorphic encryption} as an
     alternative to mix nets, and this approach is the basis of the other
     main paradigm.  In this approach, encrypted votes are counted without
     decryption, and only after counting are the totals decrypted.
@@ -298,7 +304,7 @@ close, the decryption and vote tally may be checked. Helios uses homomorphic
 vote tallying for simplicity, even though a single mixer was used in its
 first developments, and mixnets have been used in several of its forks and
 descendants; see~\cite{bulens2011} or~\cite{tsoukalas2013} for instance. A recent
-variant by~\cite{cortier} proposes an enhanced ballot authentication
+variant by~\cite{cortier2014} proposes an enhanced ballot authentication
 mechanism. The STAR-Vote system~\cite{star-vote}, designed for public
 elections as a result of an invitation from the Travis County election
 administration, also borrows various techniques used in Helios and
@@ -626,14 +632,3 @@ Additionally, an E2E system can fail if the voting process is not adequately
 communicated to voters, or if a sufficient number of voters does not check
 encryption-correctness or the presence of receipts on the website. Both
 aspects of an E2E election need special attention.
-
-% citation information, such as it is, included below:
-% "Chaum [2001]":http://web.archive.org/web/20041214134006/http://www.vote.caltech.edu/wote01/pdfs/surevote.pdf
-% "Hubbers et al [2004]":https://pms.cs.ru.nl/iris-diglib/src/getContent.php?id=2004-Hubbers-VotingAction
-% "Kiayias et al [2014]":http://www.demos-voting.com/demos_-_elektronike_psephophoria/Europaikes_Ekloges_2014_files/euro2014.pdf
-% "Popoveniuc and Hosp [2006]":http://popoveniuc.com/papers/popoveniuc_hosp_punchscan_introduction.pdf
-% "Crockford 2002":http://www.crockford.com/wrmg/base32.html
-% "OSCE 2007":http://www.osce.org/odihr/elections/netherlands/24322?download=true
-% "Essex, Clark, Carback and Popoveniuc, 2007":http://www.punchscan.org/papers/pip_essex.pdf
-% "Carter Center, 2013":http://www.cartercenter.org/resources/pdfs/peace/democracy/Carter-Center-Norway-2013-study-mission-report2.pdf
-% "Cortier et al":http://hal.inria.fr/docs/01/01/84/47/PDF/rapport.pdf
