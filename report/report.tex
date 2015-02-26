@@ -17,7 +17,14 @@
 
 \begin{document}
 
+% The title page has no visible page number, and the report resets page
+% numbering on the next page so that the visible page numbers start from 1.
+% One unfortunate side effect of this is that hyperref sees two different
+% pages both named "1" and gets confused. See also
+% http://tex.stackexchange.com/q/18924/16779
+\hypersetup{pageanchor=false}
 \maketitle
+\hypersetup{pageanchor=true}
 
 \tableofcontents
 
