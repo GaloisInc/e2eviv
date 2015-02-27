@@ -1,155 +1,68 @@
-[TODO]: # (Everything that says "not implemented yet" (case insensitive).)
+STAR-Vote
+===
 
-# How to run an election
+*STAR-Vote* is part of the Verifiable Elections software suite of products, developed by Verifiable Elections, Inc. It is a *S*ecure, *T*ransparent, *A*uditable and *R*eliable voting system that runs on off-the-shelf computing hardware, based on the system of the same name described by [Bell et al.] [1] *STAR-Vote* provides a DRE-style human interface and a voter-verifiable paper trail, as well as using end-to-end cryptography to provide evidence of correct recording and tallying of votes. It supports both ballot-level risk-limiting audits and auditing by voters and other public observers.
 
-In the summaries below, prefix `#` means "run as root"; `$` means "run as
-user"; and `B` means "visit this location in a browser".
+*STAR-Vote* is comprised of multiple components: *back-end applications* that handle the generation of encryption keys, maintenance of a voter status database, maintenance of a public authenticated write-only bulletin board, and tallying of cast ballots after an election; a *polling place controller* that manages the election protocol at a given polling place; a *check-in station* used by voters to check in to a polling place; a *ballot claim station* used by voters to obtain a ballot code after checking in; a *voting terminal* at which voters mark their ballots; a *ballot reading station* at which voters can optionally verify that the computer-readable representations of their ballots match their intent; and a *vote submission station* at which voters can choose to either cast or audit/spoil their completed ballots. 
 
-## Building and installing
+Development Process and Methodology
+===
 
-Summary:
+*STAR-Vote* is being developed using the Trust-by-Design (TBD) software engineering methodology.
 
-    # apt-get install ghc cabal-install llvm libsqlite3-dev
-    or
-    $ brew install ghc cabal-install llvm sqlite3
-      (or install ghc and cabal via Haskell Platform)
-    $ git clone ssh://git@github.com/GaloisInc/e2eviv
-    $ cd e2eviv/src
-    $ cabal update
-    $ cabal sandbox init
-    $ cabal install -j ./append-only-bb ./star-{controller,crypto,keygen,terminal,types,util,voter-db}
+The TBD methodology is documented in several papers published by Joe
+Kiniry and his coauthors, available via http://www.kindsoftware.com/.
 
- (add discussion of regexp-compat included with Haskell Platform)
+In general, a system is comprised of:
 
-1.  Install GHC, cabal-install, llvm 3.4, and sqlite. Often this is as
-    simple as `apt-get install ghc cabal-install llvm libsqlite3-dev`
-    or your distro's package manager's equivalent. This should be done
-    as root. You will need GHC 7.8 or later and cabal-install 1.18 or
-    later. If your distro doesn't have a new enough GHC, you can visit
-    [the GHC downloads page for 7.8.3](https://www.haskell.org/ghc/download_ghc_7_8_3). If
-    your distro doesn't have a new enough cabal-install, you can
-    bootstrap an old cabal-install by running `cabal update && cabal
-    install cabal-install`, which will put an executable in
-    `~/.cabal/bin` by default.
-2.  Clone the repository. You've probably already done this, since you're
-    looking at this file. If not, github has good instructions on how to do this
-    kind of thing; you want the `GaloisInc/e2eviv` repository. If you have
-    everything set up correctly, the following will work:
+* a top-level readme (like this one) that includes information about
+  the system's purpose, examples of its use, fundamental concepts,
+  system requirements, and background literature,
 
-        git clone ssh://git@github.com/GaloisInc/e2eviv
-3.  Jump into the elections directory with `cd e2eviv/src`.
-4.  Make sure you have a recent package listing with `cabal update`.
-5.  For sanity, I recommend creating a sandbox, though this step is not strictly
-    necessary. Use `cabal sandbox init`.
-6.  Kick off the build. There are several projects here; building them all at
-    once will give the dependency solver a better chance of getting things right
-    the first time.
+* a domain analysis and a detailed architecture specifications written
+  in the [Extended Business Object Notation (EBON)] [2],
 
-        cabal install -j ./append-only-bb ./star-{controller,crypto,terminal,types,util,voter-db}
+* formal specifications written at the source code level in one or
+  more contract-based specification languages like [Code Contracts] [3]
+  (for .NET systems), the [Java Modeling Language] [4] (for JVM
+  systems), or the [Executable ANSI/ISO C Specification Language
+  (E-ACSL)] [5],
 
-    This will put executables in `.cabal-sandbox/bin` by default; you can do all the
-    usual Unixy things to make them easy to run. The next section will assume
-    the executables have found their way onto your path somehow.
+* protocol descriptions typically formally specified using abstract
+  state machines (ASMs), petri nets, formally annotated collaboration
+  diagrams, or other formal notations that have tool support for
+  reasoning about such protocols,
 
-## Configuring the election
+* a hand-written set of (sub)system tests and an automatically
+  generated set of unit tests (using [PEX] [6] for .NET systems and
+  [JMLUnitNG] [7] for JVM ones), including reports on the completeness
+  and quality of these validation artifacts, and
 
-Summary:
+* a set of evidence that the system fulfills its requirements, usually
+  in the form of traceable artifacts from the requirements to other
+  artifacts that validate that they are satisfied (e.g., test results,
+  code reviews, formal proofs, etc.).
+  
+Requirements
+===
 
-    $ bbserver -b :: -p 8000
-    B localhost:8000/reset
-    $ star-keygen -b :: -p 8001
-    B localhost:8001/register.html
-    B localhost:8001/initialize.html
-    $ nano star-terminal/start.sh
-    $ star-voter-db -b :: -p 8002
-    $ curl -X POST localhost:8002/initialize \
-        -d voterids='[(3,Voter {_voterName="John Doe", _voterAddress = "Nowhereland"}),(5,Voter {_voterName = "Jane Doe", _voterAddress = "Stix"})]' \
-        -d voterstatus='[(3,5,"oregon-2014"),(5,6,"oregon-2014")]'
-    $ star-controller -b :: -p 8003
-    $ lpoptions -d default_printer
-    $ star-terminal/start.sh
+To be written
 
-1.  Start the append-only bulletin board on port 8000 by running `bbserver`.
-    Initialize it by visiting `localhost:8000/reset` and deleting everything.
-2.  The election officials should generate an encryption public key, together
-    with shares of the private key for each official. Run `star-keygen -p 8001`
-    to start a server on port 8001, then visit `localhost:8001/register.html`
-    and `localhost:8001/initialize.html` (in that order). The server should
-    print a short message on its first running telling where to find the
-    configuration information used to contact the bulletin board; the defaults
-    should work fine with these instructions.
+Current Status
+===
 
-    The public key should be made available to the voting terminals for
-    encryption. Edit the file `star-terminal/start.sh` with your favorite
-    editor and modify the `STAR_PUBLIC_KEY` environment variable to contain the
-    base64-encoded public key displayed by `initialize.html`.
+Development of *STAR-Vote* is currently at the domain analysis and specification stage; a demonstration prototype has been constructed based on the description in the [*STAR-Vote* paper] [1] (see USAGE.md for usage instructions for the prototype).
 
-    The private key shares reported by `initialize.html` should be distributed
-    to election officials; these are needed during the vote tallying step
-    below. For the purposes of a mock election, one might simply paste them
-    into a file for storage until later.
+[1]: http://www.traviscountyclerk.org/eclerk/content/images/presentations_articles/pdf_tc_elections_2013.07.26_star.pdf "STAR-Vote: A Secure, Transparent, Auditable and Reliable Voting System"
 
-3.  Initialize the voter status database. Run `star-voter-db -b :: -p 8002`
-    to start the server on port 8002. You will then need to tell the
-    database about all your voters. Below is a sample with some
-    synthetic data:
+[2]: http://bon-method.com/  "The Business Object Notation"
 
-        curl -X POST localhost:8002/initialize \
-            -d voterids='[(3,Voter {_voterName="John Doe", _voterAddress = "Nowhereland"}),(5,Voter {_voterName = "Jane Doe", _voterAddress = "Stix"})]' \
-            -d voterstatus='[(3,5,"oregon-2014"),(5,6,"oregon-2014")]'
+[3]: http://research.microsoft.com/en-us/projects/contracts/  "Code Contracts library for .NET"
 
-    The `voterids` parameter associates voter IDs with the name and address of
-    the voter. The `voterstatus` parameter associates voter IDs with their
-    precinct number and the kind of ballot they need to use. The example data
-    here puts John Doe in precinct 5 and Jane Doe in precinct 6, both with the
-    `oregon-2014` ballot style. Currently `oregon-2014` is the only supported
-    ballot style (see `star-util/src/Application/Star/Util.hs`).
-4.  Start the controller on port 8003 with `star-controller -b :: -p 8003`.
-5.  Configure the default printer for `lp`. You can check the current default
-    with `lpstat -p -d` (which will also list the names of non-default
-    printers), then select a default by appending the name of the printer you
-    wish to make the default to `lpoptions -d`. This default is used by voting
-    terminals when it is time to print a ballot and receipt.
-6.  Start at least one voting terminal. For a default configuration, run
-    `star-terminal/start.sh`, which will start a server on port 8004. You can
-    also run `star-terminal/start.sh 8005` and similar to start another
-    terminal on port 8005.
+[4]: http://www.jmlspecs.org/  "Java Modeling Language (JML)"
 
-## Running the election
+[5]: http://frama-c.com/ "The Executable ANSI/ISO C Specification Language"
 
-StarVote has stations for voter check-in, ballot claims, ballot reading for
-completed ballots, vote submission (both casting and spoiling), and an
-arbitrary number of extra stations for filling out a ballot. From now on we no
-longer assume that the computer where we started all the servers and the
-computer at a given station are the same. We will schematically use the domain
-`server` below when we need to talk about contacting the computer running all
-the servers we set up in the previous step.
+[6]: http://research.microsoft.com/en-us/projects/pex/  "PEX"
 
-*   **Check-in station:** Have a browser open to `server:8002`. Look people up by
-    name.
-*   **Ballot claim station:** Have a browser open to `server:8003/generateCode`
-    and connect a barcode scanner. Keep a terminal open as well for casting and
-    spoiling votes (see below).
-*   **Voting terminal:** Have a browser open to `server:8004`. Enter a ballot
-    code received from the ballot claim station. If you chose to run multiple
-    voting terminal servers in the previous step, you can have several stations,
-    each with a browser open to a separate server.
-*   **Ballot reading:** Not implemented yet! (But can/should be implemented by
-    outside parties.)
-*   **Vote submission station:** Have a browser open to `server:8003/cast` for
-    casting and to `server:8003/spoil` for spoiling. The filled-out ballot
-    printed by the voting terminal includes a "Casting ID", visible in plain
-    text and encoded as a barcode. The barcode can be scanned to fill out one
-    of the two text fields at this station.
-
-## Finalizing the election
-
-Visit `server:8003/tally` and follow the instructions there. The public key and
-private shares are the ones that were reported during election startup at
-`localhost:8001/initialize.html` (though revisiting this page will generate a
-fresh key pair and is thus not a useful thing to do). The public key may be
-recovered from `star-terminal/start.sh` if necessary, while the private shares
-should be input by election officials. Only a threshold number of private
-shares need be entered. The controller will then report the total number of
-votes for each race and selection (though any selections which received no
-votes at all will be omitted).
+[7]: http://formalmethods.insttech.washington.edu/software/jmlunitng/ "JMLUnitNG"

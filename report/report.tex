@@ -3,9 +3,12 @@
 
 \usepackage{ifpdf}
 \usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\colorlet{darkgreen}{green!35!black}
+\colorlet{darkred}{red!45!black}
 
 \ifpdf
-\usepackage[pdftex,colorlinks=true,urlcolor=blue,bookmarks=false]{hyperref}
+\usepackage[pdftex,colorlinks=true,urlcolor=blue,linkcolor=darkred,citecolor=darkgreen,bookmarks=false]{hyperref}
 \else
 \usepackage[dvips]{hyperref}
 \fi
