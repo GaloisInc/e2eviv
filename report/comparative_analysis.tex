@@ -44,11 +44,11 @@ Systems that produce voter-verifiable paper records (VVPRs) [for instance, voter
 
 \subsection{Introduction}
 
-During the mid-2000s, the remote voting system \textbf{Remotegrity }was proposed and developed by Filip Zagorski, joined by a team of other distinguished cryptographers that included Poorvi Vora, Richard T. Carback, David Chaum, Jeremy Clark \& Aleksander Essex. [R1]. Remotegrity is an end-to-end verifiable (E2EV) absentee voting system, which has been architected to work in concert with an in-person/precinct voting system called \textbf{\textit{Scantegrity }}(a paper-based system).
+During the mid-2000s, the remote voting system \textbf{Remotegrity }was proposed and developed by Filip Zagorski, joined by a team of other distinguished cryptographers that included Poorvi Vora, Richard T. Carback, David Chaum, Jeremy Clark \& Aleksander Essex~\cite{zagorski2013}. Remotegrity is an end-to-end verifiable (E2EV) absentee voting system, which has been architected to work in concert with an in-person/precinct voting system called \textbf{\textit{Scantegrity }}(a paper-based system).
 
-Remotegrity adapts the ``code-voting1'' approach and features found in the ``mother-system'' Scantegrity. Using this approach, Remotegrity seeks to protect voter privacy, as well as provide resiliency against any malware-induced software modifications, election official or intruder manipulations of vote tallies, and other potential injuries to election integrity.
+Remotegrity adapts the ``code-voting\footnote{Code voting helps in achieving privacy by replacing all the elements on a ballot by codes, which are cryptographically generated.}'' approach and features found in the ``mother-system'' Scantegrity. Using this approach, Remotegrity seeks to protect voter privacy, as well as provide resiliency against any malware-induced software modifications, election official or intruder manipulations of vote tallies, and other potential injuries to election integrity.
 
-Remotegrity was deployed in Takoma Park, Maryland, in 2011, where election officials used it in a trial of both Scantegrity \& Remotegrity systems. In addition, the trial included \textbf{\textit{ranked-choice voting}}\footnote{``Ranked-choice voting'' (also called preferential or ``instant run-off voting'' (IRV) requires voters to rank their choices among the available candidates. While IRV election can be structured with different rules (for instance, at least two distinct types of IRV structures can be created, including e.g., directing voters to ``rank your top three choices of candidates by placing a `1' indicating your top choice, and `3' your third choice among the field of 8 candidates,'' or ``Rank each of the 8 candidates in the order of your preference, giving a `1' to your top choice candidate and an `8' to your least preferred candidate.'' The virtues and evils of IRV are well beyond the scope of this Report. Suffice it to say that IRV presents substantial voter education hurdles, and that the test-running of Remotegrity in concert with IRV eliminates the ability to draw any sound conclusions about the usability or deficits in either innovation.} methods. In this report we have reviewed the version of Remotegrity used in the 2011 Takoma Park local election\footnote{Code voting helps in achieving privacy by replacing all the elements on a ballot by codes, which are cryptographically generated.}. This analysis is based on the publicly available research papers and interviews with the individual architects and developers.
+Remotegrity was deployed in Takoma Park, Maryland, in 2011, where election officials used it in a trial of both Scantegrity \& Remotegrity systems. In addition, the trial included \textbf{\textit{ranked-choice voting}}\footnote{``Ranked-choice voting'' (also called preferential or ``instant run-off voting'' (IRV) requires voters to rank their choices among the available candidates. While IRV election can be structured with different rules (for instance, at least two distinct types of IRV structures can be created, including e.g., directing voters to ``rank your top three choices of candidates by placing a `1' indicating your top choice, and `3' your third choice among the field of 8 candidates,'' or ``Rank each of the 8 candidates in the order of your preference, giving a `1' to your top choice candidate and an `8' to your least preferred candidate.'' The virtues and evils of IRV are well beyond the scope of this Report. Suffice it to say that IRV presents substantial voter education hurdles, and that the test-running of Remotegrity in concert with IRV eliminates the ability to draw any sound conclusions about the usability or deficits in either innovation.} methods. In this report we have reviewed the version of Remotegrity used in the 2011 Takoma Park local election. This analysis is based on the publicly available research papers and interviews with the individual architects and developers.
 
 \subsection{Core Architecture \& Operation}
 
@@ -169,13 +169,13 @@ We have seen so far that the Remotegrity voting system which was used in Takoma 
 
 \subsection{Introduction}
 
-RIES, the Rijinland Internet Election System was developed by the Hoogheemraadschap van Riginland, one of Netherland's regional water management authorities. RIES is patented by Piet Maclaine Point and Riginland Water Board [RN.1]. The basic design idea is derived from the master thesis [RN.6] of Maclaine Point's student, Herman Robers. It was first introduced as a solution to the low turnout rate of Water Board Elections in 2004. About 72,000 online votes were cast, out of 2.2 million eligible voters.
+RIES, the Rijinland Internet Election System was developed by the Hoogheemraadschap van Riginland, one of Netherland's regional water management authorities. RIES is patented by Piet Maclaine Point and Riginland Water Board~\cite{hubbers2004}. The basic design idea is derived from the master thesis of Maclaine Point's student, Herman Robers~\cite{robers1998}. It was first introduced as a solution to the low turnout rate of Water Board Elections in 2004. About 72,000 online votes were cast, out of 2.2 million eligible voters.
 
-In November 2006, RIES was used by Dutch voters reside outside of Netherland, to participate in the Lower House Parliamentary Elections. Around 20,000 voters voted via Internet, which accounts for 91\% of the total eligible voters [RN.4]. The source code of RIES was published on June 2008 [RN.2].
+In November 2006, RIES was used by Dutch voters reside outside of Netherland, to participate in the Lower House Parliamentary Elections. Around 20,000 voters voted via Internet, which accounts for 91\% of the total eligible voters~\cite{competence2014}. The source code of RIES was published on June 2008~\cite{gonggrijp2009}.
 
-One of the main distinguishing features of RIES is that it enables voter to verify -{}-after the election is closed -{}-that their own votes have been counted correctly, and that the result of the tally corresponds to the cast votes.
+One of the main distinguishing features of RIES is that it enables voter to verify---after the election is closed---that their own votes have been counted correctly, and that the result of the tally corresponds to the cast votes.
 
-Nedap ES3B, the most widely adopted voting system in Netherland, was subjected to some major hacks in fall 2006 that resulted in broad news coverage and discrediting of internet voting. The hacking of Netpad led to the failure of full adoption of RIES for the 2008 parliament election. In addition, a study of RIES' published source code in 2008 [RN.2] reveals serious security holes that make the system vulnerable to Cross-Site Scripting, SQL injection and predictable token generation. Arguably, the system accords insider election administrator too much power and also does not have any protections from voter coercion in a family situation.
+Nedap ES3B, the most widely adopted voting system in Netherland, was subjected to some major hacks in fall 2006 that resulted in broad news coverage and discrediting of internet voting. The hacking of Netpad led to the failure of full adoption of RIES for the 2008 parliament election. In addition, a study of RIES' published source code in 2008~\cite{gonggrijp2009} reveals serious security holes that make the system vulnerable to Cross-Site Scripting, SQL injection and predictable token generation. Arguably, the system accords insider election administrator too much power and also does not have any protections from voter coercion in a family situation.
 
 \subsection{Core Architecture \& Operation}
 
@@ -203,7 +203,7 @@ In terms of trust structure, a significant amount of trust is placed on election
 
 For voters who vote via postal ballots, they need to trust the Postal Votes Processing Bureau to convert their mail votes to technical votes correctly because they can't validate what has been done to their votes. This problem, combining with the large amount of hacking targeting RIES, lead to the failure of full adoption of RIES for the 2008 parliament election.
 
-In addition, a study of RIES' published source code in 2008 [RN.2] reveals serious security holes that make the system vulnerable to Cross-Site Scripting, SQL injection and predictable token generation. Arguably, the system accords insider election administrators too much power and it also does not have any protections from voter coercion in a family situation.
+In addition, a study of RIES' published source code in 2008~\cite{gonggrijp2009} reveals serious security holes that make the system vulnerable to Cross-Site Scripting, SQL injection and predictable token generation. Arguably, the system accords insider election administrators too much power and it also does not have any protections from voter coercion in a family situation.
 
 \subsubsection{Malware Resiliency}
 
@@ -211,11 +211,11 @@ This research did not find enough information to conclude whether or not RIES is
 
 \subsubsection{Malfeasance by Election Official and Dispute Resolution}
 
-When some disputes arise, an umpire can check and recalculate various steps in the whole process and pass his/her own judgment. But this only works for a limited type of disputes. [RN.3]
+When some disputes arise, an umpire can check and recalculate various steps in the whole process and pass his/her own judgment. But this only works for a limited type of disputes~\cite{hubbers2008}.
 
 \subsection{Vote Privacy}
 
-Voter privacy has been a significant area of concern for RIES voting system. First, vote secrecy is highly depending on the way the personal keys are handled. Although the administrative party/vendor that generate the personal keys are required to destroy these keys post-election, threats like insider activities or malware attacks on the server jeopardize vote secrecy. In addition, the vote server can link the originating IP address to the vote that is cast. The lack of anonymous channel creates another risk for voter privacy. [RN.3]
+Voter privacy has been a significant area of concern for RIES voting system. First, vote secrecy is highly depending on the way the personal keys are handled. Although the administrative party/vendor that generate the personal keys are required to destroy these keys post-election, threats like insider activities or malware attacks on the server jeopardize vote secrecy. In addition, the vote server can link the originating IP address to the vote that is cast. The lack of anonymous channel creates another risk for voter privacy~\cite{hubbers2008}.
 
 \subsection{Auditability}
 
@@ -227,7 +227,7 @@ The tally verification can be done by anyone interested. Theoretically, interest
 
 According to the official website \textcolor[rgb]{0.078431375,0.3254902,0.6901961}{www.openries.nl, }a number of independent organizations have evaluated the RIES voting system before its deployment:
 
-``Various prominent institutions have tested and positively evaluated RIES: TNO Human Factos from Soesterberg tested usability of the voting interface; A team of specialists from Peter Landrocks Cryptomathic (in Aarhus, Denmark) tested the cryptographic principles; Madison Gurka from Eindhoven tested the server and network setup and security; A team under supervision of Bart Jacobs (Radboud University Nijmegen) did external penetration tests.'' (Originally written in Dutch, translation cited from [RN.2])
+``Various prominent institutions have tested and positively evaluated RIES: TNO Human Factos from Soesterberg tested usability of the voting interface; A team of specialists from Peter Landrocks Cryptomathic (in Aarhus, Denmark) tested the cryptographic principles; Madison Gurka from Eindhoven tested the server and network setup and security; A team under supervision of Bart Jacobs (Radboud University Nijmegen) did external penetration tests.'' (Originally written in Dutch, translation cited from~\cite{gonggrijp2009}.)
 
 It appears that scientists as well as independent third parties have looked into various aspects of the design and security of RIES, both before and after the deployment. However, most of the testing reports and scientific works are published within Netherland therefore are written in Dutch. This certainly creates an obstacle for the project team to access and interpret those documents.
 
@@ -243,11 +243,12 @@ Available on request in system detail table.
 
 Most of the testing reports and scientific works are published within Netherland therefore are written in Dutch. This certainly creates an obstacle for the project team to access and interpret those findings.
 
-Before the 2008 Word Board elections, the ministry hired Fox-IT to perform the formal approval of RIES-2008. The company had found very serious problems with the underlying cryptography.\footnote{The report is in Dutch. Gedrojc, B., Hueck, M., Hoogstraten, H., Koek, M., Resink, S.: Rapportage Fox-IT - Advisering toelaatbaarheid internetstemvoorziening waterschappen (2008), http://www.verkeerenwaterstaat.nl/Images/20081302\%20Bijlage\%201\%20rapport\_tcm195-228336.pdf} [RN.2, p3]
+% TODO: what's going on at the end of this paragraph??
+Before the 2008 Word Board elections, the ministry hired Fox-IT to perform the formal approval of RIES-2008. The company had found very serious problems with the underlying cryptography~\cite{gedrojc2008}\footnote{The report is in Dutch.}. \cite[p3]{gonggrijp2009}
 
-This problem, combining with the large amount of hacking targeting RIES, lead to the failure of full adoption of RIES for the 2008 parliament election. In addition, a study of RIES' published source code in 2008 [RN.2] reveals serious security holes that make the system vulnerable to Cross-Site Scripting, SQL injection and predictable token generation.
+This problem, combining with the large amount of hacking targeting RIES, lead to the failure of full adoption of RIES for the 2008 parliament election. In addition, a study of RIES' published source code in 2008~\cite{gonggrijp2009} reveals serious security holes that make the system vulnerable to Cross-Site Scripting, SQL injection and predictable token generation.
 
-Another testing report [RN.1] on RIES also reveals shortcomings in the following areas:
+Another testing report~\cite{hubbers2004} on RIES also reveals shortcomings in the following areas:
 \begin{enumerate*}
   \item the procedure of voter self-check is quite complicated,
   \item the two- channel (mail and internet) voting makes system less transparent,
@@ -330,11 +331,11 @@ At the end of the prompts is an option to check if their ballot has been encrypt
 
 \subsubsection{Security Overview}
 
-When it comes to security Helios does a decent job but is still plague by various security problems. Orion from the University of Washington highlighted a number of weaknesses in his security review blog. ``It is possible, just after the voter casts his/her ballot, for a corrupt router to intercept the ballot en route to the Helios server and send the user a fake Helios server success code, causing the ``voting booth'' to immediately display a false success message and clear the ballot from memory.''[H.5]
+When it comes to security Helios does a decent job but is still plague by various security problems. Orion from the University of Washington highlighted a number of weaknesses in his security review blog. ``It is possible, just after the voter casts his/her ballot, for a corrupt router to intercept the ballot en route to the Helios server and send the user a fake Helios server success code, causing the `voting booth' to immediately display a false success message and clear the ballot from memory.''~\cite{orion2009}
 
-In this scenario if the user fails to realize that his/her vote has been erased then their vote would end up not counting which would help the adversary manipulate the election. ``As it currently exists, if the election administrator allows Helios to administrate the election (as it seems they suggest doing), it is possible for a corrupt Helios server to create new, fake voters and cast ballots on their behalf without easily being discovered.''[H.5]. This would allow for a corrupt server to vote for the desired winner and completely debunk the voting process.
+In this scenario if the user fails to realize that his/her vote has been erased then their vote would end up not counting which would help the adversary manipulate the election. ``As it currently exists, if the election administrator allows Helios to administrate the election (as it seems they suggest doing), it is possible for a corrupt Helios server to create new, fake voters and cast ballots on their behalf without easily being discovered.''~\cite{orion2009} This would allow for a corrupt server to vote for the desired winner and completely debunk the voting process.
 
-Also, validation is only carried out by the users, so in the off chance that no one audits the election, the corrupt servers could in fact manipulate with being detected. ``As currently implemented, the election administrator (who has the power to add voters and freeze the election) is authenticated through Google Accounts. Any vulnerability in the login (weak password, easily guessed security questions, etc.) could allow an attacker to end the election prematurely or add additional voters (potentially multiple accounts for the same voter).''[H.5]
+Also, validation is only carried out by the users, so in the off chance that no one audits the election, the corrupt servers could in fact manipulate with being detected. ``As currently implemented, the election administrator (who has the power to add voters and freeze the election) is authenticated through Google Accounts. Any vulnerability in the login (weak password, easily guessed security questions, etc.) could allow an attacker to end the election prematurely or add additional voters (potentially multiple accounts for the same voter).''~\cite{orion2009}
 
 Due to the reliance on the Google account to actually administer the election, if the administrators account was hijacked then an attacker could do a number of things to hack the system in their favor. Helios is also susceptible to every possible Internet attack in their various forms. Helios does not have advanced or cutting edge means to defend itself against any one Internet attack.
 
@@ -342,7 +343,7 @@ This means that any system crashing or infrastructure hacking attacks available 
 
 \subsubsection{Trust Structure}
 
-``Helios takes an interesting approach: there is only one trustee, the Helios server itself. Privacy is guaranteed only if you trust Helios. Integrity, of course, does not depend on trusting Helios: the election results can be fully audited even if all administrators -- in this case the single Helios sever -- is corrupt.''[H.1]
+``Helios takes an interesting approach: there is only one trustee, the Helios server itself. Privacy is guaranteed only if you trust Helios. Integrity, of course, does not depend on trusting Helios: the election results can be fully audited even if all administrators -- in this case the single Helios server -- is corrupt.''~\cite{adida2008}
 
 Helios was constructed in such a way that the only thing a user would have to trust is themselves and the server. Also, because it has an open audit system, they could always double-check the results to make sure that the server hasn't been compromised. The assumption that comes with these elements is that they have not been hacked and they are in fact safe. In a situation where malware has overtaken either of these items of trust, then the system would be undermined. This isn't a problem unique to Helios, but it is a problem none-the-less.
 
@@ -356,15 +357,13 @@ Dispute resolution is handled by the creator and administrator Ben Adida. He has
 
 ``A web-based open-audit voting system. Using a modern web browser, anyone can set up an election, invite voters to cast a secret ballot, compute a tally, and generate a validity proof for the entire process.
 
-Helios is deliberately simpler than most complete cryptographic voting protocols in order to focus on the central property of public audit-ability.''[H.1]
+Helios is deliberately simpler than most complete cryptographic voting protocols in order to focus on the central property of public audit-ability.''~\cite{adida2008}
 
 The entire basis of Helios is the ability to audit the election after the polls are closed. If the election is public, then anyone with Internet access can check the encrypted votes and verify that the elections were legitimate.
 
 The problem with Helios is that though users can audit the system, the process by which one would tends to be complicated to those who are not computer savvy. As mentioned in the usability portion, studies have shown that it is hard for common users to comprehend and properly utilize the auditing tools. This means that the auditing capability is there but the barriers of use are too high for the users.
 
 \textbf{\textit{Remotegrity}}
-
-[R1] Filip Zagorski et al. Remotegrity: Design and Use of an End-to-End Verifiable Remote Voting System - \textcolor[rgb]{0.078431375,0.3254902,0.6901961}{https://eprint.iacr.org/2013/214.pdf}
 
 [R2] A. Essex, J. Clark, U. Hengartner, and C. Adams. Eperio: Mitigating technical complexity in cryptographic election verification - \textcolor[rgb]{0.078431375,0.3254902,0.6901961}{https://eprint.iacr.org/2012/178.pdf}
 
@@ -382,29 +381,17 @@ The problem with Helios is that though users can audit the system, the process b
 
 \textbf{\textit{RIES}}
 
-[RN.1] Engelbert Hubbers, Bart Jacobs and Wolter Pieters.RIES - Internet Voting in Action. Security of Systems, Nijmegen Institute for Computing and Information Sciences. Radboud University Nijmegen
-
-[RN.2] Rop Gonggrijp, Willem-Jan Hengeveld, Eelco Hotting, Sebastian Schmidt, and Frederik Weidemann. RIES - Rijnland Internet Election System:A Cursory Study of Published Source Code. E- Voting and Identity. Second International Conference. VOTE-ID 2009. Luxembourg. 7-8 Sep. 2009, pp 157-171
-
-[RN.3] Engelbert Hubbers, Bart Jacobs Berry Schoenmakers Henk van Tilborg Benne de Weger. Description and Analysis of the RIES Internet Voting System. Institute for the Protection of Systems and Information (EiPSI). Faculty of Mathematics and Computer Science Eindhoven University of Technology. version 1.0. 24 Jun. 2008[RN.4] Query results from Competence Center for Electronic Voting and Participation, \textcolor[rgb]{0.078431375,0.3254902,0.6901961}{http://db.evoting.cc/index.php?page=database\&sub=query\_quick, }last accessed April 9 2014
-
 [RN.5] Hugo Jonker, Melanie Volkame. Compliance of RIES to the Proposed e-Voting Protection Profile, E-Voting and Identity-First International Conference. VOTE-ID 2007. Bochum. Germany. 4-5 Oct. 2007. pp 50-61
-
-[RN.6] Herman Robers.Electronic elections employing DES smartcards. Master's thesis. Delft University of Technology. Dec.1998.
 
 [RN.7] Pont Piet Maclaine .Rijnland Internet Election System (RIES) facts and features sheet. Workshop on UOCAVA Remote Voting Systems -- Position Papers. 2010. version 2.0. 28-Jul. 2010
 
 \textbf{\textit{Helios}}
-
-[H.1] Adida, Ben. ``Helios: Web-based Open-Audit Voting.'' USENIX Security (2008): n. pag. Web- \textcolor[rgb]{0.078431375,0.3254902,0.6901961}{http://static.usenix.org/event/sec08/tech/full\_papers/adida/adida.pdf}
 
 [H.2] Adida, Ben. ``Helios: A Deeper Look.'' Telephone interview. Transcript.
 
 [H.3] Karayumak, Fatih, Maina M. Olembo, Michaela Kauer, and Melanie Volkamer. ``Usability Analysis of Helios ~- An ~Open ~Source ~Verifiable ~Remote ~Electronic ~Voting ~System.'' ~CASED:TechnischeUniversität ~Darmstadt ~(n.d.): ~n. ~pag. ~Web. ~ {\textless}http://www.usenix.org/event/evtwote11/tech/final\_files/Karayumak7-27-11.pdf{\textgreater}.
 
 [H.4] Weber, Janna-Lynn, and Urs Hengartner. ``Usability Study of the Open Audit Voting System Helios.'' JannaWeber.com. Janna-Lynn Weber, Sept. 2009. Web. {\textless}http://www.jannaweber.com/wp- \textcolor[rgb]{0.078431375,0.3254902,0.6901961}{content/uploads/2009/09/858Helios.pdf{\textgreater}.}
-
-[H.5] University of Washington, Orion. ``Security Review: Helios Online Voting.'' UW Computer Security Research and Course Blog. University of Washington, 13 Mar. 2009. Web. {\textless}https://cubist.cs.washington.edu/Security/2009/03/13/security-review-helios-online-voting/{\textgreater}.
 
 [H.6] SecVote, Dagsthul. ``Usable Verifiable Remote Electronic Voting Case Study HELIOS.'' SecVote. SecVote, 18 July 2012. Web. {\textless}http://secvote2010.uni.lu/slides/mvolkamer-usability.pdf{\textgreater}.
 
