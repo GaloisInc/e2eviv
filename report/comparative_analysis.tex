@@ -363,5 +363,227 @@ The entire basis of Helios is the ability to audit the election after the polls 
 
 The problem with Helios is that though users can audit the system, the process by which one would tends to be complicated to those who are not computer savvy. As mentioned in the usability portion, studies have shown that it is hard for common users to comprehend and properly utilize the auditing tools. This means that the auditing capability is there but the barriers of use are too high for the users.
 
-% TODO: OVF was very excited about pages 65-70 of the Capstone report; so at
-% the very least those should be included here
+\section{Summary}
+
+The table below summarizes our discussion so far. It includes a variety of criteria, which can be used to guide evaluation of future end-to-end voting system proposals. Remotegrity, Helios, and RIES (abbreviated \textsc{Rem.}, \textsc{Hel.}, and \textsc{RIES}, respectively) are compared head-to-head on these criteria.
+
+% I've never seen a table quite like this one before. It has enumerations at
+% two different levels, with items on separate rows of a table. TeX isn't
+% really compositional in that sense, so we'll have to brute-force it...
+
+\newcounter{category}
+\newcounter{outer}[category]
+\newcounter{inner}[outer]
+\newlength\outermargin\outermargin=1.5em
+\newlength\innermargin\innermargin=3em
+\newcommand\category{\stepcounter{category}}
+\newcommand\outeritem{%
+  \hangindent=\outermargin%
+  \hangafter=1%
+  \makebox[\outermargin][r]{%
+    \stepcounter{outer}\arabic{outer}.\hspace{\labelsep}%
+  }%
+}
+\newcommand\inneritem{%
+  \setlength{\hangindent}{\innermargin}%
+  \makebox[\innermargin][r]{%
+    \stepcounter{inner}\alph{inner})\hspace{\labelsep}%
+  }%
+}
+
+\newcommand\yes{Yes}
+\newcommand\unclear{Unclear}
+\newcommand\no{No}
+\newcommand\notapplicable{N/A}
+\newcommand\good{\cellcolor{accessiblegreen}}
+\newcommand\neutral{}
+\newcommand\bad{\cellcolor{accessiblered}}
+
+\newcommand\VVDTEA{V V-D-TEA\xspace}
+
+% TODO: copy footnotes
+\begin{longtabu}{p{5.5em}Xccc}
+  \textsc{Category} & \textsc{Factors} & \textsc{Rem.} & \textsc{Hel.} & \textsc{RIES} \\
+  \hline\endhead
+  \category User Trust
+  & \outeritem Who or what must the voter trust to deliver an authentic blank ballot from the LEO to the voter's computer or device? \\
+  & \inneritem Voter's own computer or device
+  & \good\no & \bad\yes & \good\no \\
+  & \inneritem The Internet, the voter's ISP, or the election office's ISP
+  & \good\no & \bad\yes & \good\no \\
+  & \inneritem Local election officials
+  & \bad\yes & \good\no & \good\no \\
+  & \inneritem Computer equipment or software at the LEO, such as a server, network, or the VS software
+  & \good\no & \bad\yes & \bad\yes \\
+  & \inneritem Some third party, such as a printing company or other vendor, e.g., for creation and delivery of coded ballots, either printed or electronic, which are accurately mapped to the candidates' names
+  & \bad\yes & \bad\yes & \bad\yes \\
+  & \outeritem Who or what must the voter trust to deliver a marked ballot from the voter to the LEO without any changes to the marks? \\
+  & \inneritem Voter's own computer or device
+  & \good\no & \bad\yes & \bad\yes \\
+  & \inneritem The Internet, the voter's ISP, or the election office's ISP
+  & \good\no & \bad\yes & \bad\yes \\
+  & \inneritem Local election officials
+  & \good\no & \good\no & \good\no \\
+  & \inneritem Computer equipment or software at the LEO, such as a server, network, or the VS software
+  & \good\no & \bad\yes & \bad\yes \\
+  & \inneritem A vendor that administers the election for LEO/outsourcing
+  & \good\no & \neutral\unclear & \neutral\unclear \\
+  & \outeritem Who or what must the voter trust to correctly record their marked ballot in the election office's tabulation database? \\
+  & \inneritem Voter's own computer or device
+  & \good\no & \good\no & \bad\yes \\
+  & \inneritem The Internet, the voter's ISP, or the election office's ISP
+  & \good\no & \good\no & \bad\yes \\
+  & \inneritem Local election officials
+  & \good\no & \good\no & \bad\yes \\
+  & \inneritem Computer equipment or software at the LEO, such as a server, network, or the VS software
+  & \good\no & \bad\yes & \bad\yes \\
+  & \inneritem A vendor that administers the election for LEO/outsourcing
+  & \good\no & \neutral\unclear & \neutral\unclear \\
+  & \inneritem Electronic bulletin board
+  & \good\no & \bad\yes & \good\no \\
+  \hline
+  \category Voter Anonymity
+  & \outeritem Is it possible to associate or connect the identity of a voter with a particular cast ballot or vote, at the point of \\
+  & \inneritem Voter's transmission of a marked ballot to the election office over the Internet?
+  & \good\no & \neutral\unclear & \bad\yes \\
+  & \inneritem Recording of vote choices in the LEO's database?
+  & \good\no & \good\no & \good\no \\
+  & \inneritem Reporting of final results?
+  & \good\no & \bad\yes & \good\no \\
+  \hline
+  \category Security
+  & \outeritem Was the system tested for security vulnerabilities by security experts?
+  & \good\yes & \bad\no & \good\yes \\
+  & \outeritem Were network security vulnerabilities identified?
+  & \neutral\unclear & \neutral\unclear & \neutral\unclear \\
+  & \inneritem If yes, how many vulnerabilities?
+  & & & \\
+  & \inneritem Were the vulnerabilities fixed?
+  & & & \\
+  & \inneritem Have the vulnerability fixes been certified by security experts?
+  & & & \\
+  & \outeritem Were application security vulnerabilities identified?
+  & \bad\yes & \neutral\unclear & \neutral\unclear \\
+  & \inneritem If yes, how many vulnerabilities?
+  & \neutral\unclear \\
+  & \inneritem Were the vulnerabilities fixed?
+  & \good\yes \\
+  & \inneritem Have the vulnerability fixes been certified by security experts?
+  & \neutral\unclear \\
+  & \outeritem Were the results of the vulnerability testing published?
+  & \neutral\unclear & \neutral\unclear & \good\yes \\
+  & \outeritem Is the system resilient to: \\
+  & \inneritem Client side malware?
+  & \good\yes & \bad\no & \bad\no \\
+  & \inneritem Server side malware?
+  & \good\yes & \bad\no & \neutral\unclear \\
+  & \outeritem Does the system allow detection of changes to the integrity of the votes during: \\
+  & \inneritem Casting of ballots?
+  & \good\yes & \good\yes & \good\yes \\
+  & \inneritem Recording of casted ballots?
+  & \good\yes & \good\yes & \good\yes \\
+  & \inneritem Tallying the recorded ballots?
+  & \good\yes & \good\yes & \good\yes \\
+  & \outeritem Can the changes to integrity detected, be corrected in the system?
+  & \good\yes & \good\yes & \good\yes \\
+  & \inneritem Is any part of the recovery process automated?
+  & \bad\no & \bad\no & \good\yes \\
+  & \inneritem Is the entire recovery process automated?
+  & \bad\no & \bad\no & \bad\no \\
+  & \outeritem Is there a defined recovery time objective associated with the system?
+  & \neutral\unclear & \neutral\unclear & \neutral\unclear \\
+  & \outeritem Is there a defined recovery point objective associated with the system?
+  & \neutral\unclear & \neutral\unclear & \neutral\unclear \\
+  & \outeritem Does the voting system incorporate any technical or administrative measure to deter, prevent, detect, and defend against voter coercion?
+  & \bad\no & \bad\no & \bad\no \\
+  & \outeritem Does the voting system incorporate any technical or administrative measure to deter, prevent, detect, and defend against LEO coercion?
+  & \bad\no & \bad\no & \neutral\unclear \\
+  \hline
+  \category Auditability
+  & \outeritem Does the system produce a voter-verifiable, durable, tamper-evident artifact (abbreviated ``\VVDTEA'')?
+  & \good\yes & \good\yes & \good\yes \\
+  & \outeritem Can any additions, deletions, or substitutions to the voter's ballot selections (votes) be detected, using the \VVDTEA records?
+  & \good\yes & \good\yes & \bad\no \\
+  & \outeritem Can the results of the election contests (races and issues) be reconstructed (recounted) independently of using the voting system's software, simply by using the \VVDTEA records?
+  & \good\yes & \good\yes & \bad\no \\
+  & \outeritem Does the system require additional audit checks, for instance by using digital signatures and hashes?
+  & \bad\yes & \bad\yes & \bad\yes \\
+  & \outeritem Does the voting system support the auditing of:
+  & & & \\
+  & \inneritem Number of blank ballots sent to voters
+  & \good\yes & \good\notapplicable & \good\yes \\
+  & \inneritem Number of voted ballots received from voters
+  & \good\yes & \good\yes & \good\yes \\
+  & \inneritem Verifiability of cast as recorded
+  & \good\yes & \good\yes & \neutral\unclear \\
+  & \inneritem Verifiability of tallied as cast
+  & \good\yes & \good\yes & \good\yes \\
+% TODO: It's not clear to me whether this section should be considered
+% ``yes-is-good'' or ``yes-is-bad''. Perhaps this criteria should be split in
+% two: ``Does the audit process require these logs?'' (yes is bad) and ``Does
+% the system have nondiscretionary logging of these events?'' (yes is good).
+  & \outeritem Does the auditability design of the voting system require hard-coded [nondiscretionary, within range of reasonability] logs  of  operators'  interaction  with:
+  & & & \\
+  & \inneritem Blank ballots generator/database
+  & \yes & \neutral\unclear & \yes \\
+  & \inneritem Voted ballots collection system/database
+  & \yes & \neutral\unclear & \yes \\
+  & \inneritem Cast ballots storing system/database
+  & \yes & \neutral\unclear & \neutral\unclear \\
+  & \inneritem Cast ballots tallies
+  & \yes & \neutral\unclear & \neutral\unclear \\
+  & \inneritem Cast ballots reports
+  & \yes & \neutral\unclear & \neutral\unclear \\
+  & \inneritem System failures, malfunctions and other threats or attacks on operation of the voting system, as well as other infrastructure components
+  & \yes & \neutral\unclear & \yes \\
+  & \outeritem Are these audit logs protected from administrative or operator modifications (insider threat)?
+  & \good\yes & \good\yes & \neutral\unclear \\
+  & \outeritem Are these audit logs protected against operations (e.g., system crashes) or attacks which could lead to data corruption or loss?
+  & \good\yes & \good\yes & \neutral\unclear \\
+  & \outeritem Does the audit system maintain voter anonymity at all times?
+  & \good\yes & \good\yes & \bad\no \\
+  \hline
+  \category Testing \& Development
+  & \outeritem Has the system received reliability testing or any other testing specified by the Voluntary Voting System Guidelines (VVSG)?
+  & \bad\no & \bad\no & \neutral\unclear \\
+  & \outeritem Has the system been submitted for certification under the EAC voting system process?
+  & \bad\no & \bad\no & \bad\no \\
+  & \outeritem Has the system received open-ended vulnerability testing, as recommended by the EAC’s  Technical  Guidelines  Development  Committee?
+  & \bad\no & \bad\no & \neutral\unclear \\
+  & \outeritem Has the system undergone any other independent testing, not by the internal developers but by a qualified independent organization or set of individuals?
+  & \bad\no & \bad\no & \good\yes \\
+  & \outeritem Have the developers announced any planned independent testing?
+  & \bad\no & \bad\no & \bad\no \\
+  & \outeritem Is the system currently or planned to be deployed for:
+  & & & \\
+  & \inneritem Public government election?
+  & \neutral\no & \neutral\no & \neutral\yes \\
+  & \inneritem Private, nonprofit, labor union election?
+  & \neutral\yes & \neutral\yes & \neutral\no \\
+  \hline
+  \category Usability
+  & \outeritem Has a usability study been conducted by qualified usability assessors and published for public or scholarly access?
+  & \bad\no & \good\yes & \good\yes \\
+  & \outeritem If yes, did the study report deficiencies in the system with regard to usability by voters, specifically regarding:
+  & & & \\
+  & \inneritem Comprehension and success in marking of ballot?
+  & \neutral\unclear & \bad\yes & \neutral\unclear \\
+  & \inneritem Comprehension and success in casting of ballot?
+  & \neutral\unclear & \bad\yes & \neutral\unclear \\
+  & \inneritem Comprehension and success in verifying of ballot?
+  & \neutral\unclear & \bad\yes & \neutral\unclear \\
+  & \outeritem Did the study report usability deficiencies in the system with regard to election official set up of the election?
+  & \neutral\unclear & \good\no & \neutral\unclear \\
+  \hline
+  \category Accessibility
+  & \outeritem Is there a published accessibility study conducted by qualified accessibility assessors?
+  & \bad\no & \bad\no & \neutral\unclear \\
+  & \outeritem Is the system designed for persons with physical impairments that may affect voting?
+  & & & \\
+  & \inneritem Blind
+  & \neutral\unclear & \bad\no & \bad\no \\
+  & \inneritem Deaf
+  & \neutral\unclear & \good\yes & \bad\no \\
+  & \inneritem Multiple impairments
+  & \neutral\unclear & \neutral\unclear & \bad\no \\
+\end{longtabu}
