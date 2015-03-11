@@ -5,7 +5,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{xspace}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage{tabu}
 \usepackage[inline]{enumitem}
+
 \colorlet{darkgreen}{green!35!black}
 \colorlet{darkred}{red!45!black}
 
@@ -23,6 +28,97 @@
 \usepackage[margin=1in]{geometry}
 \usepackage[defaultlines=4,all]{nowidow}
 \usepackage[parfill]{parskip}
+
+% Various definitions, from Aggelos E2E spec
+%%%%% Func Environments %%%%%%%
+\newenvironment{nffunc}[2][]{
+\begin{center}
+   \begin{tabular}{|ll|}\hline
+     \hspace{.3ex}\begin{minipage}{.99\linewidth}\vspace{0.5ex}
+       {\begin{center}{\bf Functionality}
+           #2 \end{center}}%#3
+%\begin{itemize}\setlength{\itemsep}{0mm} \setlength{\parskip}{0pt}
+% \setlength{\parsep}{0pt}
+%\vspace{-1ex}%\vspace{-3ex}
+       \vspace{2ex}
+       }{%
+ %      \end{itemize}
+       \smallskip
+     \end{minipage}& \\
+     \hline
+   \end{tabular}
+   \end{center}
+}
+
+\newcommand{\func}[1][\relax]{\ensuremath{\mathcal{F}_{\mathsf{#1}}}}
+\newcommand{\fl}[1]{\mbox{\( \lfloor #1 \rfloor \)}}
+\newcommand{\pair}[2]{\mbox{\(\langle #1,#2 \rangle\)}}
+
+\newcommand{\mc}{\mathcal}
+\newcommand{\Pro}{\mbox{\( \mathbf{ Prob } \)}}
+
+\def\squareforqed{\hbox{\(\blacksquare\)}}
+\def\qed{\ifmmode\squareforqed\else{\unskip\nobreak\hfill\penalty50\hskip1em\null\nobreak\hfil\squareforqed\parfillskip=0pt\finalhyphendemerits=0\endgraf}\fi}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{assumption}{Complexity Assumption}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}{Remark}
+\newtheorem{claim}{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newenvironment{proof}{\noindent {\em Proof.}}{\medskip}
+
+\def\PPT{{\rm PPT} }
+\def\ff{\mathbb{F}}
+\def\sbs{\subseteq}
+\def\zz{\mathbb{Z}}
+\def\E{\mathsf{E}}
+
+%Functionalities
+\newcommand{\fete}{\func[e2e]}%
+\newcommand{\fbb}{\func[bb]}%
+\newcommand{\fsauth}{\func[sauth]}%
+\newcommand{\fauth}{\func[auth]}%
+\newcommand{\fmail}{\func[mail]}%
+\newcommand{\frnd}{\func[rnd]}%
+
+%Parties
+\def\EA{\mathsf{EA}}
+\def\VT{\mathsf{V}}
+\def\RB{\mathsf{RB}}
+\def\VC{\mathsf{VC}}
+\def\AU{\mathsf{AU}}
+
+\def\Exec{\mathsf{Exec}}
+
+
+%Commands
+\def\Create{\mathtt{Create}}
+\def\Sample{\mathtt{Sample}}
+\def\FakeBallot{\mathtt{FakeBallot}}
+\def\Deliver{\mathtt{Deliver}}
+\def\Corrupt{\mathtt{Corrupt}}
+\def\Verify{\mathtt{Verify}}
+\def\Tally{\mathtt{Tally}}
+\def\Vote{\mathtt{Vote}}
+\def\RecordVote{\mathtt{RecordVote}}
+\def\Append{\mathtt{Append}}
+\def\Read{\mathtt{Read}}
+\def\Send{\mathtt{Send}}
+\def\Mail{\mathtt{Mail}}
+\def\Audit{\mathtt{Audit}}
+\def\VBB{\mathtt{VBB}}
+\def\SendInit{\mathtt{SendInit}}
+\def\GetRnd{\mathtt{GetRnd}}
+\def\Select{\mathtt{Select}}
+\def\RecordTally{\mathtt{RecordTally}}
+\def\ReadTally{\mathtt{ReadTally}}
+\def\Receipt{\mathtt{Receipt}}
+\def\Result{\mathtt{Result}}
+\def\ElectionFail{\mathtt{ElectionFail}}
 
 % End of preamble
 
