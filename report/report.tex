@@ -5,13 +5,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage{xcolor}
 \usepackage{graphicx}
-\usepackage{xspace}
-\usepackage{colortbl}
-\usepackage{longtable}
-\usepackage{tabu}
 \usepackage[inline]{enumitem}
 \colorlet{darkgreen}{green!35!black}
 \colorlet{darkred}{red!45!black}
+
+% shades of red and green that are distinguishable even with the most common
+% kinds of color blindness
+\colorlet{accessiblegreen}{green!55!black!70!blue!40!white}
+\colorlet{accessiblered}{red!80!black!80!yellow!30!white}
 
 \ifpdf
 \usepackage[pdftex,colorlinks=true,urlcolor=blue,linkcolor=darkred,citecolor=darkgreen,bookmarks=false]{hyperref}
@@ -20,11 +21,10 @@
 \fi
 
 \usepackage[margin=1in]{geometry}
+\usepackage[defaultlines=4,all]{nowidow}
+\usepackage[parfill]{parskip}
 
-% shades of red and green that are distinguishable even with the most common
-% kinds of color blindness
-\colorlet{accessiblegreen}{green!55!black!70!blue!40!white}
-\colorlet{accessiblered}{red!80!black!80!yellow!30!white}
+% End of preamble
 
 \title{The E2EVIV Report}
 \author{Many People}
