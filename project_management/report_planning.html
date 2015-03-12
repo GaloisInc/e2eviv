@@ -1,0 +1,493 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <title>Task Report: report_planning</title>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <style type="text/css">
+/* general stuff */
+body 
+{
+    text-align: left;
+    font-family: "helvetica", sans-serif;
+    font-size: 11pt;
+}
+
+a:link
+{
+    color: #0057cb;
+    text-decoration: none;
+}
+
+a:visited
+{
+    color: #00449e;
+    text-decoration: none;
+}
+
+a:hover
+{
+    color: #0057cb;
+    text-decoration: underline;
+}
+
+h1 
+{
+    text-align: center;
+    font-size: 20pt;
+}
+
+/* index sections */
+h2.section-head-open
+{
+    font-size: 14pt;
+    margin-bottom: 0pt;
+    padding: 4pt;
+    background-color: #e6edff;
+    border-bottom: none;
+    border-top: 1pt solid #888888;
+    border-left: 1pt solid #888888;
+    border-right: 1pt solid #888888;
+}
+
+.section-body
+{
+    margin-top: 0pt;
+    border-bottom: 1pt solid #888888;
+    border-left: 1pt solid #888888;
+    border-right: 1pt solid #888888;
+    overflow: auto;
+}
+
+.section-content
+{
+    padding: 8pt;
+}
+
+table.chunks
+{
+    border-collapse: collapse;
+}
+
+.chunks td
+{
+    text-align: center;
+    padding-left: 8pt;
+    padding-right: 8pt;
+    padding-top: 0pt;
+    padding-bottom: 0pt;
+    width: 10%;
+}
+
+.data-label
+{
+    font-weight: bold;
+    color: #333333;
+}
+
+.data-content-huge
+{
+    font-size: 
+    font-weight: bold;
+    color: #666666;
+}
+
+.data-content-big
+{
+    font-size: 24pt;
+    font-weight: bold;
+    color: #666666;
+    vertical-align: top;
+}
+
+.data-content-small
+{
+    font-size: 11pt;
+    font-weight: bold;
+    color: #666666;
+}
+
+/* for escaping from floats */
+div.clearer
+{
+    clear: both;
+}
+
+/* normal data table */
+table.basic
+{
+    border-collapse: collapse;
+    font-size: 9pt;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.basic td
+{
+    border: 1pt solid #bfbfbf;
+    padding-top: 4pt;
+    padding-bottom: 4pt;
+    padding-left: 8pt;
+    padding-right: 8pt;
+}
+
+td.wrap
+{
+    word-wrap: break-word;
+}
+
+td.header 
+{
+    background-color: #bfbfbf;
+    font-weight: bold;
+}
+
+td.level1 
+{
+    padding-left: 10pt;
+}
+
+td.level2 
+{
+    padding-left: 20pt;
+}
+
+td.date 
+{
+    text-align: right;
+}
+
+td.duration 
+{
+    text-align: right;
+}
+
+tr.resource td
+{
+    font-weight: bold;
+}
+
+tr.taskTypeGroup td
+{
+    font-weight: bold;
+}
+
+p.unregistered 
+{
+    text-align: left;
+    font-size: 12pt;
+    color: #333333;
+    border-top: 1pt solid #999999;
+}
+
+p.footer 
+{
+    text-align: center;
+    font-size: 8pt;
+    color: #333333;
+}
+
+ul.report-links
+{
+    margin: 0pt;
+    padding: 4pt;
+    
+    list-style-type: none;
+    line-height: 12pt;
+}
+
+.report-links li
+{
+    display: inline;
+    padding-left: 24pt;
+}
+
+img.small-icon
+{
+    width: 16px;
+    height: 16px;
+    margin-left: 0pt;
+    margin-top: 0pt;
+    margin-bottom: 0pt;
+    margin-right: 2pt;
+    vertical-align: middle;
+    border: none;
+}
+
+img.icon
+{
+    width: 32px;
+    height: 32px;
+    margin-left: 0pt;
+    margin-top: 0pt;
+    margin-bottom: 2pt;
+    margin-right: 0pt;
+    vertical-align: middle;
+    border: none;
+}
+</style></head>
+    <body>
+        <h1>Task Report: report_planning</h1>
+        <table class="basic" id="task-report">
+            <tr>
+                <td class="header">Task</td>
+                <td class="header">Start</td>
+                <td class="header">End</td>
+                <td class="header">Duration</td>
+                <td class="header">Completed</td>
+                <td class="header">Dependencies</td>
+                <td class="header">Total Cost</td>
+                <td class="header">Assigned</td>
+                <td class="header">Planned Start</td>
+                <td class="header">Start Variance</td>
+                <td class="header">Constraint Start</td>
+                <td class="header">Planned End</td>
+                <td class="header">End Variance</td>
+                <td class="header">Constraint End</td>
+            </tr>
+            <tr class="taskTypeGroup">
+                <td style="padding-left: 08px;" class="wrap">0) report_planning</td>
+                <td>3/11/15</td>
+                <td>6/19/15</td>
+                <td>14w 2d</td>
+                <td>0%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeTask">
+                <td style="padding-left: 18px;" class="wrap">1) write detailed report outline</td>
+                <td>3/11/15</td>
+                <td>3/17/15</td>
+                <td>1w</td>
+                <td>75%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeMilestone">
+                <td style="padding-left: 18px;" class="wrap">2) detailed report outline</td>
+                <td>3/20/15</td>
+                <td>3/20/15</td>
+                <td></td>
+                <td>-</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeTask">
+                <td style="padding-left: 18px;" class="wrap">3) writing and editing of chapters 2-7</td>
+                <td>3/11/15</td>
+                <td>4/21/15</td>
+                <td>6w</td>
+                <td>25%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeMilestone">
+                <td style="padding-left: 18px;" class="wrap">4) rough draft of chapters 2-7 (informal materials)</td>
+                <td>4/24/15</td>
+                <td>4/24/15</td>
+                <td></td>
+                <td>-</td>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeTask">
+                <td style="padding-left: 18px;" class="wrap">5) writing and editing of remaining chapters</td>
+                <td>4/24/15</td>
+                <td>5/21/15</td>
+                <td>4w</td>
+                <td>15%</td>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeMilestone">
+                <td style="padding-left: 18px;" class="wrap">6) rough draft of entire report</td>
+                <td>5/22/15</td>
+                <td>5/22/15</td>
+                <td></td>
+                <td>-</td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeTask">
+                <td style="padding-left: 18px;" class="wrap">7) expert feedback</td>
+                <td>4/24/15</td>
+                <td>6/18/15</td>
+                <td>8w</td>
+                <td>0%</td>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeTask">
+                <td style="padding-left: 18px;" class="wrap">8) UX study design (Keith et al.)</td>
+                <td>3/11/15</td>
+                <td>3/27/15</td>
+                <td>2w 3d</td>
+                <td>25%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeTask">
+                <td style="padding-left: 18px;" class="wrap">9) UX study design (Galois contingency)</td>
+                <td>3/30/15</td>
+                <td>4/6/15</td>
+                <td>1w 1d</td>
+                <td>0%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeTask">
+                <td style="padding-left: 18px;" class="wrap">10) UX study implementation</td>
+                <td>4/10/15</td>
+                <td>5/7/15</td>
+                <td>4w</td>
+                <td>0%</td>
+                <td>9, 8</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeTask">
+                <td style="padding-left: 18px;" class="wrap">11) UX study execution</td>
+                <td>5/8/15</td>
+                <td>5/15/15</td>
+                <td>1w 1d</td>
+                <td>0%</td>
+                <td>10</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeTask">
+                <td style="padding-left: 18px;" class="wrap">12) UX study analysis</td>
+                <td>5/13/15</td>
+                <td>5/22/15</td>
+                <td>1w 3d</td>
+                <td>0%</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeTask">
+                <td style="padding-left: 18px;" class="wrap">13) incorporate expert feedback and revise</td>
+                <td>4/24/15</td>
+                <td>6/18/15</td>
+                <td>8w</td>
+                <td>0%</td>
+                <td>4</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr class="taskTypeMilestone">
+                <td style="padding-left: 18px;" class="wrap">14) final version of report</td>
+                <td>6/19/15</td>
+                <td>6/19/15</td>
+                <td></td>
+                <td>-</td>
+                <td>7</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            </table>
+        <p/>
+        <p class="footer">Exported 3/11/15</p>
+        <p class="footer">OmniPlan&nbsp;1.7&nbsp;by <a href="http://www.omnigroup.com">The Omni Group</a></p>
+    </body>
+</html>
