@@ -1,12 +1,12 @@
-* Executive Summary
-* Introduction
+* Executive Summary (Joe K. and Susan)
+* Introduction (Joe K. and Susan)
 ** The E2E VIV Project
 ** Goals
 ** People
 ** Methodology
 ** Outcome
 ** Next Steps
-* Remote Voting
+* Remote Voting (Philip)
 ** Rationale
 *** Geographic Dispersion
 *** Accessibility
@@ -22,7 +22,7 @@
 *** Auditing
 **** Current Practice, Digital vs. Physical, Risk-Limiting Audits
 
-* E2E VIV Explained
+* E2E VIV Explained (Philip & Daniel)
 ** IV, VIV, E2E
 ** E2E Election Rituals
 *** Pre-election phase
@@ -43,23 +43,23 @@
 ** Limitations of Existing Systems
 ** Informal Requirements for the OVF E2E VIV
 
-* Required Properties of E2E Systems
+* Required Properties of E2E Systems (Dan)
 ** Technical Definition of E2E
 ** Formal Protocol Description
 ** Formal Requirements
 *** Security, etc.
 
-* Crypto Specification
-* Architecture
-* System Specification
+* Crypto Specification (Joe R.)
+* Architecture (Joe K. & Dan)
+* System Specification (Joe K. & Dan)
 
-* Verification and Validation
+* Verification and Validation (Joe K. & Dan)
 ** Requirements and Scenarios
 ** Methodology
 ** Technologies
 ** Interpreting Results
 
-* Feasibility
+* Feasibility (?)
 ** Threats and Security Risks
 ** Availability
 ** Usability
@@ -70,7 +70,7 @@
 *** Operational
 *** Integration with Local Election Systems and Processes
 
-* Conclusion
+* Conclusion (Joe K. and Susan)
 ** Results
 ** Recommendation
 *** YES/NO
