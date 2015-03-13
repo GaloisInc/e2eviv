@@ -19,15 +19,39 @@
 \colorlet{accessiblegreen}{green!55!black!70!blue!40!white}
 \colorlet{accessiblered}{red!80!black!80!yellow!30!white}
 
+\usepackage[margin=1in]{geometry}
+\usepackage[defaultlines=4,all]{nowidow}
+\usepackage[parfill]{parskip}
+
+%% To Do Notes
+\usepackage[colorinlistoftodos, textwidth=\marginparwidth]{todonotes}
+
+% individual colors for To Dos, feel free to change yours
+\colorlet{tododmz}{green!50}
+\colorlet{todokiniry}{red!50}
+\colorlet{tododmwit}{orange!50}
+\colorlet{todojkr}{blue!50}
+\colorlet{todoprobinson}{purple!50}
+\colorlet{todogeneric}{yellow!50}
+
+\newcounter{todocounter}
+\newcommand{\todocount}[2][]{\stepcounter{todocounter}\todo[#1]{\thetodocounter:
+    #2}}
+
+% individual commands for To Dos
+% usage: \todo<username>{Something to do.}
+\newcommand{\tododmz}[1]{\todocount[color=tododmz]{#1}}
+\newcommand{\todokiniry}[1]{\todocount[color=todokiniry]{#1}}
+\newcommand{\tododmwit}[1]{\todocount[color=tododmwit]{#1}}
+\newcommand{\todojkr}[1]{\todocount[color=todojkr]{#1}}
+\newcommand{\todoprobinson}[1]{\todocount[color=todoprobinson]{#1}}
+\newcommand{\todogeneric}[1]{\todocount[color=todogeneric]{#1}}
+
 \ifpdf
 \usepackage[pdftex,colorlinks=true,urlcolor=blue,linkcolor=darkred,citecolor=darkgreen,bookmarks=false]{hyperref}
 \else
 \usepackage[dvips]{hyperref}
 \fi
-
-\usepackage[margin=1in]{geometry}
-\usepackage[defaultlines=4,all]{nowidow}
-\usepackage[parfill]{parskip}
 
 % Various definitions, from Aggelos E2E spec
 %%%%% Func Environments %%%%%%%
@@ -138,6 +162,11 @@
 
 \tableofcontents
 
+\clearpage
+\addcontentsline{toc}{chapter}{List of To Do Items}
+% temporarily here, so we have a centralized list of all the todo
+% items in the document
+\listoftodos[List of To Do Items]
 \input{executive_summary} % Joe K./Susan
 \input{introduction} % Joe K./Susan
 \input{remote_voting} % Philip
