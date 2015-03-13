@@ -1,7 +1,13 @@
-\chapter{E2E System Specification}
 
-\section{Formal Protocol Description for E2E Verifiable Elections}
 
+\chapter{Required Properties of E2E Systems (Dan)}
+
+In this chapter, we describe the properties that E2E verifiable
+elections must fulfill. 
+
+\section{Technical Definition of E2E}
+
+\section{Formal Protocol Description}
 \textbf{note: this is from Aggelos' work, and may be subsumed by the
   actual Aggelos paper that we're going to incorporate; I just parked
   it here for now.  -dmz}
@@ -75,16 +81,18 @@ following:
 
 
 \begin{definition}
-Let $f$ be an election function and $Q$ a predicate over the election results. 
-The protocol $\pi$ implements $\fete^{f,Q}$  provided that, for all adversaries $\mc{A}$, there
-is a simulator $\mc{S}$ so that for all environments $\mc{Z}$ it holds that 
+  Let $f$ be an election function and $Q$ a predicate over the
+  election results.  The protocol $\pi$ implements $\fete^{f,Q}$
+  provided that, for all adversaries $\mc{A}$, there is a simulator
+  $\mc{S}$ so that for all environments $\mc{Z}$ it holds that
 \[ \Exec_{\pi, \mc{A}, \mc{Z}} \approx
 \Exec^{\fete^{f,Q}}_{\mc{S},\mc{Z}}  \ \ .\]
 \end{definition}
 
-Note that the protocols that will be considered in practice may utilize simpler ideal
-functionalities. In such cases, the protocol $\pi$ implements $\fete$ conditional on the
-existence and availability of these other functionalities. Such functionalities include
+Note that the protocols that will be considered in practice may
+utilize simpler ideal functionalities. In such cases, the protocol
+$\pi$ implements $\fete$ conditional on the existence and availability
+of these other functionalities. Such functionalities include
 ``authenticated channels'', a ``write-only bulletin board'', etc.
 
 \paragraph{Party corruption.} As stated, the ideal functionality
@@ -244,7 +252,5 @@ specification of the ideal end-to-end functionality $\fete$:
   adversary. 
 \end{itemize}
 
-\section{Possible Crypto Designs}
-
-\section{Pros and Cons of the Above}
-
+\section{Formal Requirements}
+\subsection{Security, Etc...}
