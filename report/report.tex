@@ -60,25 +60,6 @@
 \renewcommand*{\subsubsectionautorefname}{Section}
 
 % Various definitions, from Aggelos E2E spec
-%%%%% Func Environments %%%%%%%
-\newenvironment{nffunc}[2][]{
-\begin{center}
-   \begin{tabular}{|ll|}\hline
-     \hspace{.3ex}\begin{minipage}{.99\linewidth}\vspace{0.5ex}
-       {\begin{center}{\bf Functionality}
-           #2 \end{center}}%#3
-%\begin{itemize}\setlength{\itemsep}{0mm} \setlength{\parskip}{0pt}
-% \setlength{\parsep}{0pt}
-%\vspace{-1ex}%\vspace{-3ex}
-       \vspace{2ex}
-       }{%
- %      \end{itemize}
-       \smallskip
-     \end{minipage}& \\
-     \hline
-   \end{tabular}
-   \end{center}
-}
 
 \newcommand{\func}[1][\relax]{\ensuremath{\mathcal{F}_{\mathsf{#1}}}}
 \newcommand{\fl}[1]{\mbox{\( \lfloor #1 \rfloor \)}}
