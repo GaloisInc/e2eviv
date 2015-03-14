@@ -1,33 +1,35 @@
-
-
 \chapter{Required Properties of E2E Systems (Dan)}
+\label{chapter:required_properties}
 
-In this chapter, we describe the properties that E2E verifiable
-elections must fulfill. 
+To describe the properties that E2E election systems must fulfill we
+must start from a technical definition of the term ``E2E'', which was
+defined informally in \autoref{chapter:e2e_viv_explained}. From there,
+we can proceed to a formal protocol description of an ideal E2E
+system, and finally to a set of formal requirements that must be met
+by any real-world implementation of such a system.\tododmz{I don't like
+  ``chapter roadmap'' text as a general rule, so I'll do better at some point}
 
 \section{Technical Definition of E2E}
 
-\section{Formal Protocol Description}
-\tododmz{note: this is from Aggelos' work, and may be subsumed by the
-  actual Aggelos paper that we're going to incorporate; I just parked
-  it here for now}
+\section{Ideal Functionality of an E2E System---$\fete$}
+The basic protocol followed by any system implementing E2E verifiable
+elections can be characterized by an \emph{ideal functionality}. This
+ideal functionality, called $\fete$ and presented in
+\autoref{fig:required_properties:fete}, recognizes and interacts with
+the election authority $\EA$, the set of eligible voters
+$V_1,\ldots, V_n$ and the auditor $\AU$.  These are ``ideal-world''
+entities; a ``real-world'' implementation of $\fete$ may involve more
+parties that will enable the implementation to realize the ideal
+functionality.
 
-Formally, we capture the required operation for E2E verifiable
-elections as an \emph{ideal functionality}. The ideal functionality,
-called $\fete$, recognizes and interacts with the election authority
-$\EA$, the set of eligible voters $V_1,\ldots, V_n$ and the auditor
-$\AU$.  These are ``ideal-world'' entities; a ``real-world''
-implementation of $\fete$ may involve more parties that will enable
-the implementation to realize the ideal functionality.
+$\fete$ accepts a number of commands from the election authority
+$\EA$, the voters and the auditors. At the same time it informs the
+(ideal world) adversary of certain actions that take place and is
+influenced by the adversary to perform certain actions. The ideal
+functionality keeps track of which parties are corrupted and may act
+according to their corruption status.
 
-The ideal functionality $\fete$ accepts a number of commands from the
-election authority $\EA$, the voters and the auditors. At the same
-time it informs the (ideal world) adversary of certain actions that
-take place and is influenced by the adversary to perform certain
-actions. The ideal functionality keeps track of which parties are
-corrupted and may act according to their corruption status. 
-
-The ideal functionality $\fete$ has two parameters:
+$\fete$ has two parameters:
 
 \begin{enumerate}
 \item A function $f: (X\cup \{\bot\})^n\rightarrow E$ that defines the
@@ -45,86 +47,20 @@ The ideal functionality $\fete$ has two parameters:
   $E$ (that is, $Q(T,T')$ holds if and only if $T=T'$). 
 \end{enumerate}
 
-The ideal functionality $\fete^{f,Q}$ captures the following set of
-security characteristics:
-
-\begin{itemize}
-\item Provided the $\EA$ is not corrupted, the adversary is incapable
-  of extracting the voters' selections.
-
-\item Provided the $\EA$ is not corrupted, all votes are recorded and
-  tallied according to the election function $f(\cdot)$.
-
-\item Even if the $\EA$ is corrupted, a set of well defined votes are
-  assigned to the voters of the election (however, such votes may
-  deviate from the original voters' intent). The votes cannot be
-  manipulated when the $\EA$ is honest.
-
-\item Even if the $\EA$ is corrupted, the functionality consistently
-  returns the same tally result to all parties that request
-  it. Furthermore, the functionality always tests the reported tally
-  according to the predicate $Q$ and reports the outcome, hence any
-  substantial (according to $Q$) deviation from the recorded tally
-  will be detectable by all honest parties.
-
-\item The functionality preserves voter intent and, in case of vote
-  manipulation, the voter or an auditor can use the unique receipts
-  provided in the completion of ballot-casting to test whether voter
-  intent was manipulated by a corrupt $\EA$. Any party may use those
-  receipts, hence verification is ``delegatable.''
-\end{itemize}
-
-Consider now a protocol $\pi$ that implements syntactically the ideal
-functionality $\fete$ (i.e., has the same I/O characteristics as
-$\fete$). Following standard notation and terminology we have the
-following:
-
-
-\begin{definition}
-  Let $f$ be an election function and $Q$ a predicate over the
-  election results.  The protocol $\pi$ implements $\fete^{f,Q}$
-  provided that, for all adversaries $\mc{A}$, there is a simulator
-  $\mc{S}$ so that for all environments $\mc{Z}$ it holds that
-\[ \Exec_{\pi, \mc{A}, \mc{Z}} \approx
-\Exec^{\fete^{f,Q}}_{\mc{S},\mc{Z}}  \ \ .\]
-\end{definition}
-
-Note that the protocols that will be considered in practice may
-utilize simpler ideal functionalities. In such cases, the protocol
-$\pi$ implements $\fete$ conditional on the existence and availability
-of these other functionalities. Such functionalities include
-``authenticated channels'', a ``write-only bulletin board'', etc.
-
-\paragraph{Party corruption.} As stated, the ideal functionality
-$\fete$ enables the adversary $\mc{A}$ to corrupt parties by issuing
-special $(\Corrupt, P)$ messages.  Given such a message, the ideal
-functionality $\fete$ will divulge to the adversary the complete I/O
-transcript from the interface between $\fete$ and $P$. We distinguish
-between static and adaptive corruptions. In the case of static
-corruptions all messages $(\Corrupt,P)$ are delivered at the onset of
-the execution, while for adaptive corruptions they can be delivered at
-any time.  For brevity we do not explicitly include the actions taken
-for $\Corrupt$ messages in the description of the functionality.
-
-In the real world, the corruption of an entity expresses an action
-taken by the adversary that results in the complete control of the
-entity's computing environment. A corrupted voter, specifically, loses
-privacy completely and the adversary may take any action on her
-behalf. For example, if corruption of a voter happens prior to ballot
-casting the adversary may vote on her behalf, while if corruption of a
-voter happens after ballot casting the adversary will learn her
-choice. If the adversary corrupts the $\EA$, it may try to manipulate
-some voters' ballots however to the extent permitted by $\fete$ (no
-matter how many parties are corrupted, $\fete$ always has the ``upper
-hand'').
-
-\begin{nffunc}{$\fete^{f,Q}$}
+\begin{figure}[t]
+\begin{center}
+\fbox{
+\begin{minipage}[h]{6in}
+\begin{center}
+\textbf{Functionality $\fete^{f, Q}$}
+\end{center}
+\vspace{1.5ex}
   The functionality recognizes and interacts with the following
   parties: (i) the election authority $\EA$; (ii) the eligible voters
   $\mc{V}= \{V_1,\ldots, V_n\}$; (iii) the auditor $\AU$; and (iv) the
   adversary $\mc{A}$.  It is parameterized by the relation $Q$ over
   $E$ and the election function $f:(X\cup\{\bot\})^n \rightarrow E$.
-\vspace{1ex}
+\vspace{1.5ex}
 \begin{itemize}
 \item Upon receiving an input $(\Create, sid, B)$ from the $\EA$,
   record the tuple $(sid, B)$ such that $sid$ is the election
@@ -178,11 +114,87 @@ return $(\Result, \hat{T}, Q(\hat{T},T'))$.
 \item Upon receiving $(\Audit, b)$ from  from any party, 
 recover the triple $(V_j, a_j,b_j)$ such that $b_j = b$ and return 1 if and only 
 if $(a_j' = a_j)$ and 0 otherwise.
-
 \end{itemize}
-\end{nffunc}
+\end{minipage}
+}
+\end{center}
+\caption{The ideal functionality $\fete^{f,Q}$.}
+\label{fig:required_properties:fete}
+\end{figure}
 
-\subsection{Claims regarding the ideal functionality $\fete$}
+The ideal functionality $\fete^{f,Q}$ captures the following set of
+security characteristics:
+
+\begin{itemize}
+\item Provided the $\EA$ is not corrupted, the adversary is incapable
+  of extracting the voters' selections.
+
+\item Provided the $\EA$ is not corrupted, all votes are recorded and
+  tallied according to the election function $f(\cdot)$.
+
+\item Even if the $\EA$ is corrupted, a set of well defined votes are
+  assigned to the voters of the election (however, such votes may
+  deviate from the original voters' intent). The votes cannot be
+  manipulated when the $\EA$ is honest.
+
+\item Even if the $\EA$ is corrupted, the functionality consistently
+  returns the same tally result to all parties that request
+  it. Furthermore, the functionality always tests the reported tally
+  according to the predicate $Q$ and reports the outcome, hence any
+  substantial (according to $Q$) deviation from the recorded tally
+  will be detectable by all honest parties.
+
+\item The functionality preserves voter intent and, in case of vote
+  manipulation, the voter or an auditor can use the unique receipts
+  provided in the completion of ballot-casting to test whether voter
+  intent was manipulated by a corrupt $\EA$. Any party may use those
+  receipts, hence verification is ``delegatable.''
+\end{itemize}
+
+Consider now a protocol $\pi$ that implements syntactically the ideal
+functionality $\fete$ (i.e., has the same I/O characteristics as
+$\fete$). Following standard notation and terminology we have the
+following:
+
+\begin{definition}
+  Let $f$ be an election function and $Q$ a predicate over the
+  election results.  The protocol $\pi$ implements $\fete^{f,Q}$
+  provided that, for all adversaries $\mc{A}$, there is a simulator
+  $\mc{S}$ so that for all environments $\mc{Z}$ it holds that
+\[ \Exec_{\pi, \mc{A}, \mc{Z}} \approx
+\Exec^{\fete^{f,Q}}_{\mc{S},\mc{Z}}  \ \ .\]
+\end{definition}
+
+Note that the protocols that will be considered in practice may
+utilize simpler ideal functionalities. In such cases, the protocol
+$\pi$ implements $\fete$ conditional on the existence and availability
+of these other functionalities. Such functionalities include
+``authenticated channels'', a ``write-only bulletin board'', etc.
+
+\paragraph{Party corruption.} As stated, the ideal functionality
+$\fete$ enables the adversary $\mc{A}$ to corrupt parties by issuing
+special $(\Corrupt, P)$ messages.  Given such a message, the ideal
+functionality $\fete$ will divulge to the adversary the complete I/O
+transcript from the interface between $\fete$ and $P$. We distinguish
+between static and adaptive corruptions. In the case of static
+corruptions all messages $(\Corrupt,P)$ are delivered at the onset of
+the execution, while for adaptive corruptions they can be delivered at
+any time.  For brevity we do not explicitly include the actions taken
+for $\Corrupt$ messages in the description of the functionality.
+
+In the real world, the corruption of an entity expresses an action
+taken by the adversary that results in the complete control of the
+entity's computing environment. A corrupted voter, specifically, loses
+privacy completely and the adversary may take any action on her
+behalf. For example, if corruption of a voter happens prior to ballot
+casting the adversary may vote on her behalf, while if corruption of a
+voter happens after ballot casting the adversary will learn her
+choice. If the adversary corrupts the $\EA$, it may try to manipulate
+some voters' ballots however to the extent permitted by $\fete$ (no
+matter how many parties are corrupted, $\fete$ always has the ``upper
+hand'').
+
+\subsection{Claims Regarding $\fete$}
 
 \begin{claim}
   Assuming the $\EA$ is not corrupted, the ideal functionality
@@ -214,7 +226,7 @@ if $(a_j' = a_j)$ and 0 otherwise.
   $Q$, i.e., it returns $Q(T',\hat{T})$.
 \end{claim}
 
-\subsection{Security notions not captured by the ideal functionality}
+\subsection{Security Notions Not Captured by $\fete$}
 
 We have intentionally omitted a number of security aspects from this
 specification of the ideal end-to-end functionality $\fete$:

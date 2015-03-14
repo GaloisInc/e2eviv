@@ -53,6 +53,12 @@
 \usepackage[dvips]{hyperref}
 \fi
 
+% Modify the autoref names to be capitalized and not sub-sub-subby.
+\renewcommand*{\chapterautorefname}{Chapter}
+\renewcommand*{\sectionautorefname}{Section}
+\renewcommand*{\subsectionautorefname}{Section}
+\renewcommand*{\subsubsectionautorefname}{Section}
+
 % Various definitions, from Aggelos E2E spec
 %%%%% Func Environments %%%%%%%
 \newenvironment{nffunc}[2][]{
