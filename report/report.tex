@@ -1,7 +1,13 @@
-\documentclass{report}
+% The OVF E2E VIV Report
+
+% Turning off "draft" mode on the report class turns off to do notes,
+% chapter assignments, and completion percentages
+\documentclass[draft]{report}
+
 \usepackage{times}
 
 \usepackage{ifpdf}
+\usepackage{ifdraft}
 \usepackage[utf8]{inputenc}
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -24,7 +30,7 @@
 \usepackage[parfill]{parskip}
 
 %% To Do Notes
-\usepackage[colorinlistoftodos, textwidth=\marginparwidth]{todonotes}
+\usepackage[obeyDraft, colorinlistoftodos, textwidth=\marginparwidth]{todonotes}
 
 % individual colors for To Dos, feel free to change yours
 \colorlet{tododmz}{green!50}
@@ -48,10 +54,13 @@
 \newcommand{\todogeneric}[1]{\todocount[color=todogeneric]{#1}}
 
 \ifpdf
-\usepackage[pdftex,colorlinks=true,urlcolor=blue,linkcolor=darkred,citecolor=darkgreen,bookmarks=false]{hyperref}
+\usepackage[draft=false,pdftex,colorlinks=true,urlcolor=blue,linkcolor=darkred,citecolor=darkgreen,bookmarks=false]{hyperref}
 \else
 \usepackage[dvips]{hyperref}
 \fi
+
+\usepackage{lipsum}
+\usepackage{soul}
 
 % Modify the autoref names to be capitalized and not sub-sub-subby.
 \renewcommand*{\chapterautorefname}{Chapter}
@@ -150,10 +159,17 @@
 \tableofcontents
 
 \clearpage
-\addcontentsline{toc}{chapter}{List of To Do Items}
+\ifdraft{\addcontentsline{toc}{chapter}{\ \ \ \ \hl{Note: Names following
+    chapter titles are the currently-assigned writers; percentages
+    following writer names are very rough estimates of the
+    approximate percentage of completion. Some material factored 
+    into the percentages may not yet appear in the generated report 
+    because it needs to be brought in from external sources.} \\ \ \\
+  List of To Do Items}
 % temporarily here, so we have a centralized list of all the todo
 % items in the document
 \listoftodos[List of To Do Items]
+}{}
 \input{executive_summary} % Joe K./Susan
 \input{introduction} % Joe K./Susan
 \input{remote_voting} % Philip
@@ -165,7 +181,8 @@
 \input{v_and_v} % Joe K./Dan
 \input{feasibility} % ???
 \input{conclusion} % Joe K./Susan
-
+\appendix
+\input{bon_requirements} %Dan/Joe K.
 \bibliographystyle{plain}
 \bibliography{bibliography}
 

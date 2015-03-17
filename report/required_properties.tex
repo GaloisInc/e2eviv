@@ -1,4 +1,4 @@
-\chapter{Required Properties of E2E Systems (Dan)}
+\chapter{Required Properties of E2E Systems\ifdraft{ (Dan) (35\%)}{}}
 \label{chapter:required_properties}
 
 To describe the properties that E2E election systems must fulfill we
@@ -12,8 +12,15 @@ by any real-world implementation of such a system.\tododmz{I don't
 
 \section{Technical Definition of E2E}
 
+\tododmz{This section will essentially be a restatement of section ``IV,
+  VIV, E2E'' in \autoref{chapter:e2e_viv_explained}, but more
+  technical in nature.}
 
 \section{Ideal Functionality of an E2E System---$\fete$}
+\tododmz{I think this may want to be the \emph{last} section of the
+  chapter, leading into the crypto specification, which can then refer
+  to it. Either that, or it should actually be moved into the crypto
+  specification chapter...}
 The basic protocol followed by any system implementing E2E verifiable
 elections can be characterized by an \emph{ideal functionality}. This
 ideal functionality, called $\fete$ and presented in
@@ -228,7 +235,7 @@ hand'').
   $Q$, i.e., it returns $Q(T',\hat{T})$.
 \end{claim}
 
-\subsection{Security Notions Not Captured by $\fete$}
+\subsection{Security Properties Not Captured by $\fete$}
 
 We have intentionally omitted a number of security aspects from this
 specification of the ideal end-to-end functionality $\fete$:
@@ -266,4 +273,80 @@ specification of the ideal end-to-end functionality $\fete$:
   adversary. 
 \end{itemize}
 
-\section{Formal Requirements}
+\section{Formal Requirements for E2E VIV Systems}
+
+The requirements for E2E VIV systems can be broadly divided into two
+types: technical and non-functional\todokiniry{Should this be
+  ``non-technical''? Or alternatively, ``functional and
+  non-functional?''}. Technical requirements are those that can be
+directly addressed by the design and implementation of the system,
+such as authentication requirements for voters and election
+officials. Non-functional requirements are those that are imposed
+externally to the system or those where the system depends on external
+behaviors outside its control, such as specific election certification
+guidelines and operational
+procedures. \autoref{fig:e2eviv_requirements_hierarchy} is a
+high-level overview of the various requirement categories.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=6in]{required_properties_resources/hierarchy}
+\end{center}
+\caption{The hierarchy of requirements for E2E VIV systems.}
+\label{fig:e2eviv_requirements_hierarchy}
+\end{figure}
+
+We briefly describe each of these requirement categories and summarize
+the requirements therein; \autoref{appendix:bon_requirements} is a
+complete listing of the requirements expressed in the Business Object
+Notation.
+
+\subsection{Technical Requirements}
+There are ten categories of technical requirements for E2E VIV
+systems: functional, accessibility, usability, security,
+authentication, auditing, system operational, reliability,
+certification, and interoperability.
+
+\subsubsection{Functional} 
+\lipsum[2]
+\subsubsection{Accessibility}
+\lipsum[3]
+\subsubsection{Usability}
+\lipsum[4]
+\subsubsection{Security}
+\lipsum[5]
+\subsubsection{Authentication}
+\lipsum[6]
+\subsubsection{Auditing}
+\lipsum[7]
+\subsubsection{System Operational}
+\lipsum[8]
+\subsubsection{Reliability}
+\lipsum[9]
+\subsubsection{Certification}
+\lipsum[10]
+\subsubsection{Interoperability}
+\lipsum[11]
+
+\subsection{Non-functional Requirements}
+There are six categories of non-functional requirements for E2E VIV
+systems: operational, procedural, legal, assurance, maintenance, and
+evolvability.
+
+\subsubsection{Operational}
+\lipsum[13]
+
+\subsubsection{Procedural}
+\lipsum[14]
+
+\subsubsection{Legal}
+\lipsum[15]
+
+\subsubsection{Assurance}
+\lipsum[16]
+
+\subsubsection{Maintenance}
+\lipsum[17]
+
+\subsubsection{Evolvability}
+\lipsum[18]
