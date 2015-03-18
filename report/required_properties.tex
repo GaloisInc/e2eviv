@@ -148,11 +148,10 @@ satisfactory test results before being used in a binding election.
 \subsection{Security}
 
 Security is the largest category of technical requirements, comprised
-both of requirements on the security and integrity of the system
-infrastructure (data storage, communications, etc.) and of
-requirements on the security and integrity of the voting process
-(voter authorization, voter privacy, accuracy of the final tally,
-etc.).
+both of requirements on the system infrastructure (data storage,
+communications, etc.) and of requirements on the voting process
+enabled by the infrastructure (voter authorization, voter privacy,
+accuracy of the final tally, etc.).
 
 With respect to the system infrastructure, it is critical that data
 integrity be ensured throughout the system. This means that measures
@@ -169,6 +168,24 @@ election results; and that the integrity of the election results must
 not depend in any way upon the security of system equipment not under
 control of the electoral authority.
 
+The tracking of precise timing information is a critical aspect of
+system security. The system must maintain reliable synchronized time
+sources, with sufficient accuracy to maintain timing data for audit
+trails, election observation data, and time limits for various aspects
+of the election process. It must be possible to determine, using the
+timing information stored by the system, whether nominations (and, if
+required, acceptance thereof by the candidate or electoral authority),
+voter registration, and vote casting have occurred within the
+prescribed time limits for those actions.
+
+The system must ensure that each voter and candidate has a unique
+identification, so that there is no possibility of mistaking one voter
+or candidate for another. In addition, the system shall restrict
+access to its services to those users that are authorized to access them.
+
+The electoral authority shall have overall responsibility for
+compliance with these security requirements, and such compliance shall
+be assessed by independent bodies as appropriate.
 
 \subsection{Authentication}
 \lipsum[6]
