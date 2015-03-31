@@ -11,308 +11,1024 @@
 \subsection{Accessibility}
 \subsection{Usability}
 \section{E2E VIV in Practice}
-Building on these ideas, a number of practical voting systems have been
-developed.  Each of the following systems has actually been used in a real
-election or in a pilot:
+A number of practical voting systems have been developed based on the
+principles of E2E VIV. This section describes several systems that
+have been used in a real election or in a pilot.
 
 \subsection{RIES~\cite{hubbers2004}}
 
 RIES, the Rijnland Internet Election System, was developed to support
-elections to the Rijnland water management board, supplementing the system
-of postal voting used by the water board.  It weakens the receipt-freeness
-requirement generally accepted for E2E voting systems while providing
-universal verifiability and a degree of individual verifiability.  These
-compromises are based on the fact that remote voting generally, including
-postal voting, has weak coercion resistance, and adding universal
-verifiability and any degree of individual verifiability is a distinct
-improvement.
+elections to the Rijnland water management board, supplementing the
+system of postal voting used by the water board.  It weakens the
+receipt-freeness requirement generally accepted for E2E voting systems
+while providing universal verifiability and a degree of individual
+verifiability.  These compromises are based on the fact that remote
+voting generally, including postal voting, has weak coercion
+resistance, and adding universal verifiability and any degree of
+individual verifiability is a distinct improvement.
 
-Before the election, credentials are mailed to every voter in the form of a
-very long number (encoded in Crockford's Base 32)
-(see~\cite{crockford2002}).  The same mailing also includes instructions.
-Voters log into an election web site that includes a client-side voting
-application written in Javascript.  The algorithms used by this script are
-public, and each voter, havign access to all of the inputs and outputs, may
-(in principle) check the computations.  This is weaker than the desired
-individual verifiability, but nonetheless, far stronger than conventional
-voting systems.
+Before the election, credentials are mailed to every voter in the form
+of a very long number (encoded in Crockford's Base 32)
+(see~\cite{crockford2002}).  The same mailing also includes
+instructions.  Voters log into an election web site that includes a
+client-side voting application written in Javascript.  The algorithms
+used by this script are public, and each voter, havign access to all
+of the inputs and outputs, may (in principle) check the computations.
+This is weaker than the desired individual verifiability, but
+nonetheless, far stronger than conventional voting systems.
 
 The client-side application encrypts the vote by passing the voter
-authorization code and the public ID of the candidate through a one-way
-function to create the encrypted vote.  The encrypted vote is then placed on
-the public bulletin board that serves as a ballot box.  At the close of the
-polls, the election authority releases the codebook containing the
-encryptions of all valid credentials with all candidate IDs. If a voter
-discloses her credential or her encrypted vote, the published codebook may
-be used to violate ballot secrecy. The developers of RIES judged this
-violation to be no more severe than the threats to ballot secrecy inherent
-in postal voting.
+authorization code and the public ID of the candidate through a
+one-way function to create the encrypted vote.  The encrypted vote is
+then placed on the public bulletin board that serves as a ballot box.
+At the close of the polls, the election authority releases the
+codebook containing the encryptions of all valid credentials with all
+candidate IDs. If a voter discloses her credential or her encrypted
+vote, the published codebook may be used to violate ballot
+secrecy. The developers of RIES judged this violation to be no more
+severe than the threats to ballot secrecy inherent in postal voting.
 
-RIES was used for Rijnland Water Board elections starting in 2004, and in
-2006, it was used to allow expatriate voters to participate in the Dutch
-parliamentary elections, see~\cite{gonggrijp2009}. The OSCE sent an election
-assessment team to observe the use of the system in 2006.  Their report
-contains observations of critical security features of the system that could
-not be observed; see~\cite{osce2007}.
+RIES was used for Rijnland Water Board elections starting in 2004, and
+in 2006, it was used to allow expatriate voters to participate in the
+Dutch parliamentary elections, see~\cite{gonggrijp2009}. The OSCE sent
+an election assessment team to observe the use of the system in 2006.
+Their report contains observations of critical security features of
+the system that could not be observed; see~\cite{osce2007}.
 
 One of the more important practical contributions of RIES involves the
-recognition that, when voter authorizations are distributed by post or more
-generally, distributed long in advance of the election, a mechanism must be
-provided allowing voters to obtain replacement credentials, for example, by
-telephone or e-mail, and a mechanism is needed to invalidate lost
-credentials.  Adding these mechanisms adds significant complexity to the
-system and is a source of some of the problems reported in the OSCE report.
-A second feature of RIES is that it allows parallel testing during the
-election, where pre-invalidated test ballots are deliberately added to the
-bulletin board in order to test the network path from selected internet
-clients to the server.  This offers the possibility of detecting a variety
-of spoofing and denial of service attacks.
+recognition that, when voter authorizations are distributed by post or
+more generally, distributed long in advance of the election, a
+mechanism must be provided allowing voters to obtain replacement
+credentials, for example, by telephone or e-mail, and a mechanism is
+needed to invalidate lost credentials.  Adding these mechanisms adds
+significant complexity to the system and is a source of some of the
+problems reported in the OSCE report.  A second feature of RIES is
+that it allows parallel testing during the election, where
+pre-invalidated test ballots are deliberately added to the bulletin
+board in order to test the network path from selected internet clients
+to the server.  This offers the possibility of detecting a variety of
+spoofing and denial of service attacks.
+
+\subsection{Introduction}
+
+RIES, the Rijinland Internet Election System was developed by the
+Hoogheemraadschap van Riginland, one of Netherland's regional water
+management authorities. RIES is patented by Piet Maclaine Point and
+Riginland Water Board~\cite{hubbers2004}. The basic design idea is
+derived from the master thesis of Maclaine Point's student, Herman
+Robers~\cite{robers1998}. It was first introduced as a solution to the
+low turnout rate of Water Board Elections in 2004. About 72,000 online
+votes were cast, out of 2.2 million eligible voters.
+
+In November 2006, RIES was used by Dutch voters reside outside of
+Netherland, to participate in the Lower House Parliamentary
+Elections. Around 20,000 voters voted via Internet, which accounts for
+91\% of the total eligible voters~\cite{competence2014}. The source
+code of RIES was published on June 2008~\cite{gonggrijp2009}.
+
+One of the main distinguishing features of RIES is that it enables
+voter to verify---after the election is closed---that their own votes
+have been counted correctly, and that the result of the tally
+corresponds to the cast votes.
+
+Nedap ES3B, the most widely adopted voting system in Netherland, was
+subjected to some major hacks in fall 2006 that resulted in broad news
+coverage and discrediting of internet voting. The hacking of Netpad
+led to the failure of full adoption of RIES for the 2008 parliament
+election. In addition, a study of RIES' published source code in
+2008~\cite{gonggrijp2009} reveals serious security holes that make the
+system vulnerable to Cross-Site Scripting, SQL injection and
+predictable token generation. Arguably, the system accords insider
+election administrator too much power and also does not have any
+protections from voter coercion in a family situation.
+
+\subsection{Core Architecture \& Operation}
+
+\subsubsection{Basic Architecture \& Design}
+
+The main voting system is written in Java and
+Javascript. Cryptographic mechanisms such as DES, 3DES, DESmac, MDC-2,
+RSA and SHA-1 are deployed through the voting cycle. The discussion in
+this report is based on RIES 2008. Due to the fact that the majority
+of the resource on RIES is written in Dutch, the report is only using
+the available English documents for analysis.
+
+\subsubsection{Voting Process}
+
+In general, the voting process consists of the following steps:
+
+\begin{itemize}
+\item Before the voting, the administrative agency will use
+  crypto-hardware to generate a personal key for each voter. These
+  keys are printed on ballots and distributed by mail. Furthermore, it
+  will generate ballot collections [RN1] for each voter, combine all
+  the ballot collections to a pre-election reference table and then
+  publish the table on the Internet.
+\item During the voting, voter will use the RIES web interface to
+  enter its personal key from the ballots, and then select the
+  candidate. When successful, the browser will return a technical vote
+  on screen which serves as a receipt. Furthermore, voter should
+  destroy his ballot with secret key and store the technical vote for
+  future verification. All the technical votes are stored on the
+  network server SURFnet.
+\item After the election is closed, SURFnet will hand over all
+  technical votes to the administrative agency. The administrative
+  agency computes a hash of every technical vote, validate it using
+  the pre-election reference table and then compute the voting
+  outcome. Finally, the voting office will publish the total outcome.
+\end{itemize}
+
+\subsection{Security \& Trust}
+
+\subsubsection{Security Overview}
+
+As further illustrated in system detail tables, RIES were subject to
+several security related testing before deployment and
+evaluation. According to the official website, those testing results
+were positive. Without access to those reports, however, these
+analysts cannot judge the adequacy of the testing.
+
+In terms of trust structure, a significant amount of trust is placed
+on election administrators. For voters vote via Internet, although
+verifiability is achieved through the voting cycle, they still need to
+trust the administrative party/vendor to handle their personal secret
+key securely.
+
+For voters who vote via postal ballots, they need to trust the Postal
+Votes Processing Bureau to convert their mail votes to technical votes
+correctly because they can't validate what has been done to their
+votes. This problem, combining with the large amount of hacking
+targeting RIES, lead to the failure of full adoption of RIES for the
+2008 parliament election.
+
+In addition, a study of RIES' published source code in
+2008~\cite{gonggrijp2009} reveals serious security holes that make the
+system vulnerable to Cross-Site Scripting, SQL injection and
+predictable token generation. Arguably, the system accords insider
+election administrators too much power and it also does not have any
+protections from voter coercion in a family situation.
+
+\subsubsection{Malware Resiliency}
+
+This research did not find enough information to conclude whether or
+not RIES is resistant to DDoS and Malware attacks at Server
+side. Since the RIES system assumes that voter's PC is secure (often a
+flawed assumption), we can conclude that it is not resistant to
+Malware or `Man-in-the-middle-attack' at Client side.
+
+\subsubsection{Malfeasance by Election Official and Dispute Resolution}
+
+When some disputes arise, an umpire can check and recalculate various
+steps in the whole process and pass his/her own judgment. But this
+only works for a limited type of disputes~\cite{hubbers2008}.
+
+\subsection{Vote Privacy}
+
+Voter privacy has been a significant area of concern for RIES voting
+system. First, vote secrecy is highly depending on the way the
+personal keys are handled. Although the administrative party/vendor
+that generate the personal keys are required to destroy these keys
+post-election, threats like insider activities or malware attacks on
+the server jeopardize vote secrecy. In addition, the vote server can
+link the originating IP address to the vote that is cast. The lack of
+anonymous channel creates another risk for voter
+privacy~\cite{hubbers2008}.
+
+\subsection{Auditability}
+
+Each individual voter can verify, with his stored technical vote,
+whether his actual vote has been correctly casted. This is achieved by
+comparing the hash value on his technical vote with the hash value in
+the pre- election reference table.
+
+The tally verification can be done by anyone
+interested. Theoretically, interested party can download all technical
+votes from the network server provider SURFnet, compute the hash value
+for each vote, and then compare the results with the pot-election
+reference table. However, this does not enable anyone to verify that
+the votes are truly as intended.
+
+\subsection{Testing and Deployments}
+
+According to the official website
+\textcolor[rgb]{0.078431375,0.3254902,0.6901961}{www.openries.nl, }a
+number of independent organizations have evaluated the RIES voting
+system before its deployment:
+
+``Various prominent institutions have tested and positively evaluated
+RIES: TNO Human Factos from Soesterberg tested usability of the voting
+interface; A team of specialists from Peter Landrocks Cryptomathic (in
+Aarhus, Denmark) tested the cryptographic principles; Madison Gurka
+from Eindhoven tested the server and network setup and security; A
+team under supervision of Bart Jacobs (Radboud University Nijmegen)
+did external penetration tests.'' (Originally written in Dutch,
+translation cited from~\cite{gonggrijp2009}.)
+
+It appears that scientists as well as independent third parties have
+looked into various aspects of the design and security of RIES, both
+before and after the deployment. However, most of the testing reports
+and scientific works are published within Netherland therefore are
+written in Dutch. This certainly creates an obstacle for the project
+team to access and interpret those documents.
+
+\subsection{Usability}
+
+As mentioned in point 5, there were usability and accessibility tests
+conducted on RIES voting system, but the project team could not find
+one addressed to the international audience. Based on the available
+resources, we know that RIES can accommodate both Internet voting and
+the traditional postal ballots voting. It is accessible to the
+disabled community in a sense that people can vote at home via
+Internet using their own accessibility technologies.
+
+\subsection{Infrastructure}
+
+Available on request in system detail table.
+
+\subsection{Shortcomings}
+
+Most of the testing reports and scientific works are published within
+Netherland therefore are written in Dutch. This certainly creates an
+obstacle for the project team to access and interpret those findings.
+
+% TODO: what's going on at the end of this paragraph??
+Before the 2008 Word Board elections, the ministry hired Fox-IT to
+perform the formal approval of RIES-2008. The company had found very
+serious problems with the underlying
+cryptography~\cite{gedrojc2008}\footnote{The report is in
+  Dutch.}. \cite[p3]{gonggrijp2009}
+
+This problem, combining with the large amount of hacking targeting
+RIES, lead to the failure of full adoption of RIES for the 2008
+parliament election. In addition, a study of RIES' published source
+code in 2008~\cite{gonggrijp2009} reveals serious security holes that
+make the system vulnerable to Cross-Site Scripting, SQL injection and
+predictable token generation.
+
+Another testing report~\cite{hubbers2004} on RIES also reveals
+shortcomings in the following areas:
+\begin{enumerate*}
+  \item the procedure of voter self-check is quite complicated,
+  \item the two- channel (mail and internet) voting makes system less
+    transparent,
+  \item too much power is given to the election administrator and
+    SURFnet,
+  \item issues with reference table modification due to ballot revoke,
+  \item possibilities of collision hashes, and
+  \item voter coercion such as family voting.
+\end{enumerate*}
 
 \subsection{Prêt à Voter~\cite{chaum2005}}
 
-The Prêt à Voter system uses two-part paper ballots with the candidate names
-on one part and the voting targets plus a ballot ID number on the other.
-Typically, the two parts are printed as a single sheet, with a perforation
-along which the sheet can be divided after voting.  The order of the
-candidate names appears to be random, from the voters' perspective.  After
-voting, the half of the ballot containing candidate names is shredded. The
-voted half forms the cast ballot, and the voter may take a copy home.
+The Prêt à Voter system uses two-part paper ballots with the candidate
+names on one part and the voting targets plus a ballot ID number on
+the other.  Typically, the two parts are printed as a single sheet,
+with a perforation along which the sheet can be divided after voting.
+The order of the candidate names appears to be random, from the
+voters' perspective.  After voting, the half of the ballot containing
+candidate names is shredded. The voted half forms the cast ballot, and
+the voter may take a copy home.
 
 A curious voter may inspect the public record of any cast ballot by
-searching for it by the ballot ID number in the public database of cast
-ballots.  That database shows the positions that were marked on that ballot,
-but crucially, it does not show the identifying letters or candidate names.
-The voter may therefore verify that the positions marked at the polling
-place were correctly recorded by the jurisdiction, but because the voter
-only has half of the ballot and there is no public display of the linking of
-candidate names to ballot positions, the voter cannot prove to anyone else
-how the ballot was voted.
+searching for it by the ballot ID number in the public database of
+cast ballots.  That database shows the positions that were marked on
+that ballot, but crucially, it does not show the identifying letters
+or candidate names.  The voter may therefore verify that the positions
+marked at the polling place were correctly recorded by the
+jurisdiction, but because the voter only has half of the ballot and
+there is no public display of the linking of candidate names to ballot
+positions, the voter cannot prove to anyone else how the ballot was
+voted.
 
-The key to tabulating the votes is that there is a cryptographically secure
-mapping from the ballot serial numbers to the apparent random order of the
-candidate voting positions.  The decoding of a cast ballot to a
-corresponding plain-text ballot, where the voted positions and candidate
-names are in a canonical order (alphabetical order, for example) is
-performed in multiple steps, by multiple custodians, for example, using a
-mixnet. As with the mixnet, no one, even if colluding with a subset of the
-custodians, can connect a decoded ballot to the corresponding cast ballot
-(and, hence, to the voter).  Unvoted ballots may be audited before, during
-and after the election to ensure that the decoding of cast ballots is being
-correctly performed (audited ballots may not be used for voting purposes,
-however, because the connection between the voting positions and candidate
-names is publicly revealed during the audit). Randomly selected stages in
-the decoding can be challenged to prove the integrity of the count, and
-decoded ballots are easily counted.  Anyone may therefore check the count.
+The key to tabulating the votes is that there is a cryptographically
+secure mapping from the ballot serial numbers to the apparent random
+order of the candidate voting positions.  The decoding of a cast
+ballot to a corresponding plain-text ballot, where the voted positions
+and candidate names are in a canonical order (alphabetical order, for
+example) is performed in multiple steps, by multiple custodians, for
+example, using a mixnet. As with the mixnet, no one, even if colluding
+with a subset of the custodians, can connect a decoded ballot to the
+corresponding cast ballot (and, hence, to the voter).  Unvoted ballots
+may be audited before, during and after the election to ensure that
+the decoding of cast ballots is being correctly performed (audited
+ballots may not be used for voting purposes, however, because the
+connection between the voting positions and candidate names is
+publicly revealed during the audit). Randomly selected stages in the
+decoding can be challenged to prove the integrity of the count, and
+decoded ballots are easily counted.  Anyone may therefore check the
+count.
 
-A version of Prêt à Voter is planned for use in a governmental election by
-the state of Victoria in Australia in November 2014, see~\cite{burton2012}.
-Previously, an attempt was made to use Prêt à Voter in a student election at
-the University of Surrey in February 2007, see~\cite{bismark2007} -- this
-attempt illustrates many of the perils of working with an election
-authority.
+A version of Prêt à Voter is planned for use in a governmental
+election by the state of Victoria in Australia in November 2014,
+see~\cite{burton2012}.  Previously, an attempt was made to use Prêt à
+Voter in a student election at the University of Surrey in February
+2007, see~\cite{bismark2007} -- this attempt illustrates many of the
+perils of working with an election authority.
 
 \subsection{Punchscan~\cite{popoveniuc2006,popoveniuc2010punchscan}}
 
-The Punchscan system used a two-part paper ballot where the top part had
-candidate names and candidate numbers (or letters) and the bottom part had
-the numbered (or lettered) voting targets.  The top part had holes punched
-in it to expose the voting targets below.  The order of the voting targets
-for each race appears random to the voter.  Both halves of the ballot bear
-an identical serial number.  After marking the ballot with a bingo dauber,
-the two halves are separated.  Prior to separation, the voter can easily see
-that the correct target has been marked.  To vote, the voter separates the
-two sides.  Either side can be scanned (since the bingo dauber marked both
-through the hole and around it) as the cast ballot. The other side is
-destroyed. A copy of the cast side may be retained by the voter.
+The Punchscan system used a two-part paper ballot where the top part
+had candidate names and candidate numbers (or letters) and the bottom
+part had the numbered (or lettered) voting targets.  The top part had
+holes punched in it to expose the voting targets below.  The order of
+the voting targets for each race appears random to the voter.  Both
+halves of the ballot bear an identical serial number.  After marking
+the ballot with a bingo dauber, the two halves are separated.  Prior
+to separation, the voter can easily see that the correct target has
+been marked.  To vote, the voter separates the two sides.  Either side
+can be scanned (since the bingo dauber marked both through the hole
+and around it) as the cast ballot. The other side is destroyed. A copy
+of the cast side may be retained by the voter.
 
-A curious voter may inspect the public record of any cast ballot exactly as
-with Prêt à Voter. It does not matter which half of the ballot the voter
-retained, because there is no public display of the numbers that link
-candidate names to voting positions; only the position that was marked is
-displayed.  Again, individual ballots may be audited, and the key to
-tabulating the votes is that there is a cryptographically secure mapping
-from the ballot serial numbers to the apparent random order of the candidate
-voting positions.
+A curious voter may inspect the public record of any cast ballot
+exactly as with Prêt à Voter. It does not matter which half of the
+ballot the voter retained, because there is no public display of the
+numbers that link candidate names to voting positions; only the
+position that was marked is displayed.  Again, individual ballots may
+be audited, and the key to tabulating the votes is that there is a
+cryptographically secure mapping from the ballot serial numbers to the
+apparent random order of the candidate voting positions.
 
-Punchscan was used for the graduate student association elections of the
-University of Ottawa in 2007, see~\cite{essex2007}. It is likely the first
-end-to-end voting system with ballot privacy used in a binding election.
+Punchscan was used for the graduate student association elections of
+the University of Ottawa in 2007, see~\cite{essex2007}. It is likely
+the first end-to-end voting system with ballot privacy used in a
+binding election.
 
 \subsection{Scantegrity II~\cite{chaum2008,chaum2009}}
 
-Scantegrity II (Invisible Ink) allows end-to-end cryptographic verification
-of optical-scan paper ballots.  Scantegrity ballots may be fully compatible
-with conventional optical scan vote tabulation equipment, but are voted
-using a marking pen filled with invisible ink.  When the voter marks a
-target on the ballot, the ink in the pen reacts with invisible ink on the
-paper to disclose a three-letter alphanumeric code in the marked voting
-target.  A voter who takes note of this code and the ballot ID number may
-check a public bulletin board to check that the ballot was indeed tabulated.
+Scantegrity II (Invisible Ink) allows end-to-end cryptographic
+verification of optical-scan paper ballots.  Scantegrity ballots may
+be fully compatible with conventional optical scan vote tabulation
+equipment, but are voted using a marking pen filled with invisible
+ink.  When the voter marks a target on the ballot, the ink in the pen
+reacts with invisible ink on the paper to disclose a three-letter
+alphanumeric code in the marked voting target.  A voter who takes note
+of this code and the ballot ID number may check a public bulletin
+board to check that the ballot was indeed tabulated.
 
-As with Punchscan and Prêt à Voter, there is a cryptographically secure
-mapping from the ballot ID number to the code disclosed when the voter marks
-a voting target.  The code is displayed on the public bulletin board, and
-public verification of the decryption and tally of the contents of the
-bulletin board proceeds in a manner similar to that of Punchscan for the
-system fielded in Takoma Park, and in a somewhat different manner using
-similar principles for the system described in~\cite{chaum2009}.
+As with Punchscan and Prêt à Voter, there is a cryptographically
+secure mapping from the ballot ID number to the code disclosed when
+the voter marks a voting target.  The code is displayed on the public
+bulletin board, and public verification of the decryption and tally of
+the contents of the bulletin board proceeds in a manner similar to
+that of Punchscan for the system fielded in Takoma Park, and in a
+somewhat different manner using similar principles for the system
+described in~\cite{chaum2009}.
 
-Scantegrity II is the first end-to-end voting system with ballot privacy to
-see use in government elections.  It was used in Takoma Park, Maryland in
-2009 and 2011; see~\cite{carback2010}.
+Scantegrity II is the first end-to-end voting system with ballot
+privacy to see use in government elections.  It was used in Takoma
+Park, Maryland in 2009 and 2011; see~\cite{carback2010}.
 
 \subsection{Helios~\cite{adida2008,adida2009}}
 
 Helios was developed for Web-based Internet voting. Helios provides a
-web-browser-based ballot preparation system that can be used to make choices
-and encrypt ballots.  After preparing a ballot, the voter has the option of
-either casting that ballot or auditing it; this allows the voter to detect
-misbehavior on the part of the ballot preparation software. Voter
-authentication is not required until after the voter decides to cast the
-ballot, so anyone may prepare and audit ballots.  Existing Helios
-implementations piggyback on existing university and commercial
-authentication mechanisms, and also support an internal login-password
-authentication mechanism for which credentials can be distributed by email.
+web-browser-based ballot preparation system that can be used to make
+choices and encrypt ballots.  After preparing a ballot, the voter has
+the option of either casting that ballot or auditing it; this allows
+the voter to detect misbehavior on the part of the ballot preparation
+software. Voter authentication is not required until after the voter
+decides to cast the ballot, so anyone may prepare and audit ballots.
+Existing Helios implementations piggyback on existing university and
+commercial authentication mechanisms, and also support an internal
+login-password authentication mechanism for which credentials can be
+distributed by email.
 
 As with the schemes discussed above, all cast ballots are posted in
-encrypted form on a public bulletin board so that voters may check that
-their ballots have been correctly recorded.  Similarly, after the polls
-close, the decryption and vote tally may be checked. Helios uses homomorphic
-vote tallying for simplicity, even though a single mixer was used in its
-first developments, and mixnets have been used in several of its forks and
-descendants; see~\cite{bulens2011} or~\cite{tsoukalas2013} for instance. A recent
-variant by~\cite{cortier2014} proposes an enhanced ballot authentication
+encrypted form on a public bulletin board so that voters may check
+that their ballots have been correctly recorded.  Similarly, after the
+polls close, the decryption and vote tally may be checked. Helios uses
+homomorphic vote tallying for simplicity, even though a single mixer
+was used in its first developments, and mixnets have been used in
+several of its forks and descendants; see~\cite{bulens2011}
+or~\cite{tsoukalas2013} for instance. A recent variant
+by~\cite{cortier2014} proposes an enhanced ballot authentication
 mechanism. The STAR-Vote system~\cite{star-vote}, designed for public
 elections as a result of an invitation from the Travis County election
 administration, also borrows various techniques used in Helios and
 VoteBox~\cite{sandler2008}.
 
-Helios was used for the election of a Belgian university president in March
-2009 and by numerous universities and associations since then, including the
-ACM and the IACR. The cryptographic protocols it implements have been
-subject to considerable analysis.
+Helios was used for the election of a Belgian university president in
+March 2009 and by numerous universities and associations since then,
+including the ACM and the IACR. The cryptographic protocols it
+implements have been subject to considerable analysis.
+
+
+\subsection{Introduction}
+
+Helios was developed by Ben Adida. During his time at Harvard he
+decided to create an open audit voting system that would reside on the
+Internet. Building upon the ideas of pioneers such as Josh Benaloh,
+Ben Adida was able to develop an open source platform for an
+End-to-end Verifiable Voting system.
+
+\subsection{Core Architecture \& Operation}
+
+\subsubsection{Basic Architecture \& Design}
+
+The Helios system is setup with a website, a python infrastructure, a
+couple servers, and a built-in encryption system for the votes. The
+election administrators can from the website, setup an private or
+public election, invite other users to join the election, run the
+election, and post the results. The system allows for registration
+through Google, or Facebook and an alternative login system is in the
+works. All the non-sensitive data is housed on a server owned by Ben
+Adida and all the private or sensitive data is held on the voter's
+computer.
+
+\subsubsection{Voting Process}
+
+In a private election, the administrator inputs the email addresses of
+the voters who will be participating and the system emails the voters
+their randomly generated login information and the link to the
+Internet based election.
+
+Once on the site, the voter follows the on screen prompts and clicks
+tabs that correspond with their election choices, followed by clicking
+the next button.
+
+At the end of the prompts is an option to check if their ballot has
+been encrypted properly and see if their votes have changed. Following
+this option allows the voter to verify that their vote was accurate
+but also destroys the ballot and prompts the voter to vote again. On
+their second try they can skip the encryption check and click
+finish. This will send an email to the voter saying that their choices
+have been casted and that the results will be shown at the end of the
+election. At any time, a voter can follow their old link and vote; the
+new vote will replace the old vote.
+
+\begin{figure}
+  \centering \capimg[width=2.6665in,height=2.2146in]{page-049-010.jpg}
+  \caption{Initial page where the voter can initiate the voting
+    process}
+  \label{fig:helios-initial}
+\end{figure}
+
+\begin{figure}
+  \centering \capimg[width=2.852in,height=2.361in]{page-049-011.jpg}
+  \caption{This is the actual voting page where the voter makes
+    his/her selections}
+  \label{fig:helios-voting}
+\end{figure}
+
+\begin{figure}
+  \centering \capimg[width=2.8146in,height=2.5083in]{page-049-012.jpg}
+  \caption{Page that allows the voter to confirm and encrypt the
+    ballot}
+  \label{fig:helios-confirm}
+\end{figure}
+
+\begin{figure}
+  \centering \capimg[width=2.9909in,height=2.3244in]{page-050-013.jpg}
+  \caption{This is the encryption page where the system encrypts the
+    ballot.}
+  \label{fig:helios-encrypt}
+\end{figure}
+
+\begin{figure}
+  \centering \capimg[width=2.9909in,height=2.2583in]{page-050-014.jpg}
+  \caption{Confirmation page that the ballot is ready and the voter is
+    issued their own unique signature}
+  \label{fig:helios-signature}
+\end{figure}
+
+\begin{figure}
+  \centering \capimg[width=3.0366in,height=2.25in]{page-050-015.jpg}
+  \caption{Ballot audit page, which allows the voter to validate the
+    encryption on their ballot}
+  \label{fig:helios-audit}
+\end{figure}
+
+\begin{figure}
+  \centering \capimg[width=2.972in,height=2.4075in]{page-051-016.jpg}
+  \caption{Final page where the voter puts in his/her credential to
+    submit the vote.}
+  \label{fig:helios-submit}
+\end{figure}
+
+\subsection{Security}
+
+\subsubsection{Security Overview}
+
+When it comes to security Helios does a decent job but is still plague
+by various security problems. Orion from the University of Washington
+highlighted a number of weaknesses in his security review blog. ``It
+is possible, just after the voter casts his/her ballot, for a corrupt
+router to intercept the ballot en route to the Helios server and send
+the user a fake Helios server success code, causing the `voting booth'
+to immediately display a false success message and clear the ballot
+from memory.''~\cite{orion2009}
+
+In this scenario if the user fails to realize that his/her vote has
+been erased then their vote would end up not counting which would help
+the adversary manipulate the election. ``As it currently exists, if
+the election administrator allows Helios to administrate the election
+(as it seems they suggest doing), it is possible for a corrupt Helios
+server to create new, fake voters and cast ballots on their behalf
+without easily being discovered.''~\cite{orion2009} This would allow
+for a corrupt server to vote for the desired winner and completely
+debunk the voting process.
+
+Also, validation is only carried out by the users, so in the off
+chance that no one audits the election, the corrupt servers could in
+fact manipulate with being detected. ``As currently implemented, the
+election administrator (who has the power to add voters and freeze the
+election) is authenticated through Google Accounts. Any vulnerability
+in the login (weak password, easily guessed security questions, etc.)
+could allow an attacker to end the election prematurely or add
+additional voters (potentially multiple accounts for the same
+voter).''~\cite{orion2009}
+
+Due to the reliance on the Google account to actually administer the
+election, if the administrators account was hijacked then an attacker
+could do a number of things to hack the system in their favor. Helios
+is also susceptible to every possible Internet attack in their various
+forms. Helios does not have advanced or cutting edge means to defend
+itself against any one Internet attack.
+
+This means that any system crashing or infrastructure hacking attacks
+available can be utilized against Helios. Its' only real defense are
+the general defenses seen in most if not all up to date
+websites. Helios is patched regularly and is mount on a secure
+platform in Heroku but outside of this, fulfills the bare requirements
+of being considered secure.
+
+\subsubsection{Trust Structure}
+
+``Helios takes an interesting approach: there is only one trustee, the
+Helios server itself. Privacy is guaranteed only if you trust
+Helios. Integrity, of course, does not depend on trusting Helios: the
+election results can be fully audited even if all administrators -- in
+this case the single Helios server -- is corrupt.''~\cite{adida2008}
+
+Helios was constructed in such a way that the only thing a user would
+have to trust is themselves and the server. Also, because it has an
+open audit system, they could always double-check the results to make
+sure that the server hasn't been compromised. The assumption that
+comes with these elements is that they have not been hacked and they
+are in fact safe. In a situation where malware has overtaken either of
+these items of trust, then the system would be undermined. This isn't
+a problem unique to Helios, but it is a problem none-the-less.
+
+When it comes to the ballots everything is handled and encrypted by
+the system itself so at no part of the process does the LEO or
+Election Official touch or handle the ballots. The only things that
+they have control over is the keys that decrypt the votes which is
+only enabled when the election is over. The decrypt keys themselves
+allow for the votes to be posted, the officials get to see the results
+the same time the participants see them.
+
+\subsubsection{Dispute Resolution}
+
+Dispute resolution is handled by the creator and administrator Ben
+Adida. He has up to this point only had one dispute to resolve and
+that was handled quickly and everything was straightened out.
+
+\subsection{Auditability}
+
+``A web-based open-audit voting system. Using a modern web browser,
+anyone can set up an election, invite voters to cast a secret ballot,
+compute a tally, and generate a validity proof for the entire process.
+
+Helios is deliberately simpler than most complete cryptographic voting
+protocols in order to focus on the central property of public
+audit-ability.''~\cite{adida2008}
+
+The entire basis of Helios is the ability to audit the election after
+the polls are closed. If the election is public, then anyone with
+Internet access can check the encrypted votes and verify that the
+elections were legitimate.
+
+The problem with Helios is that though users can audit the system, the
+process by which one would tends to be complicated to those who are
+not computer savvy. As mentioned in the usability portion, studies
+have shown that it is hard for common users to comprehend and properly
+utilize the auditing tools. This means that the auditing capability is
+there but the barriers of use are too high for the users.
 
 \subsection{Norwegian System~\cite{gjosteen2012}}
 
 Between 2011 and 2014, the Norwegian government ran an Internet remote
-voting trial.  The system rests on a cryptographic protocol designed by
-Scytl, a commercial voting system vendor. Scytl and the Norwegian government
-assert that this is an E2E system.  As such, this marks the entry of efforts
-(or claims) by commercial voting system vendors to enable E2E elections.
-System descriptions have been incomplete, hence it has not been possible to
-tell what properties the system possesses. However, the following are clear.
-The system's claims to protect voter privacy are weak: ``If the voter's
-computer and the return code generator are both honest, the content of the
-voter's ballot remains private.''  In addition, the receipt delivered to the
-voter proved only that the encrypted ballot was received as cast, not that
-it was counted as cast or that the encrypted vote matched the voter's
-intent. Thus, by any of the definitions above, it is not an end-to-end
-system.
+voting trial.  The system rests on a cryptographic protocol designed
+by Scytl, a commercial voting system vendor. Scytl and the Norwegian
+government assert that this is an E2E system.  As such, this marks the
+entry of efforts (or claims) by commercial voting system vendors to
+enable E2E elections.  System descriptions have been incomplete, hence
+it has not been possible to tell what properties the system
+possesses. However, the following are clear.  The system's claims to
+protect voter privacy are weak: ``If the voter's computer and the
+return code generator are both honest, the content of the voter's
+ballot remains private.''  In addition, the receipt delivered to the
+voter proved only that the encrypted ballot was received as cast, not
+that it was counted as cast or that the encrypted vote matched the
+voter's intent. Thus, by any of the definitions above, it is not an
+end-to-end system.
 
-The Norwegian system used a three-channel model, where the voter receives
-authorization codes to cast a ballot via the postal system, then uses a
-computer to cast an encrypted ballot, and finally obtains a confirmation
-code offering a parital end-to-end proof via an SMS message to the voter's
-mobile phone.  In addition, as with RIES, voters could cast multiple
-ballots; in Norway, only the last ballot cast was counted, and if a voter
-votes both on paper at a polling place and by Internet, the paper ballot
-overrides the Internet ballot.
+The Norwegian system used a three-channel model, where the voter
+receives authorization codes to cast a ballot via the postal system,
+then uses a computer to cast an encrypted ballot, and finally obtains
+a confirmation code offering a parital end-to-end proof via an SMS
+message to the voter's mobile phone.  In addition, as with RIES,
+voters could cast multiple ballots; in Norway, only the last ballot
+cast was counted, and if a voter votes both on paper at a polling
+place and by Internet, the paper ballot overrides the Internet ballot.
 
-The system evolved significantly between its first use in 2011 and 2013,
-with added complexity to attempt to assure voters that their ballots were
-stored as cast.  In 2013, the Carter Center mounted a serious effort to
-observe the Norwegian system in action.  Their report on the operation of
-the system, in practice, and the problems they had observing it offers
-useful insight into the administration of E2E systems in general as well as
-the particulars of the Norwegian system; see~\cite{carter2013}.
+The system evolved significantly between its first use in 2011 and
+2013, with added complexity to attempt to assure voters that their
+ballots were stored as cast.  In 2013, the Carter Center mounted a
+serious effort to observe the Norwegian system in action.  Their
+report on the operation of the system, in practice, and the problems
+they had observing it offers useful insight into the administration of
+E2E systems in general as well as the particulars of the Norwegian
+system; see~\cite{carter2013}.
 
 \subsection{Remotegrity~\cite{zagorski2013}}
 
 Remotegrity is a remote coded voting system that additionally uses the
-notion of a lock-in to provide additional security properties. Remotegrity
-voters get a package in the postal mail. The package contains:
+notion of a lock-in to provide additional security
+properties. Remotegrity voters get a package in the postal mail. The
+package contains:
 \begin{itemize}
-  \item a coded voting ballot (a ballot with a code printed against each
-    choice). The code may or may not be covered by a scratch-off field (such
-    as is used for lottery tickets)
-  \item an authentication card that contains: (a) many authentication codes
-    under scratch-off (b) a lock-in code under scratch-off and (c) an
-    acknowledgement code.
+  \item a coded voting ballot (a ballot with a code printed against
+    each choice). The code may or may not be covered by a scratch-off
+    field (such as is used for lottery tickets)
+  \item an authentication card that contains: (a) many authentication
+    codes under scratch-off (b) a lock-in code under scratch-off and
+    (c) an acknowledgement code.
 \end{itemize}
 Both cards have serial numbers.
 
 To vote, the voter enters (a) both serial numbers, (b) the codes
-corresponding to her choices and (c) an authentication code obtained after
-scratching-off a surface chosen at random.
+corresponding to her choices and (c) an authentication code obtained
+after scratching-off a surface chosen at random.
 
-She returns to the election website a few hours later to check if her codes
-are correctly represented, and to see if the election authority has posted
-her acknowledgement code next to the codes. This indicates to her that the
-election officials received valid codes for her ballot.
+She returns to the election website a few hours later to check if her
+codes are correctly represented, and to see if the election authority
+has posted her acknowledgement code next to the codes. This indicates
+to her that the election officials received valid codes for her
+ballot.
 
-She scratches-off the lock-in code and posts it on the website. This is her
-way of communicating to the election custodians, observers and other voters
-that her vote is correctly represented on the website. Among all of the E2E
-systems (and approximations to E2E systems) discussed here, this is the
-first one that asks the voter to take positive action to confirm that the
-vote was correctly posted.
+She scratches-off the lock-in code and posts it on the website. This
+is her way of communicating to the election custodians, observers and
+other voters that her vote is correctly represented on the
+website. Among all of the E2E systems (and approximations to E2E
+systems) discussed here, this is the first one that asks the voter to
+take positive action to confirm that the vote was correctly posted.
 
 As with RIES, if we assume that there is no communication between the
-computer used to print the credentials and the computer used to accumulate
-the votes, the latter computer does not know the mapping from codes to
-candidates, so the vote is not revealed to the computer. Further, because
-the computer does not know a valid code corresponding to another candidate
-on the ballot, it cannot change the vote.  Finally, and uniquely, because
-the computer does not know the acknowledgement code, its presence on the
-election website assures the voter that the election officials received a
-valid code for her ballot.
+computer used to print the credentials and the computer used to
+accumulate the votes, the latter computer does not know the mapping
+from codes to candidates, so the vote is not revealed to the
+computer. Further, because the computer does not know a valid code
+corresponding to another candidate on the ballot, it cannot change the
+vote.  Finally, and uniquely, because the computer does not know the
+acknowledgement code, its presence on the election website assures the
+voter that the election officials received a valid code for her
+ballot.
 
-The tally is computed from the codes in a verifiable manner that corresponds
-to the coded voting system used.
+The tally is computed from the codes in a verifiable manner that
+corresponds to the coded voting system used.
 
-The voter can be sent two ballots. She can choose one to vote with and one
-to audit.
+The voter can be sent two ballots. She can choose one to vote with and
+one to audit.
 
-If a jurisdiction is nervous about using the Internet for remote voting,
-Remotegrity ballots can be mailed in, and voters can check for their codes
-on the election website to be assured that their vote correctly reached
-election officials.
+If a jurisdiction is nervous about using the Internet for remote
+voting, Remotegrity ballots can be mailed in, and voters can check for
+their codes on the election website to be assured that their vote
+correctly reached election officials.
 
-Remotegrity was used for absentee voting---and Scantegrity for in-person
-voting---by the City of Takoma Park in its 2011 municipal election,
-see~\cite{zagorski2013}.
+Remotegrity was used for absentee voting---and Scantegrity for
+in-person voting---by the City of Takoma Park in its 2011 municipal
+election, see~\cite{zagorski2013}.
+
+\subsection{Introduction}
+
+During the mid-2000s, the remote voting system \textbf{Remotegrity
+}was proposed and developed by Filip Zagorski, joined by a team of
+other distinguished cryptographers that included Poorvi Vora, Richard
+T. Carback, David Chaum, Jeremy Clark \& Aleksander
+Essex~\cite{zagorski2013}. Remotegrity is an end-to-end verifiable
+(E2EV) absentee voting system, which has been architected to work in
+concert with an in-person/precinct voting system called
+\textbf{\textit{Scantegrity }}(a paper-based system).
+
+Remotegrity adapts the ``code-voting\footnote{Code voting helps in
+  achieving privacy by replacing all the elements on a ballot by
+  codes, which are cryptographically generated.}'' approach and
+features found in the ``mother-system'' Scantegrity. Using this
+approach, Remotegrity seeks to protect voter privacy, as well as
+provide resiliency against any malware-induced software modifications,
+election official or intruder manipulations of vote tallies, and other
+potential injuries to election integrity.
+
+Remotegrity was deployed in Takoma Park, Maryland, in 2011, where
+election officials used it in a trial of both Scantegrity \&
+Remotegrity systems. In addition, the trial included
+\textbf{\textit{ranked-choice voting}}\footnote{``Ranked-choice
+  voting'' (also called preferential or ``instant run-off voting''
+  (IRV) requires voters to rank their choices among the available
+  candidates. While IRV election can be structured with different
+  rules (for instance, at least two distinct types of IRV structures
+  can be created, including e.g., directing voters to ``rank your top
+  three choices of candidates by placing a `1' indicating your top
+  choice, and `3' your third choice among the field of 8 candidates,''
+  or ``Rank each of the 8 candidates in the order of your preference,
+  giving a `1' to your top choice candidate and an `8' to your least
+  preferred candidate.'' The virtues and evils of IRV are well beyond
+  the scope of this Report. Suffice it to say that IRV presents
+  substantial voter education hurdles, and that the test-running of
+  Remotegrity in concert with IRV eliminates the ability to draw any
+  sound conclusions about the usability or deficits in either
+  innovation.} methods. In this report we have reviewed the version of
+Remotegrity used in the 2011 Takoma Park local election. This analysis
+is based on the publicly available research papers and interviews with
+the individual architects and developers.
+
+\subsection{Core Architecture \& Operation}
+
+\subsubsection{Basic Architecture \& Design}
+
+Remotegrity uses both the online component as well as the paper
+component from \textbf{\textit{Scantegrity. }}Paper ballots are
+printed along with an additional feature called the `Authorization
+card'. The Authorization card contains codes which are hidden under a
+scratch off and which are used in casting the vote (`Auth Code') and
+finalizing the casted vote (`Lock Code').
+
+These two printed components are sent to the registered voters via any
+postal service and the online component includes voters accessing the
+voting site, casting the vote, checking their vote and finally viewing
+the results on a publicly accessible Bulletin Board (which is another
+website).
+
+Remotegrity is developed in Java. The databases (for example: MySQL)
+can be hosted on a cloud infrastructure. The system requires a
+separate offline server that is not connected to the Internet to check
+the validity of the voters' submitted vote \& authorization
+codes. This server is dedicated to maintaining all the cryptographic
+keys and validation signatures. Remotegrity developers architected the
+system for high security and data integrity and tested it for security
+gaps prior to its deployment in Takoma Park.
+
+Remotegrity is designed to ensure that voters will receive unique
+codes for the same candidate\footnote{The system utilizes distributed
+  key generators \& pseudo-random number generators for generating the
+  codes that are printed on the ballots and authorization
+  cards.}. Remotegrity is designed so that an election computer
+receiving vote codes is able to check whether a code corresponds to a
+valid choice on the ballot, without knowing to which vote it
+corresponds. This maintains vote privacy while preventing malware on
+the voter's computer from changing the vote. The vote codes are
+cryptographically calculated using the keys the election officials
+generate via automated processes.
+
+\subsubsection{Voting Process}
+
+Printing Ballots: Before ballots are printed the unique codes for
+every candidate are calculated along with the Auth and Lock codes for
+each voter. The cryptographic values and their relation to candidates
+and voters are generated and stored on an offline validation server.
+
+The ballot paper and the authorization card also contain a `Vote
+Serial' and `Ack Code' respectively. These are used to validate that
+the codes entered came from a particular ballot and an authorization
+card. The ballots and the authorization cards are printed and mailed
+to all the voters. A sample ballot and the sample authorization card
+are shown in \autoref{fig:remotegrity-ballot} and
+\autoref{fig:remotegrity-auth-card}.
+
+\begin{figure}
+  \centering \capimg[width=3.25in,height=2.4335in]{page-013-004.jpg}
+  \caption{Sample Ballot}
+  \label{fig:remotegrity-ballot}
+\end{figure}
+
+\begin{figure}
+  \centering \capimg[width=3.25in,height=2.4154in]{page-014-005.jpg}
+  \caption{Sample Authorization Card}
+  \label{fig:remotegrity-auth-card}
+\end{figure}
+
+Ballot casting: The voters will use the `Vote Code' as shown in
+\autoref{fig:remotegrity-ballot} of their preferred candidate and
+enter it on the voting portal. Upon entering their choice, the voter
+is asked to enter an `Auth Code', which is under a scratch off on the
+authorization card. This `Auth Code' is a one-time password
+(single-use password) used to validate the voter.
+
+There are 4 Auth codes given to a voter under a scratch off, which are
+helpful in case is the voter needs to attempt to vote again (because
+their computer performs a denial of service attack or does not respond
+correctly to instructions) or in case there is a dispute over the
+values entered.
+
+Once the values are entered, the voter is asked to wait for a few
+hours and revisit the election web site, allowing the election system
+and officials to verify the validity of the codes entered by the
+voter. Upon verification the election system signs the code entries
+and displays it back to the user. All communication with the offline
+computer is performed over an ``air gap''; that is, a human transfers
+the data to and from the offline computer at regular intervals (of
+about 3-4 hours for the Takoma Park election). This prevents any
+malware from online computers from signing false data. Then the voter
+is shown his choice along with the Vote Serial and the Ack Code.
+
+The Ack Code is printed on the authorization card (shown in
+\autoref{fig:remotegrity-auth-card}) and is never entered by the
+voter, and hence, if it is correct, it could not have been generated
+by any entity other than the election computer. The presence of a
+correct Ack Code on the election website hence communicates to the
+voter that the entered vote codes were valid and not manipulated by
+the computer used by the voter for voting.
+
+If the voter is satisfied, he/she has to scratch off one of the `Lock
+codes' and enter it to use the value to finalize/freeze the vote. Once
+the `Lock Code' is used the vote cannot be
+changed. \autoref{fig:remotegrity-vote-code} shows Vote codes being
+entered. \autoref{fig:remotegrity-auth-code} shows Auth Code being
+entered. \autoref{fig:remotegrity-bb} shows the verification back to
+the voter along with the Auth and Ack Code-EB3C15.
+
+\begin{figure}
+  \centering \capimg[width=2.6665in,height=1.9689in]{page-015-006.jpg}
+  \caption{Vote Codes entered -- 6055 \& 2392}
+  \label{fig:remotegrity-vote-code}
+\end{figure}
+
+\begin{figure}
+  \centering \capimg[width=2.6665in,height=2.061in]{page-015-007.jpg}
+  \caption{Auth Code entered - 6969-3738-5597-4072}
+  \label{fig:remotegrity-auth-code}
+\end{figure}
+
+\begin{figure}
+  \centering \capimg[width=2.8571in,height=1.8098in]{page-015-008.jpg}
+  \caption{User shown his/her choice along with Auth \& Ack Code on a
+    public Bulletin Board}
+  \label{fig:remotegrity-bb}
+\end{figure}
+
+Results: Once the final tally is done the results are displayed on a
+publicly accessible bulletin board. For a particular voter, this will
+show his candidate's `Vote Code', the `Vote Serial' of the ballot
+paper, the `Auth Code' used, the `Lock Code' used and the `Ack code'
+of the authorization card. \autoref{fig:remotegrity-lock} shows the
+final vote as seen by the user post the completion of the tally. Here
+the voter is shown the Lock code as well as the Vote Serial along with
+other codes
+
+\subsection{Security}
+
+\subsubsection{Security Overview}
+
+Remotegrity utilizes the ``code-voting'' approach and features found
+in the Scantegrity voting system. It thereby seeks to protect voter
+privacy, provides resiliency against any malware-induced software
+modifications, election official or intruder manipulations of vote
+tallies, and other potential injuries to election integrity. It uses
+distributed key generators and pseudo random generators are used to
+build a (threshold) shared secret amongst the election officials,
+which is then used to generate the codes.
+
+\subsubsection{Malware Resiliency}
+
+In the voting process the values entered by the voter are the Vote,
+`Auth \& Lock codes'. The values, which are never entered by the
+voter, are Vote Serial and the `Ack Code' (which are present on the
+ballot and authorization card respectively, but only displayed
+electronically once the vote is casted).
+
+Considering a case where the malware makes changes to the entered Vote
+code during ballot casting, this will be rejected by the election
+official while the initial verification is performed by the system,
+since this vote code will not generate a relation with the
+corresponding relation to the Vote serial for this particular
+voter. Also, since the vote codes are generated randomly there is low
+probability that the malware will be able to guess a correct
+alternative code for a particular candidate.
+
+\begin{figure}
+  \centering \capimg[width=2.25in,height=1.5764in]{page-016-009.jpg}
+  \caption{Final vote confirming the Lock code \& Vote Serial
+    (2-456922)}
+  \label{fig:remotegrity-lock}
+\end{figure}
+
+Considering the malware is able to guess a valid code for a candidate,
+it should also know a valid Auth \& Lock Code for confirming the
+choice. Since the Auth \& Lock Codes are generated randomly and
+sufficient in length, a malware with high probability will not be able
+to guess the correct alternative Auth \& Lock Code (which would be
+still under a scratch off). Any chances of a malware changing the Auth
+\& Lock Code will also be rejected since this code will not generate
+the relation with the Ack Code for that particular authorization card
+for the voter.
+
+\subsubsection{Malfeasance by Election Official and Dispute Resolution}
+
+The use of Auth codes and the Lock codes under a scratch off makes
+sure that there is no malicious activity by an election authority. As
+we mentioned earlier an election system/computer has to sign every
+verified entry before posting it on bulletin board, this makes sure
+that the election official is responsible for the results shown to the
+voter. Another feature of Remotegrity requires the use of a new Auth
+code every time a signed entry is displayed, thus if an election
+official alters the values on the bulletin board after the voter
+submits the vote means that they (election authority or computer)
+would require a new Auth code. Similarly, if they attempted to lock-in
+a vote that the voter did not approve, they would need a Lock code
+which was not scratched off by the voter. This makes it easier to
+detect any alterations made by an election official and point out the
+discrepancy. These properties of the system also allow in maintaining
+vote integrity and helps in resolving any disputes.
+
+\subsubsection{Voter Privacy}
+
+Remotegrity utilizes code voting. This is a feature in which the
+identities of the voter and the candidates are replaced by
+cryptographically generated codes and the relation/binding between
+them is retained for verification purpose. In Remotegrity, the
+candidates are replaced by `Vote Code' present on the printed ballot
+and the validity of the voter is verified by the use of the one-time
+password known as the `Auth Code'.
+
+Every voter gets a generated `Vote Serial' and `Ack code,' which
+allows the voter to verify that the choice of the candidate entered by
+him on the voting system was recorded correctly. Since the final
+results are displayed publicly as codes entered by the voter, only the
+voter knows his vote/choice and does not make any sense to anyone
+else. This feature of having a publicly verifiable election of
+Remotegrity and the back end of Scantegrity makes this system
+universally verifiable.
+
+Details on \textbf{\textit{Auditability, Trust structure }}and other
+aspects can be found in the System detail table.
+
+\subsection{Infrastructure required}
+
+By the election official --
+\begin{enumerate}
+\item Officials who will generate the master secrets for generating
+  the codes
+\item Hardware for printing with the capability of having the Auth and
+  Lock codes under a scratch off
+\item A web server infrastructure in case standalone hosting is done
+  or a cloud infrastructure can be used
+\end{enumerate}
+By the voter --
+\begin{enumerate}
+  \item A computer or a smart phone with an Internet connection.
+\end{enumerate}
+
+\subsection{Shortcomings}
+
+We have seen so far that the Remotegrity voting system which was used
+in Takoma Park is an end to end verifiable absentee voting system
+which is capable of ensuring the integrity of the votes, results,
+privacy of the voters, resiliency to changes made by malware and an
+election official, dispute resolution. However, this system is not
+designed to be resistant towards voter-coercion. Moreover, like any
+other web facing infrastructure this system by itself is not capable
+of coping up with any kind of denial of service attack. This risk can
+however be reduced if the system is deployed on a cloud infrastructure
+which provides very high percentage of up time. Also, in case of a
+denial of service attack, if voters are not able to access the
+internet; this system can fall back to a regular mail-absentee ballot
+system. We also did not have any data on the usability aspects of this
+voting system.
 
 \subsection{Wombat~\cite{rosen2011}}
 
-The Wombat voting system is an in-person voting system where the voter votes
-on a touch-screen and obtains a printout of his vote with an encryption of
-it. The voter can choose to cast or audit the encrypted vote. If she chooses
-to audit the vote, she may check if the vote was correctly encrypted. If she
-chooses to cast it, the ciphertext is posted online, and she casts the
-unencrypted vote in the ballot box (this may be manually counted) and takes
-the ciphertext home. The votes are tallied using a verifiable mixnet.
+The Wombat voting system is an in-person voting system where the voter
+votes on a touch-screen and obtains a printout of his vote with an
+encryption of it. The voter can choose to cast or audit the encrypted
+vote. If she chooses to audit the vote, she may check if the vote was
+correctly encrypted. If she chooses to cast it, the ciphertext is
+posted online, and she casts the unencrypted vote in the ballot box
+(this may be manually counted) and takes the ciphertext home. The
+votes are tallied using a verifiable mixnet.
 
 The system has been used for multiple pilot elections in Israel.
 
 \subsection{DEMOS~\cite{kiayias2014}}
 
 DEMOS is a coded vote system where the voter is given a two-part coded
-ballot; she audits one part and uses the other to vote. Associated with each
-choice on the ballot is (a) a vote code---the encryption of the vote, which
-is entered in the voting machine by the voter and (b) a receipt code which
-the voter does not enter, but which is posted online next to the vote code.
-The voter can check this to ensure her vote reached the election
-authorities. The ballot also has a QR code containing all the information on
-the ballot. It can be scanned by the voter if she prefers not to manually
-enter the vote code. Once the ballot is entirely represented on the
-computer, the voter can then make her choices. Note that if the voter scans
-the QR code, the computer knows how she voted. The vote codes represent
-homomorphic encryptions of the votes and the verifiable tally is obtained in
-a standard manner.
+ballot; she audits one part and uses the other to vote. Associated
+with each choice on the ballot is (a) a vote code---the encryption of
+the vote, which is entered in the voting machine by the voter and (b)
+a receipt code which the voter does not enter, but which is posted
+online next to the vote code.  The voter can check this to ensure her
+vote reached the election authorities. The ballot also has a QR code
+containing all the information on the ballot. It can be scanned by the
+voter if she prefers not to manually enter the vote code. Once the
+ballot is entirely represented on the computer, the voter can then
+make her choices. Note that if the voter scans the QR code, the
+computer knows how she voted. The vote codes represent homomorphic
+encryptions of the votes and the verifiable tally is obtained in a
+standard manner.
 
 A pilot study of DEMOS was carried out in 2014.
 
-\tododmwit{This section should be filled in with material from
+\todoacf{This section should be filled in with material from
   history.tex and comparative\_analysis.tex, and then history.tex and
   comparative\_analysis.tex should be ``retired'' and their resources
   moved into e2e\_viv\_explained\_resources.}
