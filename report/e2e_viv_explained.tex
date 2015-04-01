@@ -11,272 +11,103 @@
 \subsection{Accessibility}
 \subsection{Usability}
 \section{E2E VIV in Practice}
+
 A number of practical voting systems have been developed based on the
 principles of E2E VIV. This section describes several systems that
 have been used in a real election or in a pilot.
 
 \subsection{RIES~\cite{hubbers2004}}
 
-RIES, the Rijnland Internet Election System, was developed to support
-elections to the Rijnland water management board, supplementing the
-system of postal voting used by the water board.  It weakens the
-receipt-freeness requirement generally accepted for E2E voting systems
-while providing universal verifiability and a degree of individual
-verifiability.  These compromises are based on the fact that remote
-voting generally, including postal voting, has weak coercion
-resistance, and adding universal verifiability and any degree of
-individual verifiability is a distinct improvement.
+RIES, the Rijnland Internet Election System, was first used in 2004 to
+support elections to the Rijnland water management board,
+supplementing the system of postal voting used by the water board. A
+subsequent version was used to allow expatriate voters to participate
+in the Dutch parliamentary elections; see~\cite{gonggrijp2009}.
 
-Before the election, credentials are mailed to every voter in the form
-of a very long number (encoded in Crockford's Base 32)
-(see~\cite{crockford2002}).  The same mailing also includes
-instructions.  Voters log into an election web site that includes a
-client-side voting application written in Javascript.  The algorithms
-used by this script are public, and each voter, havign access to all
-of the inputs and outputs, may (in principle) check the computations.
-This is weaker than the desired individual verifiability, but
-nonetheless, far stronger than conventional voting systems.
-
-The client-side application encrypts the vote by passing the voter
-authorization code and the public ID of the candidate through a
-one-way function to create the encrypted vote.  The encrypted vote is
-then placed on the public bulletin board that serves as a ballot box.
-At the close of the polls, the election authority releases the
-codebook containing the encryptions of all valid credentials with all
-candidate IDs. If a voter discloses her credential or her encrypted
-vote, the published codebook may be used to violate ballot
-secrecy. The developers of RIES judged this violation to be no more
-severe than the threats to ballot secrecy inherent in postal voting.
-
-RIES was used for Rijnland Water Board elections starting in 2004, and
-in 2006, it was used to allow expatriate voters to participate in the
-Dutch parliamentary elections, see~\cite{gonggrijp2009}. The OSCE sent
-an election assessment team to observe the use of the system in 2006.
-Their report contains observations of critical security features of
-the system that could not be observed; see~\cite{osce2007}.
-
-One of the more important practical contributions of RIES involves the
-recognition that, when voter authorizations are distributed by post or
-more generally, distributed long in advance of the election, a
-mechanism must be provided allowing voters to obtain replacement
-credentials, for example, by telephone or e-mail, and a mechanism is
-needed to invalidate lost credentials.  Adding these mechanisms adds
-significant complexity to the system and is a source of some of the
-problems reported in the OSCE report.  A second feature of RIES is
-that it allows parallel testing during the election, where
-pre-invalidated test ballots are deliberately added to the bulletin
-board in order to test the network path from selected internet clients
-to the server.  This offers the possibility of detecting a variety of
-spoofing and denial of service attacks.
-
-\subsection{Introduction}
-
-RIES, the Rijinland Internet Election System was developed by the
-Hoogheemraadschap van Riginland, one of Netherland's regional water
-management authorities. RIES is patented by Piet Maclaine Point and
-Riginland Water Board~\cite{hubbers2004}. The basic design idea is
-derived from the master thesis of Maclaine Point's student, Herman
-Robers~\cite{robers1998}. It was first introduced as a solution to the
-low turnout rate of Water Board Elections in 2004. About 72,000 online
-votes were cast, out of 2.2 million eligible voters.
-
-In November 2006, RIES was used by Dutch voters reside outside of
-Netherland, to participate in the Lower House Parliamentary
-Elections. Around 20,000 voters voted via Internet, which accounts for
-91\% of the total eligible voters~\cite{competence2014}. The source
-code of RIES was published on June 2008~\cite{gonggrijp2009}.
-
-One of the main distinguishing features of RIES is that it enables
-voter to verify---after the election is closed---that their own votes
-have been counted correctly, and that the result of the tally
-corresponds to the cast votes.
-
-Nedap ES3B, the most widely adopted voting system in Netherland, was
-subjected to some major hacks in fall 2006 that resulted in broad news
-coverage and discrediting of internet voting. The hacking of Netpad
-led to the failure of full adoption of RIES for the 2008 parliament
-election. In addition, a study of RIES' published source code in
-2008~\cite{gonggrijp2009} reveals serious security holes that make the
-system vulnerable to Cross-Site Scripting, SQL injection and
-predictable token generation. Arguably, the system accords insider
-election administrator too much power and also does not have any
-protections from voter coercion in a family situation.
-
-\subsection{Core Architecture \& Operation}
-
-\subsubsection{Basic Architecture \& Design}
-
-The main voting system is written in Java and
-Javascript. Cryptographic mechanisms such as DES, 3DES, DESmac, MDC-2,
-RSA and SHA-1 are deployed through the voting cycle. The discussion in
-this report is based on RIES 2008. Due to the fact that the majority
-of the resource on RIES is written in Dutch, the report is only using
-the available English documents for analysis.
-
-\subsubsection{Voting Process}
-
-In general, the voting process consists of the following steps:
+\subsubsection{Election Procedure}
 
 \begin{itemize}
-\item Before the voting, the administrative agency will use
-  crypto-hardware to generate a personal key for each voter. These
-  keys are printed on ballots and distributed by mail. Furthermore, it
-  will generate ballot collections [RN1] for each voter, combine all
-  the ballot collections to a pre-election reference table and then
-  publish the table on the Internet.
-\item During the voting, voter will use the RIES web interface to
-  enter its personal key from the ballots, and then select the
-  candidate. When successful, the browser will return a technical vote
-  on screen which serves as a receipt. Furthermore, voter should
-  destroy his ballot with secret key and store the technical vote for
-  future verification. All the technical votes are stored on the
-  network server SURFnet.
-\item After the election is closed, SURFnet will hand over all
-  technical votes to the administrative agency. The administrative
-  agency computes a hash of every technical vote, validate it using
-  the pre-election reference table and then compute the voting
-  outcome. Finally, the voting office will publish the total outcome.
+
+\item Before the election, credentials are mailed to every voter in
+  the form of a very long number (encoded in Crockford's Base 32)
+  (see~\cite{crockford2002}).  The same mailing also includes
+  instructions.
+
+\item Voters log into an election web site that includes a client-side
+  voting application written in JavaScript. The client-side
+  application encrypts the vote by passing the voter authorization
+  code and the public ID of the candidate through a one-way function
+  to create the encrypted vote.  The encrypted vote is then placed on
+  the public bulletin board that serves as a ballot box.
+
+\item At the close of the polls, the election authority releases the
+  final vote tallies along with a codebook containing the encryptions
+  of all valid credentials with all candidate IDs.
+
 \end{itemize}
 
-\subsection{Security \& Trust}
+\subsubsection{Verifiability}
 
-\subsubsection{Security Overview}
+The algorithms and protocols used RIES are public, and each voter,
+having access to all of the inputs and outputs, may (in principle)
+check the computations. This is weaker than the desired individual
+verifiability\acftodo{how/why?}, but nonetheless, far stronger than
+conventional voting systems.
 
-As further illustrated in system detail tables, RIES were subject to
-several security related testing before deployment and
-evaluation. According to the official website, those testing results
-were positive. Without access to those reports, however, these
-analysts cannot judge the adequacy of the testing.
+\subsubsection{Analysis}
 
-In terms of trust structure, a significant amount of trust is placed
-on election administrators. For voters vote via Internet, although
-verifiability is achieved through the voting cycle, they still need to
-trust the administrative party/vendor to handle their personal secret
-key securely.
+RIES makes a tradeoff by weakening the receipt-freeness requirement in
+exchange for providing universal verifiability and a degree of
+individual verifiability. The results of an entire election can be
+independently audited with only the information publicly available
+after the election. However if a voter discloses her credential or her
+encrypted vote, the same public information may be used to violate
+ballot secrecy. The developers of RIES judged this violation to be no
+more severe than the threats to ballot secrecy inherent in postal
+voting, and therefore worth accepting for the benefit to
+verifiability.
 
-For voters who vote via postal ballots, they need to trust the Postal
-Votes Processing Bureau to convert their mail votes to technical votes
-correctly because they can't validate what has been done to their
-votes. This problem, combining with the large amount of hacking
-targeting RIES, lead to the failure of full adoption of RIES for the
-2008 parliament election.
+The Organization for Security and Co-operation in Europe (OSCE) sent
+an election assessment team to observe the use of RIES in 2006.  Their
+report contains observations of critical security features of the
+system that could not be observed; see~\cite{osce2007}. Further
+weaknesses were revealed by the Eindhoven Institute for the Protection
+of Systems and Information (EiPSI) in 2008 (see~\cite{hubbers2008}),
+notably that:
 
-In addition, a study of RIES' published source code in
-2008~\cite{gonggrijp2009} reveals serious security holes that make the
-system vulnerable to Cross-Site Scripting, SQL injection and
-predictable token generation. Arguably, the system accords insider
-election administrators too much power and it also does not have any
-protections from voter coercion in a family situation.
-
-\subsubsection{Malware Resiliency}
-
-This research did not find enough information to conclude whether or
-not RIES is resistant to DDoS and Malware attacks at Server
-side. Since the RIES system assumes that voter's PC is secure (often a
-flawed assumption), we can conclude that it is not resistant to
-Malware or `Man-in-the-middle-attack' at Client side.
-
-\subsubsection{Malfeasance by Election Official and Dispute Resolution}
-
-When some disputes arise, an umpire can check and recalculate various
-steps in the whole process and pass his/her own judgment. But this
-only works for a limited type of disputes~\cite{hubbers2008}.
-
-\subsection{Vote Privacy}
-
-Voter privacy has been a significant area of concern for RIES voting
-system. First, vote secrecy is highly depending on the way the
-personal keys are handled. Although the administrative party/vendor
-that generate the personal keys are required to destroy these keys
-post-election, threats like insider activities or malware attacks on
-the server jeopardize vote secrecy. In addition, the vote server can
-link the originating IP address to the vote that is cast. The lack of
-anonymous channel creates another risk for voter
-privacy~\cite{hubbers2008}.
-
-\subsection{Auditability}
-
-Each individual voter can verify, with his stored technical vote,
-whether his actual vote has been correctly casted. This is achieved by
-comparing the hash value on his technical vote with the hash value in
-the pre- election reference table.
-
-The tally verification can be done by anyone
-interested. Theoretically, interested party can download all technical
-votes from the network server provider SURFnet, compute the hash value
-for each vote, and then compare the results with the pot-election
-reference table. However, this does not enable anyone to verify that
-the votes are truly as intended.
-
-\subsection{Testing and Deployments}
-
-According to the official website
-\textcolor[rgb]{0.078431375,0.3254902,0.6901961}{www.openries.nl, }a
-number of independent organizations have evaluated the RIES voting
-system before its deployment:
-
-``Various prominent institutions have tested and positively evaluated
-RIES: TNO Human Factos from Soesterberg tested usability of the voting
-interface; A team of specialists from Peter Landrocks Cryptomathic (in
-Aarhus, Denmark) tested the cryptographic principles; Madison Gurka
-from Eindhoven tested the server and network setup and security; A
-team under supervision of Bart Jacobs (Radboud University Nijmegen)
-did external penetration tests.'' (Originally written in Dutch,
-translation cited from~\cite{gonggrijp2009}.)
-
-It appears that scientists as well as independent third parties have
-looked into various aspects of the design and security of RIES, both
-before and after the deployment. However, most of the testing reports
-and scientific works are published within Netherland therefore are
-written in Dutch. This certainly creates an obstacle for the project
-team to access and interpret those documents.
-
-\subsection{Usability}
-
-As mentioned in point 5, there were usability and accessibility tests
-conducted on RIES voting system, but the project team could not find
-one addressed to the international audience. Based on the available
-resources, we know that RIES can accommodate both Internet voting and
-the traditional postal ballots voting. It is accessible to the
-disabled community in a sense that people can vote at home via
-Internet using their own accessibility technologies.
-
-\subsection{Infrastructure}
-
-Available on request in system detail table.
-
-\subsection{Shortcomings}
-
-Most of the testing reports and scientific works are published within
-Netherland therefore are written in Dutch. This certainly creates an
-obstacle for the project team to access and interpret those findings.
-
-% TODO: what's going on at the end of this paragraph??
-Before the 2008 Word Board elections, the ministry hired Fox-IT to
-perform the formal approval of RIES-2008. The company had found very
-serious problems with the underlying
-cryptography~\cite{gedrojc2008}\footnote{The report is in
-  Dutch.}. \cite[p3]{gonggrijp2009}
-
-This problem, combining with the large amount of hacking targeting
-RIES, lead to the failure of full adoption of RIES for the 2008
-parliament election. In addition, a study of RIES' published source
-code in 2008~\cite{gonggrijp2009} reveals serious security holes that
-make the system vulnerable to Cross-Site Scripting, SQL injection and
-predictable token generation.
-
-Another testing report~\cite{hubbers2004} on RIES also reveals
-shortcomings in the following areas:
-\begin{enumerate*}
+\begin{itemize}
   \item the procedure of voter self-check is quite complicated,
-  \item the two- channel (mail and internet) voting makes system less
+  \item the two-channel (mail and internet) voting makes system less
     transparent,
-  \item too much power is given to the election administrator and
-    SURFnet,
-  \item issues with reference table modification due to ballot revoke,
-  \item possibilities of collision hashes, and
-  \item voter coercion such as family voting.
-\end{enumerate*}
+  \item too much power is given to the election administrator and the
+    system's Internet host,
+  \item issues arise when modifying the codebook due to a revoked
+    ballot, and
+  \item there are realistic ways to forge votes via cryptographic hash
+    collisions.
+\end{itemize}
+
+One of the more important lessons learned through RIES is that when
+voter authorizations are distributed long in advance of the election,
+a mechanism must be provided allowing voters to obtain replacement
+credentials and invalidate lost credentials. These mechanisms add
+significant complexity to the system, and is a source of some of the
+problems reported in the OSCE and EiPSI reports.
+
+Another feature of RIES rife with tradeoffs is the ability to perform
+testing during the election: pre-invalidated test ballots are
+deliberately added to the bulletin board in order to test the network
+path from selected internet clients to the server. While such testing
+in principle can increase confidence in the election integrity, in
+practice it opens the system to spoofing and denial of service
+attacks. Furthermore in the RIES implementation the system is aware of
+the fact that it is processing a testing ballot, and all of the test
+ballots were voted identically from the same computer, limiting the
+confidence added at the expense of these vulnerabilities.
+
+In the wake of these critical reports, plans to use RIES in the 2008
+Dutch parliamentary elections were scrapped, and internet voting as a
+whole was banned in the Netherlands.
 
 \subsection{Prêt à Voter~\cite{chaum2005}}
 
@@ -1033,3 +864,8 @@ A pilot study of DEMOS was carried out in 2014.
   comparative\_analysis.tex should be ``retired'' and their resources
   moved into e2e\_viv\_explained\_resources.}
 \section{Limitations of Existing Systems}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "report"
+%%% End:
