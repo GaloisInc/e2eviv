@@ -1,7 +1,98 @@
 \chapter{E2E VIV Explained\ifdraft{ (Philip/Daniel) (20\%)}{}}
 \label{chapter:e2e_viv_explained}
 
+As discussed in \autoref{chapter:remote_voting}, there are several
+difficulties with current voting processes: voters with disabilities cannot
+vote unassisted, communication channels with remote voters are slow and
+unreliable, vote tallying is labor-intensive and error-prone, and
+election audits are costly. Additionally, there is little visibility into
+the election process, meaning that individual voters and, in some cases,
+even auditors, must trust the reports of election officials and voting
+hardware vendors on election outcomes and processes. Election officials are
+naturally seeking technology that can mitigate these problems, such as
+automated, computer-based vote tallying to reduce tallying and auditing
+costs, computerized ballot completion with accessibility technology to
+assist disabled voters, Internet-based vote submission to increase the speed
+and reliability of communicating with remote voters, and cryptographic
+techniques for providing visibility without violating voter privacy. Below,
+we give an overview of the goals of these technologies, discuss their
+success at these goals, and highlight some common pitfalls.
+
 \section{IV, VIV, E2E}
+
+The core idea of Internet voting is deceptively simple: take a system that
+allows remote voting via postal mail---which is already done in many
+places---and replace some or all uses of postal mail in that process with
+Internet-based delivery mechanisms. The draw of this idea is clear: messages
+can be sent between election officials and voters in seconds, no matter how
+distant, instead of weeks, and messages in typical Internet communication
+methods are rarely lost, while up to half of overseas postal messages get
+lost.
+
+The general process is something like this:
+
+\newcommand\stepref[1]{\hyperref[#1]{step~\ref*{#1}}}
+\begin{enumerate}
+  \item\label{enum:setup} Well before the election, officials compile a list
+    of registered voters. They use this to populate a central database with
+    contact information, details about what each voter's ballot should
+    contain, and so forth. General instructions and other information about
+    the election may be broadcast at or near this time---for example, via a
+    central website.
+  \item\label{enum:share secrets} Election officials contact each voter
+    individually to set up some shared, but secret, information specific to
+    that voter. For example, this might include an empty ballot with secret
+    numbers associated with each candidate; or a cryptographic key-pair that
+    the voter can use during communications with the officials. This is
+    sometimes done by traditional means (like postal mail) and sometimes not
+    done at all.
+  \item\label{enum:send blank ballot} Once a means of communication is
+    established in \stepref{enum:share secrets}, the election officials send
+    the voter a blank ballot.
+  \item\label{enum:complete ballot} The voter fills out the blank ballot on
+    their computer, perhaps using custom software.
+  \item\label{enum:send completed ballot} Again using the communication
+    method established in \stepref{enum:share secrets}, the voter sends the
+    completed ballot back to the election officials. Many systems have an
+    additional step in which the election officials confirm receipt of the
+    ballot.
+  \item\label{enum:tally} After the election is over, all ballots sent in
+    are tallied, and the outcome of the election is announced. In some
+    systems, other supplemental information is often announced, such as
+    whose votes were counted.
+\end{enumerate}
+
+Unfortunately, simply switching to Internet-based communication does not
+solve all the problems discussed above, and introduces new problems of its
+own.
+
+\tododmwit{expand each of these}
+\begin{description}
+  \item[Secure transport] For the integrity of the vote, it is important
+    that the empty ballot sent in \stepref{enum:send blank ballot} and the
+    completed ballot sent in \stepref{enum:send completed ballot} arrive at
+    their destination unmodified. The Internet includes a lot of hardware
+    that is controlled by neither the election officials nor the voter, so
+    ensuring this property can be quite a challenge. Some systems use a
+    different communication channel in \stepref{enum:share secrets} to give
+    greater confidence in this property, using information communicated by
+    mail to cross-check information communicated over the Internet.
+  \item[Private transport] Normally, votes are anonymous---there is no
+    connection between a cast vote and the person who cast it. However,
+    extant Internet communication protocols cannot support this privacy
+    guarantee (and vote-by-mail systems typically sacrifice this property as
+    well).
+  \item[Attack surfaces] The voter is presumably using his own computer.
+    It is possible that his computer has been taken over by somebody else.
+    This kind of problem is completely fresh compared to paper voting.
+  \item[Verifiability] Voters should be able to independently verify that
+    their votes were cast and counted correctly, without needing to place
+    trust in the communication medium or the election officials. Auditors
+    should be able to check that the election was executed correctly without
+    trusting the voting hardware and software vendors. Paper ballots support
+    auditing well, but make individual voter confidence difficult.
+\end{description}
+
 \section{E2E Election Rituals}
 \subsection{Pre-Election Phase}
 \subsection{Voting}
