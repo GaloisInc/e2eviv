@@ -16,29 +16,31 @@ A number of practical voting systems have been developed based on the
 principles of E2E VIV. This section describes several systems that
 have been used in a real election or in a pilot.
 
+\todoacf{Sort these somehow; make a timeline?}
+
 \subsection{RIES~\cite{hubbers2004}}
 
 RIES, the Rijnland Internet Election System, was first used in 2004 to
 support elections to the Rijnland water management board,
 supplementing the system of postal voting used by the water board. A
 subsequent version was used to allow expatriate voters to participate
-in the Dutch parliamentary elections; see~\cite{gonggrijp2009}.
+in the Dutch parliamentary elections \cite{gonggrijp2009}.
 
 \subsubsection{Election Procedure}
 
 \begin{itemize}
 
 \item Before the election, credentials are mailed to every voter in
-  the form of a very long number (encoded in Crockford's Base 32)
-  (see~\cite{crockford2002}).  The same mailing also includes
-  instructions.
+  the form of a very long number. The same mailing also includes
+  instructions for the voter.
 
-\item Voters log into an election web site that includes a client-side
-  voting application written in JavaScript. The client-side
-  application encrypts the vote by passing the voter authorization
-  code and the public ID of the candidate through a one-way function
-  to create the encrypted vote.  The encrypted vote is then placed on
-  the public bulletin board that serves as a ballot box.
+\item During the election, voters log into an election web site that
+  includes a client-side voting application written in JavaScript. The
+  client-side application encrypts the vote by passing the voter
+  authorization code and the public ID of the candidate through a
+  one-way function to create the encrypted vote.  The encrypted vote
+  is then placed on a public bulletin board that serves as a ballot
+  box.
 
 \item At the close of the polls, the election authority releases the
   final vote tallies along with a codebook containing the encryptions
@@ -70,9 +72,9 @@ verifiability.
 The Organization for Security and Co-operation in Europe (OSCE) sent
 an election assessment team to observe the use of RIES in 2006.  Their
 report contains observations of critical security features of the
-system that could not be observed; see~\cite{osce2007}. Further
+system that could not be observed \cite{osce2007}. Further
 weaknesses were revealed by the Eindhoven Institute for the Protection
-of Systems and Information (EiPSI) in 2008 (see~\cite{hubbers2008}),
+of Systems and Information (EiPSI) in 2008 \cite{hubbers2008},
 notably that:
 
 \begin{itemize}
@@ -91,7 +93,7 @@ One of the more important lessons learned through RIES is that when
 voter authorizations are distributed long in advance of the election,
 a mechanism must be provided allowing voters to obtain replacement
 credentials and invalidate lost credentials. These mechanisms add
-significant complexity to the system, and is a source of some of the
+significant complexity to system, and is a source of some of the
 problems reported in the OSCE and EiPSI reports.
 
 Another feature of RIES rife with tradeoffs is the ability to perform
@@ -111,50 +113,73 @@ whole was banned in the Netherlands.
 
 \subsection{Prêt à Voter~\cite{chaum2005}}
 
-The Prêt à Voter system uses two-part paper ballots with the candidate
-names on one part and the voting targets plus a ballot ID number on
-the other.  Typically, the two parts are printed as a single sheet,
-with a perforation along which the sheet can be divided after voting.
-The order of the candidate names appears to be random, from the
-voters' perspective.  After voting, the half of the ballot containing
-candidate names is shredded. The voted half forms the cast ballot, and
-the voter may take a copy home.
+The state of Victoria in Australia held a governmental election in
+November 2014, using a version of the Prêt à Voter
+system~\cite{burton2012}. An attempt was also made to use Prêt à Voter
+in a student election at the University of Surrey in February
+2007~\cite{bismark2007}. The failure of this attempt illustrates many
+of the pitfalls of adapting a research system to an actual election,
+such as a short timetable and a lack of clear requirements.
 
-A curious voter may inspect the public record of any cast ballot by
-searching for it by the ballot ID number in the public database of
-cast ballots.  That database shows the positions that were marked on
-that ballot, but crucially, it does not show the identifying letters
-or candidate names.  The voter may therefore verify that the positions
-marked at the polling place were correctly recorded by the
-jurisdiction, but because the voter only has half of the ballot and
-there is no public display of the linking of candidate names to ballot
-positions, the voter cannot prove to anyone else how the ballot was
-voted.
+\subsubsection{Election Procedure}
 
-The key to tabulating the votes is that there is a cryptographically
-secure mapping from the ballot serial numbers to the apparent random
-order of the candidate voting positions.  The decoding of a cast
-ballot to a corresponding plain-text ballot, where the voted positions
-and candidate names are in a canonical order (alphabetical order, for
-example) is performed in multiple steps, by multiple custodians, for
-example, using a mixnet. As with the mixnet, no one, even if colluding
-with a subset of the custodians, can connect a decoded ballot to the
-corresponding cast ballot (and, hence, to the voter).  Unvoted ballots
-may be audited before, during and after the election to ensure that
-the decoding of cast ballots is being correctly performed (audited
-ballots may not be used for voting purposes, however, because the
-connection between the voting positions and candidate names is
-publicly revealed during the audit). Randomly selected stages in the
-decoding can be challenged to prove the integrity of the count, and
-decoded ballots are easily counted.  Anyone may therefore check the
-count.
+Prêt à Voter uses two-part paper ballots with the candidate names on
+one part and the voting targets plus a ballot ID number or barcode on
+the other part.
 
-A version of Prêt à Voter is planned for use in a governmental
-election by the state of Victoria in Australia in November 2014,
-see~\cite{burton2012}.  Previously, an attempt was made to use Prêt à
-Voter in a student election at the University of Surrey in February
-2007, see~\cite{bismark2007} -- this attempt illustrates many of the
-perils of working with an election authority.
+\begin{itemize}
+
+\item Before the election, the paper ballots are printed. Typically,
+  the two parts are printed as a single sheet with a perforation to
+  divide the sheet after voting.
+
+\item From the voter's perspective, the order of the candidate names
+  on the ballot appears to be random. The voter marks her choice next
+  to the candidate name of her choice, separates the two parts of the
+  ballot, and destroys the candidate names. She may take a copy of the
+  voted part home for later verification.
+
+\item For tabulation, there is a cryptographically secure mapping from
+  the ballot ID numbers to the apparent random order of the candidate
+  voting positions. Multiple custodians using a mixnet or similar
+  technique use this mapping to decode cast ballots into anonymized
+  plain-text ballots which are then posted to a bulletin board.
+
+\end{itemize}
+
+\subsubsection{Verifiability}
+
+Unvoted ballots may be audited before, during and after the election
+to ensure that the decoding of cast ballots is being correctly
+performed. Randomly selected stages in the decoding can be challenged
+to prove the integrity of the count, and the plain-text decoded
+ballots are easily counted for verification by any interested party.
+
+An individual voter may also search for their voted ballot ID on the
+bulletin board. This reveals the positions that were marked on that
+ballot, but crucially, it does not show the corresponding candidate
+names. The voter may therefore verify that the positions marked at the
+polling place were correctly recorded by the election officials, but
+because the voter no longer has the part of the ballot linking
+candidate names to ballot positions, the voter cannot prove to anyone
+else how the ballot was voted.
+
+\subsubsection{Analysis}
+
+Although Prêt à Voter in theory offers strong protection from
+coercion, in practice much of that protection depends on the rigor
+with which election procedures are followed~\cite{burton2012}. If the
+part of the ballot with candidate names is not destroyed after voting,
+it can be used to violate secrecy. An insider with access to printed
+paper ballots before the election can record both parts of the ballot
+together and later use that information to learn a voter's choice from
+the bulletin board.
+
+Since there is no pre-election bulletin board posting of the valid
+ballot IDs, there is also potential for ballot stuffing by
+insiders. This can be mitigated by cross-referencing polling place
+data with the bulletin board after the fact, but that requires
+additional trust in the poll workers.
 
 \subsection{Punchscan~\cite{popoveniuc2006,popoveniuc2010punchscan}}
 
