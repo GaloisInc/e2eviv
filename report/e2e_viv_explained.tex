@@ -321,28 +321,45 @@ property of the system.
 
 \subsection{Scantegrity II~\cite{chaum2008,chaum2009}}
 
-Scantegrity II (Invisible Ink) allows end-to-end cryptographic
-verification of optical-scan paper ballots. Scantegrity ballots may
-be fully compatible with conventional optical scan vote tabulation
-equipment, but are voted using a marking pen filled with invisible
-ink. When the voter marks a target on the ballot, the ink in the pen
-reacts with invisible ink on the paper to disclose a three-letter
-alphanumeric code in the marked voting target. A voter who takes note
-of this code and the ballot ID number may check a public bulletin
-board to check that the ballot was indeed tabulated.
+Scantegrity II (Invisible Ink) was used in the Takoma Park, Maryland
+municipal elections in 2009 and 2011~\cite{carback2010}. This was the
+first use of an E2E system with ballot privacy in a binding
+governmental elections.
 
-As with Punchscan and Prêt à Voter, there is a cryptographically
-secure mapping from the ballot ID number to the code disclosed when
-the voter marks a voting target. The code is displayed on the public
-bulletin board, and public verification of the decryption and tally of
-the contents of the bulletin board proceeds in a manner similar to
-that of Punchscan for the system fielded in Takoma Park, and in a
-somewhat different manner using similar principles for the system
-described in~\cite{chaum2009}.
+\subsubsection{Election Procedure}
 
-Scantegrity II is the first end-to-end voting system with ballot
-privacy to see use in government elections. It was used in Takoma
-Park, Maryland in 2009 and 2011; see~\cite{carback2010}.
+\begin{itemize}
+
+\item Before the election, officials generate the seed to a
+  pseudorandom number generator using a secret sharing
+  scheme. Three-letter alphanumeric codes are created for each choice
+  on each printed ballot using this seed, and additional tables are
+  created so that interested parties can later confirm that the tally
+  was computed correctly.
+
+\item During the election, the voter experience is nearly identical to
+  that of conventional optical-scan paper ballots. When the voter
+  marks their choice, the ink in the pen reacts with invisible ink on
+  the paper to disclose the three-letter code in the marked voting
+  target. The ballot ID number and the displayed code are posted to a
+  public bulletin board.
+
+\item After the election, public verification of the final tally
+  proceeds with the public bulletin board in a manner similar to that
+  of Punchscan and Prêt à Voter.
+
+\end{itemize}
+\subsubsection{Verifiability}
+
+In addition to the public verification, an individual voter who takes
+note of their ballot ID number and the code revealed from invisible
+ink may use the public bulletin board to check that their ballot was
+indeed tabulated, though this information is not sufficient to prove
+that they voted a particular way.
+
+\subsubsection{Analysis}
+
+\todoacf{Roll this in with other analysis in \ref{sec:limit-exist-syst}}
 
 \subsection{Helios~\cite{adida2008,adida2009}}
 
@@ -591,7 +608,7 @@ end-to-end system.
 The Norwegian system used a three-channel model, where the voter
 receives authorization codes to cast a ballot via the postal system,
 then uses a computer to cast an encrypted ballot, and finally obtains
-a confirmation code offering a parital end-to-end proof via an SMS
+a confirmation code offering a partial end-to-end proof via an SMS
 message to the voter's mobile phone. In addition, as with RIES,
 voters could cast multiple ballots; in Norway, only the last ballot
 cast was counted, and if a voter votes both on paper at a polling
@@ -618,7 +635,7 @@ package contains:
     field (such as is used for lottery tickets)
   \item an authentication card that contains: (a) many authentication
     codes under scratch-off (b) a lock-in code under scratch-off and
-    (c) an acknowledgement code.
+    (c) an acknowledgment code.
 \end{itemize}
 Both cards have serial numbers.
 
@@ -628,7 +645,7 @@ after scratching-off a surface chosen at random.
 
 She returns to the election website a few hours later to check if her
 codes are correctly represented, and to see if the election authority
-has posted her acknowledgement code next to the codes. This indicates
+has posted her acknowledgment code next to the codes. This indicates
 to her that the election officials received valid codes for her
 ballot.
 
@@ -646,7 +663,7 @@ from codes to candidates, so the vote is not revealed to the
 computer. Further, because the computer does not know a valid code
 corresponding to another candidate on the ballot, it cannot change the
 vote. Finally, and uniquely, because the computer does not know the
-acknowledgement code, its presence on the election website assures the
+acknowledgment code, its presence on the election website assures the
 voter that the election officials received a valid code for her
 ballot.
 
@@ -998,7 +1015,7 @@ A pilot study of DEMOS was carried out in 2014.
   comparative\_analysis.tex should be ``retired'' and their resources
   moved into e2e\_viv\_explained\_resources.}
 \section{Limitations of Existing Systems}
-
+\label{sec:limit-exist-syst}
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "report"
