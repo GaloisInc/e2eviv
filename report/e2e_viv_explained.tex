@@ -363,229 +363,50 @@ that they voted a particular way.
 
 \subsection{Helios~\cite{adida2008,adida2009}}
 
-Helios was developed for Web-based Internet voting. Helios provides a
-web-browser-based ballot preparation system that can be used to make
-choices and encrypt ballots. After preparing a ballot, the voter has
-the option of either casting that ballot or auditing it; this allows
-the voter to detect misbehavior on the part of the ballot preparation
-software. Voter authentication is not required until after the voter
-decides to cast the ballot, so anyone may prepare and audit ballots.
-Existing Helios implementations piggyback on existing university and
-commercial authentication mechanisms, and also support an internal
-login-password authentication mechanism for which credentials can be
-distributed by email.
+Helios is a system developed for web-based internet voting. It was
+used for the election of a Belgian university president in March 2009
+and by numerous universities and associations since then, including
+the Association for Computing Machinery and the International
+Association for Cryptologic Research.
 
-As with the schemes discussed above, all cast ballots are posted in
-encrypted form on a public bulletin board so that voters may check
-that their ballots have been correctly recorded. Similarly, after the
-polls close, the decryption and vote tally may be checked. Helios uses
-homomorphic vote tallying for simplicity, even though a single mixer
-was used in its first developments, and mixnets have been used in
-several of its forks and descendants; see~\cite{bulens2011}
-or~\cite{tsoukalas2013} for instance. A recent variant
-by~\cite{cortier2014} proposes an enhanced ballot authentication
-mechanism. The STAR-Vote system~\cite{star-vote}, designed for public
-elections as a result of an invitation from the Travis County election
-administration, also borrows various techniques used in Helios and
-VoteBox~\cite{sandler2008}.
+\subsubsection{Election Procedure}
 
-Helios was used for the election of a Belgian university president in
-March 2009 and by numerous universities and associations since then,
-including the ACM and the IACR. The cryptographic protocols it
-implements have been subject to considerable analysis.
+\begin{itemize}
 
+\item Before the election, officials input the email addresses of the
+  voters who will be participating. The system emails the voters their
+  randomly-generated login information and the link to the election
+  website.
 
-\subsection{Introduction}
+\item During the election, the voter enters their choices on the
+  website. After entering her choices, the voter has an option to
+  spoil their ballot in order to verify that it was recorded
+  correctly. Upon completing a non-spoiled ballot, the system sends an
+  email confirming the receipt of their vote, though not their
+  choices. At any time before the close of the election, the voter can
+  repeat these steps and the new vote will replace the old vote.
 
-Helios was developed by Ben Adida. During his time at Harvard he
-decided to create an open audit voting system that would reside on the
-Internet. Building upon the ideas of pioneers such as Josh Benaloh,
-Ben Adida was able to develop an open source platform for an
-End-to-end Verifiable Voting system.
+\item After the election, Helios uses homomorphic vote tallying with
+  the optional addition of mixers and mixnets in some
+  derivatives~\cite{bulens2011,tsoukalas2013}.
 
-\subsection{Core Architecture \& Operation}
+\end{itemize}
 
-\subsubsection{Basic Architecture \& Design}
+\subsubsection{Verifiability}
 
-The Helios system is setup with a website, a python infrastructure, a
-couple servers, and a built-in encryption system for the votes. The
-election administrators can from the website, setup an private or
-public election, invite other users to join the election, run the
-election, and post the results. The system allows for registration
-through Google, or Facebook and an alternative login system is in the
-works. All the non-sensitive data is housed on a server owned by Ben
-Adida and all the private or sensitive data is held on the voter's
-computer.
+Voter authentication is not required until after the voter decides to
+cast the ballot, so any interested party may prepare and audit
+ballots. All cast ballots are posted in encrypted form on a public
+bulletin board so that voters may check that their ballots have been
+correctly recorded. Similarly, after the polls close, the decryption
+and vote tally may be checked.
 
-\subsubsection{Voting Process}
+\subsubsection{Analysis}
 
-In a private election, the administrator inputs the email addresses of
-the voters who will be participating and the system emails the voters
-their randomly generated login information and the link to the
-Internet based election.
-
-Once on the site, the voter follows the on screen prompts and clicks
-tabs that correspond with their election choices, followed by clicking
-the next button.
-
-At the end of the prompts is an option to check if their ballot has
-been encrypted properly and see if their votes have changed. Following
-this option allows the voter to verify that their vote was accurate
-but also destroys the ballot and prompts the voter to vote again. On
-their second try they can skip the encryption check and click
-finish. This will send an email to the voter saying that their choices
-have been casted and that the results will be shown at the end of the
-election. At any time, a voter can follow their old link and vote; the
-new vote will replace the old vote.
-
-\begin{figure}
-  \centering \capimg[width=2.6665in,height=2.2146in]{page-049-010.jpg}
-  \caption{Initial page where the voter can initiate the voting
-    process}
-  \label{fig:helios-initial}
-\end{figure}
-
-\begin{figure}
-  \centering \capimg[width=2.852in,height=2.361in]{page-049-011.jpg}
-  \caption{This is the actual voting page where the voter makes
-    his/her selections}
-  \label{fig:helios-voting}
-\end{figure}
-
-\begin{figure}
-  \centering \capimg[width=2.8146in,height=2.5083in]{page-049-012.jpg}
-  \caption{Page that allows the voter to confirm and encrypt the
-    ballot}
-  \label{fig:helios-confirm}
-\end{figure}
-
-\begin{figure}
-  \centering \capimg[width=2.9909in,height=2.3244in]{page-050-013.jpg}
-  \caption{This is the encryption page where the system encrypts the
-    ballot.}
-  \label{fig:helios-encrypt}
-\end{figure}
-
-\begin{figure}
-  \centering \capimg[width=2.9909in,height=2.2583in]{page-050-014.jpg}
-  \caption{Confirmation page that the ballot is ready and the voter is
-    issued their own unique signature}
-  \label{fig:helios-signature}
-\end{figure}
-
-\begin{figure}
-  \centering \capimg[width=3.0366in,height=2.25in]{page-050-015.jpg}
-  \caption{Ballot audit page, which allows the voter to validate the
-    encryption on their ballot}
-  \label{fig:helios-audit}
-\end{figure}
-
-\begin{figure}
-  \centering \capimg[width=2.972in,height=2.4075in]{page-051-016.jpg}
-  \caption{Final page where the voter puts in his/her credential to
-    submit the vote.}
-  \label{fig:helios-submit}
-\end{figure}
-
-\subsection{Security}
-
-\subsubsection{Security Overview}
-
-When it comes to security Helios does a decent job but is still plague
-by various security problems. Orion from the University of Washington
-highlighted a number of weaknesses in his security review blog. ``It
-is possible, just after the voter casts his/her ballot, for a corrupt
-router to intercept the ballot en route to the Helios server and send
-the user a fake Helios server success code, causing the `voting booth'
-to immediately display a false success message and clear the ballot
-from memory.''~\cite{orion2009}
-
-In this scenario if the user fails to realize that his/her vote has
-been erased then their vote would end up not counting which would help
-the adversary manipulate the election. ``As it currently exists, if
-the election administrator allows Helios to administrate the election
-(as it seems they suggest doing), it is possible for a corrupt Helios
-server to create new, fake voters and cast ballots on their behalf
-without easily being discovered.''~\cite{orion2009} This would allow
-for a corrupt server to vote for the desired winner and completely
-debunk the voting process.
-
-Also, validation is only carried out by the users, so in the off
-chance that no one audits the election, the corrupt servers could in
-fact manipulate with being detected. ``As currently implemented, the
-election administrator (who has the power to add voters and freeze the
-election) is authenticated through Google Accounts. Any vulnerability
-in the login (weak password, easily guessed security questions, etc.)
-could allow an attacker to end the election prematurely or add
-additional voters (potentially multiple accounts for the same
-voter).''~\cite{orion2009}
-
-Due to the reliance on the Google account to actually administer the
-election, if the administrators account was hijacked then an attacker
-could do a number of things to hack the system in their favor. Helios
-is also susceptible to every possible Internet attack in their various
-forms. Helios does not have advanced or cutting edge means to defend
-itself against any one Internet attack.
-
-This means that any system crashing or infrastructure hacking attacks
-available can be utilized against Helios. Its' only real defense are
-the general defenses seen in most if not all up to date
-websites. Helios is patched regularly and is mount on a secure
-platform in Heroku but outside of this, fulfills the bare requirements
-of being considered secure.
-
-\subsubsection{Trust Structure}
-
-``Helios takes an interesting approach: there is only one trustee, the
-Helios server itself. Privacy is guaranteed only if you trust
-Helios. Integrity, of course, does not depend on trusting Helios: the
-election results can be fully audited even if all administrators -- in
-this case the single Helios server -- is corrupt.''~\cite{adida2008}
-
-Helios was constructed in such a way that the only thing a user would
-have to trust is themselves and the server. Also, because it has an
-open audit system, they could always double-check the results to make
-sure that the server hasn't been compromised. The assumption that
-comes with these elements is that they have not been hacked and they
-are in fact safe. In a situation where malware has overtaken either of
-these items of trust, then the system would be undermined. This isn't
-a problem unique to Helios, but it is a problem none-the-less.
-
-When it comes to the ballots everything is handled and encrypted by
-the system itself so at no part of the process does the LEO or
-Election Official touch or handle the ballots. The only things that
-they have control over is the keys that decrypt the votes which is
-only enabled when the election is over. The decrypt keys themselves
-allow for the votes to be posted, the officials get to see the results
-the same time the participants see them.
-
-\subsubsection{Dispute Resolution}
-
-Dispute resolution is handled by the creator and administrator Ben
-Adida. He has up to this point only had one dispute to resolve and
-that was handled quickly and everything was straightened out.
-
-\subsection{Auditability}
-
-``A web-based open-audit voting system. Using a modern web browser,
-anyone can set up an election, invite voters to cast a secret ballot,
-compute a tally, and generate a validity proof for the entire process.
-
-Helios is deliberately simpler than most complete cryptographic voting
-protocols in order to focus on the central property of public
-audit-ability.''~\cite{adida2008}
-
-The entire basis of Helios is the ability to audit the election after
-the polls are closed. If the election is public, then anyone with
-Internet access can check the encrypted votes and verify that the
-elections were legitimate.
-
-The problem with Helios is that though users can audit the system, the
-process by which one would tends to be complicated to those who are
-not computer savvy. As mentioned in the usability portion, studies
-have shown that it is hard for common users to comprehend and properly
-utilize the auditing tools. This means that the auditing capability is
-there but the barriers of use are too high for the users.
+Because officials can enter voters by email address, Helios provides
+limited protection against insider ballot stuffing. Due to the
+complexity of publicly auditing the election results, this would be
+difficult to detect~\cite{orion2009}.
 
 \subsection{Norwegian System~\cite{gjosteen2012}}
 
