@@ -814,30 +814,35 @@ voting system.
 
 \subsection{Wombat~\cite{rosen2011}}
 
-The Wombat voting system is an in-person voting system where the voter
-votes on a touch-screen and obtains a printout of his vote with an
-encryption of it. The voter can choose to cast or audit the encrypted
-vote. If she chooses to audit the vote, she may check if the vote was
-correctly encrypted. If she chooses to cast it, the ciphertext is
-posted online, and she casts the unencrypted vote in the ballot box
-(this may be manually counted) and takes the ciphertext home. The
-votes are tallied using a verifiable mixnet.
-
-The system has been used for multiple pilot elections in Israel.
+The Wombat voting system has been used for multiple pilot elections in
+Israel. It is an in-person voting system where the voter votes on a
+touch-screen and obtains a printout of her vote with an encryption of
+it. The voter can choose to cast or audit the encrypted vote. If she
+chooses to audit the vote, she may check if the vote was correctly
+encrypted. If she chooses to cast it, the ciphertext is posted online,
+and she casts the unencrypted vote in the ballot box (this may be
+manually counted) and takes the ciphertext home. The votes are tallied
+using a verifiable mixnet.
 
 \subsection{DEMOS~\cite{kiayias2014}}
 
 DEMOS is a coded vote system where the voter is given a two-part coded
 ballot; she audits one part and uses the other to vote. Associated
-with each choice on the ballot is (a) a vote code---the encryption of
-the vote, which is entered in the voting machine by the voter and (b)
-a receipt code which the voter does not enter, but which is posted
-online next to the vote code. The voter can check this to ensure her
-vote reached the election authorities. The ballot also has a QR code
-containing all the information on the ballot. It can be scanned by the
-voter if she prefers not to manually enter the vote code. Once the
-ballot is entirely represented on the computer, the voter can then
-make her choices. Note that if the voter scans the QR code, the
+with each choice on the ballot is
+
+\begin{itemize}
+\item a vote code---the encryption of the vote, which is entered in
+  the voting machine by the voter, and
+\item a receipt code which the voter does not enter, but which is
+  posted online next to the vote code.
+\end{itemize}
+
+The voter can check the receipt to ensure her vote reached the
+election authorities. The ballot also has a QR code containing all the
+information on the ballot which can be scanned by the voter if she
+prefers not to manually enter the vote code. Once the ballot is
+entirely represented on the computer, the voter can then make her
+choices. Note that if the voter scans the QR code, the scanning
 computer knows how she voted. The vote codes represent homomorphic
 encryptions of the votes and the verifiable tally is obtained in a
 standard manner.
