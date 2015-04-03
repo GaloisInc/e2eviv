@@ -320,11 +320,13 @@ property of the system.
 
 
 \subsection{Scantegrity II~\cite{chaum2008,chaum2009}}
+\label{sec:scantegrity-ii}
 
 Scantegrity II (Invisible Ink) was used in the Takoma Park, Maryland
-municipal elections in 2009 and 2011~\cite{carback2010}. This was the
-first use of an E2E system with ballot privacy in a binding
-governmental elections.
+municipal elections in 2009~\cite{carback2010}. In 2011, it was used
+for in-person voting with Remotegrity (\ref{sec:remotegrity}) used for
+absentee voting. The 2009 Takoma Park election was the first use of an
+E2E system with ballot privacy in binding governmental elections.
 
 \subsubsection{Election Procedure}
 
@@ -360,6 +362,57 @@ that they voted a particular way.
 \subsubsection{Analysis}
 
 \todoacf{Roll this in with other analysis in \ref{sec:limit-exist-syst}}
+
+\subsection{Remotegrity~\cite{zagorski2013}}
+\label{sec:remotegrity}
+Remotegrity is a remote coded voting system that was used for absentee
+voting alongside Scantegrity (\ref{sec:scantegrity-ii}) for in-person
+voting for the 2011 Takoma Park, Maryland municipal elections.
+
+Remotegrity voters receive a coded voting ballot and an authentication
+card in the mail. The codes on the ballot can be covered by a
+lottery-style scratch-off field. The authentication card contains
+several authentication codes under scratch-off, a lock-in code under
+scratch-off, and an acknowledgment code. Both cards have serial
+numbers. The voter can be sent two ballots so that she can use one for
+auditing purposes.
+
+To vote, the voter enters both serial numbers, the codes corresponding
+to her choices, and an authentication code obtained after
+scratching-off a surface chosen at random.
+
+She returns to the election website a few hours later to check if her
+codes are correctly represented, and to see if the election authority
+has posted her acknowledgment code next to the codes. This indicates
+to her that the election officials received valid codes for her
+ballot.
+
+She scratches off the lock-in code and posts it on the website. This
+affirms to the election officials, observers and other voters that her
+vote is correctly represented on the website.
+
+Among all of the systems discussed here, this is the first one that
+asks the voter to take positive action to confirm that the vote was
+correctly posted.
+
+As with RIES, if we assume that there is no communication between the
+computer used to print the credentials and the computer used to
+collect the votes, the latter computer does not know the mapping
+from codes to candidates, so the vote is not revealed to the
+computer. Further, because the computer does not know a valid code
+corresponding to another candidate on the ballot, it cannot change the
+vote. Finally, and uniquely, because the computer does not know the
+acknowledgment code, its presence on the election website assures the
+voter that the election officials received a valid code for her
+ballot.
+
+The tally is computed from the codes in a verifiable manner that
+corresponds to the coded voting system used.
+
+If a jurisdiction is nervous about using the Internet for remote
+voting, Remotegrity ballots can be mailed in, and voters can check for
+their codes on the election website to be assured that their vote
+correctly reached election officials.
 
 \subsection{Helios~\cite{adida2008,adida2009}}
 
@@ -456,361 +509,6 @@ report on the operation of the system and the problems
 they had observing it offers useful insight into the administration of
 E2E systems in general as well as the particulars of the Norwegian
 system~\cite{carter2013}.
-
-\subsection{Remotegrity~\cite{zagorski2013}}
-
-Remotegrity is a remote coded voting system that additionally uses the
-notion of a lock-in to provide additional security
-properties. Remotegrity voters get a package in the postal mail. The
-package contains:
-\begin{itemize}
-  \item a coded voting ballot (a ballot with a code printed against
-    each choice). The code may or may not be covered by a scratch-off
-    field (such as is used for lottery tickets)
-  \item an authentication card that contains: (a) many authentication
-    codes under scratch-off (b) a lock-in code under scratch-off and
-    (c) an acknowledgment code.
-\end{itemize}
-Both cards have serial numbers.
-
-To vote, the voter enters (a) both serial numbers, (b) the codes
-corresponding to her choices and (c) an authentication code obtained
-after scratching-off a surface chosen at random.
-
-She returns to the election website a few hours later to check if her
-codes are correctly represented, and to see if the election authority
-has posted her acknowledgment code next to the codes. This indicates
-to her that the election officials received valid codes for her
-ballot.
-
-She scratches-off the lock-in code and posts it on the website. This
-is her way of communicating to the election custodians, observers and
-other voters that her vote is correctly represented on the
-website. Among all of the E2E systems (and approximations to E2E
-systems) discussed here, this is the first one that asks the voter to
-take positive action to confirm that the vote was correctly posted.
-
-As with RIES, if we assume that there is no communication between the
-computer used to print the credentials and the computer used to
-accumulate the votes, the latter computer does not know the mapping
-from codes to candidates, so the vote is not revealed to the
-computer. Further, because the computer does not know a valid code
-corresponding to another candidate on the ballot, it cannot change the
-vote. Finally, and uniquely, because the computer does not know the
-acknowledgment code, its presence on the election website assures the
-voter that the election officials received a valid code for her
-ballot.
-
-The tally is computed from the codes in a verifiable manner that
-corresponds to the coded voting system used.
-
-The voter can be sent two ballots. She can choose one to vote with and
-one to audit.
-
-If a jurisdiction is nervous about using the Internet for remote
-voting, Remotegrity ballots can be mailed in, and voters can check for
-their codes on the election website to be assured that their vote
-correctly reached election officials.
-
-Remotegrity was used for absentee voting---and Scantegrity for
-in-person voting---by the City of Takoma Park in its 2011 municipal
-election, see~\cite{zagorski2013}.
-
-\subsection{Introduction}
-
-During the mid-2000s, the remote voting system \textbf{Remotegrity
-}was proposed and developed by Filip Zagorski, joined by a team of
-other distinguished cryptographers that included Poorvi Vora, Richard
-T. Carback, David Chaum, Jeremy Clark \& Aleksander
-Essex~\cite{zagorski2013}. Remotegrity is an end-to-end verifiable
-(E2EV) absentee voting system, which has been architected to work in
-concert with an in-person/precinct voting system called
-\textbf{\textit{Scantegrity }}(a paper-based system).
-
-Remotegrity adapts the ``code-voting\footnote{Code voting helps in
-  achieving privacy by replacing all the elements on a ballot by
-  codes, which are cryptographically generated.}'' approach and
-features found in the ``mother-system'' Scantegrity. Using this
-approach, Remotegrity seeks to protect voter privacy, as well as
-provide resiliency against any malware-induced software modifications,
-election official or intruder manipulations of vote tallies, and other
-potential injuries to election integrity.
-
-Remotegrity was deployed in Takoma Park, Maryland, in 2011, where
-election officials used it in a trial of both Scantegrity \&
-Remotegrity systems. In addition, the trial included
-\textbf{\textit{ranked-choice voting}}\footnote{``Ranked-choice
-  voting'' (also called preferential or ``instant run-off voting''
-  (IRV) requires voters to rank their choices among the available
-  candidates. While IRV election can be structured with different
-  rules (for instance, at least two distinct types of IRV structures
-  can be created, including e.g., directing voters to ``rank your top
-  three choices of candidates by placing a `1' indicating your top
-  choice, and `3' your third choice among the field of 8 candidates,''
-  or ``Rank each of the 8 candidates in the order of your preference,
-  giving a `1' to your top choice candidate and an `8' to your least
-  preferred candidate.'' The virtues and evils of IRV are well beyond
-  the scope of this Report. Suffice it to say that IRV presents
-  substantial voter education hurdles, and that the test-running of
-  Remotegrity in concert with IRV eliminates the ability to draw any
-  sound conclusions about the usability or deficits in either
-  innovation.} methods. In this report we have reviewed the version of
-Remotegrity used in the 2011 Takoma Park local election. This analysis
-is based on the publicly available research papers and interviews with
-the individual architects and developers.
-
-\subsection{Core Architecture \& Operation}
-
-\subsubsection{Basic Architecture \& Design}
-
-Remotegrity uses both the online component as well as the paper
-component from \textbf{\textit{Scantegrity. }}Paper ballots are
-printed along with an additional feature called the `Authorization
-card'. The Authorization card contains codes which are hidden under a
-scratch off and which are used in casting the vote (`Auth Code') and
-finalizing the casted vote (`Lock Code').
-
-These two printed components are sent to the registered voters via any
-postal service and the online component includes voters accessing the
-voting site, casting the vote, checking their vote and finally viewing
-the results on a publicly accessible Bulletin Board (which is another
-website).
-
-Remotegrity is developed in Java. The databases (for example: MySQL)
-can be hosted on a cloud infrastructure. The system requires a
-separate offline server that is not connected to the Internet to check
-the validity of the voters' submitted vote \& authorization
-codes. This server is dedicated to maintaining all the cryptographic
-keys and validation signatures. Remotegrity developers architected the
-system for high security and data integrity and tested it for security
-gaps prior to its deployment in Takoma Park.
-
-Remotegrity is designed to ensure that voters will receive unique
-codes for the same candidate\footnote{The system utilizes distributed
-  key generators \& pseudo-random number generators for generating the
-  codes that are printed on the ballots and authorization
-  cards.}. Remotegrity is designed so that an election computer
-receiving vote codes is able to check whether a code corresponds to a
-valid choice on the ballot, without knowing to which vote it
-corresponds. This maintains vote privacy while preventing malware on
-the voter's computer from changing the vote. The vote codes are
-cryptographically calculated using the keys the election officials
-generate via automated processes.
-
-\subsubsection{Voting Process}
-
-Printing Ballots: Before ballots are printed the unique codes for
-every candidate are calculated along with the Auth and Lock codes for
-each voter. The cryptographic values and their relation to candidates
-and voters are generated and stored on an offline validation server.
-
-The ballot paper and the authorization card also contain a `Vote
-Serial' and `Ack Code' respectively. These are used to validate that
-the codes entered came from a particular ballot and an authorization
-card. The ballots and the authorization cards are printed and mailed
-to all the voters. A sample ballot and the sample authorization card
-are shown in \autoref{fig:remotegrity-ballot} and
-\autoref{fig:remotegrity-auth-card}.
-
-\begin{figure}
-  \centering \capimg[width=3.25in,height=2.4335in]{page-013-004.jpg}
-  \caption{Sample Ballot}
-  \label{fig:remotegrity-ballot}
-\end{figure}
-
-\begin{figure}
-  \centering \capimg[width=3.25in,height=2.4154in]{page-014-005.jpg}
-  \caption{Sample Authorization Card}
-  \label{fig:remotegrity-auth-card}
-\end{figure}
-
-Ballot casting: The voters will use the `Vote Code' as shown in
-\autoref{fig:remotegrity-ballot} of their preferred candidate and
-enter it on the voting portal. Upon entering their choice, the voter
-is asked to enter an `Auth Code', which is under a scratch off on the
-authorization card. This `Auth Code' is a one-time password
-(single-use password) used to validate the voter.
-
-There are 4 Auth codes given to a voter under a scratch off, which are
-helpful in case is the voter needs to attempt to vote again (because
-their computer performs a denial of service attack or does not respond
-correctly to instructions) or in case there is a dispute over the
-values entered.
-
-Once the values are entered, the voter is asked to wait for a few
-hours and revisit the election web site, allowing the election system
-and officials to verify the validity of the codes entered by the
-voter. Upon verification the election system signs the code entries
-and displays it back to the user. All communication with the offline
-computer is performed over an ``air gap''; that is, a human transfers
-the data to and from the offline computer at regular intervals (of
-about 3-4 hours for the Takoma Park election). This prevents any
-malware from online computers from signing false data. Then the voter
-is shown his choice along with the Vote Serial and the Ack Code.
-
-The Ack Code is printed on the authorization card (shown in
-\autoref{fig:remotegrity-auth-card}) and is never entered by the
-voter, and hence, if it is correct, it could not have been generated
-by any entity other than the election computer. The presence of a
-correct Ack Code on the election website hence communicates to the
-voter that the entered vote codes were valid and not manipulated by
-the computer used by the voter for voting.
-
-If the voter is satisfied, he/she has to scratch off one of the `Lock
-codes' and enter it to use the value to finalize/freeze the vote. Once
-the `Lock Code' is used the vote cannot be
-changed. \autoref{fig:remotegrity-vote-code} shows Vote codes being
-entered. \autoref{fig:remotegrity-auth-code} shows Auth Code being
-entered. \autoref{fig:remotegrity-bb} shows the verification back to
-the voter along with the Auth and Ack Code-EB3C15.
-
-\begin{figure}
-  \centering \capimg[width=2.6665in,height=1.9689in]{page-015-006.jpg}
-  \caption{Vote Codes entered -- 6055 \& 2392}
-  \label{fig:remotegrity-vote-code}
-\end{figure}
-
-\begin{figure}
-  \centering \capimg[width=2.6665in,height=2.061in]{page-015-007.jpg}
-  \caption{Auth Code entered - 6969-3738-5597-4072}
-  \label{fig:remotegrity-auth-code}
-\end{figure}
-
-\begin{figure}
-  \centering \capimg[width=2.8571in,height=1.8098in]{page-015-008.jpg}
-  \caption{User shown his/her choice along with Auth \& Ack Code on a
-    public Bulletin Board}
-  \label{fig:remotegrity-bb}
-\end{figure}
-
-Results: Once the final tally is done the results are displayed on a
-publicly accessible bulletin board. For a particular voter, this will
-show his candidate's `Vote Code', the `Vote Serial' of the ballot
-paper, the `Auth Code' used, the `Lock Code' used and the `Ack code'
-of the authorization card. \autoref{fig:remotegrity-lock} shows the
-final vote as seen by the user post the completion of the tally. Here
-the voter is shown the Lock code as well as the Vote Serial along with
-other codes
-
-\subsection{Security}
-
-\subsubsection{Security Overview}
-
-Remotegrity utilizes the ``code-voting'' approach and features found
-in the Scantegrity voting system. It thereby seeks to protect voter
-privacy, provides resiliency against any malware-induced software
-modifications, election official or intruder manipulations of vote
-tallies, and other potential injuries to election integrity. It uses
-distributed key generators and pseudo random generators are used to
-build a (threshold) shared secret amongst the election officials,
-which is then used to generate the codes.
-
-\subsubsection{Malware Resiliency}
-
-In the voting process the values entered by the voter are the Vote,
-`Auth \& Lock codes'. The values, which are never entered by the
-voter, are Vote Serial and the `Ack Code' (which are present on the
-ballot and authorization card respectively, but only displayed
-electronically once the vote is casted).
-
-Considering a case where the malware makes changes to the entered Vote
-code during ballot casting, this will be rejected by the election
-official while the initial verification is performed by the system,
-since this vote code will not generate a relation with the
-corresponding relation to the Vote serial for this particular
-voter. Also, since the vote codes are generated randomly there is low
-probability that the malware will be able to guess a correct
-alternative code for a particular candidate.
-
-\begin{figure}
-  \centering \capimg[width=2.25in,height=1.5764in]{page-016-009.jpg}
-  \caption{Final vote confirming the Lock code \& Vote Serial
-    (2-456922)}
-  \label{fig:remotegrity-lock}
-\end{figure}
-
-Considering the malware is able to guess a valid code for a candidate,
-it should also know a valid Auth \& Lock Code for confirming the
-choice. Since the Auth \& Lock Codes are generated randomly and
-sufficient in length, a malware with high probability will not be able
-to guess the correct alternative Auth \& Lock Code (which would be
-still under a scratch off). Any chances of a malware changing the Auth
-\& Lock Code will also be rejected since this code will not generate
-the relation with the Ack Code for that particular authorization card
-for the voter.
-
-\subsubsection{Malfeasance by Election Official and Dispute Resolution}
-
-The use of Auth codes and the Lock codes under a scratch off makes
-sure that there is no malicious activity by an election authority. As
-we mentioned earlier an election system/computer has to sign every
-verified entry before posting it on bulletin board, this makes sure
-that the election official is responsible for the results shown to the
-voter. Another feature of Remotegrity requires the use of a new Auth
-code every time a signed entry is displayed, thus if an election
-official alters the values on the bulletin board after the voter
-submits the vote means that they (election authority or computer)
-would require a new Auth code. Similarly, if they attempted to lock-in
-a vote that the voter did not approve, they would need a Lock code
-which was not scratched off by the voter. This makes it easier to
-detect any alterations made by an election official and point out the
-discrepancy. These properties of the system also allow in maintaining
-vote integrity and helps in resolving any disputes.
-
-\subsubsection{Voter Privacy}
-
-Remotegrity utilizes code voting. This is a feature in which the
-identities of the voter and the candidates are replaced by
-cryptographically generated codes and the relation/binding between
-them is retained for verification purpose. In Remotegrity, the
-candidates are replaced by `Vote Code' present on the printed ballot
-and the validity of the voter is verified by the use of the one-time
-password known as the `Auth Code'.
-
-Every voter gets a generated `Vote Serial' and `Ack code,' which
-allows the voter to verify that the choice of the candidate entered by
-him on the voting system was recorded correctly. Since the final
-results are displayed publicly as codes entered by the voter, only the
-voter knows his vote/choice and does not make any sense to anyone
-else. This feature of having a publicly verifiable election of
-Remotegrity and the back end of Scantegrity makes this system
-universally verifiable.
-
-Details on \textbf{\textit{Auditability, Trust structure }}and other
-aspects can be found in the System detail table.
-
-\subsection{Infrastructure required}
-
-By the election official --
-\begin{enumerate}
-\item Officials who will generate the master secrets for generating
-  the codes
-\item Hardware for printing with the capability of having the Auth and
-  Lock codes under a scratch off
-\item A web server infrastructure in case standalone hosting is done
-  or a cloud infrastructure can be used
-\end{enumerate}
-By the voter --
-\begin{enumerate}
-  \item A computer or a smart phone with an Internet connection.
-\end{enumerate}
-
-\subsection{Shortcomings}
-
-We have seen so far that the Remotegrity voting system which was used
-in Takoma Park is an end to end verifiable absentee voting system
-which is capable of ensuring the integrity of the votes, results,
-privacy of the voters, resiliency to changes made by malware and an
-election official, dispute resolution. However, this system is not
-designed to be resistant towards voter-coercion. Moreover, like any
-other web facing infrastructure this system by itself is not capable
-of coping up with any kind of denial of service attack. This risk can
-however be reduced if the system is deployed on a cloud infrastructure
-which provides very high percentage of up time. Also, in case of a
-denial of service attack, if voters are not able to access the
-internet; this system can fall back to a regular mail-absentee ballot
-system. We also did not have any data on the usability aspects of this
-voting system.
 
 \subsection{Wombat~\cite{rosen2011}}
 
