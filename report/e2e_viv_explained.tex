@@ -170,7 +170,7 @@ notably that:
 
 \begin{itemize}
   \item the procedure of voter self-check is quite complicated,
-  \item the two-channel (mail and internet) voting makes system less
+  \item the two-channel (mail and Internet) voting makes system less
     transparent,
   \item too much power is given to the election administrator and the
     system's Internet host,
@@ -190,7 +190,7 @@ problems reported in the OSCE and EiPSI reports.
 Another feature of RIES rife with tradeoffs is the ability to perform
 testing during the election: pre-invalidated test ballots are
 deliberately added to the bulletin board in order to test the network
-path from selected internet clients to the server. While such testing
+path from selected Internet clients to the server. While such testing
 in principle can increase confidence in the election integrity, in
 practice it opens the system to spoofing and denial of service
 attacks. Furthermore in the RIES implementation the system is aware of
@@ -199,7 +199,7 @@ ballots were voted identically from the same computer, limiting the
 confidence added at the expense of these vulnerabilities.
 
 In the wake of these critical reports, plans to use RIES in the 2008
-Dutch parliamentary elections were scrapped, and internet voting as a
+Dutch parliamentary elections were scrapped, and Internet voting as a
 whole was banned in the Netherlands.
 
 \subsection{Prêt à Voter~\cite{chaum2005}}
@@ -363,7 +363,7 @@ that they voted a particular way.
 
 \subsection{Helios~\cite{adida2008,adida2009}}
 
-Helios is a system developed for web-based internet voting. It was
+Helios is a system developed for web-based Internet voting. It was
 used for the election of a Belgian university president in March 2009
 and by numerous universities and associations since then, including
 the Association for Computing Machinery and the International
@@ -411,38 +411,51 @@ difficult to detect~\cite{orion2009}.
 \subsection{Norwegian System~\cite{gjosteen2012}}
 
 Between 2011 and 2014, the Norwegian government ran an Internet remote
-voting trial. The system rests on a cryptographic protocol designed
-by Scytl, a commercial voting system vendor. Scytl and the Norwegian
-government assert that this is an E2E system. As such, this marks the
-entry of efforts (or claims) by commercial voting system vendors to
-enable E2E elections. System descriptions have been incomplete, hence
-it has not been possible to tell what properties the system
-possesses. However, the following are clear. The system's claims to
-protect voter privacy are weak: ``If the voter's computer and the
-return code generator are both honest, the content of the voter's
-ballot remains private.''  In addition, the receipt delivered to the
-voter proved only that the encrypted ballot was received as cast, not
-that it was counted as cast or that the encrypted vote matched the
-voter's intent. Thus, by any of the definitions above, it is not an
-end-to-end system.
+voting trial using a cryptographic protocol designed by Scytl, a
+commercial voting system vendor. Scytl and the Norwegian government
+assert that this is an E2E system, which if accurate is the first
+effort by commercial voting system vendors to enable E2E
+elections.
 
-The Norwegian system used a three-channel model, where the voter
-receives authorization codes to cast a ballot via the postal system,
-then uses a computer to cast an encrypted ballot, and finally obtains
-a confirmation code offering a partial end-to-end proof via an SMS
-message to the voter's mobile phone. In addition, as with RIES,
-voters could cast multiple ballots; in Norway, only the last ballot
-cast was counted, and if a voter votes both on paper at a polling
-place and by Internet, the paper ballot overrides the Internet ballot.
+\subsubsection{Election Procedure}
+
+The Norwegian system uses a three-channel model involving postal mail,
+the Internet, and SMS text messaging.
+
+\begin{itemize}
+
+\item Before the election, the voter receives authorization codes to
+  cast a ballot via postal mail.
+
+\item During the election, the voter uses a computer to cast an
+  encrypted ballot. The voter can cast multiple ballots; only the
+  last ballot cast is counted, and if a voter votes both on paper at a
+  polling place and by Internet, the paper ballot overrides the
+  Internet ballot. After casting a ballot, the voter receives a
+  confirmation code offering a partial end-to-end proof via an SMS
+  message.
+
+\end{itemize}
+
+\subsubsection{Verifiability \& Analysis}
+
+Available descriptions of the Norwegian system are incomplete, so it
+is not possible to analyze the system in depth. However the system's
+claims to protect voter privacy are weak: ``If the voter's computer
+and the return code generator are both honest, the content of the
+voter's ballot remains private.'' In addition, the receipt delivered
+to the voter proves only that the encrypted ballot was received as
+cast, not that it was counted as cast or that the encrypted vote
+matches the voter's intent.
 
 The system evolved significantly between its first use in 2011 and
 2013, with added complexity to attempt to assure voters that their
 ballots were stored as cast. In 2013, the Carter Center mounted a
 serious effort to observe the Norwegian system in action. Their
-report on the operation of the system, in practice, and the problems
+report on the operation of the system and the problems
 they had observing it offers useful insight into the administration of
 E2E systems in general as well as the particulars of the Norwegian
-system; see~\cite{carter2013}.
+system~\cite{carter2013}.
 
 \subsection{Remotegrity~\cite{zagorski2013}}
 
