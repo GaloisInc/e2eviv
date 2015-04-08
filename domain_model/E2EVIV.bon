@@ -18,7 +18,7 @@ indexing
     "verifiable elections", "software independence", 
     "high-assurance", "cryptography", "verification", "Galois";
   created: "Tue Jul 15 16:18:09 PDT 2014";
-  revised: "October 2014";
+  revised: "February 2015";
   github: "https://github.com/GaloisInc/e2eviv";
 explanation
   "An end-to-end verifiable Internet voting system"
@@ -84,7 +84,7 @@ class VOTING_CHANNEL
 cluster ELECTIONS 
   description "Types and attributes of elections."
 cluster PROCESSES 
-  description "A series of actions or stpes taken in order to achieve a \
+  description "A series of actions or steps taken in order to achieve a \
              \ particular end."
 end
 
@@ -130,6 +130,8 @@ class BALLOT_BOX
 class BALLOT_CONFIGURATION
   description "The set of contests in which voters of a particular \
              \ group are eligible to vote."
+class BALLOT_QUESTION
+  description "A decision among two or more courses of action."
 class BALLOT_STYLE
   description "The concrete presentation of a ballot configuration."
 class CANDIDATES_REGISTER 
@@ -140,8 +142,6 @@ class CONTEST_CHOICE
 class CONTEST_FOR_OFFICE
   description "A selection of some subset of candidates standing for \
              \ election to a particular office."
-class REFERENDUM  -- should this be BALLOT_QUESTION, as per IEEE? 
-  description "A decision among two or more courses of action."
 class RESULT 
   description "The outcome of a contest."
 class SEAL
@@ -327,7 +327,7 @@ class CITIZEN
              \ has the rights and protections of that place."
 class ELECTORAL_AUTHORITY 
   description "An individual or group responsible for setting up, \
- \ running, and disclosing the results of an election."
+             \ running, and disclosing the results of an election."
 class IDENTITY 
   description "The fact of being who or what a person or system is."
 class PERSON
@@ -394,7 +394,7 @@ constraint
   "A ballot cannot be both cast and spoiled.",
   "A ballot may contain at most one vote per contest.",
   "A ballot may only contain votes for contests that are part of its \
- \ ballot configuration."
+ \ ballot style."
 end
 
 class_chart BALLOT_BOX
@@ -452,6 +452,18 @@ constraint
   "Once locked, a ballot configuration remains locked forever." 
 end
 
+class_chart BALLOT_QUESTION
+explanation
+  "A ballot question is a decision among two or more courses of \
+ \ action. In most cases, ballot questions take the form of yes/no \
+ \ questions."
+inherit CONTEST
+constraint
+  "The maximum number of choices that may be chosen on the same \
+ \ ballot is 1.",
+  "Each choice represents a course of action." 
+end
+
 class_chart BALLOT_STYLE
 explanation
   "A ballot style is the concrete presentation of a ballot \
@@ -501,12 +513,12 @@ constraint
  \ the register.", 
   "Candidates may not be added to or removed from a locked register.",
   "A locked register may not be unlocked.",
-  "A candidate added to the register must not be dead at the time of \
+  "A candidate added to the register must be alive at the time of \
  \ addition."
 end
 
 class_chart CITIZEN
--- note: we may still have to break this into "citizen" and "person"
+inherit PERSON
 explanation
   "A citizen is a person who legally belongs to a place and \ 
  \ has the rights and protections of that place. The place can \
@@ -514,21 +526,11 @@ explanation
  \ may be a citizen of the United States, of Oregon, and of \
  \ Portland simultaneously."
 query
-  "What is your name?",
   "What is your current residence address?",
-  "What is your citizenship information?",
-  "What is your date of birth?",
-  "Are you dead?"
+  "What is your citizenship information?"
 command
-  "Your name is the_name!",
   "Your current residence address is the_address!",
-  "Your citizenship information is the_information!",
-  "Your date of birth is the_date!",
-  "You are dead!"
-constraint
-  "A citizen is initially alive.",
-  "A citizen's date of birth may only be set once.",
-  "Once a citizen is dead, he stays dead forever."
+  "Your citizenship information is the_information!"
 end
 
 class_chart CONFIDENT
@@ -547,7 +549,7 @@ query
   "What is the maximum number of your contest choices that can be chosen \
  \ on the same ballot?",
   "What is your result?",
-  "Does the_vote contain valid contest choices?"
+  "Does the_vote contain valid choices for you?"
 command
   "Your contest choices are the_choices!",
   "You do/do not allow a write-in choice!",
@@ -631,8 +633,8 @@ end
 
 class_chart ELECTION
 explanation
-  "An election is a formal indication of a choice \
- \ between two or more candidates or courses of action."
+  "An election is a formal indication of choices \
+ \ in one or more contests."
 end
 
 class_chart ELECTORAL_AUTHORITY
@@ -682,7 +684,8 @@ end
 
 class_chart LEGISLATION
 explanation
-  "A set of laws."
+  "Legislation is a set of laws. In this context, it is \
+ \ the set of laws dealing with the conduct of elections."
 end
 
 class_chart LOCAL
@@ -699,7 +702,7 @@ end
 class_chart PAPER_BALLOT
 explanation
   "A paper ballot is a ballot implemented using paper, which \
- \ the voter marks in some fashion to indicate his or her choice."
+ \ a voter marks in some fashion to indicate his or her choice."
 inherit BALLOT
 end
 
@@ -711,11 +714,29 @@ inherit VOTE
 -- interpretation of voter intent? 
 end
 
+class_chart PERSON
+explanation
+  "A person is an individual with a unique identity."
+query
+  "What is your name?",
+  "What is your date of birth?", 
+  "Are you alive?"
+command
+  "Your name is the_name!",
+  "Your date of birth is the_date!",
+  "You are not alive!"
+constraint
+  "A person is initially alive.",
+  "A person's date of birth may only be set once.",
+  "A person's date of birth must be in the past.",
+  "Once a person is not alive, he stays not alive forever."
+end
+
 class_chart PARTY
 explanation
-  "An organized group of people with at least roughly similar \
- \ political aims and opinions, that seeks to influence public \
- \ policy by getting its candidates elected to public office."
+  "A party is an organized group of people having at least roughly \
+ \ similar political aims and opinions, that seeks to influence \
+ \ public policy by getting its candidates elected to public office."
 end
 
 class_chart PHYSICAL_BALLOT_BOX
@@ -733,7 +754,7 @@ constraint
   "A physical ballot box may only contain paper ballots.",
   "Entries may not be removed from the chain of custody.",
   "Each entry added to the chain of custody must represent one or \
- \ more individual people."
+ \ more individuals."
 end
 
 class_chart PHYSICAL_SEAL
@@ -763,25 +784,14 @@ end
 
 class_chart PRINCIPLE
 explanation
-  "A fundamental truth or proposition that serves as a foundation \
- \ for a system of belief or behavior or chain of reasoning."
+  "A principle is a fundamental truth or proposition that serves \
+ \ as a foundation for a system of belief or behavior or chain \
+ \ of reasoning."
 end
 
 class_chart PROCEDURE
 explanation
-  "An established or official way of doing something."
-end
-
-class_chart REFERENDUM
-explanation
-  "A referendum is a decision among two or more courses of \
- \ action. In most cases, referenda take the form of yes/no \
- \ questions."
-inherit CONTEST
-constraint
-  "The maximum number of choices that may be chosen on the same \
- \ ballot is 1.",
-  "Each choice represents a course of action." 
+  "A procedure is an established or official way of doing something."
 end
 
 class_chart REGIONAL
@@ -805,12 +815,13 @@ end
 
 class_chart REMOTE
 explanation
-  "Located somewhere other than a polling station."
+  "Something is remote if it is located somewhere other \
+ \ than a polling station."
 end
 
 class_chart RESULT
 explanation
-  "The outcome of a contest."
+  "A result is the outcome of a contest."
 query
   "What contest choices do you contain counts for?",
   "What is the count for the_choice?"
@@ -822,7 +833,8 @@ end
 
 class_chart ROBUST
 explanation
-  "A process or system that is able to withstand adverse conditions."
+  "A process or system is robust if it is able to \
+ \ withstand adverse conditions."
 end
 
 class_chart SEAL
@@ -840,7 +852,8 @@ command
   "Break!"
 constraint
   "A seal is initially not applied and not broken.",
-  "A seal may only be applied if it has not previously been applied.",
+  "A seal may only be applied if it has not previously been applied \
+ \ or broken.",
   "A seal may only be broken if it has not previously been broken.",
   "Once applied, a seal remains applied forever.",
   "Once broken, a seal remains broken forever."
@@ -848,26 +861,25 @@ end
 
 class_chart SECURITY
 explanation
-  "The attestation that a system is free of certain classes of \
- \ dangers or threats."
+  "Security is the attestation that a system is free of certain \
+ \ classes of dangers or threats."
 end
 
 class_chart SYSTEM
 explanation
-  "A set of connected digital and physical parts, including computers, \
- \ people, organizations, and more, forming a complex whole."
+  "A system is a set of connected digital and physical parts, \
+ \ including computers, people, organizations, and more, \
+ \ forming a complex whole."
 end
 
 class_chart TALLY
 explanation
-  "The count of all the votes in an election."
---todo: is this across all contests, or for a single contest? if the former,
---we probably also need the latter (is that RESULT?)
+  "The tally is the count of all the votes in an election."
 end
 
 class_chart TURNOUT
 explanation
-  "The level of participation of voters in a contest."
+  "Turnout is the level of participation of voters in a contest."
 end
 
 class_chart USABLE
@@ -878,15 +890,15 @@ end
 
 class_chart VERIFIABLE
 explanation
-  "A system or algorithm that has properties which can be \
- \ checked by people or digital systems."
+  "A system or algorithm is verifiable if it has properties \
+ \ that can be checked by people or digital systems."
 end
 
 class_chart VERIFICATION
 explanation
-  "A process by which the the election protocols, processes, and \
- \ device implementations are proven to be correct with respect to \
- \ their specifications."
+  "Verification is a process by which the the election \ 
+ \ protocols, processes, and device implementations are proven \ 
+ \ to be correct with respect to their specifications."
 end
 
 class_chart VOTE
@@ -903,10 +915,10 @@ end
 
 class_chart VOTER
 explanation
-  "A person who is eligible to vote in an election. A voter \
- \ has affiliations with various groups (districts, political \
- \ parties, etc.) that determine the voter's eligibility to \
- \ vote in specific contests."
+  "A voter is a person who is eligible to vote in an election. \
+ \ A voter has affiliations with various groups (districts, \
+ \ political parties, etc.) that determine the voter's \
+ \ eligibility to vote in specific contests."
 inherit CITIZEN
 query
   "What groups are you in?"
@@ -917,8 +929,8 @@ end
 
 class_chart VOTER_REGISTRATION
 explanation
-  "The process by which a member of the electorate is added \
- \ to the voter register."
+  "Voter registration is the process by which a member of \
+ \ the electorate is added to the voters' register."
 end
 
 class_chart VOTERS_REGISTER
@@ -946,11 +958,12 @@ end
 
 class_chart VOTING_CHANNEL
 explanation
-  "Methods by which voters are enabled to vote in elections."
+  "A voting channel is a method by which voters are enabled \
+ \ to vote in elections."
 end
 
 class_chart VOTING_INTERFACE
 explanation
-  "The medium through which a voter makes his or \
- \ her contest choices known to the voting system."
+  "A voting interface is the medium through which a voter \ 
+ \ makes his or her contest choices known to the voting system."
 end
