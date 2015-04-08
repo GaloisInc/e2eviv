@@ -18,7 +18,7 @@ techniques for providing visibility without violating voter privacy. Below,
 we give an overview of the goals of these technologies, discuss their
 success at these goals, and highlight some common pitfalls.
 
-\section{IV, VIV, E2E}
+\section{Internet Voting}
 
 The core idea of Internet voting is deceptively simple: take a system that
 allows remote voting via postal mail---which is already done in many
@@ -66,7 +66,6 @@ Unfortunately, simply switching to Internet-based communication does not
 solve all the problems discussed above, and introduces new problems of its
 own.
 
-\tododmwit{expand each of these}
 \begin{description}
   \item[Secure transport] For the integrity of the vote, it is important
     that the empty ballot sent in \stepref{enum:send blank ballot} and the
@@ -77,26 +76,40 @@ own.
     different communication channel in \stepref{enum:share secrets} to give
     greater confidence in this property, using information communicated by
     mail to cross-check information communicated over the Internet.
-  \item[Private transport] Normally, votes are anonymous---there is no
-    connection between a cast vote and the person who cast it. However,
-    extant Internet communication protocols cannot support this privacy
-    guarantee (and vote-by-mail systems typically sacrifice this property as
-    well).
-  \item[Attack surfaces] The voter is presumably using his own computer.
-    It is possible that his computer has been taken over by somebody else.
-    This kind of problem is completely fresh compared to paper voting.
-  \item[Verifiability] Voters should be able to independently verify that
-    their votes were cast and counted correctly, without needing to place
-    trust in the communication medium or the election officials. Auditors
-    should be able to check that the election was executed correctly without
-    trusting the voting hardware and software vendors. Paper ballots support
-    auditing well, but make individual voter confidence difficult.
+  \item[Private transport] Old-fashioned voting systems, where people vote
+    on paper at a polling place, allow for very private voting: the identity
+    of a voter is not recorded on their vote. Moreover, it is easy for a
+    voter to check (by a simple visual inspection of the ballot they cast)
+    that information about who they are is not recorded. The usual methods
+    of communicating over the Internet do not have either of these
+    properties; it is difficult to verify that a voter is authorized to vote
+    without revealing their identity, and, though election officials may
+    promise to forget this information when recording a vote\footnote{Even
+      making such a promise is fairly rare: in many places, absentee voters
+    waive the privacy of their vote.}, most existing systems do not give the
+    voter a way to verify that a software bug or malicious entity has not
+    violated that promise.
+  \item[Attack surfaces] The use of Internet voting vastly increases the
+    likelihood of some computer in the system misbehaving or being
+    subverted. In particular, an Internet-based voting system must involve
+    many computers administered by voters. Unlike the computers controlled
+    by the election officials for storing election information and
+    performing election functions, the vast majority of voter-controlled
+    computers are not administered by experts and are much more likely to
+    be subverted by a targeted attack.
 \end{description}
 
-\section{E2E Election Rituals}
-\subsection{Pre-Election Phase}
-\subsection{Voting}
-\subsection{Post-Election Phase}
+Each of these can be significant challenges for Internet voting systems.
+
+\section{Verifiable Internet Voting}
+
+Voters should be able to independently verify that
+their votes were cast and counted correctly, without needing to place
+trust in the communication medium or the election officials. Auditors
+should be able to check that the election was executed correctly without
+trusting the voting hardware and software vendors. Paper ballots support
+auditing well, but make individual voter confidence difficult.
+
 \section{Shortcomings and Expectations of E2EVIV}
 \subsection{Access to Communication/Internet}
 \subsection{Accessibility}
