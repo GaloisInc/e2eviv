@@ -555,7 +555,60 @@ A pilot study of DEMOS was carried out in 2014.
 \section{Limitations of Existing Systems}
 \label{sec:limit-exist-syst}
 
-\subsection{Insider Threats}
+E2E systems inherit many of the limitations of traditional voting
+systems. Reliability of equipment, reliance on procedure, trust in
+insiders, and accessibility are all problems with traditional
+in-person voting systems. For remote systems, the integrity of postal
+systems, turnaround time for mailed materials, access to Internet or
+fax technology, and reliability of Internet servers are all
+well-documented obstacles to voting. \todoacf{reference other sections
+  about this}
+
+Existing E2E systems mitigate some of these limitations. For example,
+code voting limits the ability for attacks against postal mail systems
+to change the candidates marked on voted ballots. However if an
+attacker simply intercepts and destroys the voted ballot, a
+replacement might not arrive in time for that voter to participate in
+the election. To mitigate this, election officials might choose to
+instead accept voted ballots via fax, email, or website, but such
+expedient measures often trade off the verifiability that makes an E2E
+system desirable in the first place.
+
+In this section, we examine the limitations of E2E systems with a
+particular focus on the limitations that are unique to or exacerbated
+by E2E characteristics.
+
+\subsection{Voter Secrecy}
+
+Systems like Prêt à Voter (\ref{sec:pret-voter}) and Punchscan
+(\ref{sec:punchscan}) rely on a randomized candidate order or a code
+on printed ballots to ensure voter secrecy. Voted ballots must appear
+on a public bulletin board in order to verify the election results,
+and so to protect secrecy only the selected position or code is
+visible on the final ballot along with a ballot ID.
+
+If an insider is able to review the printed ballots before the
+election, they can record how the candidate positions are arranged for
+each ballot ID and therefore identify which candidate is marked on the
+voted ballots, thus violating secrecy.
+
+Recent writing on Prêt à Voter recommends printing ballots on demand
+at polling places in order to limit this
+possibility~\cite{ryan2009}. Printing on demand introduces additional
+problems and expense compared to centralized printing. More printing
+equipment is required at each polling place, that equipment can break
+or be difficult to operate, and the printing equipment must have some
+way of communicating with the rest of the election infrastructure to
+ensure it has, for example, the correct cryptographic seeds for
+generating new ballots.
+
+Scantegrity II (\ref{sec:scantegrity-ii}) uses invisible ink to hide
+the vote codes on unvoted ballots, and Remotegrity
+(\ref{sec:remotegrity}) can use scratch-off fields to hide vote codes
+and other information required to cast a ballot. These techniques
+limit the opportunity for insiders to learn secrecy-compromising
+information without being detected through the presence of a marked or
+damaged ballot.
 
 \subsection{Reliance on Procedure}
 
