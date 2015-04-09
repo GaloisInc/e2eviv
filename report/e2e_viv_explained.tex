@@ -610,15 +610,52 @@ limit the opportunity for insiders to learn secrecy-compromising
 information without being detected through the presence of a marked or
 damaged ballot.
 
-\subsection{Reliance on Procedure}
+\subsection{Ballot Stuffing}
 
-\subsection{Centralized Infrastructure}
+\todoacf{Flesh out these points}
 
-\subsection{Support and Responsiveness}
+Insiders can print or generate more ballots than there are voters.
+
+Defense in most systems is to crossreference with polling place
+counts. This depends on procedure being correctly followed rather than
+something verifiable.
+
+Publishing pre-election tables can help so that all votes in the final
+result have an (anonymized) provenance. However this can make it
+harder to replace lost, stolen, or spoiled ballots. Also same-day
+registration increases turnout and requiring rolls ahead of time
+precludes it.
+
+\subsection{Infrastructure \& Equipment}
+
+\subsection{Support \& Responsiveness}
 
 \subsection{Usability}
 
-\subsection{Public Trust}
+\subsection{Accessibility}
+
+There are ability requirements for many E2E schemes in various stages
+of the voting process. For example, a sighted voter is able to see the
+correspondence between candidate position and marking position on a
+Punchscan ballot, but a non-sighted voter cannot without
+assistance. In addition to obstacles to marking a ballot, some schemes with
+individual verification lack provisions for disabled voters to
+participate in individual verification without assistance. Information
+required for verification is frequently delivered through a paper
+receipt, an invisible ink code, or requires writing down receipt
+data.
+
+Accessible verification protocols have been proposed that take care to
+protect voter secrecy and allow participation in individual
+verification~\cite{chaum2009accessible}. However, these protocols
+require using accessibility equipment with an audio, sip-puff, or
+switch interface to read and mark the unencrypted ballot. The device
+must therefore be trusted not to record the votes, which would violate
+voter secrecy. The device must also represent the ballot faithfully to
+the voter so that votes are recorded as intended.
+
+
+\subsection{Social \& Political}
 
 %%% Local Variables:
 %%% mode: latex
