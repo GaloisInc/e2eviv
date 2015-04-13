@@ -349,7 +349,7 @@ description
  \ modify votes before they are input to the E2EV system."
  -- This will seriously complicate the human interface and usability
  -- of the voting system, but is absolutely essential.  Malware can be
- -- in many forms: completely phony or “alternative” client app,
+ -- in many forms: completely phony or "alternative" client app,
  -- client wrapper, client-side MITM, browser plugin, client APT, etc.
 
 scenario

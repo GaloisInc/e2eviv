@@ -518,13 +518,13 @@ constraint
 end
 
 class_chart CITIZEN
-inherit PERSON
 explanation
   "A citizen is a person who legally belongs to a place and \ 
  \ has the rights and protections of that place. The place can \
  \ be at any election scope; for example, a particular person \
  \ may be a citizen of the United States, of Oregon, and of \
  \ Portland simultaneously."
+inherit PERSON
 query
   "What is your current residence address?",
   "What is your citizenship information?"

@@ -1,9 +1,9 @@
 scenario_chart E2EVIV_REQUIREMENTS
 indexing
   title: "Requirements for End-to-end Verifiable Internet Voting Systems.";
-  editor: "Joe Kiniry <kiniry@galois.com>", "Daniel M. Zimmerman <dmz@galois.com";
+  editor: "Joe Kiniry <kiniry@galois.com>", "Daniel M. Zimmerman <dmz@galois.com>";
   created: "16 July 2014";
-  revised: "October 2014"
+  revised: "April 2015"
 explanation
   "Functional and non-functional requirements for end-to-end \
  \ verifiable internet voting systems.  Requirements consisting of two \
