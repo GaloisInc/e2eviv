@@ -17,7 +17,14 @@
 \usepackage{longtable}
 \usepackage{tabu}
 \usepackage[inline]{enumitem}
+\usepackage[final]{listings} % always include listings, even in draft mode
 
+% BON listing style
+\include{style/bon}
+\lstset{style=bon, columns=fullflexible, keepspaces=true, frame=lines,
+  captionpos=b, numbers=none} 
+
+% custom colors
 \colorlet{darkgreen}{green!35!black}
 \colorlet{darkred}{red!45!black}
 
