@@ -1,0 +1,40 @@
+\usepackage{color}
+\usepackage{listings}
+
+
+%\newcommand{\comment}[1]{\textcolor{red}{#1}}
+\definecolor{keywordcolor}{rgb}{0.5,0,0.33}
+\definecolor{identifiercolor}{rgb}{0,0,0.75}
+%\definecolor{commentcolor}{rgb}{0.25,0.5,0.37}
+\definecolor{commentcolor}{rgb}{0.3,0.3,0.3} 
+
+\lstdefinelanguage{bon} {
+  morekeywords={class_chart,indexing,explanation,part,query,command,constraint,
+  end,deferred,effective,persistent,require,ensure,invariant,feature,class,
+  static_diagram,component,old,not,inherit,delta,for_all,such_that,it_holds,Current,
+  Lockset,when,monitors_for,max,concurrency,concurrent,guarded,locks,special,
+  failure,sequential,atomic},
+  morekeywords={[2]BOOLEAN,INTEGER,REAL,SEQUENCE}, 
+  morekeywords={[3]},
+  morecomment=[l]{--}, morestring=[b]", morestring=[d]'
+  }[keywords,comments,strings]
+
+\lstdefinestyle{bon}{language={bon},showstringspaces={false},
+  basicstyle={\small\ttfamily\mdseries},
+  keywordstyle={\color{keywordcolor}},
+  keywordstyle={[2]\color{black}\bfseries},
+  keywordstyle={[3]\color{black}\bfseries},
+  identifierstyle={\color{identifiercolor}},
+  commentstyle={\color{commentcolor}},
+  frame=none}
+
+\lstdefinestyle{bonbw}{language={bon},showstringspaces={false},
+  basicstyle={\small\ttfamily\mdseries},
+  keywordstyle={\color{black}},
+  keywordstyle={[2]\color{black}\bfseries},
+  keywordstyle={[3]\color{black}\bfseries},
+  identifierstyle={\color{black}\mdseries},
+  commentstyle={\color{black}},
+  frame=none,
+  columns=fullflexible,
+  breaklines=true}
