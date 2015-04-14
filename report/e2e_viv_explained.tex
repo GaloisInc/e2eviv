@@ -1,116 +1,134 @@
 \chapter{E2E VIV Explained\ifdraft{ (Philip/Daniel/Adam) (45\%)}{}}
 \label{chapter:e2e_viv_explained}
 
-As discussed in \autoref{chapter:remote_voting}, there are several
-difficulties with current voting processes: voters with disabilities cannot
-vote unassisted, communication channels with remote voters are slow and
-unreliable, vote tallying is labor-intensive and error-prone, and
-election audits are costly. Additionally, there is little visibility into
-the election process, meaning that individual voters and, in some cases,
-even auditors, must trust the reports of election officials and voting
-hardware vendors on election outcomes and processes. Election officials are
-naturally seeking technology that can mitigate these problems, such as
-automated, computer-based vote tallying to reduce tallying and auditing
-costs, computerized ballot completion with accessibility technology to
-assist disabled voters, Internet-based vote submission to increase the speed
-and reliability of communicating with remote voters, and cryptographic
-techniques for providing visibility without violating voter privacy. Below,
-we give an overview of the goals of these technologies, discuss their
-success at these goals, and highlight some common pitfalls.
+\tododmwit{signposting; some content is here, but we need an intro and
+transitions explaining what content is about to happen}
 
-\section{Internet Voting}
-
-The core idea of Internet voting is deceptively simple: take a system that
-allows remote voting via postal mail---which is already done in many
-places---and replace some or all uses of postal mail in that process with
-Internet-based delivery mechanisms. The draw of this idea is clear: messages
-can be sent between election officials and voters in seconds, no matter how
-distant, instead of weeks, and messages in typical Internet communication
-methods are rarely lost, while up to half of overseas postal messages get
-lost.
-
-The general process is something like this:
-
-\newcommand\stepref[1]{\hyperref[#1]{step~\ref*{#1}}}
-\begin{enumerate}
-  \item\label{enum:setup} Well before the election, officials compile a list
-    of registered voters. They use this to populate a central database with
-    contact information, details about what each voter's ballot should
-    contain, and so forth. General instructions and other information about
-    the election may be broadcast at or near this time---for example, via a
-    central website.
-  \item\label{enum:share secrets} Election officials contact each voter
-    individually to set up some shared, but secret, information specific to
-    that voter. For example, this might include an empty ballot with secret
-    numbers associated with each candidate; or a cryptographic key-pair that
-    the voter can use during communications with the officials. This is
-    sometimes done by traditional means (like postal mail) and sometimes not
-    done at all.
-  \item\label{enum:send blank ballot} Once a means of communication is
-    established in \stepref{enum:share secrets}, the election officials send
-    the voter a blank ballot.
-  \item\label{enum:complete ballot} The voter fills out the blank ballot on
-    their computer, perhaps using custom software.
-  \item\label{enum:send completed ballot} Again using the communication
-    method established in \stepref{enum:share secrets}, the voter sends the
-    completed ballot back to the election officials. Many systems have an
-    additional step in which the election officials confirm receipt of the
-    ballot.
-  \item\label{enum:tally} After the election is over, all ballots sent in
-    are tallied, and the outcome of the election is announced. In some
-    systems, other supplemental information is often announced, such as
-    whose votes were counted.
-\end{enumerate}
-
-Unfortunately, simply switching to Internet-based communication does not
-solve all the problems discussed above, and introduces new problems of its
-own.
+Typical Internet voting election processes have six phases:
 
 \begin{description}
-  \item[Secure transport] For the integrity of the vote, it is important
-    that the empty ballot sent in \stepref{enum:send blank ballot} and the
-    completed ballot sent in \stepref{enum:send completed ballot} arrive at
-    their destination unmodified. The Internet includes a lot of hardware
-    that is controlled by neither the election officials nor the voter, so
-    ensuring this property can be quite a challenge. Some systems use a
-    different communication channel in \stepref{enum:share secrets} to give
-    greater confidence in this property, using information communicated by
-    mail to cross-check information communicated over the Internet.
-  \item[Private transport] Old-fashioned voting systems, where people vote
-    on paper at a polling place, allow for very private voting: the identity
-    of a voter is not recorded on their vote. Moreover, it is easy for a
-    voter to check (by a simple visual inspection of the ballot they cast)
-    that information about who they are is not recorded. The usual methods
-    of communicating over the Internet do not have either of these
-    properties; it is difficult to verify that a voter is authorized to vote
-    without revealing their identity, and, though election officials may
-    promise to forget this information when recording a vote\footnote{Even
-      making such a promise is fairly rare: in many places, absentee voters
-    waive the privacy of their vote.}, most existing systems do not give the
-    voter a way to verify that a software bug or malicious entity has not
-    violated that promise.
-  \item[Attack surfaces] The use of Internet voting vastly increases the
-    likelihood of some computer in the system misbehaving or being
-    subverted. In particular, an Internet-based voting system must involve
-    many computers administered by voters. Unlike the computers controlled
-    by the election officials for storing election information and
-    performing election functions, the vast majority of voter-controlled
-    computers are not administered by experts and are much more likely to
-    be subverted by a targeted attack.
+  \item[Setup] During the setup phase, the election officials gather the
+    information needed to run an election. This includes gathering
+    registration information for all voters, identifying the issues and
+    races that will be voted on, designing and specializing ballots,
+    sending instructions and other information about the election to voters,
+    and so on.
+  \item[Distribution] Once the election has been set up, election officials
+    must distribute ballots to the voters. Different voting system
+    architectures use different mechanisms, including postal mail, email, or
+    by having voters interact with a website\footnote{We distinguish between
+    sending instructions to voters and distributing ballots; there is no
+    hard and fast rule for the distinction, but a rule of thumb is that
+    instructions are applicable to many voters, whereas anything that has
+    been specialized for a single voter is part of the ballot and falls
+    under the distribution phase.}.
+  \item[Voting] Voters then fill out their ballots, often with the help of
+    software installed on their own computers.
+  \item[Casting] Filled out ballots are then returned to the election
+    officials; as with distribution, different architectures use different
+    mechanisms.
+  \item[Tallying] The tallying phase includes the remainder of the election
+    finalization tasks: counting votes and announcing the election outcome
+    are common to almost every process, though some include other
+    miscellaneous tasks like publishing certain information needed for
+    audits.
+  \item[Auditing] Some elections will inevitably be disputed; in such cases,
+    there is a final phase in which interested parties look for evidence
+    that the election outcome is correct (or not!).
 \end{description}
 
-Each of these can be significant challenges for Internet voting systems.
+One major concern for Internet voting involves ballot integrity during the
+distribution, voting, and casting phases. For the election outcome to be
+correct, it is important that the ballot that is received by and displayed
+to the voter match the ballot that was created and sent by the election
+officials; that the computer used to fill out the ballot faithfully reports
+the intention of the voter; and that the filled out ballot be received by
+the election officials exactly as it was when it was sent by the voter.
+Typical Internet communications involve not just the computers owned by the
+two parties communicating, but also many intermediary computers controlled
+by neither party. A good election system needs to account for this, making
+it impossible for these intermediates to intercept ballots for viewing or
+modification during transit. Another concern is that voters computers are
+rarely administered by experts, and as a result many of them are compromised
+by outside forces. One consequence of this is that the voting phase itself
+may become corrupted: even if the ballot arrives unchanged at the voter,
+malware on the voter's computer may change the way the ballot is displayed
+or the way the vote is recorded before casting the vote. It can be difficult
+to design a system that is resistant to this kind of attack without
+seriously sacrificing the usability of the system. Some systems use
+alternative distribution mechanisms as cross-checks; for example, sending
+something to the voter by postal mail which can be used to check that the
+ballot displayed by their computer is correct.
 
-\section{Verifiable Internet Voting}
+To the extent that it is possible, it is desirable for Internet voting to be
+private and anonymous. Voters should feel comfortable voting the way they
+like (and not feeling pressured to vote for a particular candidate or to
+vote a particular way on some issue); the fewer people who know or can find
+out the way a given voter voted, the more comfortable they can feel. On the
+other hand, election officials only want to record votes from people who are
+registered to vote, and even then want to record only one vote from each
+voter. Thus there is a tension during the vote casting phase between
+retaining the anonymity of votes and ensuring that a vote is coming from
+somebody who ought to be able to vote.
 
-Voters should be able to independently verify that
-their votes were cast and counted correctly, without needing to place
-trust in the communication medium or the election officials. Auditors
-should be able to check that the election was executed correctly without
-trusting the voting hardware and software vendors. Paper ballots support
-auditing well, but make individual voter confidence difficult.
+\tododmwit{ask Joe for a reference to the audit that showed that voting
+terminal logs retained exactly who voted for what}
+One popular approach to this problem in existing systems is to initially
+require each vote to be tied to the voter who cast it long enough to decide
+whether to include the vote in the later tally or not; then to keep the vote
+but delete the information about who cast the vote. This approach can work;
+however, audits of systems that take this approach shows that it is all too
+easy to accidentally retain the connection between votes and voters longer
+than intended, and make this information much more widely visible than
+intended. From the privacy side of the tradeoff, it would be better if the
+voter could be confident that there was no connection stored because the
+information they send to the election officials during the casting phase
+does not include any personally identifying material.
+
+There is a subtle distinction being made here. We certainly want our
+Internet voting systems to be correct, private, secure, and so forth. It is
+important for the people developing these systems to verify that they are
+correct and take an active role in seeking out and eliminating defects in
+the system. But the goal of verifiable Internet voting is to go even
+farther: not just correct, but \emph{visibly} correct. That is, it must be
+possible for the parties using the system to be able to \emph{check} that
+the system is behaving correctly, without trusting in the abilities of the
+people who created the system to avoid bugs or trusting in the inability of
+third parties to influence the behavior of the system. As applied to
+anonymity: since it is not easy to prove to somebody else that you have
+deleted some information, one must simply avoid giving them that information
+in the first place. This theme---of being not just correct, but
+verifiable---is one of the central ones of verifiable Internet voting, and
+is a critical part of the defense against the software bugs, security
+vulnerabilities, and sophisticated cybercrimes that history tells us are
+sure to crop up.
+
+\tododmwit{flesh out the next two paragraphs}
+The verifiability theme also rears its head in vote tallying, where voters
+may be interested in verifying that their vote has been recorded correctly
+and included in the tally.
+
+The goal of these individual concerns is to add up to a top-level property:
+end-to-end verifiability. Cast as intended; recorded as cast; counted as
+recorded.
 
 \section{Shortcomings and Expectations of E2EVIV}
+%As discussed in \autoref{chapter:remote_voting}, there are several
+%difficulties with current voting processes: voters with disabilities cannot
+%vote unassisted, communication channels with remote voters are slow and
+%unreliable, vote tallying is labor-intensive and error-prone, and
+%election audits are costly. Additionally, there is little visibility into
+%the election process, meaning that individual voters and, in some cases,
+%even auditors, must trust the reports of election officials and voting
+%hardware vendors on election outcomes and processes. Election officials are
+%naturally seeking technology that can mitigate these problems, such as
+%automated, computer-based vote tallying to reduce tallying and auditing
+%costs, computerized ballot completion with accessibility technology to
+%assist disabled voters, Internet-based vote submission to increase the speed
+%and reliability of communicating with remote voters, and cryptographic
+%techniques for providing visibility without violating voter privacy. Below,
+%we give an overview of the goals of these technologies, discuss their
+%success at these goals, and highlight some common pitfalls.
 \subsection{Access to Communication/Internet}
 \subsection{Accessibility}
 \subsection{Usability}
