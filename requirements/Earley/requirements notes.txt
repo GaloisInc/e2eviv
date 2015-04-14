@@ -1,0 +1,209 @@
+Many of my suggested changes below relate to differences in the definition of a ballot and a vote. If this was intentionally left somewhat vague, then likely my suggestions can be ignored. But my working definitions of a ballot and a vote are as follows:
+
+A ballot is a group of contests and issues, with one or more selections potentially allowed for each contest or issue, depending on statute or rule. 
+
+A vote is an indication of a voter's choice within a contest. It should be noted that as some contests allow for more than one choice within a contest, a contest may contain more than one vote.  
+
+Therefore:
+
+========================
+
+CHANGE due to possibility of a contest allowing more one than a "vote for one choice" option...
+
+From:
+
+MULTI_BALLOT_RECORD
+If the voting system permits voters to modify or replace their previously cast ballots, only the latest vote by each voter in each race shall be counted in the final tally.
+
+NO_DOUBLE_VOTE
+But for systems supporting MULTI_BALLOT_RECORD, the voting system shall not record more than one vote for any voter in any race.
+
+
+TO:
+
+MULTI_BALLOT_RECORD
+If the voting system permits voters to modify or replace their previously cast ballots, only the latest vote or set of votes by each voter in each race shall be counted in the final tally.
+
+NO_DOUBLE_VOTE
+But for systems supporting MULTI_BALLOT_RECORD, the voting system shall not record more than one vote or set of votes for any voter in any race.
+
+
+Or a similar conceptual change...
+
+========================
+
+Should this change from:
+
+AT_MOST_ONE_VOTE_PER_VOTER
+The e-voting system shall ensure that at most one electronic vote from each voter is included in the final tally.
+
+to:
+
+AT_MOST_ONE_BALLOT_PER_VOTER
+The e-voting system shall ensure that at most one electronic ballot from each voter is included in the final tally.
+
+You can have multiple votes per ballot, depending on the number of contests, but only one complete ballot should be tallied. 
+
+========================
+
+Prevent Overvotes - add:
+
+OVER_VOTE
+The e-voting system shall prevent the voter casting more than the allowed number of votes within a contest. 
+
+========================
+
+This requirement may be nearly impossible to enforce:
+
+NO_VOTER_MANIPULATION
+The e-voting system shall not permit any manipulative influence to be exercised over the voter during the voting.
+
+
+If someone is standing over the E-Voter's shoulder at a remote location, how do you prevent the manipulation? Paper absentee balloting is subject to this same limitation. 
+
+========================
+
+This seems to me not to be sufficient protection of secrecy of ballot:
+
+NO_BREADCRUMBS
+Residual information holding the voter's decision or the display of the voter's choice shall be destroyed after the vote has been cast. In the case of remote e-voting, the voter shall be provided with information on how to delete, where that is possible, traces of the vote from the device used to cast the vote.
+
+There should be a requirement that the system does the deletion of the "crumbs" automatically. 
+
+========================
+
+Change:
+
+ELIGIBILITY_IMPLIES_VOTE_VOTER_INVARIANTS
+The e-voting system shall at first ensure that a user who tries to vote is eligible to vote. The e-voting system shall authenticate the voter and shall ensure that only the appropriate number of votes per voter is cast and stored in the electronic ballot box.
+
+to something like:
+
+ELIGIBILITY_IMPLIES_VOTE_VOTER_INVARIANTS
+The e-voting system shall at first ensure that a user who tries to vote is eligible to vote. The e-voting system shall authenticate the voter and shall ensure that only the appropriate contests and number of votes per contest is cast and stored in the electronic ballot box.
+
+========================
+
+This seems nearly impossible to enforce:
+
+REMOTE_MONITORING
+Voting should not be permitted from client platforms known to have remote monitoring software installed that could be used to monitor or log voting activity and that cannot be turned off by the voter. (All mobile platforms had, and probably still do have, such remote monitoring software.)
+
+A camera system could be set up at gathering points for e-voting that captures the screen and voter's faces...
+
+========================
+
+This is somewhat redundant with the previous NO_BREADCRUMBS requirement:
+
+NO_BREADCRUMBS_DETAILS
+The client software must leave no files or other persistent data on the platform regarding the vote transaction but for an optional file containing information needed for subsequent verification that the voter's ballot is included in the election canvass: no cookies or other session files, no temporary files.
+ 
+
+========================
+
+This appears to be redundant, but perhaps not, 
+
+TRANSIENT_DATA_CLEANUP
+The client software should explicitly erase (i.e., overwrite) all transient copies of vote-transaction data, e.g. data in registers, caches, RAM, and virtual memory.
+
+with both NO_BREADCRUMBS requirements.
+
+========================
+
+These two seem redundant:
+
+ELECTORAL_AUTHORITY_PATCH
+The electoral authority has the right and ability to patch election systems to correct flaws discovered in the algorithms, implementation, or deployment.
+
+and:
+
+
+ELECTORAL_AUTHORITY_UPDATE
+
+The electoral authority has the right and ability to update election systems to conform to changes in applicable law, available technology, or the system threat model.
+
+
+and how does this tie in to the need for system certification? Should this be detailed? MaYBE THIS IS COVERED LATER...
+
+========================
+
+Probably should specify the frame of reference governing this time overlap, local time or universal time:
+
+VOTING_PERIOD_INVARIANT
+Remote e-voting may start and/or end at an earlier time than the opening of any polling station. Remote e-voting shall not continue after the end of the voting period at polling stations.
+
+========================
+
+With the availability of video, how do you prevent these:
+
+REMOTE_RECEIPT_FREEDOM
+A remote e-voting system shall not enable the voter to be in possession of a proof of the content of the vote cast.
+
+SUPERVISED_VOTE_RECEIPT_FREEDOM
+In a supervised environment, the information on the vote shall disappear from the visual, audio or tactile display used by the voter to cast the vote as soon as it has been cast. Where a paper proof of the electronic vote is provided to the voter at a polling station, the voter shall not be able to show it to any other person, or take this proof outside of the polling station.
+
+========================
+
+How do you ensure this requirement:
+
+INTEGRITY_VIOLATION_RECORD
+In the event of any irregularity affecting the integrity of votes, the affected votes shall be recorded as having their integrity violated.
+
+
+is not used to void votes by making them appear to have their integrity violated, or at least casting suspision that this may have occurred?
+
+========================
+
+In the following, and possibly other rquirements, perhaps it should be more clearly specified what equipment is being referred to:
+
+
+SYSTEM_INVARIANTS_DURING_ELECTION
+Those responsible for the equipment shall use special procedures to ensure that during the polling period the voting equipment and its use satisfy requirements. The backup services shall be regularly monitored.
+
+PRE_ELECTION_CERTIFICATION_INVARIANTS
+Before each election or referendum, the equipment shall be checked and approved in accordance with a protocol drawn up by the electoral authority. The equipment shall be checked to ensure that it complies with technical specifications. The findings shall be submitted to the electoral authority.
+
+FORMAL_CONTROL_PROCEDURE
+All technical operations shall be subject to a formal control procedure. Any substantial changes to key equipment shall be performed with advance notice.
+
+PHYSICAL_SECURITY_OF_SYSTEMS_INVARIANTS
+Key e-election or e-referendum equipment shall be located in a secure area and that area shall, throughout the election or referendum period, be guarded against interference of any sort and from any person. During the election or referendum period a physical disaster recovery plan shall be in place. Furthermore, any data retained after the election or referendum period shall be stored securely.
+
+
+I assume this means any equipment maintained and controlled by the LEO, but this should be clearly stated.
+
+========================
+
+Requirements that Log data be available to the public, while Audit Data is kept private lend themselves to conflict and possible misinterpretation. Clear distinctions as to the differences between log data and audit data should be specified. 
+
+========================
+
+This may not always be possible, given time constraints in emergency situations:
+
+CERTIFICATION_OBLIGATIONS
+Before any e-voting system is introduced, and at appropriate intervals thereafter, and in particular after any changes are made to the system, an independent body, appointed by the electoral authorities, shall verify that the e-voting system is working correctly and that all the necessary security measures have been taken.
+
+
+
+========================
+
+Good luck with putting this into pratice:
+
+SYSTEM_AND_DATA_ACCESS_CONTROL
+Only persons appointed by the electoral authority shall have access to the central infrastructure, the servers and the election data. There shall be clear rules established for such appointments. Critical technical activities shall be carried out by teams of at least two people. The composition of the teams shall be regularly changed. As far as possible, such activities shall be carried out outside election periods.
+
+ESPECIALLY THIS PART: The composition of the teams shall be regularly changed.
+
+
+========================
+
+In the following:
+
+OPEN_BALLOT_BOX_INVARIANTS
+While an electronic ballot box is open, any authorized intervention affecting the system shall be carried out by teams of at least two people, be the subject of a report, and be monitored by representatives of the competent electoral authority and any election observers.
+
+
+what does "While an electronic ballot box is open" mean?
+
+========================
+
