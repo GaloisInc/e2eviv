@@ -4,6 +4,7 @@
 \tododmwit{signposting; some content is here, but we need an intro and
 transitions explaining what content is about to happen}
 
+\section{Goals}
 Typical Internet voting election processes have six phases:
 
 \begin{description}
@@ -101,37 +102,65 @@ in the first place. This theme---of being not just correct, but
 verifiable---is one of the central ones of verifiable Internet voting, and
 is a critical part of the defense against the software bugs, security
 vulnerabilities, and sophisticated cybercrimes that history tells us are
-sure to crop up.
+sure to crop up.\tododmwit{do we need some evidence of security
+vulnerabilities and cybercrime\ldots?}
 
-\tododmwit{flesh out the next two paragraphs}
-The verifiability theme also rears its head in vote tallying, where voters
-may be interested in verifying that their vote has been recorded correctly
-and included in the tally.
+The tallying process provides a particularly good example of the difference
+between correctness and verifiability. We certainly want the election system
+to count the votes correctly; but the goal of verifiability is to provide
+some evidence to voters that the election outcome is correct. For example,
+some systems allow voters to check that their vote was included in the
+election outcome; some allow voters to check that the system is recording
+the content of their votes correctly; some even allow voters to check that
+the number of people that voted for a given candidate is accurately
+calculated without revealing any of the individual votes. Meeting these
+verification goals without violating the anonymity and privacy goals can be
+a balancing act.
 
-The goal of these individual concerns is to add up to a top-level property:
-end-to-end verifiability. Cast as intended; recorded as cast; counted as
-recorded.
+Each of these individual goals contribute to a single top-level goal:
+end-to-end verifiability. The ``end-to-end'' property is that the whole
+election process produces a result that matches the intentions of the
+voters. The subgoals of this are summarized with the catchphrase, ``Cast as
+intended; recorded as cast; and counted as recorded.'' This recapitulates
+the concerns discussed above; ``cast as intended'' is the demand that
+casting use secure communications and other mechanisms to ensure that
+malware and outsiders cannot change the vote, ``recorded as cast'' is the
+demand that the election system itself correctly interprets a vote, and
+``counted as recorded'' is the demand that the tallying process be faithful;
+and all of these demands are subject to not just correctness but
+verifiability, so that a voter can convince themselves that these properties
+hold even if they suspect that the system or election officials have been
+corrupted.
 
 \section{Shortcomings and Expectations of E2EVIV}
-%As discussed in \autoref{chapter:remote_voting}, there are several
-%difficulties with current voting processes: voters with disabilities cannot
-%vote unassisted, communication channels with remote voters are slow and
-%unreliable, vote tallying is labor-intensive and error-prone, and
-%election audits are costly. Additionally, there is little visibility into
-%the election process, meaning that individual voters and, in some cases,
-%even auditors, must trust the reports of election officials and voting
-%hardware vendors on election outcomes and processes. Election officials are
-%naturally seeking technology that can mitigate these problems, such as
-%automated, computer-based vote tallying to reduce tallying and auditing
-%costs, computerized ballot completion with accessibility technology to
-%assist disabled voters, Internet-based vote submission to increase the speed
-%and reliability of communicating with remote voters, and cryptographic
-%techniques for providing visibility without violating voter privacy. Below,
-%we give an overview of the goals of these technologies, discuss their
-%success at these goals, and highlight some common pitfalls.
-\subsection{Access to Communication/Internet}
-\subsection{Accessibility}
-\subsection{Usability}
+As discussed in \autoref{chapter:remote_voting}, there are several
+difficulties with current voting processes: voters with disabilities cannot
+vote unassisted, communication channels with remote voters are slow and
+unreliable, vote tallying is labor-intensive and error-prone, and
+election audits are costly. Additionally, there is little visibility into
+the election process, meaning that individual voters and, in some cases,
+even auditors, must trust the reports of election officials and voting
+hardware vendors on election outcomes and processes. Internet voting may be
+able to alleviate some of these concerns. Voters with disabilities could
+potentially use their own familiar hardware, such as Braille displays,
+screen readers, sip-and-puff input devices, and so on, to participate in the
+election. Internet communications are traditionally speedy (seconds per
+message rather than weeks) and relatively robust compared to overseas postal
+mail. In most systems, tallying is automated and fast. Auditing can still be
+a challenge, though there is some hope that verifiable systems can make
+elections more transparent for this purpose, too.
+
+There are also some serious challenges in rolling out an Internet voting
+system. \autoref{chapter:architecture} discusses the feasibility of
+producing a system that meets the security and verifiability goals we have
+touched on above. In addition to those concerns, the ability of normal
+voters to use the system to cast their vote in the way they intend to vote
+is a major goal; as we discuss below, current systems do not meet this goal
+very well. One component of this is the system itself; though another that
+is common to all Internet voting systems is the need for voters to have
+Internet access. This is not necessarily possible for all overseas and
+military voters.\tododmwit{would be nice to have some hard data about this}
+
 \section{E2E VIV in Practice}
 
 A number of practical voting systems have been developed based on the
