@@ -1,19 +1,10 @@
-\chapter{Remote Voting\ifdraft{ (Philip) (80\%)}{}}
+\chapter{Remote Voting\ifdraft{ (Philip) (85\%)}{}}
 \label{chapter:remote_voting}
 
 \section{Rationale}
-Remote voting is becoming ever more common, necessitated by a the growing and diverse needs of voters. It used to enfranchise overseas citizens and military personnel, reduce access related discrimination domestically, and decrease expensive administrative overhead of polling locations. Some states have entirely switched over to remote voting. We hope to use this section to clearly identify those who have been most impacted by remote voting legislation and technologies. 
+Remote voting is becoming ever more common, necessitated by a the growing and diverse needs of voters. It used to enfranchise overseas citizens and military personnel, reduce access related discrimination domestically, and decrease expensive administrative overhead of polling locations. Some states have entirely switched over to remote voting. 
 
-\ldots
-
-For each subsection::
-\begin{itemize}
-\item Who is in this group?
-\item How many people are in this group?
-\end{itemize}
-
-\subsection{Geographic Dispersion}
-%\ldots This is referring to residents of sparsely populated \ldots
+In the 1980's less than 5\% of ballots were cast before election day. In the 2012 general election, 31\% of all ballots were cast early, and 17\% were cast by mail.
 
 \subsection{Accessibility}
 Studies issued by the International Center for Disability Information and the National Institute on Disability and Rehabilitation Research indicate that 20\% of Americans live with disabilities. With this in mind, the Voting Accessibility for the Elderly and Handycapped Act of 1984 designates that any person with a disability may apply for absentee ballot without need of medical certificate.
@@ -51,7 +42,37 @@ Estimated Total & 4,972,217 & 1,042,523
 
 \begin{center}
 \end{center}
-\subsection{Early Voting}
+
+\subsection{Domestic Absentee}
+Domestic Absentee are early mail cast votes by persons who are unable to be present at polling locations on election day. The {\em domestic absentee} vote count, does not include states who are completely vote by mail nor UOCAVA voters. Gathered from the Election Assistance Commission's 2012 General Election Administration and Voting Survey, \autoref{fig:domestic_populations} lists the states most impacted by domestic absentee votes. These states are frequently using domestic absentee to address concerns associated with low population density.
+
+\begin{figure}
+\begin{center}
+\begin{tabular}{l c}
+State & Percent of Population\\\hline\\
+Colorado & 71.4\\
+Arizona & 65.9\\
+Montana & 57.5\\
+Georgia & 48.8\\
+Iowa & 43.1\\
+California & 39.8\\
+Hawaii & 36\\
+North Dakota & 28.8\\
+Florida & 26.8\\
+Michigan & 26.4\\
+Wyoming & 26.2\\
+Maine & 25.5\\
+Nebraska & 25.4\\
+Idaho & 24.3\\
+Ohio & 22.4\\
+Wisconsin & 21.4\\
+Vermont & 20.4\\
+\end{tabular}
+\end{center}
+\caption{Domestic Absentee from }
+\label{fig:domestic_populations}
+\end{figure}
+
 \subsection{Expectations}
 
 In 1952 there was a American Political Science Association special study of voting in the armed forces, ``to be sure that we have a completely effective program for voting in the armed services.'' In this study ten voting rights were clearly defined expectations of overseas voting.
@@ -87,26 +108,22 @@ Progress with absentee civilian vote was a further behind. In 1896, states began
 
 By 1986, combatant attitudes towards overseas votes had finally settled, and the Uniformed and Overseas Citizens Absentee Voting Act (UOCAVA) was passed replacing/combining Overseas Citizens Voting Rights Act and the Federal Voting Assistance Act, and finally made supporting the overseas absentee ballot a requirement.
 
-Meanwhile, the Voting Rights Act (VRA) of 1965 was the first legistlation to enfranchise voters with disabilities. The VRA granted voters who require assistance to vote by reason of blindness disability or inibility to read or write assistance by a person of the voters choice. This also introduced some of the earlier legistlation defining a disabled citizen.
+Meanwhile, the Voting Rights Act (VRA) of 1965 was the first legislation to enfranchise voters with disabilities. The VRA granted voters who require assistance to vote by reason of blindness disability or inability to read or write assistance by a person of the voters choice. This also introduced some of the earlier legislation defining a disabled citizen.
 
-The Voting Accessibility for the Elderly and Handicapped Act of 1984 (VAEHA) was passed to improve access for handicapped and elderly individuals. However, states were left to set their own standards of {\em access}, and limited the disabled voters group to those with {\em physical dissabilities}. The VAEHA did, however, mandate `no notarization of medical certification shal be required of a voter with a disability with respect to an absentee ballot or application for such ballot.'
+The Voting Accessibility for the Elderly and Handicapped Act of 1984 (VAEHA) was passed to improve access for handicapped and elderly individuals. However, states were left to set their own standards of {\em access}, and limited the disabled voters group to those with {\em physical disabilities}. The VAEHA did, however, mandate `no notarization of medical certification shall be required of a voter with a disability with respect to an absentee ballot or application for such ballot.'
 
 The 1990 American Disabilities Act (ADA), although not specific to voting rights, required that people with disabilities have access to basic public services, including the right to vote, however does not strictly require that polling locations are accessible. ADA did however extend the definition of disability to:
 \begin{quote}``a person who has a physical or mental impairment that substantially limits one or more major life activities, a person who has a history or record of such an impairment, or a person who is perceived by others as having such an impairment.''
 \end{quote}
 
-The majority of federal laws passed to protect disabled voting have struggled to clearly define an representative range of dissabilities, and are often focused on access at physical polling locations; which is expensive for states to implement. Additionally, state defined polocies often ignore rights to voting privacy, and exclude persons with multiple disabilities sighting that aiding technologies are not yet availible.
+The majority of federal laws passed to protect disabled voting have struggled to clearly define an representative range of disabilities, and are often focused on access at physical polling locations; which is expensive for states to implement. Additionally, state defined policies often ignore rights to voting privacy, and exclude persons with multiple disabilities sighting that aiding technologies are not yet available.
 
 %Unfortunately most states claim to be unable to handle the costs associated with providing appropriate voting technologies. 
 %much of this cost falls on the state to implement, and is co
 %designate restrictions on physical polling locations. 
-%With the passage of the Amarican Dissabities Act (ADA) in
+%With the passage of the American Dissabities Act (ADA) in
 % Unfortunately, states found the ne
 %Voting Accessibility for the Elderly and Handicapped Act of 1984 
-
-\begin{itemize}
-\item[$\star$] TODO as necessary: MOVE
-\end{itemize}
 
 \subsection{Integration with Local Elections}
 
@@ -114,16 +131,18 @@ Every state has their own requirements, deadlines, and transmission restrictions
 
 \section{Shortcomings of Current Practice}
 
-Presently the majority of remote voting is done `vote by mail'  which is subject to many inherant faults in vote by mail, that only become more frustrating for UOCAVA's overseas voters. Due to ballot delivery related problems, in the 2008 Post-Election UOCAVA Survey Report and Analysis, 52\% of attempted votes were not counted. \begin{quote} {\em \ldots want to make comment about Florida, but concerned that it may be taken as political}\end{quote}
+Presently the majority of remote voting is done `vote by mail'  which is subject to many inherent faults in vote by mail, that only become more frustrating for UOCAVA's overseas voters. Due to ballot delivery related problems, in the 2008 Post-Election UOCAVA Survey Report and Analysis, 52\% of attempted votes were not counted. \begin{quote} {\em \ldots want to make comment about Florida, but concerned that it may be taken as political}\end{quote}
 
 Due to the many states' diverse registration practices, the Federal Voting Assistance Program provides an accompanying Voting Assistance Guide to registration forms. Unfortunately, this is very large and difficult to follow. For states without a streamlined online registration (hosted by OVF), this has resulted in many failed registration attempts.
 
 % Entire process for UOCAVA voters generally can take up between 2 weeks and 2.5 months
 
-In 2007, 20\% of Americans with disabilities said they were unable to vote in presidential or congressional election due to barriers at or getting to the polls. This is frequently a consiquence of the voting technologies used and the physical location of polling places. In the 2000 presidential ellection 56\% of randomly sampled polling places in the united states have one identified impediments for disabled voters. Additionally, disabilities like dextarity impairments can prevent persons from marking paper ballots (at polling places and at home).
+In 2007, 20\% of Americans with disabilities said they were unable to vote in presidential or congressional election due to barriers at or getting to the polls. This is frequently a consequence of the voting technologies used and the physical location of polling places. In the 2000 presidential election 56\% of randomly sampled polling places in the united states have one identified impediments for disabled voters. Additionally, disabilities like dexterity impairments can prevent persons from marking paper ballots (at polling places and at home).
 
 % Ten states explicitly require a privacy waver if a voter uses fax or e-mail to return a voted ballot''
-Privacy of vote is a strong expectation of a fair voting system, that is often left unaddressed. Most practices for disabled and UOCAVA voters forfit independent or private voting. Domestically, this is likely due to insuficient technology support at polling locations. Additionally, several states that allow for vote by e-mail or fax, require a voter privacy waver to be signed.
+Privacy of vote is a strong expectation of a fair voting system, that is often left addressed. Most practices for disabled and UOCAVA voters forfeit independent or private voting. Domestically, this is likely due to insufficient technology support at polling locations. Additionally, several states that allow for vote by e-mail or fax, require a voter privacy waver to be signed.
+
+Although it is believed that voter fraud is fairly uncommon, it is considered very difficult to detect.
 
 \begin{quote} {\em \ldots need to include geographic dispersion stuff}\end{quote}
 
