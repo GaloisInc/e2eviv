@@ -718,8 +718,6 @@ system might be compromised with a man-in-the-middle attack.
 
 \subsection{Usability}
 
-\todoacf{Flesh out these points}
-
 Traditional election systems struggle with usability. Verifiable
 systems add more steps and complexity, making usability even more
 difficult. The mechanics of marking a ballot become more complex with
@@ -728,12 +726,31 @@ Prêt à Voter and Punchscan. Individual verification, not even possible
 in traditional systems, is an entirely new process that voters must
 master to take full advantage of E2E guarantees.
 
-Usability of equipment by poll workers is also crucial. Traditional
-systems' accessibility features, for example, are in practice often
-unusable by poll workers and require specialized
-expertise~\cite{runyan2007improving}.
+In 2014, a team of researchers from Rice University undertook a
+quantitative, experimental study of the usability of Helios, Prêt à
+Voter, and Scantegrity II~\cite{acemyan2014usability}. They aimed to
+quantify usability using the ISO 9241-11 standard axes of
+effectiveness, efficiency, and satisfaction. Their results show that
+these systems broadly fail on these axes even for typical voters who
+are uninterested in performing additional verification steps.
 
-Usability translates into confidence.
+The Rice study found the systems were not effective as significant
+number of voters failed to cast a ballot with each
+system. Troublingly, many of those voters thought they had in fact
+successfully cast a ballot; in a real election they would have left
+the voting process unfinished without even knowing to ask a poll
+worker for assistance. By contrast, traditional systems have
+near-100\% success rates~\cite{byrne2007usability}.
+
+The systems also lacked efficiency, as they all required significantly
+more time -- almost twice as long -- to complete as a traditional
+system.
+
+The usability of an election system is crucial for that system to not
+disenfranchise voters, and for voters to generally have confidence in
+the election results. The Rice study shows that adding E2E guarantees
+can be a Pyhrric victory when the resulting system is unusable for
+non-expert voters.
 
 \subsection{Accessibility}
 
@@ -771,33 +788,38 @@ accessible, the existing E2E systems undermine their E2E properties.
 
 \subsection{Social \& Political}
 
-\todoacf{Flesh out these points}
+Novel election systems face a difficult bootstrapping problem: in
+order to be adopted in large-scale elections, they must have a
+successful track record. However in order to build up that track
+record, systems must be successful despite the limited resources
+available during small-scale pilot programs. With limited resources,
+corners are cut in the implementation of the election system leading
+to a greater chance that problems with equipment, software, and
+support will undermine confidence in the system.
 
-The public is reluctant to adopt E2E approaches when systems with
-E2E properties fail during an election or are revealed to have
-substantial integrity issues.
+This confidence in election systems generally, and E2E systems in
+particular, is fragile in the eyes of the public. When election
+systems fail during an election or are revealed to have substantial
+integrity issues, the perception of all similar systems is tainted, no
+matter the differences between specific systems or the reassurance of
+E2E guarantees. Failure of a legacy computerized system can poison the
+well and make the public reject a novel system by association.
 
-Novel systems face a difficult bootstrapping problem: in order to be
-adopted in large-scale elections, they must have a successful track
-record. However in order to build up that track record, systems must
-be successful despite the limited resources available during
-small-scale pilot programs. With limited resources, corners are cut in
-the implementation of the election system leading to a greater chance
-of problems with equipment, software, and support.
+For example, The Federal Constitutional Court of Germany issued a
+decision in 2009 in the wake of a hacking demonstration on electronic
+voting machines used in previous elections~\cite{germany2009decision}.
+They decided that electronic systems may only be used in elections if
+``the result can be examined reliably and without any specialist
+knowledge of the subject'', a standard which E2E systems have not been
+able to meet in practice~\cite{byrne2007usability}.
 
 Broader computer security concerns are becoming topics of household
 conversation with vulnerabilities like Heartbleed and droves of
 personal data compromises making the headlines. These concerns rightly
 make the public wary of any system with a computerized component, even
-if the Internet is not involved.
-
-It is difficult for the guarantees provided by an E2E system's
-underlying cryptographic design to be understood and accepted by
-voters without technological expertise.
-
-Even when a voter wants to participate in individual verification, the
-steps to do so are frequently too difficult or obscure.
-
+if the Internet is not involved. The challenge for E2E systems is to
+overcome this broader skepticism by demonstrating integrity in a way
+accessible to non-experts without making it more difficult to vote.
 
 %%% Local Variables:
 %%% mode: latex
