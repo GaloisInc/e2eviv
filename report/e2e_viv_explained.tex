@@ -167,8 +167,6 @@ A number of practical voting systems have been developed based on the
 principles of E2E VIV. This section describes several systems that
 have been used in a real election or in a pilot.
 
-\todoacf{Sort these somehow; make a timeline?}
-
 \subsection{RIES~\cite{hubbers2004}}
 
 RIES, the Rijnland Internet Election System, was first used in 2004 to
@@ -177,37 +175,26 @@ supplementing the system of postal voting used by the water board. A
 subsequent version was used to allow expatriate voters to participate
 in the Dutch parliamentary elections \cite{gonggrijp2009}.
 
-\subsubsection{Election Procedure}
+Before a RIES election, credentials are mailed to every voter in the
+form of a very long number. The same mailing also includes
+instructions for the voter.
 
-\begin{itemize}
+During the election, voters log into an election web site that
+includes a client-side voting application written in JavaScript. The
+client-side application encrypts the vote by passing the voter
+authorization code and the public ID of the candidate through a
+one-way function to create the encrypted vote. The encrypted vote is
+then placed on a public bulletin board that serves as a ballot box.
 
-\item Before the election, credentials are mailed to every voter in
-  the form of a very long number. The same mailing also includes
-  instructions for the voter.
-
-\item During the election, voters log into an election web site that
-  includes a client-side voting application written in JavaScript. The
-  client-side application encrypts the vote by passing the voter
-  authorization code and the public ID of the candidate through a
-  one-way function to create the encrypted vote. The encrypted vote
-  is then placed on a public bulletin board that serves as a ballot
-  box.
-
-\item At the close of the polls, the election authority releases the
-  final vote tallies along with a codebook containing the encryptions
-  of all valid credentials with all candidate IDs.
-
-\end{itemize}
-
-\subsubsection{Verifiability}
+At the close of the polls, the election authority releases the final
+vote tallies along with a codebook containing the encryptions of all
+valid credentials with all candidate IDs.
 
 The algorithms and protocols used RIES are public, and each voter,
 having access to all of the inputs and outputs, may (in principle)
 check the computations. This is weaker than the desired individual
-verifiability\todoacf{how/why?}, but nonetheless, far stronger than
-conventional voting systems.
-
-\subsubsection{Analysis}
+verifiability, but nonetheless, far stronger than conventional voting
+systems.
 
 The Organization for Security and Co-operation in Europe (OSCE) sent
 an election assessment team to observe the use of RIES in 2006. Their
@@ -263,33 +250,22 @@ of the pitfalls of adapting a research system to an actual election,
 such as a short timetable, a lack of clear requirements, and the need
 for rigorous implementation practices.
 
-\subsubsection{Election Procedure}
-
 Prêt à Voter uses two-part paper ballots with the candidate names on
 one part and the voting targets plus a ballot ID number or barcode on
-the other part.
+the other part. Typically, the two parts are printed as a single sheet
+with a perforation to divide the sheet after voting.
 
-\begin{itemize}
+From the voter's perspective, the order of the candidate names on the
+ballot appears to be random. The voter marks her choice next to the
+candidate name of her choice, separates the two parts of the ballot,
+and destroys the candidate names. She may take a copy of the voted
+part home for later verification.
 
-\item Before the election, the paper ballots are printed. Typically,
-  the two parts are printed as a single sheet with a perforation to
-  divide the sheet after voting.
-
-\item From the voter's perspective, the order of the candidate names
-  on the ballot appears to be random. The voter marks her choice next
-  to the candidate name of her choice, separates the two parts of the
-  ballot, and destroys the candidate names. She may take a copy of the
-  voted part home for later verification.
-
-\item For tabulation, there is a cryptographically secure mapping from
-  the ballot ID numbers to the apparent random order of the candidate
-  voting positions. Multiple custodians using a mixnet or similar
-  technique use this mapping to decode cast ballots into anonymized
-  plain-text ballots which are then posted to a bulletin board.
-
-\end{itemize}
-
-\subsubsection{Verifiability}
+For tabulation, there is a cryptographically secure mapping from the
+ballot ID numbers to the apparent random order of the candidate voting
+positions. Multiple custodians using a mixnet or similar technique use
+this mapping to decode cast ballots into anonymized plain-text ballots
+which are then posted to a bulletin board.
 
 Unvoted ballots may be audited before, during and after the election
 to ensure that the decoding of cast ballots is being correctly
@@ -306,14 +282,6 @@ because the voter no longer has the part of the ballot linking
 candidate names to ballot positions, the voter cannot prove to anyone
 else how the ballot was voted.
 
-\subsubsection{Analysis}
-
-Since there is no pre-election bulletin board posting of the valid
-ballot IDs, there is potential for ballot stuffing by
-insiders. This can be detected by cross-referencing polling place
-data with the bulletin board after the fact, but that requires
-additional trust in the poll workers.
-
 \subsection{Punchscan~\cite{popoveniuc2006,popoveniuc2010punchscan}}
 \label{sec:punchscan}
 
@@ -321,8 +289,6 @@ Punchscan was used for the graduate student association elections of
 the University of Ottawa in 2007~\cite{essex2007}. It is likely
 the first E2E voting system with ballot privacy used in a binding
 election.
-
-\subsubsection{Election Procedure}
 
 The election experience for a Punchscan voter is very similar to that
 of Prêt à Voter. The system uses a two-part paper ballot where the top
@@ -338,8 +304,6 @@ the bingo dauber marked both through the hole and around it) as the
 cast ballot. The other side is destroyed, and a copy of the cast side
 may be retained by the voter.
 
-\subsubsection{Verifiability}
-
 A curious voter may inspect the public record of any cast ballot
 exactly as with Prêt à Voter. It does not matter which half of the
 ballot the voter retained, because there is no public display of the
@@ -348,16 +312,6 @@ position that was marked is displayed. Again, individual ballots may
 be audited, and the key to tabulating the votes is that there is a
 cryptographically secure mapping from the ballot serial numbers to the
 apparent random order of the candidate voting positions.
-
-\subsubsection{Analysis}
-
-Punchscan elections rely on procedure to maintain many of its
-desirable properties, much like Prêt à Voter. For example, during the
-University of Ottawa elections, more ballots were cast than voters
-recorded in the pollbook, showing that ballot stuffing can be caught
-after the fact by poll workers, but is not an inherently verifiable
-property of the system.
-
 
 \subsection{Scantegrity II~\cite{chaum2008,chaum2009}}
 \label{sec:scantegrity-ii}
@@ -368,40 +322,28 @@ for in-person voting with Remotegrity (\ref{sec:remotegrity}) used for
 absentee voting. The 2009 Takoma Park election was the first use of an
 E2E system with ballot privacy in binding governmental elections.
 
-\subsubsection{Election Procedure}
+Before the election, officials generate the seed to a pseudorandom
+number generator using a secret sharing scheme. Three-letter
+alphanumeric codes are created for each choice on each printed ballot
+using this seed, and additional tables are created so that interested
+parties can later confirm that the tally was computed correctly.
 
-\begin{itemize}
+During the election, the voter experience is nearly identical to that
+of conventional optical-scan paper ballots. When the voter marks their
+choice, the ink in the pen reacts with invisible ink on the paper to
+disclose the three-letter code in the marked voting target. The ballot
+ID number and the displayed code are posted to a public bulletin
+board.
 
-\item Before the election, officials generate the seed to a
-  pseudorandom number generator using a secret sharing
-  scheme. Three-letter alphanumeric codes are created for each choice
-  on each printed ballot using this seed, and additional tables are
-  created so that interested parties can later confirm that the tally
-  was computed correctly.
-
-\item During the election, the voter experience is nearly identical to
-  that of conventional optical-scan paper ballots. When the voter
-  marks their choice, the ink in the pen reacts with invisible ink on
-  the paper to disclose the three-letter code in the marked voting
-  target. The ballot ID number and the displayed code are posted to a
-  public bulletin board.
-
-\item After the election, public verification of the final tally
-  proceeds with the public bulletin board in a manner similar to that
-  of Punchscan and Prêt à Voter.
-
-\end{itemize}
-\subsubsection{Verifiability}
+After the election, public verification of the final tally proceeds
+with the public bulletin board in a manner similar to that of
+Punchscan and Prêt à Voter.
 
 In addition to the public verification, an individual voter who takes
 note of their ballot ID number and the code revealed from invisible
 ink may use the public bulletin board to check that their ballot was
 indeed tabulated, though this information is not sufficient to prove
 that they voted a particular way.
-
-\subsubsection{Analysis}
-
-\todoacf{Roll this in with other analysis in \ref{sec:limit-exist-syst}}
 
 \subsection{Remotegrity~\cite{zagorski2013}}
 \label{sec:remotegrity}
@@ -462,30 +404,22 @@ and by numerous universities and associations since then, including
 the Association for Computing Machinery and the International
 Association for Cryptologic Research.
 
-\subsubsection{Election Procedure}
+Before a Helios election, officials input the email addresses of the
+voters who will be participating. The system emails the voters their
+randomly-generated login information and the link to the election
+website.
 
-\begin{itemize}
+During the election, the voter enters their choices on the
+website. After entering her choices, the voter has an option to spoil
+their ballot in order to verify that it was recorded correctly. Upon
+completing a non-spoiled ballot, the system sends an email confirming
+the receipt of their vote, though not their choices. At any time
+before the close of the election, the voter can repeat these steps and
+the new vote will replace the old vote.
 
-\item Before the election, officials input the email addresses of the
-  voters who will be participating. The system emails the voters their
-  randomly-generated login information and the link to the election
-  website.
-
-\item During the election, the voter enters their choices on the
-  website. After entering her choices, the voter has an option to
-  spoil their ballot in order to verify that it was recorded
-  correctly. Upon completing a non-spoiled ballot, the system sends an
-  email confirming the receipt of their vote, though not their
-  choices. At any time before the close of the election, the voter can
-  repeat these steps and the new vote will replace the old vote.
-
-\item After the election, Helios uses homomorphic vote tallying with
-  the optional addition of mixers and mixnets in some
-  derivatives~\cite{bulens2011,tsoukalas2013}.
-
-\end{itemize}
-
-\subsubsection{Verifiability}
+After the election, Helios uses homomorphic vote tallying with the
+optional addition of mixers and mixnets in some
+derivatives~\cite{bulens2011,tsoukalas2013}.
 
 Voter authentication is not required until after the voter decides to
 cast the ballot, so any interested party may prepare and audit
@@ -493,13 +427,6 @@ ballots. All cast ballots are posted in encrypted form on a public
 bulletin board so that voters may check that their ballots have been
 correctly recorded. Similarly, after the polls close, the decryption
 and vote tally may be checked.
-
-\subsubsection{Analysis}
-
-Because officials can enter voters by email address, Helios provides
-limited protection against insider ballot stuffing. Due to the
-complexity of publicly auditing the election results, this would be
-difficult to detect~\cite{orion2009}.
 
 \subsection{Norwegian System~\cite{gjosteen2012}}
 
@@ -510,27 +437,16 @@ assert that this is an E2E system, which if accurate is the first
 effort by commercial voting system vendors to enable E2E
 elections.
 
-\subsubsection{Election Procedure}
-
 The Norwegian system uses a three-channel model involving postal mail,
-the Internet, and SMS text messaging.
+the Internet, and SMS text messaging. Before the election, the voter
+receives authorization codes to cast a ballot via postal mail.
 
-\begin{itemize}
-
-\item Before the election, the voter receives authorization codes to
-  cast a ballot via postal mail.
-
-\item During the election, the voter uses a computer to cast an
-  encrypted ballot. The voter can cast multiple ballots; only the
-  last ballot cast is counted, and if a voter votes both on paper at a
-  polling place and by Internet, the paper ballot overrides the
-  Internet ballot. After casting a ballot, the voter receives a
-  confirmation code offering a partial end-to-end proof via an SMS
-  message.
-
-\end{itemize}
-
-\subsubsection{Verifiability \& Analysis}
+During the election, the voter uses a computer to cast an encrypted
+ballot. The voter can cast multiple ballots; only the last ballot cast
+is counted, and if a voter votes both on paper at a polling place and
+by Internet, the paper ballot overrides the Internet ballot. After
+casting a ballot, the voter receives a confirmation code offering a
+partial end-to-end proof via an SMS message.
 
 Available descriptions of the Norwegian system are incomplete, so it
 is not possible to analyze the system in depth. However the system's
@@ -566,14 +482,10 @@ using a verifiable mixnet.
 
 DEMOS is a coded vote system where the voter is given a two-part coded
 ballot; she audits one part and uses the other to vote. Associated
-with each choice on the ballot is
-
-\begin{itemize}
-\item a vote code---the encryption of the vote, which is entered in
-  the voting machine by the voter, and
-\item a receipt code which the voter does not enter, but which is
-  posted online next to the vote code.
-\end{itemize}
+with each choice on the ballot is a vote code---the encryption of the
+vote, which is entered in the voting machine by the voter, and a
+receipt code which the voter does not enter, but which is posted
+online next to the vote code.
 
 The voter can check the receipt to ensure her vote reached the
 election authorities. The ballot also has a QR code containing all the
@@ -585,12 +497,8 @@ computer knows how she voted. The vote codes represent homomorphic
 encryptions of the votes and the verifiable tally is obtained in a
 standard manner.
 
-A pilot study of DEMOS was carried out in 2014.
-
-\todoacf{This section should be filled in with material from
-  history.tex and comparative\_analysis.tex, and then history.tex and
-  comparative\_analysis.tex should be ``retired'' and their resources
-  moved into e2e\_viv\_explained\_resources.}
+A pilot study of DEMOS was carried out during the 2014 European
+Elections in Greece.
 
 \section{Limitations of Existing Systems}
 \label{sec:limit-exist-syst}
@@ -670,51 +578,62 @@ accepting for the benefit to verifiability.
 
 \subsection{Ballot Stuffing}
 
-\todoacf{Flesh out these points}
+As when ensuring voter secrecy, many E2E systems depend on correct
+procedures to defend against ballot stuffing. For example, during the
+University of Ottawa elections using Punchscan, more ballots were cast
+than voters recorded in the pollbook. In this case, ballot stuffing
+can be caught after the fact by poll workers, but is not an inherently
+verifiable property of the system, and requires trust in the accuracy
+of the poll workers.
 
-Insiders can print or generate more ballots than there are voters.
+In the Helios system, officials can enter voters by email address, and
+so there is limited protection against insider ballot stuffing. Helios
+relies on individual voters verifying their votes, with little
+provision for an interested party to verify the entire election,
+making it difficult to detect this type of fraud~\cite{orion2009}.
 
-Defense in most systems is to crossreference with polling place
-counts. This depends on procedure being correctly followed rather than
-something verifiable.
-
-Publishing pre-election tables can help so that all votes in the final
-result have an (anonymized) provenance. However this can make it
-harder to replace lost, stolen, or spoiled ballots. Also same-day
-registration increases turnout and requiring rolls ahead of time
-precludes it.
+A pre-election step that publicly publishes tables of valid ballot IDs
+can help mitigate this problem, but also creates others. All votes in
+the final tally have an (anonymized) provenance that can be traced
+back to before the election began and presumably cross-checked with
+voter registration rolls. However having a fixed set of ballot IDs can
+make it harder to replace lost, stolen, or spoiled ballots, or to
+providing for late or same-day voter registration.
 
 \subsection{Infrastructure \& Equipment}
 
-\todoacf{Flesh out these points}
+Election equipment fails in practice. An E2E system must be resilient
+to failures while not giving up E2E properties. A system that lacks
+robust fallback mechanisms is not itself robust, but is only as strong
+as its weakest fallback. For example, if a remote voting website fails
+and election officials resort to accepting voted ballots by email, E2E
+guarantees are lost for all of the emailed ballots.
 
-Election equipment fails in practice. A true E2E system must be
-resilient to failures while not giving up E2E properties. For example,
-if a remote voting website fails, email should not be the backup
-mechanism.
+In addition to being more sensitive to failures, verifiable election
+systems often require more sophisticated equipment than traditional
+systems. For in-person voting, a verifiable system might require
+ballots to be printed on demand, a high-quality shredder for two-part
+ballots, and more sophisticated assistive devices. This complexity
+incurs additional cost and poll worker training requirements.
 
-Verifiable election systems can require more sophisticated equipment
-than traditional systems. For in-person voting, a verifiable system
-might require ballots to be printed on demand, a high-quality shredder
-for two-part ballots, and more sophisticated assistive devices.
-
-Systems that post encrypted ballots during an election to a public
-bulletin board are distributed systems. Depending on the networking
+Many E2E systems post encrypted ballots during an election to a public
+bulletin board. In order to update the bulletin board in real time,
+these election systems are distributed systems, networked via
+traditional means or via a manual air gap. Depending on the networking
 scheme this can open equipment to distributed denial of service (DDoS)
 attacks, network partitions, inconsistency, and other problems
 inherent to distributed systems.
 
-Internet systems add to the difficulties of distributed systems by
+Internet systems compound the difficulties of distributed systems by
 requiring the systems to be accessible via the public Internet,
 increasing the possibilities for DDoS and other malicious
 attacks. Furthermore, many systems allow voters to use their own
-computers to vote, leading to many potential problems: malware on the
+computers to vote, leading to pitfalls inherent when election
+officials lack control over the voting environment. Malware on the
 voter's computer might undermine security, incompatibilites might
 arise due to operating systems or web browser versions, and the
 network infrastructure between the voter and the central election
 system might be compromised with a man-in-the-middle attack.
-
-\subsection{Support \& Responsiveness}
 
 \subsection{Usability}
 
@@ -811,7 +730,9 @@ voting machines used in previous elections~\cite{germany2009decision}.
 They decided that electronic systems may only be used in elections if
 ``the result can be examined reliably and without any specialist
 knowledge of the subject'', a standard which E2E systems have not been
-able to meet in practice~\cite{byrne2007usability}.
+able to meet in practice~\cite{byrne2007usability}. Similarly after
+reports critical of RIES, a popular movement successfully advocated
+for a ban on Internet voting in the Netherlands.
 
 Broader computer security concerns are becoming topics of household
 conversation with vulnerabilities like Heartbleed and droves of
