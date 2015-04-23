@@ -3,5 +3,76 @@
 
 \section{Requirements and Scenarios}
 \section{Methodology}
+
+\subsection{Engineering Methodology}
+
+\todoacf{Introduce context with NIST, ISO standards for methodology?}
+
+Sound engineering practices are the foundation for building reliable
+and secure software of any type. This is particularly true for
+critical systems which must be trusted to perform important tasks
+correctly, and where the consequences for failure threaten lives,
+political system integrity, and property.
+
+This section introduces methodologies that help reduce errors and
+improve confidence in software development. We avoid discussion of
+particular technologies except to illustrate our recommended
+methodologies with examples in pracice.
+
+\subsubsection{Version Control}
+
+Version control systems (VCS) manage changes between the versions of a
+project as it evolves during the course of development. Revision
+control is the preferred way to share software artifacts across a
+team, but all software projects, even those developed by teams as
+small as one person should use VCS.
+
+In general, a developer uses the VCS first to ``check out'' the files
+comprising a project into her ``working copy''. Then, after making
+changes to those files, the developer ``checks in'' or ``commits'' the
+changes to the VCS. After committing, those changes are available for
+other developers to integrate into their working copies.
+
+When different sets of changes have been made by multiple developers,
+the VCS can merge those changes either automatically or by using
+developer input to ensure the project remains consistent. The ability
+to merge changes is critical for teams of developers who work
+concurrently on a single project, and is the reason that file sharing
+tools like Dropbox or Google Drive are an inadequate substitute for a
+VCS.
+
+VCS is particularly important for projects that must be audited. An
+entry to a project log is created every time a developer commits their
+work. Any file in the project can be inspected to show its provenance,
+even down to the level of which line was committed by which developer
+on what date. Some VCS tools also optionally allow for commits to be
+cryptographically signed, offering assurance that, for example, the
+changes have been audited by a trusted authority before being
+integrated into the project~\cite{chacon2014pro}.
+
+Moving from simple file storage to VCS is a tremendous improvement for
+development, but poor use of VCS can negate many of the potential
+benefits. For example, the log built from the commits of developers is
+of less use to auditors if the changes in each commit are not clearly
+associated with a particular new feature or bug fix. Likewise if
+developers commit changes in a broken state, other developers'
+productivity suffers and it becomes more difficult later to isolate
+which commit introduced a bug. Each VCS supports multiple workflow
+practices that should be adopted in order to limit these problems and
+get the most benefit from VCS
+use~\cite{atlassianworkflow}\cite{pilato2008version}.
+
+\subsubsection{Issue Tracking}
+
+\subsubsection{Continuous Integration and Testing}
+
+\subsubsection{Code Review}
+
+\subsubsection{Release Management \& Lifecycle}
+
+\subsubsection{First-Class Documentation}
+
+\subsubsection{Automation}
+
 \section{Technologies}
 \section{Interpreting Results}
