@@ -111,7 +111,47 @@ importance and urgency, discuss potential solutions, assign developers
 to implement those solutions, and finally make sure the problem is
 resolved and notify the users who originally reported the problem.
 
-\subsubsection{Continuous Integration and Testing}
+\subsubsection{Testing}
+
+\subsubsection{Continuous Integration}
+
+The expense of fixing software flaws increases over time as other
+parts of a program accumulate over time around those flaws. When a
+flawed feature is new, developers have not had a chance to write other
+code that depends on the flawed code. Once those dependencies exist, a
+fix for a single flaw can have consequences that ripple outward across
+the entire project, making the fix much more expensive. The cheapest
+way to fix a flaw, then, is to discover the flaw as quickly as
+possible.
+
+Continuous integration (CI) and testing facilitate this by discovering
+flaws as part of a regular, automatic process that is not dependent on
+due diligence of individual developers. CI interleaves the quality
+control process into the development process, rather than leaving it
+as a separate phase for the end of a project after development has
+finished.
+
+CI tools automatically build and test the latest version of the
+software in the VCS system on a regular basis, such as every night, or
+after every VCS commit. Because the software is built from the VCS, it
+is important for developers to frequently commit their work to the
+VCS. The VCS integration ensures the tests are always run on the
+canonical version of the software, and that any discovered flaws can
+be linked to a particular version in the VCS system. Instead of
+potentially having to search the entire codebase for the cause of a
+flaw, isolating the failing version focuses the efforts of developers
+on the set of changes introduced in that version, saving time.
+
+CI systems substantially replace manual effort and the risk of manual
+mistakes when releasing software. Since the CI system is building the
+project on a nightly basis, it can also post the artifacts of those
+builds for users and testers to quickly adopt. When an official
+release like ``Version 1.0'' is ready for release, developers can
+simply run the CI system to produce the final artifact. Because the
+same system is responsible for both the continuous testing and
+validation of the system and the creation of the final release, it is
+less likely that the final release will have flaws that would have
+been caught through earlier testing.
 
 \subsubsection{Code Review}
 
