@@ -1,0 +1,61 @@
+* Architecture
+
+** Background
+*** What is Architecture
+*** Motivation for Specifying Product Space
+ - need for experimentation
+ - while the crypto foundations may be nearly settled, engineering
+   issues are not
+*** Non-functional Requirements Forcing Architectural Factors
+**** Abstraction
+ - smart design and development
+ - component-based verification and cerification
+**** Deployment
+ - cloud control, location, threats
+ - devops mentality vs. certification
+ - bespoke/custom server farm
+**** Threats
+ - Javascript challenges
+ - single point of failure
+ - fixed IPs
+ - Cloudflare restrictions
+ - co-location impacts on availability and a security
+ - non-typical foundations (no LAMP stack, not standard OS, etc.)
+ - MPC
+**** Distributing Trust
+ - multiple implementations of key components a la bitcoin and tor
+ - distrust in tool foundations (a la assured toolchains and
+   Thompson's lecture and Wheeler's thesis)
+ - MPC
+**** Scalability
+ - dynamic cloud deployment (public or not)
+**** Availability
+ - Cloudflare-like services
+ - advanced netops
+**** Usability
+ - custom desktop app vs. web tech
+
+** Architectural Feature Model
+*** Dimensions
+**** Authority
+ - central vs. distributed
+**** Trust
+ - crypto: on-paper vs. mechanized protocols
+ - specification: evidence via process vs. assertions
+ - implementation: golden implementation vs. open protocols and specs
+ - deployment: trusted servers vs. public cloud
+ - keys: traditional or new CA + threshold crypto
+**** Platforms
+ - cloud vs. private
+ - custom clients vs. web tech
+
+** Major Variants
+*** Mirrored Servers
+*** Large Fixed Set of Servers
+*** Dynamic Cloud
+*** Distributed Hash and similar foundations (e.g., blockchain)
+*** Peer-to-Peer
+
+
+
+
