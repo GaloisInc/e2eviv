@@ -1,2 +1,183 @@
-\chapter{Architecture\ifdraft{ (Joe K./Dan) (15\%)}{}}
+\chapter{Architecture\ifdraft{ (Joe K./Dan) (30\%)}{}}
 \label{chapter:architecture}
+
+The \emph{architecture} of a computing system, akin to the
+architecture of a purely physical artifact like a bridge or a
+building, is its high-level structure. Just as when designing a
+bridge, many choices must be made when designing a computing system;
+these choices are driven by the system's requirements, both technical
+and non-functional, as well as by external factors such as the
+availability of computing hardware or network bandwidth. In this
+chapter, we describe the architectural issues associated with E2EVIV
+systems, present a model encompassing the various possible
+architectural choices for such systems, and explore some architectural
+variants based on that model.
+
+It is important to note that we are \emph{not} making a concrete
+recommendation for a specific E2EVIV system architecture. The
+cryptographic foundations of E2EVIV protocols have been developed to a
+point where we have fairly high, though not yet complete, confidence
+in their ability to provide the required security and auditability
+properties. However, there are many open engineering issues associated
+with actually building, running, and maintaining an E2EVIV system that
+fulfills its requirements in the face of both routine/expected
+failures and a wide range of security threats. Because of these open
+engineering issues, architectural experimentation---preferably,
+empirical testing of various possible architectures to determine the
+most appropriate one(s) to deploy in real-world election
+scenarios---is vital to actually implementing a successful E2EVIV
+system.
+
+\section{Non-Functional Requirements Forcing Architectural Factors}
+
+Several non-functional requirements of E2EVIV systems force the
+inclusion or consideration of specific architectural factors, many of
+which are not applicable to other Internet-based computing systems. We
+consider each of these in turn.
+
+\subsection{Abstraction}
+
+The software in an E2EVIV system must be high assurance, and must also
+undergo a certification process before it can be used in actual
+elections. Thus, the software must be designed and implemented with a
+level of abstraction that allows convincing evidence of its
+correctness to be produced. This requires development techniques that
+emphasize formal specification and verification, dividing the software
+system into relatively small components with well-defined,
+well-constrained interfaces. Each component can then be verified
+individually with respect to its specification; moreover, component
+behaviors with respect to external communication can be formally
+characterized in a way that allows for verification of composed
+subsystems.
+
+\subsection{Deployment}
+
+There is a wide spectrum of possible deployment scenarios for an
+E2EVIV system, each of which leads to certain decisions about its
+architecture. At one extreme, the servers for an E2EVIV system could
+be hosted on a bespoke server cluster, built from the ground up
+specifically for the system and housed in a facility under the
+physical control of electoral authorities or their authorized
+representatives. At another extreme, the servers could be hosted on a
+commodity cloud computing infrastructure such as Amazon EC2 or
+Microsoft Azure where electoral authorities have no physical control
+over the servers. A third extreme would see the system implemented in
+a purely peer-to-peer fashion, with the system's functionality
+distributed among all participating computers with no
+specifically-designated servers. The choice within this spectrum has
+significant impact on both system availability and system security
+requirements.
+
+\todokiniry{devops mentality vs. certification?}
+
+\subsection{Threats}
+
+Mitigating the potential threats to E2EVIV systems also leads to
+various architectural choices. The following are some of the threats
+that need to be considered. 
+
+Any single point of failure, such as a single server that contains
+essential data without which the system can no longer function, is a
+tempting target for attack. Therefore, the architecture should attempt
+to minimize or eliminate such failure points.
+
+The use of a fixed IP address (or address range) for E2EVIV system
+components can open the system to denial of service attacks, limit
+deployment flexibility, and make it more difficult to recover from
+failures. The architecture should be chosen such that IP addresses
+need not be hard-coded. 
+
+\todokiniry{Cloudflare restrictions? I know how Cloudflare works, but
+  I'm not sure which restrictions you were thinking of here, and I'm
+  not coming up with anything concise to say about it. -dmz}
+
+\todokiniry{non-typical foundations? not sure about what to say about
+  the ``threat'' here. -dmz}
+
+\todokiniry{MPC?}
+
+\subsection{Distributing Trust}
+
+The distribution of trust in an E2EVIV system is critical: if the
+system is not trustworthy, the election results generated by it are
+inherently suspect. Ken Thompson, in his 1984 Turing Award lecture
+``Reflections on Trusting Trust'' \cite{Thompson84}, demonstrated a
+fundamental problem with trust in computing systems: an attack against
+the toolchain used to build a system can silently, and effectively
+undetectably, insert a ``back door'' or other corruption into the
+system. If this attack is carried out successfully, inspection of the
+source code for the toolchain itself and the source code for the
+system will show nothing unusual; the corrupted toolchain binary
+introduces the corruption when building itself, or when building the
+rest of the system, and also corrupts all the tools that can be used
+to analyze the system (disassemblers, binary dump tools, etc.) such
+that the corruption remains hidden. Thompson himself successfully
+carried out such an attack within Bell Labs, and similar attacks have
+occurred ``in the wild'' against systems such as the Delphi
+development environment for Windows application; with stakes as high
+as controlling national election results, it is not a stretch to
+believe that such attacks would be attempted against E2EVIV systems.
+
+There are multiple ways to mitigate the possible impact of such an
+attack. One is to ensure that the system uses a diverse set of
+implementations of key components, all based on the same specification
+but with different source code, built with different compilers, and
+preferably running on different hardware and OS platforms; corruption
+of a single component, or even a small number of them, could then be
+detected by the uncorrupted components, and the effort required to
+corrupt the system as a whole would be much higher. Another is to
+counter the possibility of Thompson-style exploits by using multiple
+toolchains in the technique proposed by David A. Wheeler in his
+Ph.D. thesis, ``Fully Countering Trusting Trust through Diverse
+Double-Compiling'' \cite{Wheeler09}.
+
+Another potential way of distributing trust in an E2EVIV system is to
+use secure multiparty computation (MPC), such that no single system
+needs to be completely trusted. \todo{flesh this out}
+
+\subsection{Scalability}
+
+An E2EVIV system, particularly at the national level, must be able to
+handle a wide range of demand. It is human nature that many voters
+will wait until the last day, or even the last hour, of a voting
+period to cast their votes. Moreover, it is likely that attacks
+against the system---and thus, system activity in general---will
+increase in intensity as the end of a voting period approaches. Thus,
+while the system may see very little sustained activity for much of an
+election period, it must be able to scale to extreme levels of
+activity at peak times. The architecture must take this into account,
+so that the system can be dynamically deployed on more computing and
+network resources as need arises. This might be done either by
+utilizing public cloud resources that support elastic demand, or by
+using private resources that can be brought on- and offline as
+required.
+
+\subsection{Availability}
+
+E2EVIV systems must exhibit high availability;
+\autoref{chapter:required_properties} stated an explicit requirement
+for 99.9\% uptime during election periods and the ability to recover
+from generalized (i.e., not caused by natural disaster or malicious
+attack on the system) failures in under 10 minutes, and higher
+availability---including in the face of malicious attack---would be
+preferable. There are a number of techniques for ensuring high
+availablity of systems, including the use of services like those
+provided by Cloudflare to handle traffic spikes and distributed denial
+of service attacks. The system architecture should be constructed in a
+way that does not foreclose the use of such techniques.
+
+\subsection{Usability}
+
+Usability, including accessibility for disabled voters, is of
+paramount importance in an E2EVIV system. Especially for the
+voter-facing parts of the system, the choice of implementation
+technology may have a significant effect on usability. Essentially,
+choices may need to be made between using Web technologies, which have
+significant advantages in terms of reach (cross-platform, able to be
+used on various sizes of device), and native applications, which tend
+to exhibit richer interaction design and support more accessibility
+features. The architecture might also allow for both types of
+implementation, potentially at the cost of additional architectural
+complexity.
+
+
