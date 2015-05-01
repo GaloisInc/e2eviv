@@ -31,8 +31,7 @@ system.
 \section{Non-Functional Requirements Forcing Architectural Factors}
 
 Several non-functional requirements of E2EVIV systems force the
-inclusion or consideration of specific architectural factors, many of
-which are not applicable to other Internet-based computing systems. We
+inclusion or consideration of specific architectural factors. We
 consider each of these in turn.
 
 \subsection{Abstraction}
@@ -40,10 +39,10 @@ consider each of these in turn.
 The software in an E2EVIV system must be high assurance, and must also
 undergo a certification process before it can be used in actual
 elections. Thus, the software must be designed and implemented with a
-level of abstraction that allows convincing evidence of its
-correctness to be produced. This requires development techniques that
-emphasize formal specification and verification, dividing the software
-system into relatively small components with well-defined,
+level of abstraction that enables the generation of convincing
+evidence for its correctness. This requires development techniques
+that emphasize formal specification and verification, dividing the
+software system into relatively small components with well-defined,
 well-constrained interfaces. Each component can then be verified
 individually with respect to its specification; moreover, component
 behaviors with respect to external communication can be formally
@@ -63,7 +62,7 @@ commodity cloud computing infrastructure such as Amazon EC2 or
 Microsoft Azure where electoral authorities have no physical control
 over the servers. A third extreme would see the system implemented in
 a purely peer-to-peer fashion, with the system's functionality
-distributed among all participating computers with no
+distributed among all participating computers and no
 specifically-designated servers. The choice within this spectrum has
 significant impact on both system availability and system security
 requirements.
@@ -180,4 +179,39 @@ features. The architecture might also allow for both types of
 implementation, potentially at the cost of additional architectural
 complexity.
 
+\section{Architectural Feature Model}
 
+As we have seen, there are many considerations to take into account
+when making architectural decisions about an E2EVIV system. Here, we
+model the various architectural dimensions, and the (possibly wide)
+range of choices within each, to give a sense of the potential
+solution space for a workable E2EVIV system architecture.
+
+The Business Object Notation diagram in \autoref{figure:arch-choices}
+shows the architectural choices that need to be made; for each
+attribute of the architecture, a list of possible choices is
+provided. There are 7 listed dimensions, four of which have 2 and
+three of which have 3 possible choices, for a total of
+$2^4\cdot{}3^3=432$ possible choice assignments.
+
+\begin{figure}[t]
+\begin{center}
+\lstinputlisting[style=bon]{architecture_resources/architecture-dimensions.bon}
+\end{center}
+\caption{A specification of the possible variants for an E2EVIV system.}
+\label{figure:arch-choices}
+\end{figure}
+
+\section{Primary Architectural Variants}
+
+Given the many dimensions of the architectural feature model, and
+range of choices in each, there is an extremely large number of
+possible architectures for the system. Here, we briefly describe a few
+of the primary system variants that can be described by the feature
+model. 
+
+\subsection{Mirrored Servers}
+\subsection{Large Fixed Set of Servers}
+\subsection{Dynamic Cloud}
+\subsection{Blockchain and Similar Foundations}
+\subsection{Peer-to-Peer}
