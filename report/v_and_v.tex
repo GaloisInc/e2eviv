@@ -3,5 +3,163 @@
 
 \section{Requirements and Scenarios}
 \section{Methodology}
+
+\subsection{Engineering Methodology}
+
+\todoacf{Introduce context with NIST, ISO standards for methodology?}
+
+Sound engineering practices are the foundation for building reliable
+and secure software of any type. This is particularly true for
+critical systems which must be trusted to perform important tasks
+correctly, and where the consequences for failure threaten lives,
+political system integrity, and property.
+
+This section introduces methodologies that help reduce errors and
+improve confidence in software development. We avoid discussion of
+particular technologies except to illustrate our recommended
+methodologies with examples in pracice.
+
+\subsubsection{Version Control}
+
+Version control systems (VCS) manage changes between the versions of a
+project as it evolves during the course of development. Revision
+control is the preferred way to share software artifacts across a
+team, but all software projects, even those developed by teams as
+small as one person should use VCS.
+
+In general, a developer uses the VCS first to ``check out'' the files
+comprising a project into her ``working copy''. Then, after making
+changes to those files, the developer ``checks in'' or ``commits'' the
+changes to the VCS. After committing, those changes are available for
+other developers to integrate into their working copies.
+
+When different sets of changes have been made by multiple developers,
+the VCS can merge those changes either automatically or by using
+developer input to ensure the project remains consistent. The ability
+to merge changes is critical for teams of developers who work
+concurrently on a single project, and is the reason that file sharing
+tools like Dropbox or Google Drive are an inadequate substitute for a
+VCS.
+
+VCS is particularly important for projects that must be audited. An
+entry to a project log is created every time a developer commits their
+work. Any file in the project can be inspected to show its provenance,
+even down to the level of which line was committed by which developer
+on what date. Some VCS tools also optionally allow for commits to be
+cryptographically signed, offering assurance that, for example, the
+changes have been audited by a trusted authority before being
+integrated into the project~\cite{chacon2014pro}.
+
+Moving from simple file storage to VCS is a tremendous improvement for
+development, but poor use of VCS can negate many of the potential
+benefits. For example, the log built from the commits of developers is
+of less use to auditors if the changes in each commit are not clearly
+associated with a particular new feature or bug fix. Likewise if
+developers commit changes in a broken state, other developers'
+productivity suffers and it becomes more difficult later to isolate
+which commit introduced a bug. Each VCS supports multiple workflow
+practices that should be adopted in order to limit these problems and
+get the most benefit from VCS
+use~\cite{atlassianworkflow}\cite{pilato2008version}.
+
+\subsubsection{Issue Tracking}
+
+During much of the software development and maintenance process, teams
+add features and fix bugs. In an issue tracking system, each new
+feature, each reported bug, and other discrete development tasks are
+tracked as issues from creation to implementation, review, testing,
+and integration. Issues can be organized by metadata such as assignee,
+project milestone, priority, and task type. Issue trackers are
+essentially to-do lists with additional structure that is specialized
+to support effective software engineering.
+
+These issues and their metadata give team members a view into the
+status and health of the project, and facilitates the implementation
+of project management methodologies \todoacf{reference management
+  section}. For example, the issue tracker may automatically require a
+code review step before an issue can be resolved. Issue trackers help
+teams make fewer mistakes when following best-practice software
+engineering workflows.
+
+Team members can annotate issues with comments or attach supplementary
+documents, creating a record of design decisions and thought
+processes. This information is invaluable when investigating future
+bugs or making subsequent changes to a design, and is often lost when
+such discussions take place out-of-band and lose their association
+with the task that motivated them.
+
+Most issue trackers integrate with VCS in order to associate issues
+with the source code changes that were made in order to complete those
+tasks. When combined with the design discussions captured in issue
+comments and attachments, this further enhances the ability of the
+team to reliably understand and maintain the project in the future.
+
+Issue trackers not only benefit the project team, but also often serve
+as a first line of contact for users of a system when they encounter
+problems. In projects with short timelines like election systems, it
+is critical to incorporate feedback into development as quickly as
+possible. Giving users or front-line support staff the power to create
+issues directly makes the feedback loop very small.
+
+Keeping a public issue tracker reduces duplicated effort across both
+users and developers. If a system has a flaw, that flaw will likely
+become apparent to multiple users, and duplicate reports are less
+likely if users can check the issue tracker for other reports of
+similar problems. The development team can then coordinate an
+effective response to problems. The team can triage issues by
+importance and urgency, discuss potential solutions, assign developers
+to implement those solutions, and finally make sure the problem is
+resolved and notify the users who originally reported the problem.
+
+\subsubsection{Testing}
+
+\subsubsection{Continuous Integration}
+
+The expense of fixing software flaws increases over time as other
+parts of a program accumulate over time around those flaws. When a
+flawed feature is new, developers have not had a chance to write other
+code that depends on the flawed code. Once those dependencies exist, a
+fix for a single flaw can have consequences that ripple outward across
+the entire project, making the fix much more expensive. The cheapest
+way to fix a flaw, then, is to discover the flaw as quickly as
+possible.
+
+Continuous integration (CI) and testing facilitate this by discovering
+flaws as part of a regular, automatic process that is not dependent on
+due diligence of individual developers. CI interleaves the quality
+control process into the development process, rather than leaving it
+as a separate phase for the end of a project after development has
+finished.
+
+CI tools automatically build and test the latest version of the
+software in the VCS system on a regular basis, such as every night, or
+after every VCS commit. Because the software is built from the VCS, it
+is important for developers to frequently commit their work to the
+VCS. The VCS integration ensures the tests are always run on the
+canonical version of the software, and that any discovered flaws can
+be linked to a particular version in the VCS system. Instead of
+potentially having to search the entire codebase for the cause of a
+flaw, isolating the failing version focuses the efforts of developers
+on the set of changes introduced in that version, saving time.
+
+CI systems substantially replace manual effort and the risk of manual
+mistakes when releasing software. Since the CI system is building the
+project on a nightly basis, it can also post the artifacts of those
+builds for users and testers to quickly adopt. When an official
+release like ``Version 1.0'' is ready for release, developers can
+simply run the CI system to produce the final artifact. Because the
+same system is responsible for both the continuous testing and
+validation of the system and the creation of the final release, it is
+less likely that the final release will have flaws that would have
+been caught through earlier testing.
+
+\subsubsection{Code Review}
+
+\subsubsection{Release Management \& Lifecycle}
+
+\subsubsection{First-Class Documentation}
+
+\subsubsection{Automation}
+
 \section{Technologies}
 \section{Interpreting Results}

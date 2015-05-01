@@ -1,11 +1,13 @@
-\chapter{Introduction\ifdraft{ (Joe K./Susan) (70\%)}{}}
+\chapter{Introduction\ifdraft{ (Joe K./Susan) (90\%)}{}}
 \label{chapter:introduction}
 
 %=====================================================================
 \section{The E2E VIV Project}
+\label{sec:e2e-viv-project}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Situation}
+\label{sec:situation}
 
 In March 2013, Overseas Vote Foundation’s President and CEO began a
 discussion with a small group of experienced, election integrity
@@ -55,6 +57,7 @@ questions could well-describe the situation.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{A Proposed Solution}
+\label{sec:proposed-solution}
 
 Within this climate, a project proposal was written and funding
 provided by The Democracy Fund, a Washington D.C. based philanthropic
@@ -117,6 +120,7 @@ end-to-end verifiability and auditability.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Definition}
+\label{sec:definition}
 
 The term E2E is often used casually without
 precision. E2E-verifiability is considered a property of an election
@@ -160,9 +164,11 @@ that are not found in currently deployed voting systems.
 
 %=====================================================================
 \section{Goals and Objectives}
+\label{sec:goals-objectives}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Shared Goals}
+\label{sec:shared-goals}
 
 Election officials and scientists involved in elections \textbf{share}
 the overall goals: that voting systems can be proven secure,
@@ -177,6 +183,7 @@ to examine the possibilities in this realm.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 \subsection{Project Goal}
+\label{sec:project-goal}
 
 Our goal is to specify and define a system and its testing scenarios
 for an online voting method that can provide both security and
@@ -194,6 +201,7 @@ acted upon in the future.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Additional Objectives}
+\label{sec:addit-object}
 
 Presentation and discussion of the report with key stakeholders,
 integrating their feedback, and garnering their cceptance of the
@@ -202,6 +210,7 @@ of the project.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Deliverables}
+\label{sec:deliverables}
 
 The main deliverable of the E2E VIV Project is the development of a
 ``whole product solution'' specification (or simply specification for
@@ -217,6 +226,7 @@ confidentiality.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{A First Step}
+\label{sec:first-step}
 
 This project represents step one in an examination of whether one day
 this might be possible. Our current plan is to examine the potential
@@ -231,6 +241,7 @@ to ensue.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Success}
+\label{sec:success}
 
 Beyond judging the outcome – the fact that this project takes a
 research and testing-based approach to a problem that has been “in
@@ -280,6 +291,7 @@ the following requirements are fulfilled:
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Scope}
+\label{sec:scope}
 
 The original project was tightly limited to involve system
 specification and testing only. No system development was envisioned
@@ -326,6 +338,7 @@ examine security and usability.
 
 %=====================================================================
 \section{People}
+\label{sec:people}
 
 Inherent in the E2E VIV Project was the opportunity to combine the
 abilities, knowledge, experience and expertise of a diverse group of
@@ -346,14 +359,15 @@ voting, community building, voter survey research, election reform and
 communications gave OVF a unique edge in managing the project. 
 
 Galois, Inc. provided the technical and engineering project
-management. Named as the technical project manager, Joe Kiniry,
-working as a Principal Investigator at Galois facilitated the
+management. Named as the technical project manager, Dr.~Joseph Kiniry,
+working as a Principal Investigator at Galois, facilitated the
 communication and decision-making of the expert teams. He became the
 main author and editor of the report and ran all engineering projects
-and usability aspects of the study. 
+and usability aspects of the study.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Team Members}
+\label{sec:team-members}
 
 \textbf{Project Manager:} Susan Dzieduszycka-Suinat, Overseas Vote Foundation
 
@@ -387,15 +401,12 @@ Professor, Department of Computer Science, Rice University
  
 \textbf{Usability Team}
 
-Keith Instone
-User Experience Consultant
+\begin{itemize}
+\item Keith Instone, User Experience Consultant
+\item Morgan Miller, Usability Analyst, Experience Lab
+\item Dr. Judith Murray, Research Consultant
+\end{itemize}
 
-Morgan Miller [ KEEP? ]
-Usability Analyst, Experience Lab
-
-Dr. Judith Murray
-Research Consultant
- 
 \textbf{Election Auditing}
 
 Dr. Philip Stark
@@ -492,20 +503,89 @@ Systems Management and Master of Science in Information Security
 Policy and Management: in early 2014, a Capstone Team was assigned to
 the project team to assist on the Comparative Analysis of E2E systems.
 
-\textbf{Unofficial Project Members/Stakeholder Groups}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Stakeholder Groups}
+\label{sec:stakeholder-groups}
 
 Although not on the official project team, it was widely acknowledged
 that there were several communities relevant to the E2E VIV Project
 outside of those represented on the expert teams and that interaction
-with members of these communities was essential. These included: 
-
+with members of these communities was essential. These include: 
 \begin{itemize}
-\item Advocates
-\item Standards Bodies
-\item Vendors
-\item Hackers and Hacktivists
-\item Election Officials 
-\item Citizens
+\item \textbf{Election verification advocates.} Election verification
+  advocates are plentiful, well-informed, and strongly connected.
+  They care deeply about election integrity and verifiability, and
+  unsurprisingly internet voting is a hot-button issue for many of
+  them.
+
+  This negative attitude is compounded by the fact that several
+  vendors have developed internet voting products which are
+  proprietary, closed-source, have never seen a public audit, and are
+  unverifiable.  Moreover, many of these vendors make specious claims
+  about the security of their products---claims which the advocate
+  community rejects entirely.  Finally, many vendors advocate
+  outsourcing elections entirely to them---a condition that will never
+  be deemed acceptable to the advocate community, even for an
+  end-to-end verifiable internet voting system.
+
+  A small number of advocates are for verifiable internet voting, a
+  small number are adamantly against internet voting of any kind, but
+  the bulk of advocates are on-the-fence.  That majority recognize
+  that there are significant scientific and engineering challenges in
+  designing and developing a internet voting system.  Moreover, they
+  recognize that the decision to deploy such a system is very much a
+  subjective, political one.  For example, in some contexts, it is
+  viewed as perfectly acceptible to use a non-verifiable, outsourced
+  election apparatus (such as Everyone Counts' product); say for the
+  voting of the winner of a reality show.  But for government
+  elections of any value, such an option is unacceptable to virtually
+  every advocate.
+
+  Consequently, being fully transparent with---and listening to the
+  feedback from---the election verification advocate community is
+  absolutely mandatory.  If the bulk of that community is not swayed
+  by the evidence presented in this report, pursuing any next phase in
+  this project will be fraught with turmoil and will be an uphill
+  battle against a number of influential actors, all with good
+  intentions.
+\item \textbf{Standards Bodies.} Perhaps surprisingly, there is little
+  national or international standardization in the area of elections.
+  A nascent effort to begin standardizing data interchange formats
+  began a decade or so ago and eventually fizzled after only
+  producting one small standard.  
+
+  There are a myriad of reasons why this first effort failed.  Vendors
+  lobby against, and are disinterested in, interoperability.  The
+  EAC's Voluntary Voting System Guidelines (VVSG) are not geared
+  toward a component-based approach to system design, thus there is
+  little cause for defining interfaces and data file formats, since
+  devices cannot be plugged together.  Finally, there was unsufficient
+  buy-in from the election research community.
+
+  In 2015 though, this situation changed with the rebirth of the IEEE
+  1622 committee focusing on elections.  The IEEE Voting System
+  Standards Committee 1622 (VSSC/1622) is creating standards and
+  guidelines around a common data format for election data.  The aim
+  is that that future election equipment used in U.S. elections and
+  abroad can interoperate more easily.  It is the intention of the
+  VSSC that standards and guidelines being developed will be required
+  in future versions of the EAC's VVSG.  
+
+  Many of the top researchers, election advocates, and election
+  officials in the world are a part of this committee.  Additionally,
+  representatives from the major election systems vendors are either
+  participating, or listening in, because they recognize that
+  interoperability will be mandated by future versions of the
+  VVSG.\footnote{Recall that all election systems in the U.S.A. must
+    be certified at the State or Federal level according to the EAC's
+    voting system testing and certification standards, standards which
+    mandate compliance with the VVSG.}
+
+  - How do standards and E2E VIV relate?  
+\item \textbf{Vendors.}
+\item \textbf{Hackers and Hacktivists.}
+\item \textbf{Election Officials.}
+\item \textbf{Citizens}
 \end{itemize}
 
 \todokiniry{Joe: Do you want to say anything about these groups?
@@ -516,8 +596,34 @@ with members of these communities was essential. These included:
 
 \todokiniry{Galois to write this section.}
 
+\begin{itemize}
+\item absorb all input from experts
+\item read all literature on internet voting
+\item write requirements and solicit feedback from technical experts
+\item write personas as foundation for UX studies
+\item interview LEOs based upon requirements and personas; include in
+  interview information about their current elections framing
+\item outline report and solicit test and input from experts
+\item reflect upon latest advances in crypto for E2E VIV
+\item reflect upon latest advances for reasoning about crypto
+  algorithms, protocols, and implementations
+\item craft a (set of) architectures and designs that reflect
+  underlying requirements and crypto protocols
+\item integrate all expert text and input and craft a final report TOC
+\item solicit more text and reflections from experts based upon final
+  report TOC
+\item write chapters that were as-of-yet unwritten by experts
+\item solicit input from all experts on part 1
+\item solicit input from technical experts on part 2
+\item gather all input from experts (good and bad, nuances,
+  disagreements, etc.) and capture all in appendices, citations, and
+  footnotes
+\item polish and release
+\end{itemize}
+
 %=====================================================================
 \section{Outcome}
+\label{sec:outcome}
 
 The E2E VIV Project produced a System Specification Development and
 Documentation (referred to as a technical report for short) including
@@ -558,7 +664,8 @@ model, requirements, architecture, and design, and F [8] and Cryptol
 [4] to specify election system protocols. 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Deliverables}
+\subsection{Deliverables Produced}
+\label{sec:deliv-prod}
 
 A set of reports and a set of demonstrators were produced. Some
 elements and report section where non-technical and others not. 
@@ -586,6 +693,7 @@ VIV Project are the Local and State Election Officials.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{User Interface Design}
+\label{sec:user-interf-design}
 
 The user interface (or UI for short) of the E2E VIV election system is
 the critical factor in ensuring that the system is both usable and
@@ -598,8 +706,14 @@ testing, is a mandatory component of the system specification.
 
 %=====================================================================
 \section{Next Steps}
+\label{sec:next-steps}
 
 \todokiniry{Joe: I don’t know what exactly you envisioned in “next
   steps” in this Introduction, but I am not sure about having it
   covered in this section. I would recommend it at the conclusion of
   the report and as part of the Executive Summary. -Susan}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "report"
+%%% End:

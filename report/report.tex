@@ -19,6 +19,26 @@
 \usepackage[inline]{enumitem}
 \usepackage[final]{listings} % always include listings, even in draft mode
 
+% Bibliography equipment for fancier citations of websites etc
+\usepackage[%
+  backend=bibtex      % biber or bibtex
+%,style=authoryear    % Alphabeticalsch
+ ,style=numeric-comp  % numerical-compressed
+%,sorting=none        % no sorting
+ ,sortcites=true      % some other example options ...
+ ,block=none
+ ,indexing=false
+ ,citereset=none
+ ,isbn=true
+ ,url=true
+ ,doi=true            % prints doi
+ ,natbib=true         % if you need natbib functions
+]{biblatex}
+\addbibresource{bibliography.bib}
+
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
 % BON listing style
 \include{style/bon}
 \lstset{style=bon, columns=fullflexible, keepspaces=true, frame=lines,
@@ -193,7 +213,12 @@
 \input{conclusion} % Joe K./Susan
 \appendix
 \input{bon_requirements} %Dan/Joe K.
-\bibliographystyle{plain}
-\bibliography{bibliography}
+
+\printbibliography
 
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "report"
+%%% End:
