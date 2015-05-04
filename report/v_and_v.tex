@@ -124,14 +124,14 @@ verified, testing helps provide additional assurance that the system:
 \item and has sufficient performance.
 \end{itemize}
 
-Testing serves the key functions of uncovering defects quickly, and
-ensuring that previously-fixed defects do not recur in later
+Testing serves the key functions of uncovering flaws quickly, and
+ensuring that previously-fixed flaws do not recur in later
 versions. The assurance testing provides comes from performing these
-functions. It is impossible for testing to reveal all possible defects
+functions. It is impossible for testing to reveal all possible flaws
 in any realistic program -- the number of possible inputs for any such
 system is so large that an exhaustive test would effectively run
 forever -- but tests that successfully reveal and prevent recurrences
-of some defects provide more assurance than an untested system.
+of some flaws provide more assurance than an untested system.
 
 Formal verification and testing should not be viewed as opposing
 alternatives, but rather as complementary techniques that together
@@ -143,7 +143,7 @@ to provide those guarantees for entire systems, and sometimes must
 make simplifying assumptions about the environment in which software
 runs, or reason about a simplified model of the actual system. Since
 testing can use the real system in a real environment, it can uncover
-defects that are beyond the scope or capability of the formal
+flaws that are beyond the scope or capability of the formal
 techniques.
 
 Different testing practices provide complementary types of assurance;
@@ -166,19 +166,66 @@ commutativity of the implementation. Most software specifications are
 too abstract to translate directly into unit tests, so for a property
 like associativity, developers must choose particular concrete values
 to test. The shortcoming here is that developers might not choose the
-particular values that would expose a defect, and so the test suite
-will succeed despite the presence of that defect.
+particular values that would expose a flaw, and so the test suite
+will succeed despite the presence of that flaw.
 
 Developer intuition and understanding of the implementation increases
-the likelihood that unit tests will exercise code containing a defect,
+the likelihood that unit tests will exercise code containing a flaw,
 but tests still cannot be exhaustive. Code coverage, the percentage of
-code exercised by a given test suite, is often used to make unit tests
-more comprehensive, but in practice high coverage has not been shown
-to necessarily uncover more defects~\cite{inozemtseva2014coverage}.
+lines of code exercised by a given test suite, is often used to
+measure the effectiveness of unit tests. In practice, high coverage
+percentages have not been shown to necessarily uncover more
+flaws~\cite{inozemtseva2014coverage}, however more sophisticated
+coverage measures such as branch coverage are more
+promising~\cite{gligoric2013comparing}.
 
 \tododmz{Should we talk model-based testing/JMLUnitNG here? -ACF}
 
 \paragraph{Randomized Testing}
+
+Manually-written tests can only exercise a small fraction of the
+potential inputs to a program. When test cases can be generated
+randomly, it is much cheaper to produce a large number of test cases
+that can explore a larger fraction of potential inputs.
+
+With randomized testing, developers specify a means for generating the
+inputs to a test, and provide a function or ``oracle'' for evaluating
+whether the test succeeded with those inputs. These test generators
+can more closely mirror specifications than tests that use concrete
+values, as they can instead make assertions about all possible
+values.
+
+For example, a unit test for an addition implementation might by hand
+assert that $0+0=0$, $1+0=0$, and $2^{32}+0=0$, but a random test
+could assert that for all integers $x$, $x+0=0$. Unless the range of
+the input is very small, a random test will not provide an exhaustive
+proof of the property it expresses. It can, however, easily provide
+orders of magnitude more test cases than hand-written tests, and will
+usually produce test cases that a developer might not think to add
+intuitively. When a higher level of assurance is required, the
+specification of a random test often translates directly to a logical
+formula usable by formal techniques, easing the transition to a
+verified system~\cite{swierstra2012xmonad}.
+
+In the addition example above, it is straightforward to generate
+random integers and check whether the result is zero. However,
+randomized testing is situational, since an oracle is not always
+straightforward to develop, and even the random input generator can be
+quite complicated for complex input types. For example, random testing
+has successfully been used to find flaws in C compilers. The
+development of the C test program generator has itself been the
+subject of extensive research~\cite{yang2011finding}, and the oracles
+used are primarily other C compilers.
+
+Because it is difficult to apply random testing to programs with
+complex input types and no readily-available oracles, random testing
+is most commonly applied to unit tests. Random testing can still be
+useful in such cases by relaxing the requirements of the input
+generator and oracle, and simply observing whether a program crashes
+or violates internal assertions when presented with a random, possibly
+malformed input. This variant of random testing is known as
+``fuzzing'', and should be used as a complement to other forms of
+testing.
 
 \paragraph{Regression Testing}
 
