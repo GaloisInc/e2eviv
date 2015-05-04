@@ -229,6 +229,29 @@ testing.
 
 \paragraph{Regression Testing}
 
+In addition to unit and integration tests written to reflect the
+specifications of a system, new tests should be added whenever a flaw
+is uncovered and fixed. Flaws tend to recur in software for a variety
+of reasons. The existence of the initial flaw implies that there is
+some subtlety to that particular code, raising the baseline likelihood
+of flaws. The fix applied to the code may have only fixed the flaw
+under the limited set of conditions that were observed at the time,
+for example in a bug report. The fix may also have depended on
+assumptions about code elsewhere in the project, and the flaw can
+recur once those assumptions change.
+
+Running a regression test for every flaw in the project's history
+assures us that those flaws are not present in the current software
+artifacts, but for a long project, the weight of that history can make
+the regression suite unfeasibly large. Many longer-term projects
+therefore split their regression tests into multiple suites: a small,
+quick suite to run before each code commit, a larger suite to run
+every night, and sometimes a full suite that runs over weekends or
+before major project milestones. Since a goal of testing is to uncover
+flaws as quickly as possible, running tests less frequently is a
+tradeoff, and prioritizing and minimizing the cost of testing is an
+area of active research~\cite{yoo2012regression}.
+
 \paragraph{Integration Testing}
 
 \subsubsection{Continuous Integration}
