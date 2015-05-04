@@ -113,6 +113,77 @@ resolved and notify the users who originally reported the problem.
 
 \subsubsection{Testing}
 
+Software testing practices are a key component of any software
+engineering methodology. Even when parts of a system are formally
+verified, testing helps provide additional assurance that the system:
+
+\begin{itemize}
+\item satisfies its requirements,
+\item behaves as expected for particular inputs,
+\item works correctly in diverse environments,
+\item and has sufficient performance.
+\end{itemize}
+
+Testing serves the key functions of uncovering defects quickly, and
+ensuring that previously-fixed defects do not recur in later
+versions. The assurance testing provides comes from performing these
+functions. It is impossible for testing to reveal all possible defects
+in any realistic program -- the number of possible inputs for any such
+system is so large that an exhaustive test would effectively run
+forever -- but tests that successfully reveal and prevent recurrences
+of some defects provide more assurance than an untested system.
+
+Formal verification and testing should not be viewed as opposing
+alternatives, but rather as complementary techniques that together
+provide assurance in the developed software. It is not feasible to
+exhaustively test every possible input and every possible path through
+any non-trivial program, while formal techniques offer guarantees over
+all possible inputs. However, formal techniques usually cannot scale
+to provide those guarantees for entire systems, and sometimes must
+make simplifying assumptions about the environment in which software
+runs, or reason about a simplified model of the actual system. Since
+testing can use the real system in a real environment, it can uncover
+defects that are beyond the scope or capability of the formal
+techniques.
+
+Different testing practices provide complementary types of assurance;
+no single testing practice is sufficient to cover the above
+list. Instead, multiple types of testing should be used in
+combination on every project.
+
+\paragraph{Unit Testing}
+
+Unit testing exercises the smallest components (the ``units'') of a
+program that are feasible to test. The granularity of unit tests
+varies by programming language, but typically unit tests are small
+enough to test the implementation within a single module, class, or
+other per-file abstraction.
+
+Unit tests are usually written to reflect the specification of the
+unit under test. For example, a unit that implements a specification
+of addition might have unit tests that check the associativity and
+commutativity of the implementation. Most software specifications are
+too abstract to translate directly into unit tests, so for a property
+like associativity, developers must choose particular concrete values
+to test. The shortcoming here is that developers might not choose the
+particular values that would expose a defect, and so the test suite
+will succeed despite the presence of that defect.
+
+Developer intuition and understanding of the implementation increases
+the likelihood that unit tests will exercise code containing a defect,
+but tests still cannot be exhaustive. Code coverage, the percentage of
+code exercised by a given test suite, is often used to make unit tests
+more comprehensive, but in practice high coverage has not been shown
+to necessarily uncover more defects~\cite{inozemtseva2014coverage}.
+
+\tododmz{Should we talk model-based testing/JMLUnitNG here? -ACF}
+
+\paragraph{Randomized Testing}
+
+\paragraph{Regression Testing}
+
+\paragraph{Integration Testing}
+
 \subsubsection{Continuous Integration}
 
 The expense of fixing software flaws increases over time as other
