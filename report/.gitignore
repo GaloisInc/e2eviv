@@ -13,3 +13,5 @@
 *.toc
 *.vrb
 *.log.pulp
+report-blx.bib
+report.run.xml

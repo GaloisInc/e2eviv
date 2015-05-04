@@ -16,7 +16,7 @@ component
       ensure Result member_of { Golden_Implementation, Open_Protocols_And_Specs };
       end
     key_distribution_method: VALUE 
-    -- not really sure which keys we're talking about here
+    -- todo: not really sure which keys we're talking about here
       ensure Result member_of { Traditional, Threshold_Crypto };
       end
     deployment_style: VALUE
