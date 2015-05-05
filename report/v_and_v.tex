@@ -373,6 +373,31 @@ properties about the correctness of a system.
 
 \subsubsection{Release Management \& Lifecycle}
 
+Release management is the process through which software moves from
+implementation through testing, validation, and verification into a
+finished product that can be used in its intended environment. Release
+management is primarily focused on the smooth integration of the
+different aspects of the project, and on adhering to practices that
+make releases repeatable, reliable, and auditable.
+
+Release management and VCS workflows are tightly connected. For
+example, release managent would be responsible for creating a new
+release branch in the Git Flow model~\cite{atlassianworkflow},
+imposing a feature freeze (no new features, only bug fixes) on that
+branch, and eventually tagging that branch upon release and merging it
+back into the main development branch.
+
+For a project that delivers software as a service on a web server,
+release management would be responsible for deploying the software to
+production servers. For software delivered as a binary download or CD,
+release management would be responsible for cryptographically signing
+and distributing the binary. In both of these cases, the release
+manager serves as the final line of quality assurance before the
+software is used in its intended environment, and so she must be
+fluent enough with all aspects of the project and its processes to
+release software only once the processes have been faithfully
+executed.
+
 \subsubsection{First-Class Documentation}
 
 \subsubsection{Automation}
