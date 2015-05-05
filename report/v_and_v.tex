@@ -336,6 +336,41 @@ been caught through earlier testing.
 
 \subsubsection{Code Review}
 
+Code review practices involve examining the results of the software
+development process to find flaws, identify potential improvements,
+and increase understanding of the software throughout the engineering
+team. Reviews are also an opportunity to ensure that organizational
+code style standards are met, and that the code and its documentation
+is clear enough that it can be effectively communicated to others
+during the review. This process, like discovering flaws during
+testing and investigating issue reports, feeds back into an interative
+development process to improve the quality of the final product.
+
+Code review can be a manual process at varying levels of rigor. On the
+formal end, processes like Fagan inspection require a line-by-line
+inspection by many developers in an extended meeting, and catch a high
+percentage of flaws~\cite{fagan2002design}. On lightweight end, code
+review inherently occurs during pair programming, and can take place
+informally via a developer-led walkthrough or simply an email to
+colleagues requesting feedback. Formal inspections are more costly
+than informal reviews, but may be more suitable for projects that
+require concrete audit trails for accountability. Lightweight methods,
+particularly pair programming, can find similar proportions of flaws
+for lower cost~\cite{tomayko2002comparison} and has other knock-on
+effects such as higher developer job satisfaction and improved team
+dynamics~\cite{cockburn2000costs}.
+
+Automated tools complement any form of manual code review. Lightweight
+static analysis tools and code ``lint'' tools can help developers
+avoid common coding mistakes and adhere to organizational style
+standards. Very lightweight static tools can be run by individual
+developers before committing their work to the VCS, and longer-running
+analyses can be part of the continuous integration and testing
+process. Such analyses are not substitutes for formal verification,
+however, as they typically are meant to discover small-scale defects
+and help developers avoid common pitfalls rather than proving overall
+properties about the correctness of a system.
+
 \subsubsection{Release Management \& Lifecycle}
 
 \subsubsection{First-Class Documentation}
