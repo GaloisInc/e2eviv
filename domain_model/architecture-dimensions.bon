@@ -1,0 +1,31 @@
+static_diagram E2EVIV_Architecture_Dimensions
+  -- This diagram shows the various dimensions of an E2EVIV architecture
+component
+  class E2EVIV_ARCHITECTURE
+  feature
+    authority_distribution: VALUE
+      ensure Result member_of { Centralized, Distributed, Hybrid };
+      end
+    crypto_protocols: VALUE
+      ensure Result member_of { On_Paper, Mechanized, Both };
+      end
+    correctness_evidence: VALUE
+      ensure Result member_of { Process_Based, Assertions, Both };
+      end
+    implementation_type: VALUE
+      ensure Result member_of { Golden_Implementation, Open_Protocols_And_Specs };
+      end
+    key_distribution_method: VALUE 
+    -- todo: not really sure which keys we're talking about here
+      ensure Result member_of { Traditional, Threshold_Crypto };
+      end
+    deployment_style: VALUE
+      ensure Result member_of { Trusted_Servers, Public_Cloud, Peer_To_Peer };
+      end
+    client_technology: VALUE
+      ensure Result member_of { Custom_App, Web_Based, Both };
+      end
+    -- more may be needed here
+  end
+end
+

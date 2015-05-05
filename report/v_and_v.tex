@@ -113,6 +113,187 @@ resolved and notify the users who originally reported the problem.
 
 \subsubsection{Testing}
 
+Software testing practices are a key component of any software
+engineering methodology. Even when parts of a system are formally
+verified, testing helps provide additional assurance that the system:
+
+\begin{itemize}
+\item satisfies its requirements,
+\item behaves as expected for particular inputs,
+\item works correctly in diverse environments,
+\item and has sufficient performance.
+\end{itemize}
+
+Testing serves the key functions of uncovering flaws quickly, and
+ensuring that previously-fixed flaws do not recur in later
+versions. The assurance testing provides comes from performing these
+functions. It is impossible for testing to reveal all possible flaws
+in any realistic program -- the number of possible inputs for any such
+system is so large that an exhaustive test would effectively run
+forever -- but tests that successfully reveal and prevent recurrences
+of some flaws provide more assurance than an untested system.
+
+Formal verification and testing should not be viewed as opposing
+alternatives, but rather as complementary techniques that together
+provide assurance in the developed software. It is not feasible to
+exhaustively test every possible input and every possible path through
+any non-trivial program, while formal techniques offer guarantees over
+all possible inputs. However, formal techniques usually cannot scale
+to provide those guarantees for entire systems, and sometimes must
+make simplifying assumptions about the environment in which software
+runs, or reason about a simplified model of the actual system. Since
+testing can use the real system in a real environment, it can uncover
+flaws that are beyond the scope or capability of the formal
+techniques.
+
+Different testing practices provide complementary types of assurance;
+no single testing practice is sufficient to cover the above
+list. Instead, multiple types of testing should be used in
+combination on every project.
+
+\paragraph{Unit Testing}
+
+Unit testing exercises the smallest components (the ``units'') of a
+program that are feasible to test. The granularity of unit tests
+varies by programming language, but typically unit tests are small
+enough to test the implementation within a single module, class, or
+other per-file abstraction.
+
+Unit tests are usually written to reflect the specification of the
+unit under test. For example, a unit that implements a specification
+of addition might have unit tests that check the associativity and
+commutativity of the implementation. Most software specifications are
+too abstract to translate directly into unit tests, so for a property
+like associativity, developers must choose particular concrete values
+to test. The shortcoming here is that developers might not choose the
+particular values that would expose a flaw, and so the test suite
+will succeed despite the presence of that flaw.
+
+Developer intuition and understanding of the implementation increases
+the likelihood that unit tests will exercise code containing a flaw,
+but tests still cannot be exhaustive. Code coverage, the percentage of
+lines of code exercised by a given test suite, is often used to
+measure the effectiveness of unit tests. In practice, high coverage
+percentages have not been shown to necessarily uncover more
+flaws~\cite{inozemtseva2014coverage}, however more sophisticated
+coverage measures such as branch coverage are more
+promising~\cite{gligoric2013comparing}.
+
+\tododmz{Should we talk model-based testing/JMLUnitNG here? -ACF}
+
+\paragraph{Randomized Testing}
+
+Manually-written tests can only exercise a small fraction of the
+potential inputs to a program. When test cases can be generated
+randomly, it is much cheaper to produce a large number of test cases
+that can explore a larger fraction of potential inputs.
+
+With randomized testing, developers specify a means for generating the
+inputs to a test, and provide a function or ``oracle'' for evaluating
+whether the test succeeded with those inputs. These test generators
+can more closely mirror specifications than tests that use concrete
+values, as they can instead make assertions about all possible
+values.
+
+For example, a unit test for an addition implementation might by hand
+assert that $0+0=0$, $1+0=0$, and $2^{32}+0=0$, but a random test
+could assert that for all integers $x$, $x+0=0$. Unless the range of
+the input is very small, a random test will not provide an exhaustive
+proof of the property it expresses. It can, however, easily provide
+orders of magnitude more test cases than hand-written tests, and will
+usually produce test cases that a developer might not think to add
+intuitively. When a higher level of assurance is required, the
+specification of a random test often translates directly to a logical
+formula usable by formal techniques, easing the transition to a
+verified system~\cite{swierstra2012xmonad}.
+
+In the addition example above, it is straightforward to generate
+random integers and check whether the result is zero. However,
+randomized testing is situational, since an oracle is not always
+straightforward to develop, and even the random input generator can be
+quite complicated for complex input types. For example, random testing
+has successfully been used to find flaws in C compilers. The
+development of the C test program generator has itself been the
+subject of extensive research~\cite{yang2011finding}, and the oracles
+used are primarily other C compilers.
+
+Because it is difficult to apply random testing to programs with
+complex input types and no readily-available oracles, random testing
+is most commonly applied to unit tests. Random testing can still be
+useful in such cases by relaxing the requirements of the input
+generator and oracle, and simply observing whether a program crashes
+or violates internal assertions when presented with a random, possibly
+malformed input. This variant of random testing is known as
+``fuzzing'', and should be used as a complement to other forms of
+testing.
+
+\paragraph{Regression Testing}
+
+In addition to unit and integration tests written to reflect the
+specifications of a system, new tests should be added whenever a flaw
+is uncovered and fixed. Flaws tend to recur in software for a variety
+of reasons. The existence of the initial flaw implies that there is
+some subtlety to that particular code, raising the baseline likelihood
+of flaws. The fix applied to the code may have only fixed the flaw
+under the limited set of conditions that were observed at the time,
+for example in a bug report. The fix may also have depended on
+assumptions about code elsewhere in the project, and the flaw can
+recur once those assumptions change.
+
+Running a regression test for every flaw in the project's history
+assures us that those flaws are not present in the current software
+artifacts, but for a long project, the weight of that history can make
+the regression suite unfeasibly large. Many longer-term projects
+therefore split their regression tests into multiple suites: a small,
+quick suite to run before each code commit, a larger suite to run
+every night, and sometimes a full suite that runs over weekends or
+before major project milestones. Since a goal of testing is to uncover
+flaws as quickly as possible, running tests less frequently is a
+tradeoff, and prioritizing and minimizing the cost of testing is an
+area of active research~\cite{yoo2012regression}.
+
+\paragraph{Integration Testing}
+
+While unit testing and regression testing detects flaws on a
+per-module granularity, integration testing detects flaws in the
+system as a whole. This type of testing can expose flaws in the way
+multiple modules interact, measure performance of the integrated
+system, reveal environmental (e.g., configuration, operating system,
+network) dependencies, and simulate the end-to-end experience of the
+system's users.
+
+The most basic integration test is simply to check that the complete
+system can be successfully built. Once built, integration tests
+exercise substantial functionality across multiple modules, often
+simulating the actions performed by a user during an interaction with
+the system and checking for expected outcomes. In this sense,
+integration tests are frequently the first line of validation applied
+to a system.
+
+For example, one integration test might load a ballot, make
+selections, change selections, and then cast the ballot. Another
+integration test might follow the same steps, but then spoil the
+ballot and repeat with a new ballot. While each of these individual
+steps might concern only a single module, the combination of steps
+helps expose potential problems with modules interacting, for example
+if a ballot successfully loads but fails to allow the ballot to be
+marked correctly.
+
+In addition to simulating end-to-end functionality, integration tests
+also test the suitability of the software in its intended
+environments. This is critical for systems that are intended to work
+with multiple operating systems, with or without a network, or with
+specialized hardware peripherals like a ballot marking device. Making
+the environmental assumptions explicit in integration tests also helps
+prevent flaws from arising due to unstated assumptions. For example, a
+developer using the latest version of Linux may inadvertently write
+software that depends on that version of Linux and fails when run on
+the version of Linux used in the deployed environment. It is
+counterproductive and often infeasible for developers to use the
+deployed environment (it may not even be a general-purpose computer),
+and so the integration tests must accurately recreate that
+environment.
+
 \subsubsection{Continuous Integration}
 
 The expense of fixing software flaws increases over time as other

@@ -7,6 +7,7 @@ import           Data.Monoid
 
 import           Data.Text                    (Text)
 import qualified Data.Text                    as T
+import           Text.Blaze                   (AttributeValue, toValue)
 
 import           Application.Star.Ballot
 import           Application.Star.BallotStyle
@@ -37,3 +38,21 @@ exitInstructionsUrl (BallotId code) = mconcat ["/receipt/", code, "/"]
 
 ballotReceiptUrl :: BallotId -> Text
 ballotReceiptUrl (BallotId code) = mconcat ["/receipt/", code, "/print"]
+
+stopStudyUrl :: Text
+stopStudyUrl = "/study/stop"
+
+aboutStudyUrl :: Text
+aboutStudyUrl = "/study/about"
+
+signInUrl :: Text
+signInUrl = "/ballots"
+
+portraitUrl :: Text -> Text
+portraitUrl img = "/static/img/" <> img
+
+defaultStylesheet :: AttributeValue
+defaultStylesheet = stylesheet "site"
+
+stylesheet :: Text -> AttributeValue
+stylesheet s = toValue ("/static/css/" <> s <> ".css")

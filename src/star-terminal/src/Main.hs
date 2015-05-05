@@ -13,8 +13,9 @@ module Main
 
 import           Control.Applicative
 import           Control.Monad                       (void)
+import           Control.Exception                   (catch, ErrorCall)
 import           Crypto.Random                       (newGenIO)
-import           Data.Acid                           (openLocalStateFrom, query)
+import           Data.Acid                           (AcidState, openLocalStateFrom, query)
 import qualified Data.Binary                         as Binary
 import qualified Data.ByteString.Base16.Lazy         as B16
 import qualified Data.ByteString.Base64.Lazy         as B64
@@ -32,6 +33,8 @@ import           Network.HTTP.Client                 (Request, RequestBody (..),
                                                       httpNoBody, parseUrl,
                                                       urlEncodedBody,
                                                       withManager)
+import           System.Exit                         (exitFailure)
+import           System.IO                           (hPutStrLn, stderr)
 import qualified Network.HTTP.Client                 as HTTP
 import           Network.HTTP.Client.TLS             (tlsManagerSettings)
 import           Snap.Core
@@ -47,7 +50,8 @@ import           Application.Star.Util               (statefulErrorServe)
 import           Application.StarTerminal.Controller
 import           Application.StarTerminal.State      (GetRegisterURL (..),
                                                       StarTerm, Terminal (..),
-                                                      TerminalState (..))
+                                                      TerminalState (..),
+                                                      Feedback)
 
 import           Paths_star_terminal                 (getDataFileName)
 
@@ -74,12 +78,21 @@ main = do
   regURL  <-                              getEnv "STAR_REGISTER_URL"
   seed    <- newGenIO
 
+  checkDecoding "STAR_PUBLIC_KEY"         pubkey
+  checkDecoding "STAR_INIT_PUBLIC_HASH"   zp
+  checkDecoding "STAR_INIT_INTERNAL_HASH" zi
+  checkDecoding "STAR_PUBLIC_SALT"        z0
+
   let term = Terminal tId pubkey zp zi z0 voteURL regURL
       defaultState = TerminalState def def term seed
 
   stateFile <- getDataFileName ("terminalState" ++ tIdStr)
   putStrLn $ "The state file is " ++ stateFile ++ ". Delete it to reconfigure the terminal."
   state <- openLocalStateFrom stateFile defaultState
+
+  feedbackFile <- getDataFileName ("feedback" ++ tIdStr)
+  putStrLn $ "Feedback is in " ++ feedbackFile ++ ". Delete it to clear feedback."
+  feedbackState <- openLocalStateFrom feedbackFile def
 
   -- Register own address with the controller.  Read from state
   -- because saved state is more important than environment vars.
@@ -88,7 +101,7 @@ main = do
   register regURL' snapConfig
 
   staticDir <- getDataFileName "static"
-  statefulErrorServe (site staticDir) state
+  statefulErrorServe (site staticDir feedbackState) state
 
   where register :: String -> Config m a -> IO ()
         register controllerURL cfg = maybe (error "Can't get host info for registration")
@@ -109,8 +122,8 @@ main = do
 
 
 -- | Defines URLs and request methods associated with each server handler.
-site :: StarTerm m => FilePath -> m ()
-site static =
+site :: StarTerm m => FilePath -> AcidState Feedback -> m ()
+site static feedbackState =
     ifTop (redirect "/ballots") <|>
     route [ ("ballots",                       method GET  askForBallotCode)
           , ("ballots/:code/step/:stepId",    method GET  showBallotStep)
@@ -119,6 +132,13 @@ site static =
           , ("ballots/:code/summary",         method POST finalize)
           , ("receipt/:bid",                  method GET  printReceipt)
           , ("ballots/:ballotId/codes/:code", method POST recordBallotStyleCode)
+          , ("cast",                          method POST castBallot)
+          -- TODO: studyWelcome should really be a POST, since it sets a cookie that changes behavior
+          , ("study/welcome",                 method GET  studyWelcome)
+          , ("study/about",                   method GET  studyAbout)
+          , ("study/stop",                    method GET  studyStop)
+          , ("study/stop",                    method POST (studyRecordStopReason feedbackState))
+          , ("study/stopped",                 method GET  feedbackThankYou)
           ] <|>
     dir "static" (serveDirectory static) <|>
     do404
@@ -141,4 +161,11 @@ decodeBinary n s = if BS.length bs == n then SB bs else
 decodeBinary' :: Binary.Binary a => String -> a
 decodeBinary' = Binary.decode . B64.decodeLenient . fromString
 
+decodingError :: String -> ErrorCall -> IO ()
+decodingError name _ = do
+  hPutStrLn stderr $ "Error decoding " ++ name ++ " from environment."
+  exitFailure
 
+-- TODO: probably want deepseq
+checkDecoding :: String -> a -> IO ()
+checkDecoding name v = catch (v `seq` return ()) (decodingError name)
