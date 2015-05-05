@@ -254,6 +254,46 @@ area of active research~\cite{yoo2012regression}.
 
 \paragraph{Integration Testing}
 
+While unit testing and regression testing detects flaws on a
+per-module granularity, integration testing detects flaws in the
+system as a whole. This type of testing can expose flaws in the way
+multiple modules interact, measure performance of the integrated
+system, reveal environmental (e.g., configuration, operating system,
+network) dependencies, and simulate the end-to-end experience of the
+system's users.
+
+The most basic integration test is simply to check that the complete
+system can be successfully built. Once built, integration tests
+exercise substantial functionality across multiple modules, often
+simulating the actions performed by a user during an interaction with
+the system and checking for expected outcomes. In this sense,
+integration tests are frequently the first line of validation applied
+to a system.
+
+For example, one integration test might load a ballot, make
+selections, change selections, and then cast the ballot. Another
+integration test might follow the same steps, but then spoil the
+ballot and repeat with a new ballot. While each of these individual
+steps might concern only a single module, the combination of steps
+helps expose potential problems with modules interacting, for example
+if a ballot successfully loads but fails to allow the ballot to be
+marked correctly.
+
+In addition to simulating end-to-end functionality, integration tests
+also test the suitability of the software in its intended
+environments. This is critical for systems that are intended to work
+with multiple operating systems, with or without a network, or with
+specialized hardware peripherals like a ballot marking device. Making
+the environmental assumptions explicit in integration tests also helps
+prevent flaws from arising due to unstated assumptions. For example, a
+developer using the latest version of Linux may inadvertently write
+software that depends on that version of Linux and fails when run on
+the version of Linux used in the deployed environment. It is
+counterproductive and often infeasible for developers to use the
+deployed environment (it may not even be a general-purpose computer),
+and so the integration tests must accurately recreate that
+environment.
+
 \subsubsection{Continuous Integration}
 
 The expense of fixing software flaws increases over time as other
