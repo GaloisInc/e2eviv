@@ -6,8 +6,8 @@ component
     authority_distribution: VALUE
       ensure Result member_of { Centralized, Distributed, Hybrid };
       end
-    crypto_protocol_specs: VALUE
-      ensure Result member_of { On_Paper, Mechanized };
+    crypto_protocols: VALUE
+      ensure Result member_of { On_Paper, Mechanized, Both };
       end
     correctness_evidence: VALUE
       ensure Result member_of { Process_Based, Assertions, Both };
