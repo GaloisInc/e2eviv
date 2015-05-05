@@ -530,15 +530,15 @@ contribute to the management of the election by leaving the software
 running); effectively, a peer-to-peer architecture is a way of
 ``crowdsourcing'' the resources required to run election system. 
 
-A peer-to-peer architecture raises significant security concerns
-that differ from those of the other architectures we have
-described. While some of the computer systems controlled by the
-electoral authority might be trusted, the vast majority of systems
-belonging to individual voters or political organzations will
-certainly not be; it is impossible to run a peer-to-peer E2EVIV system
-using only trusted computing resources.\footnote{This is true of pure
-  peer-to-peer architectures of the type we are discussing in this
-  section; an architecture where only the \emph{servers} interact in a
+A peer-to-peer architecture raises significant security concerns that
+differ from those of the other architectures we have described. While
+some of the computer systems controlled by the electoral authority
+might be trusted, the vast majority of systems belonging to individual
+voters or political organzations will certainly not be; it is
+impossible to run a peer-to-peer E2EVIV system using only trusted
+computing resources.\footnote{This is true of ``pure'' peer-to-peer
+  architectures of the type we are discussing in this section; an
+  architecture where only the \emph{servers} interact in a
   peer-to-peer fashion while presenting a single interface or set of
   interfaces to clients can, as previously noted, be implemented on a
   fixed set of servers or in a dynamic cloud.} It is therefore
@@ -563,8 +563,11 @@ computing power contributed by the electoral authority and
 high-profile political organizations---which can be hosted on trusted,
 closely-monitored computing systems---will vastly outweigh the
 computing power contributed by individual voters during their ballot
-casting sessions; thus, maintaining the integrity of a blockchain
-should be straightforward in an E2EVIV system. However, other aspects
+casting sessions; moreover, the situation where more than half the
+peer computing power is dishonest can be detected (by the honest part
+of the network, or by external observers) and dealt with in various
+ways. Thus, maintaining the integrity of a blockchain should be
+reasonably straightforward in an E2EVIV system. However, other aspects
 of implementing a peer-to-peer architecture---such as distribution of
 the computing client to voters and organizations, achieving sufficient
 ease of use and performance, etc.---may prove more difficult.
