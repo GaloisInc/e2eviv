@@ -398,7 +398,55 @@ fluent enough with all aspects of the project and its processes to
 release software only once the processes have been faithfully
 executed.
 
-\subsubsection{First-Class Documentation}
+\subsubsection{Testable Documentation}
+
+Documentation of the design, implementation, and use of a software
+system is a standard requirement in software engineering
+methodologies. However when a system is under development and rapidly
+changing, documentation can lag behind and fall out of step with the
+latest version of the software, leading to errors and confusion.
+
+Where possible, documentation should be machine-testable (or even
+machine-generated) and integrated with the VCS rather than being a set
+of static resources maintained independently of the software
+itself. Much as testing gives the advantage of early software flaw
+detection, testable and generated documentation is less likely to
+become inconsistent with the software it describes.
+
+The form of testable documentation varies depending on the granularity
+of the documentation and the underlying technologies used by the
+project. For example, Business Object Notation
+(BON)~\cite{walden1995seamless} can be used as analyzable
+documentation at the specification, design, and architecture level.
+
+At the level of code modules and interfaces, documentation should be
+concretely executable like the ``doctest'' features available for
+programming languages like Python and
+Haskell~\cite{python3doctest}. Documentation in this style contains
+short examples that illustrate the expected use of a system and its
+expected response, for example in Python:
+
+\begin{lstlisting}[language=Python]
+"""
+This is the fibonacci module. It provides the function fib which
+returns the nth fibonacci number, where n >= 0.
+
+>>> fib(0)
+0
+>>> fib(10)
+55
+>>> fib(-1)
+Traceback (most recent call last):
+    ...
+ValueError: n must be >= 0
+"""
+\end{lstlisting}
+
+These executable tests should supplement, not replace traditional
+prose documentation. Since they amount to a form of unit test, they
+suffer from the same limitations. They usually only exercise a handful
+of concrete values, and cannot test non-functional properties like
+expected performance or thread safety.
 
 \subsubsection{Automation}
 
