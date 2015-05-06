@@ -8,6 +8,9 @@
 
 \todoacf{Introduce context with NIST, ISO standards for methodology?}
 
+\todoacf{Lay out the characteristics we want more explicitly, eg,
+  freedom from flaws, repetability, correctness}
+
 Sound engineering practices are the foundation for building reliable
 and secure software of any type. This is particularly true for
 critical systems which must be trusted to perform important tasks
@@ -448,7 +451,91 @@ suffer from the same limitations. They usually only exercise a handful
 of concrete values, and cannot test non-functional properties like
 expected performance or thread safety.
 
-\subsubsection{Automation}
+\subsubsection{Reproducibility \& Automation}
+
+A team can implement many of the processes in this section
+manually. Tests can be run by hand on developers' machines, code can
+be sent out for review by email, issues can be tracked in mailing list
+posts, and a release manager can build and package release artifacts
+by hand for each supported platform. Each time a step in a process
+must be manually performed, the probability of human error increases,
+and reproducing steps for later quality assurance and troubleshooting
+becomes harder.
+
+A manual operator might skip a step or perform a step out of order,
+for example running the test suite before integrating the latest
+changes from the VCS. The operator might also introduce new steps that
+seem necessary and obvious, but unless recorded will make it very
+difficult to reproduce or audit the process in the future. Finally,
+manual execution of a process, even if done correctly, takes much
+longer than automated execution.
+
+To prevent errors, improve reproducibility, and make development more
+efficient, processes should be automated as much as possible. The
+methodologies described in this section all support automation and
+reproducibility or can themselves be automated to a degree, but some
+play key roles:
+
+\paragraph{Version Control}
+
+The version control system is a linchpin of automation on a
+project. The versions it manages are the starting point for automated
+and reproducible continuous integration, testing, and software
+releases. The VCS can itself trigger automated processes, for example
+it could trigger a run of the test suite after every commit.
+
+Any automated process should be run in the context of a particular VCS
+version, and any artifacts produced by these processes should refer to
+this version. For example, if software has a built-in bug reporting
+feature, those reports should automatically include the version at the
+time the software was built. This allows engineers to easily reproduce
+the exact circumstances where the user discovered a flaw.
+
+Version control can only improve reproducibility when all of the
+relevant inputs to a process are managed in the VCS. For example, a
+software build process that depends on a configuration file in the
+user's home directory would not be reproducible on a different
+computer without that home directory.
+
+\paragraph{Testing}
+
+Manual testing can play an important role when evaluating a system,
+but any realistic system requires more tests than are feasible to
+perform manually. Even if the contents of a test suite are automatic,
+if that test suite is only run manually it will often be skipped,
+particularly when it takes a long time to run. Automating both the
+tests themselves and the running of those tests ensures that they will
+be run on a consistent basis, and that the results will be
+reproducible and traceable to a particular version.
+
+\paragraph{Continuous Integration}
+
+Continuous integration is another linchpin of project
+automation. Since CI tools are designed to automatically run on a
+regular basis and offer integration with the VCS, other processes are
+usually automated by using these tools. For example, after building
+the integrated software, a CI tool should run the test suite and
+archive the built artifacts for subsequent release management.
+
+\paragraph{Release Management}
+
+No process has as many moving parts or cross-project concerns as
+release management, making manual release management extremely
+error-prone. The entire process from checking out a version from the
+VCS to deploying the final release artifacts should be as automatic as
+possible. The manual intervention should amount to simply deciding
+which version to release, and checking before the final release that
+the automated process performed as expected.
+
+Because automation is inexpensive when using continuous integration,
+it is a good practice to have CI tools perform parts of the release
+management process on a regular basis, even when software is not ready
+for a release. If the process of producing a release is the same as
+performing an ordinary nightly build and test, it is less likely that
+problems will arise only at the release stage when it is much more
+costly to address those problems.
 
 \section{Technologies}
+\label{sec:technologies}
+
 \section{Interpreting Results}
