@@ -2,22 +2,21 @@
 \label{chapter:required_properties}
 
 In August 2010, the U.S. Election Assistance Commission issued a set
-of testing requirements for pilot projects aimed at providing remote
-electronic voting systems for UOCAVA voters~\cite{eac-uocava2010}. The
-general categories of requirements specified by the EAC included
-functional requirements, such as the need for the system to produce
-paper records of voter choices and generate human-readable ballot
-images; requirements on software development, such as allowable
-programming languages and coding conventions; usability, accessibility
-and privacy requirements, such as that a voter's ballot choices must
-remain private and that provisions must be made to support voters with
-disabilities; security requirements, including logging requirements,
-requirements on communications security within the system, and
-requirements on physical security and penetration resistance; quality
-assurance requirements describing the testing that must be done on the
-systems; and requirements about configuration management mechanisms,
-technical information, and documentation to be provided by system
-vendors.
+of testing requirements for UOCAVA remote electronic voting system
+pilot projects~\cite{eac-uocava2010}. The general categories of
+requirements specified by the EAC included functional requirements,
+such as the need for the system to produce paper records of voter
+choices and generate human-readable ballot images; requirements on
+software development, such as allowable programming languages and
+coding conventions; usability, accessibility and privacy requirements,
+such as that a voter's ballot choices must remain private and that
+provisions must be made to support voters with disabilities; security
+requirements, including logging requirements, requirements on
+communications security within the system, and requirements on
+physical security and penetration resistance; quality assurance
+requirements describing the testing that must be done on the systems;
+and requirements about configuration management mechanisms, technical
+information, and documentation to be provided by system vendors.
 
 The EAC have some serious shortcomings, one of which is that several
 of the requirements seem arbitrary. For example, they specify (in
@@ -30,15 +29,15 @@ hardware, such as semiconductor devices and magnetic storage media,
 shall be accurate'' and that ``the design of equipment in all voting
 systems shall provide for protection against mechanical, thermal, and
 electromagnetic stresses that impact voting system accuracy'' without
-any guidance for how to evaluate such accuracy or protective ability.
+any guidance on how to evaluate such accuracy or protective ability.
 
-In addition, a number of the EAC requirements are inappropriate or
-invalid. The most obvious example of this is the set of requirements
-that mandate specific ``structured programming'' characteristics of
-software implementation languages (Sections 4.1 and 4.4), which seem
-to eliminate functional programming languages such as Haskell and
-Erlang---widely used in implementing high-assurance systems---from
-consideration entirely. 
+In addition to these shortcomings, some of the EAC requirements are
+inappropriate or invalid. The most obvious example of this is the set
+of requirements that mandate specific ``structured programming''
+characteristics of software implementation languages (Sections 4.1 and
+4.4), which seem to eliminate functional programming languages such as
+Haskell and Erlang---widely used in implementing high-assurance
+systems---from consideration entirely.
 
 If these issues were addressed, the EAC requirements could serve as a
 solid baseline set of requirements for remote electronic voting

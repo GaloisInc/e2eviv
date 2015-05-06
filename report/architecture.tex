@@ -260,11 +260,15 @@ solution space for a workable E2EVIV system architecture.
 The Business Object Notation diagram in \autoref{figure:arch-choices}
 shows the architectural choices that need to be made; for each
 attribute of the architecture, a list of possible choices is
-provided. There are 7 listed dimensions, three of which have 2 and
-four of which have 3 possible choices, for a total of
-$2^3\cdot{}3^4=648$ possible architectural variants.
+provided. There are seven dimensions, each of which can take on a set
+of values. The values are chosen from 2-element sets for five of the
+dimensions, and from 3-element and 4-element sets for the remining
+two. Since each dimension must have at least one selection (the empty
+set is disallowed), this allows for
+$(2^2-1)^5\times(2^3-1)\times(2^4-1)=25,\!515$ possible architectural
+variants.
 
-\begin{figure}[t]
+\begin{figure}
 \begin{center}
 \lstinputlisting[style=bon,frame=lines]{architecture_resources/architecture-dimensions.bon}
 \end{center}
