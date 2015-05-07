@@ -234,17 +234,16 @@ use secure multiparty computation (MPC), such that no single system
 needs to be completely trusted. \todo{flesh this out}
 
 \paragraph{Trusting the Network.} The Internet is inherently insecure,
-so measures must be taken to guarantee some level of trust in the
-system's Internet-based communications. The first, and most obvious,
-of these is that all communication, among any components in the
-system, should use the TLS protocol. The certificates used to
-establish TLS connections should be \emph{pinned}, meaning that when a
-client wants to connect to a server, the client already has
-information about the server's security certificate (or information
-about a set of certificates, if more than one is acceptable). If an
-unexpected certificate is provided by the server, even if the hostname
-on the certificate matches the hostname of the server, the connection
-fails. 
+so measures must be taken to ensure the integirity of the system's
+Internet-based communications. The first and most obvious of these is
+that all communication among components in the system should use the
+TLS protocol. The certificates used to establish TLS connections
+should be \emph{pinned}, meaning that when a client wants to connect
+to a server, the client already has information about the server's
+security certificate (or information about a set of certificates, if
+more than one is acceptable). If an unexpected certificate is provided
+by the server, even if the hostname on the certificate matches the
+hostname of the server, the connection fails.
 
 Certificates used in E2EVIV systems should have signature chains that
 involve not only a certificate authority (like Comodo, Symantec, etc.)
@@ -260,15 +259,57 @@ system---even over TLS-encrypted connections---should be carried out
 using custom cryptographic protocols, so that even in the unlikely
 event of a TLS compromise the data is protected.
 
-\paragraph{Trusting the Voting Client.} \tododmz{client cannot be
-  trusted; application certification and attestation; challenges in
-  web client infrastructure v-v plethora of Javascript engines;
-  Javascript JIT complexity; poor Javascript language design; tools
-  like JSCert\footnote{\url{http://jscert.org/}}, Anders Moller's
-  tools\footnote{\url{http://casa.au.dk/software-tools/}}, and MSR's
-  CVK\footnote{\url{http://research.microsoft.com/en-us/projects/cvk/}}
-  only take us a little bit of the way there; still research to do a
-  la SAW for asm.js}
+\paragraph{Trusting the Voting Client.} One clear ``weak link'' in the
+security of an E2EVIV system is the voting client, which must by
+definition---regardless of its implementation technology---run on
+untrusted machines belonging to individual voters. There are two
+potential issues: first, the voting client software itself might be
+corrupted; second, a voter's computing environment might be corrupted
+in a way such that the voter's interactions with the software are
+compromised.
+
+There are various ways to ensure that the voting client software
+remains uncorrupted. One technique for doing so with native
+applications is application signing, where each application binary is
+digitally signed before distribution and the signature is checked at
+runtime. Trusted Computing techniques such as remote attestation can
+provide even stronger guarantees, but rely on the presence of a
+Trusted Platform Module (TPM) in the voter's computer.  However, the
+fact that TPMs are not universally deployed (for example, Apple has
+not shipped a computer, tablet, or phone with a TPM since 2006) means
+that E2EVIV systems cannot rely on Trusted Computing techniques.
+
+Implementing the voting client as a web application can alleviate some
+concern about the corruption of distributed native application
+binaries, but makes it more difficult to ensure the voting client's
+integrity and reason about its behavior. One problematic aspect of web
+applications is that JavaScript can be interpreted differently not
+only across platforms, but also across browsers on the same platform;
+there are currently four different mainstream JavaScript
+engines---Spidermonkey for Mozilla FireFox, V8 for Google Chrome,
+Nitro for Apple Safari, and Chakra for Microsoft Internet
+Explorer---plus a host of others used by other browsers on various
+platforms. In addition, the JavaScript language itself is not
+particularly amenable to the types of analysis required for high
+assurance software. Progress has been toward high assurance
+JavaScript, including techniques such as Certified
+JavaScript~\cite{JSCert}, several JavaScript tools from the Center for
+Advanced Software Analysis~\cite{CASATools}, and Microsoft Research's
+Crypto Verification Kit~\cite{CVK}. However, significant research is
+still needed in this area.
+
+One potential approach for implementing a high-assurance voting client
+as a web application is to start with a high-level language that
+support the sorts of analysis necessary to provide the required
+correctness and security guarantees.  Mozilla's asm.js~\cite{asm.js}
+is a strict subset of JavaScript that can be used as a target for
+compiling such higher-level languages. One nice side effect is that
+this subset of JavaScript is easy to reason about, and we can
+therefore establish a level of assurance that it will behave identically
+across JavaScript runtime environments. With some research and tool
+development, it should be possible to develop a high-assurance voting
+client, compile it to asm.js, and deploy it as a web application.
+
 
 \paragraph{Trusting the Data.} \tododmz{data-in-transit discussed
   above; use of mainstream DB technology inappropriate given the
