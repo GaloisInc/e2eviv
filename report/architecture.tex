@@ -1,4 +1,4 @@
-\chapter{Architecture\ifdraft{ (Joe K./Dan) (30\%)}{}}
+\chapter{Architecture\ifdraft{ (Joe K./Dan) (95\%)}{}}
 \label{chapter:architecture}
 
 The \emph{architecture} of a computing system, akin to the
@@ -34,24 +34,60 @@ Several non-functional requirements of E2EVIV systems force the
 inclusion or consideration of specific architectural factors. We
 consider each of these in turn.
 
+\subsection{Certification}
+
+Voting systems in most jurisdictions are subject to certification
+requirements. The EAC and NIST have developed a set of Voluntary
+Voting System Guidelines (VVSG) at the federal level, and the EAC
+launched a Voting System Testing and Certification Program in 2007;
+prior to 2007, voting systems were typically tested and certified by
+the National Association of State Election Directors (NASED). The
+EAC's guidelines are voluntary; however, many jurisdictions have
+mandated adherence to them, so an E2EVIV system that is to be widely
+deployed must follow them as well as any other state and local
+guidelines.
+
+Certification processes generally require that a specific
+implementation of a system be presented to a certification laboratory;
+in the E2EVIV context, this would likely consist of a complete set of
+source files, plus binaries built to run on specific platforms and
+with specific external dependencies, and any custom hardware to be
+used in the system. Certification is typically an expensive process,
+often costing many times more than developing the system in the first
+place. Moreover, certification generally applies only to the system as
+submitted; any changes to the system require a full or partial
+recertification at additional expense.
+
+This certification regime presents a sharp contrast to today's typical
+software lifecycle. Most modern software systems, especially those
+developed using agile techniques, are updated frequently to address
+implementation issues and respond to changing customer needs. For
+example, since its first release in September 2008 the Google Chrome
+web browser has seen 42 major releases---an average of about one every
+two months---and many minor patch releases in between. That sort of
+release cycle is simply not an option for an E2EVIV system, unless the
+voting system certification regime changes dramatically.
+Architectural decisions made during the system's development must
+therefore be undertaken with great care, because major architectural
+changes will be extremely expensive.
+
 \subsection{Abstraction}
 
-The software in an E2EVIV system must be high assurance, and must also
-undergo a certification process before it can be used in actual
-elections. Thus, the software must be designed and implemented with a
-level of abstraction that enables the generation of convincing
-evidence for its correctness. This requires development techniques
-that emphasize formal specification and verification, which divide the
-software system into relatively small components with well-defined,
-well-constrained interfaces. Each component can then be verified
-individually with respect to its specification; moreover, component
-behaviors with respect to external communication can be formally
-characterized in ways that allow for verification of composed
+The software in an E2EVIV system must be high assurance, and must, as
+discussed above, undergo a certification process before it can be used
+in actual elections. Thus, the software must be designed and
+implemented with a level of abstraction that enables the generation of
+convincing evidence for its correctness. This requires development
+techniques that emphasize formal specification and verification, which
+divide the software system into relatively small components with
+well-defined, well-constrained interfaces. Each component can then be
+verified individually with respect to its specification; moreover,
+component behaviors with respect to external communication can be
+formally characterized in ways that allow for verification of composed
 subsystems.
 
-\tododmz{NIST component-based certification}
-\todokiniry{Are we talking here about the VVSG (co-developed by NIST),
-  or something else?}
+\todokiniry{I'm not sure what exactly you're going for with respect to
+  NIST component-based certification. -dmz}
 
 \subsection{Deployment}
 
@@ -70,8 +106,6 @@ distributed among all participating computers and no
 specifically-designated servers. The choice within this spectrum has
 significant impact on both system availability and system security
 requirements.
-
-\tododmz{agile and devops mentality vs. certification?}
 
 \subsection{Threats}
 \label{sec:threats}
@@ -136,6 +170,7 @@ functions. \tododmz{How might an E2EVIV system look that built from
   the ground-up using MPC?  MPC+peer-to-peer at one extreme; }
 
 \subsection{Distributing Trust}
+\label{sec:trust}
 
 The distribution of trust in an E2EVIV system is critical: if the
 system is not trustworthy, the election results generated by it are
@@ -328,33 +363,32 @@ binaries, but makes it more difficult to ensure the voting client's
 integrity and reason about its behavior. One problematic aspect of web
 applications is that JavaScript can be interpreted differently not
 only across platforms, but also across browsers on the same platform;
-there are currently four different mainstream JavaScript
-engines---Spidermonkey for Mozilla FireFox, V8 for Google Chrome,
-Nitro for Apple Safari, and Chakra for Microsoft Internet
-Explorer---plus a host of others used by other browsers on various
-platforms. In addition, the JavaScript language itself is not
-particularly amenable to the types of analysis required for high
-assurance software. Progress has been toward high assurance
-JavaScript, including techniques such as Certified
-JavaScript~\cite{JSCert}, several JavaScript tools from the Center for
-Advanced Software Analysis~\cite{CASATools}, and Microsoft Research's
-Crypto Verification Kit~\cite{CVK}. However, significant research is
-still needed in this area.
+there are currently four different mainstream JavaScript engines---V8
+for Google Chrome, Spidermonkey for Mozilla FireFox, Nitro for Apple
+Safari, and Chakra for Microsoft Internet Explorer---plus a host of
+others used by other browsers on various platforms. In addition, the
+JavaScript language itself is not particularly amenable to the types
+of analysis required for high assurance software. Progress has been
+made toward enabling high assurance JavaScript, including techniques
+such as Certified JavaScript~\cite{JSCert}, several JavaScript tools
+from the Center for Advanced Software Analysis~\cite{CASATools}, and
+Microsoft Research's Crypto Verification Kit~\cite{CVK}. However,
+significant research is still needed in this area.
 
-One potential approach for implementing a high-assurance voting client
+One potential approach for implementing a high assurance voting client
 as a web application is to start with a high-level language that
 support the sorts of analysis necessary to provide the required
 correctness and security guarantees.  Mozilla's asm.js~\cite{asm.js}
 is a strict subset of JavaScript that can be used as a target for
 compiling such higher-level languages. One nice side effect is that
-this subset of JavaScript is easy to reason about, and we can
-therefore establish a level of assurance that it will behave identically
-across JavaScript runtime environments. With some research and tool
-development, it should be possible to develop a high-assurance voting
-client, compile it to asm.js, and deploy it as a web application.
+this subset of JavaScript is easy to reason about, and generally
+behaves identically across JavaScript runtime environments. With some
+research and tool development, it should be possible to develop a high
+assurance voting client, compile it to asm.js, and deploy it as a web
+application.
 
 With respect to the second issue, corruption of the voter's computing
-environment, there are a wide range of possible threats. One, which we
+environment, there is a wide range of possible threats. One, which we
 cannot address as part of an E2EVIV system implementation, is
 surreptitious logging/monitoring software that records the voter's
 actions and transmits them to a third party. Detection and prevention
@@ -366,81 +400,157 @@ policies). However, we can only recommend that voters take such
 protective measures, and the voting client software cannot detect
 whether they are actually in place.
 
-Another possible threat is malicious web browsers or OS libraries that
-deceive the voter into taking unintended actions. Such malicious code
-might do any or all of the following: manipulate the appearance of the
-voting client such that a voter believes she has voted for a
-particular candidate or choice when she has actually cast a vote for a
+Another threat is posed by malicious web browsers or OS libraries that
+may deceive the voter into taking unintended actions. Such malicious
+code might do any or all of the following: manipulate the appearance
+of the voting client such that a voter believes she has voted for a
+particular candidate or choice when she has actually voted for a
 different one; block or corrupt communications between the voting
 client and the rest of the E2EVIV system, causing the voter to
-unintentionally spoil ballots or otherwise interfering with the
-casting of votes; and spoof the client-side verification screens to
-make a voter mistakenly believe that her vote was cast as intended or
-counted as cast. Many of these threats can be partially or completely
-mitigated through good cryptography and user interface design---for
-example, prominent use of confirmation codes transmitted out-of-band,
-such as via postal mail, to authenticate communications between the
-voter and the system---but there will always be the possibility of
+unintentionally spoil ballots or otherwise interfering with vote
+casting; and spoof the client-side verification screens to make a
+voter mistakenly believe she is voting when she is actually not
+interacting with the rest of E2EVIV system at all. Many of these
+threats can be partially or completely mitigated through judicious use
+cryptography and good user interface design---for example, prominent
+use of confirmation codes transmitted out-of-band, such as via postal
+mail, to authenticate communications between the voter and the system
+in both directions---but there will always be the possibility of
 malicious action on the part of untrusted client systems. Essentially,
-the best we can do is ensure that any corruption on an untrusted
-client system cannot violate the integrity of any other part of the
-system.
+the best we can do is ensure that any individual corrupted client
+system cannot violate the integrity of any other part of the system.
 
 \paragraph{Trusting the Data.} As previously discussed, communications
-can be protected using TLS and custom cryptographic
-protocols. However, the communicated data needs to be stored at some
-point, in a stable fashion, in order to be verified, tallied, and
-audited. Standard database technology is inappropriate for this
-purpose because of the data integrity, confidentiality, and provenance
-requirements that must be met in an E2EVIV system. Data must be
-encrypted at rest to protect against straightforward physical theft of
-storage devices, and should remain encrypted during as much of the
-system's computation as possible to protect against both malicious
-software and bad behavior on the part of individuals with access to
-the data store.
+can be protected using TLS and custom cryptographic protocols.
+However, the communicated data needs to be committed to stable storage
+at some point, in order to be verified, tallied, and audited. Standard
+database technology is inappropriate for this purpose because of the
+data integrity, confidentiality, and provenance requirements that must
+be met in an E2EVIV system. Data must be encrypted at rest to protect
+against straightforward physical theft of storage devices, and should
+remain encrypted during as much of the system's computation as
+possible to protect against manipulation or disclosure by either
+malicious software or individuals with administrative access to the
+data store.
 
-One way to increase trust in the data while retaining the advantages
-of well-known and well-understood database technology is to use a tool
-like CryptDB~\cite{Popa11}, which allows for storage of and secure
-computation with encrypted data in standard database systems like
-MySQL and Postgres. Other possibilities include novel MPC frameworks
-like ShareMonad~\cite{Launchbury14} and partial or full homomorphic
-cryptographic schemes such as ElGamal and BGV that enable computation
-of encrypted results over encrypted data.
+One way to prevent data manipulation, or at least make it nearly
+infeasible, is to effectively make critical data in the system ``write
+once'' by using a technique like hash chaining to ensure its
+integrity; if a piece of data is changed after being written, the hash
+chain for all subsequently-recorded data must also be modified in
+order to ``hide'' the change. This makes data manipulation far more
+difficult, though still technically possible if the system is
+sufficiently compromised and its usage is not closely monitored
+(recomputing the entire hash chain would generally require significant
+computational resources). Replication of the data and the hash chain
+in multiple locations that must be accessed independently can
+significantly mitigate the possibility of such a compromise going
+undetected.
+
+One way to prevent inappropriate disclosure of data while retaining
+the advantages of well-known and well-understood database technology
+is to use a tool like CryptDB~\cite{Popa11}, which allows for storage
+of and secure computation with encrypted data in standard database
+systems like MySQL and Postgres. Other possibilities include novel MPC
+frameworks like ShareMonad~\cite{Launchbury14} and partial or full
+homomorphic cryptographic schemes such as ElGamal and BGV that enable
+computation of encrypted results over encrypted data.
 
 \paragraph{Trusting the Voter.} The voter, like the voting client, is
 a ``weak link'' in the security of an E2EVIV system. It is possible
 for voters to compromise their own authentication credentials
-intentionally or otherwise, allowing others to vote on their behalf,
-or to falsely challenge their own legitimately cast votes either
-maliciously or because of mistaken memory. Judicious selection of the
+intentionally or otherwise, allowing others to vote on their behalf;
+to falsely challenge their own legitimately cast votes either
+maliciously or because of mistaken memory; and to be misled into
+either ``voting'' on a system other than the actual E2EVIV system or
+missing the time window for ballot casting.
+
+In an unsupervised system, voters are responsible for their own
+security. However, the vast majority of people lack the knowledge and
+tools necessary to keep their computers secure. The electoral
+authority can strongly encourage certain security measures, such as
+use of antivirus/antimalware software on appropriate platforms, manual
+checking of SSL certificates to ensure that they are signed by the
+electoral authority, and installation of up-to-date OS, browser, and
+E2EVIV system software and security patches. However, there will
+inevitably be voters who do not follow these recommendations, and it
+is generally not possible---especially if it is web-based---for the
+E2EVIV system to evaluate a voter's compliance with them and act
+accordingly.  Moreover, even voters using completely uncorrupted
+computers can fall victim to social engineering attacks such as
+official-looking physical mailers with false voting codes and false
+voting server information.\footnote{Social engineering attacks have
+  often been used in non-Internet election scenarios, primarily with
+  the goal of suppressing votes; durng the 2014 midterm election
+  cycle, there were numerous reports of mailings directing voters to
+  incorrect voting places, giving incorrect election dates and
+  absentee ballot submission deadlines, and containing incorrect
+  information about voter registration.}  Judicious selection of the
 distribution mechanisms for credentials and challenge mechanisms for
-votes may help to increase trust in the voter, at least to the extent
-that they can make it more difficult for non-malicious voters to
-compromise their own security. It is, of course, impossible to defend
-an E2EVIV system against individual voters who are determined (or
-compelled) to compromise the security of their own votes; ``shoulder
-surfing'' and ``rubber hose'' attacks\footnote{These are both actual
-  terms of art in the field of computer security. A ``shoulder
-  surfing'' adversary monitors all the actions of the voter throughout
-  the voting process, while an adversary employing a ``rubber hose''
-  attack extracts information from the voter or forces the voter to
-  take particular actions by means of threatened or actual physical
-  harm.} remain feasible regardless of the credential distribution
-mechanism, voting mechanism, or other protocols implemented in the
-system.
+votes may help mitigate these issues, at least to the extent that they
+can make it more difficult for non-malicious voters to compromise
+their own security.
 
-\tododmz{physical and digital process
-  of distributing credentials to the voter; false claims from, or
-  mistaken memory of, voters wrt challenging votes; inability to put
-  any trust in voter to keep their client up-to-date, check SSL
-  certificates, etc.}
+Of course, it is impossible to defend an E2EVIV system against
+individual voters who are determined (or compelled) to compromise the
+security of their own votes; ``shoulder surfing'' and ``rubber hose''
+attacks\footnote{These are both actual terms of art in the field of
+  computer security. A ``shoulder surfing'' adversary monitors all the
+  actions of the voter throughout the voting process, while an
+  adversary employing a ``rubber hose'' attack extracts information
+  from the voter or forces the voter to take particular actions by
+  means of threatened or actual physical harm.} remain feasible in any
+unsupervised voting environment, regardless of the credential
+distribution mechanism, voting mechanism, or other protocols
+implemented by the system.
 
-\paragraph{Trusting the Cryptography.} \tododmz{on-paper proofs
-  vs. mechanized proofs; verification of implementation against
-  specification; synthesis of implementation from specification; use
-  of NSA/NIST-blessed cryptography; improper sources of randomness;
-  use of Intel-blessed hardware crypto}
+\paragraph{Trusting the Cryptography.} One area where many purportedly
+secure systems fall short is their cryptography; even with good
+intentions and sound designs, it is easy to make small but critical
+mistakes in cryptographic algorithm and protocol implementations that
+completely compromise system security.
+
+It is clearly essential that proofs be carried out for all novel
+cryptographic protocols used in an E2EVIV system. These proofs may be
+carried out on paper, or may be mechanized such that they are
+checkable by computers. Moreover, all cryptographic protocol
+implementations must be verified against their specifications; if the
+specifications are mechanized, it is easier to carry out this
+verification, and is even possible to \emph{synthesize} the
+implementation directly from the specification in a
+correctness-preserving fashion.
+
+It is also essential that only well-studied secure cryptographic
+algorithms and pseudorandom random number generators (PRNGs) be used
+in E2EVIV systems. The need for secure cryptographic algorithms is
+obvious; the fact that bad sources of randomness can cause many
+vulnerabilities in the otherwise-sound cryptographic systems built
+atop them is less so. Exploits related directly to weak or absent
+random numbers have taken place in various real world systems,
+including fraudulent transactions in European EMV (Chip and PIN)
+payment systems, large-scale theft from Android-based Bitcoin wallets,
+and a complete compromise of the PlayStation 3 game console's digital
+signature process.
+
+E2EVIV systems may use cryptographic algorithms and PRNGs approved by
+government agencies, such as those specified by NIST in the Federal
+Information Processing Standards (FIPS), but should be restricted to
+those that have also been extensively studied by non-government
+entities to counter the appearance that the government has a ``back
+door'' allowing it to defeat the system's cryptography.\footnote{As
+  reported by the New York Times in late 2013, the NSA actually did
+  insert a back door into the NIST-approved Dual\_EC\_DRBG PRNG (it
+  has since been removed from the approved PRNG list) and has actively
+  worked to insert similar back doors into other cryptographic
+  systems.}  Similarly, hardware entropy generators such as the RdRand
+functionality found in current Intel processors can be used to provide
+entropy in an E2EVIV system, but must not be the sole sources of
+entropy; since they are opaque subsystems whose functional details are
+not available for inspection, they may contain hidden weaknesses or
+back doors. The output of such generators can be combined with other
+entropy as seed input to other open-source secure PRNGs, as is
+standard practice in most operating systems' random number generation
+subsystems.
 
 \paragraph{Trusting the Toolchain.} Ken Thompson, in his 1984 Turing
 Award lecture ``Reflections on Trusting Trust'' \cite{Thompson84},
@@ -531,12 +641,12 @@ The Business Object Notation diagram in \autoref{figure:arch-choices}
 shows the architectural choices that need to be made; for each
 attribute of the architecture, a list of possible choices is
 provided. There are seven dimensions, each of which can take on a set
-of values. The values are chosen from 2-element sets for five of the
-dimensions, and from 3-element and 4-element sets for the remining
-two. Since each dimension must have at least one selection (the empty
-set is disallowed), this allows for
-$(2^2-1)^5\times(2^3-1)\times(2^4-1)=25,\!515$ possible architectural
-variants.
+of values. The values are chosen from 2-element sets for four of the
+dimensions, from a 3-element for one, and from 4-element sets for the
+remaining two. Since each dimension must have at least one selection
+(the empty set is disallowed), this yields a total of
+$(2^2-1)^4\times(2^3-1)\times(2^4-1)^2=127,\!575$ possible
+architectural variants.
 
 \begin{figure}
 \begin{center}
@@ -564,15 +674,15 @@ The architectural dimensions we have identified are the following:
   behaves like centralized authority from the perspective of most of
   the entities in the system.
 
-\item \textbf{Cryptography} \ The set of cryptographic algorithms and
-  protocols used to protect voter privacy and insure ballot integrity
-  is a critical component in any E2EVIV system. Security
-  characterizations of individual cryptographic algorithms (e.g.,
-  block ciphers such as AES, standard public key cryptosystems such as
-  RSA, threshold cryptosystems such as ElGamal) can be found in the
-  large body of cryptography literature, and the selection of
-  individual algorithms is generally a matter of picking an
-  appropriate algorithm and security strength for a given
+\item \textbf{Cryptographic Protocols} \ The set of cryptographic
+  algorithms and protocols used to protect voter privacy and insure
+  ballot integrity is a critical component in any E2EVIV
+  system. Security characterizations of individual cryptographic
+  algorithms (e.g., block ciphers such as AES, standard public key
+  cryptosystems such as RSA, threshold cryptosystems such as ElGamal)
+  can be found in the large body of cryptography literature, and the
+  selection of individual algorithms is generally a matter of picking
+  an appropriate algorithm and security strength for a given
   task. However, since novel cryptographic protocols such as those
   required to implement E2EVIV systems are not widely used or studied,
   evidence must be provided for the security of any such protocols
@@ -587,7 +697,10 @@ The architectural dimensions we have identified are the following:
   minor protocol changes; however, there may be cases where this is
   impractical. Thus, the cryptographic protocols of the system may
   have ``paper'' specifications, be mechanized in a formal system, or
-  some combination thereof.
+  some combination thereof. Moreover, their implementations may be
+  verified against the specifications in various ways, or may be
+  directly synthesized from the specifications in a way that
+  guarantees correctness.
 
 \item \textbf{Evidence of Correctness} \ The development of a high
   assurance system such as an E2EVIV system proceeds from a
@@ -608,27 +721,91 @@ The architectural dimensions we have identified are the following:
   possible to be mechanically generated from the specification, most
   high assurance systems use some combination of these two techniques.
 
-\item \textbf{Implementation Type} \ \todokiniry{Isn't there a
-    requirement that the protocols and specs be open? Given that, and
-    the previous dimension, why do we have this dimension?  i.e., what
-    am I missing? -dmz} Regardless of the choices made along any of
-  the other dimensions, a reference for what constitutes a ``correct''
-  implementation must be provided. This can come in the form of a
-  ``golden im\-ple\-men\-ta\-tion''---if a given implementation
-  behaves identically to the golden implementation in all
-  circumstances, it is a correct implementation. Alternatively, it can
-  come in the form of open protocols and specifications, whereby any
-  implemention can be checked for conformance and declared correct
-  based on the results of that check.
+\item \textbf{Implementation Type} \ Regardless of the choices made
+  along any of the other dimensions, a reference for what constitutes
+  a ``correct'' implementation must be provided. Either a ``golden
+  im\-ple\-men\-ta\-tion'' with strong correctness guarantees or a
+  complete set of open protocols and specifications may serve as such
+  a reference.
 
-  \tododmz{I was thinking here more about the critical choices of
-    platform and programming languages. The golden implementation
-    aspect still holds, since one might synthesize or build such an
-    implementation via a correct-by-construction approach, but that
-    version will not fulfill the performance requirements, e.g. -jrk}
+  A golden implementation $G$ may be synthesized directly from a
+  formal specification using semantics-preserving transformations, may
+  be implemented in one of several languages using a ``correct by
+  construction'' approach, or may be painstakingly verified against a
+  formal specification either by hand or in an automated fashion. In
+  any case, such a $G$ defines the correct behavior of the system but
+  may---because of its implementation technology or other
+  factors---not satisfy real-world performance requirements, memory
+  usage/storage requirements, etc.  However, $G$ can be used as a
+  reference point for other implementations; if the behavior of an
+  implementation $X$, which does satisfy deployment requirements but
+  for which we have no strong correctness guarantees, conforms to that
+  of $G$, then $X$ is also a correct implementation (and is likely
+  better suited for deployment).
 
-\item \textbf{Key Distribution Method} \ {public ceremony; threshold
-    crypto; PKI vs. web-of-trust}
+  In the absence of a golden implementation, evidence for
+  implementation correctness can come in the form of conformance
+  testing against open protocols and specifications. This requires
+  that such protocols and specifications are provided for the entire
+  system in formats such that conformance checking is feasible.
+
+\item \textbf{Key Distribution Method} \ In all the possible
+  implementations of an E2EVIV system, encryption keys will be
+  required to fulfill security, privacy, and integrity
+  requirements. The ways in which these keys will be determined by the
+  cryptographic algorithms chosen for use in the system, but the ways
+  in which they are distributed depend on architectural choices. For
+  example, public ``key generation and distribution'' ceremonies and
+  the use of threshold cryptography for the keys that enable
+  generation of the final tally, described in \autoref{sec:trust}, may
+  be used to improve trust in the system and making it more resilient
+  in the face of partial corruption of the electoral
+  authority. However, the generation and use of encryption keys in the
+  system is not limited to the election authority; as a result of the
+  pervasive use of TLS encryption for communication, keys are
+  continually generated and exchanged throughout the system.
+
+  The most widespread method of key distribution today is the public
+  key infrastructure (PKI), which manages digital certificates and
+  related artifacts. Trusted certificate authorities issue
+  certificates that bind public keys with user or organizational
+  identities; this is what allows a user to connect to her bank
+  online, examine the certificate presented during the connection, and
+  see that the certificate was in fact issued to her bank rather than
+  a man-in-the-middle attacker. As described in \autoref{sec:trust},
+  PKI can be used to guarantee to voters (in the event that they
+  check) that their connections to an E2EVIV system are secured using
+  a certificate issued to and signed by the electoral authority. PKI
+  is effectively mandatory for secure Internet connections using the
+  TLS protocol, but may also be used to manage other keys in the
+  system; however, this requires a trusted certificate authority for
+  such keys. 
+
+  Another method of key distribution is the ``web of trust'', first
+  described by the creator of Pretty Good Privacy
+  (PGP)~\cite{Zimmermann95} in 1992. Unlike a typical PKI system, a
+  web of trust system does not have the concept of trusted certificate
+  authorities; instead, it is essentially a large collection of public
+  keys that can be digitally signed as a signal of trust. Each public
+  key in the repository identifies an entity (individual or
+  organization) that possesses the corresponding private key. Each
+  public key can be digitally signed by the owners of other keys. For
+  example, assume Alice and Bob have both published their public keys,
+  which are $A$ and $B$ respectively. If Alice knows Bob personally,
+  and Bob can demonstrate to Alice that his public key is actually
+  $B$, then Alice can sign key $B$ (with her private key) to indicate
+  her trust that key $B$ belongs to Bob. Such signatures build a
+  distributed set of trust relationships: if Alice trusts Bob, and Bob
+  trusts Charlie, then it is presumed that Alice can trust
+  Charlie. This is similar to the way certificate authorities work in
+  PKI systems; in effect, Bob acts as a certificate authority for
+  Alice because of the trust relationship they have established, and
+  Alice can trust any key that he has signed (or that has been signed
+  by a key he has signed, etc.). Key distribution via a web of trust
+  could be useful in various parts of E2EVIV systems, as a means of
+  collectively building trust relationships within the system rather
+  than relying on the single points of failure inherent in PKI
+  infrastructures.
 
 \item \textbf{Deployment Style} \ The E2EVIV software can be deployed
   in one of three ways: (1) servers run entirely on trusted servers
@@ -663,13 +840,13 @@ The architectural dimensions we have identified are the following:
 
 Given the many dimensions of the architectural feature model, and
 number of choices in each, the number of possible architectural
-variants for the system is large. Here, we briefly describe a few of
+variants for the system is large. Here, we briefly discuss a few of
 the primary system variants that can be described by the feature
 model. Since we are only describing them at a high level, some of the
-variants described correspond to multiple possible feature selections
-in the feature model (for example, they might have any of the
-different types of correctness evidence or any of the different
-implementation types).
+variants correspond to many possible feature selections in the feature
+model (for example, they might have any of the different types of
+correctness evidence or any of the different key distribution
+methods).
 
 \subsection{Mirrored Servers}
 

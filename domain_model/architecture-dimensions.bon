@@ -11,7 +11,8 @@ component
     crypto_protocols: SET[VALUE]
       ensure 0 < Result.count;
              for_all v: VALUE such_that v member_of Result
-               it_holds v member_of { On_Paper, Mechanized };
+               it_holds v member_of { On_Paper, Mechanized, 
+                                      Verified, Generated };
       end
     correctness_evidence: SET[VALUE]
       ensure 0 < Result.count;
@@ -28,7 +29,7 @@ component
       ensure 0 < Result.count;
              for_all v: VALUE such_that v member_of Result
                it_holds v member_of { Public_Ceremony, Threshold_Cryptography, 
-                                      Traditional_PKI, Web_of_Trust };
+                                      PKI, Web_of_Trust };
       end
     deployment_style: SET[VALUE]
       ensure 0 < Result.count;
