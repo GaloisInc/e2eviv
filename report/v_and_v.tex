@@ -12,6 +12,9 @@
 
 \todoacf{Introduce context with NIST, ISO standards for methodology?}
 
+\todoacf{Lay out the characteristics we want more explicitly, eg,
+  freedom from flaws, repetability, correctness}
+
 Sound engineering practices are the foundation for building reliable
 and secure software of any type. This is particularly true for
 critical systems which must be trusted to perform important tasks
@@ -183,8 +186,6 @@ flaws~\cite{inozemtseva2014coverage}, however more sophisticated
 coverage measures such as branch coverage are more
 promising~\cite{gligoric2013comparing}.
 
-\tododmz{Should we talk model-based testing/JMLUnitNG here? -ACF}
-
 \paragraph{Randomized Testing}
 
 Manually-written tests can only exercise a small fraction of the
@@ -230,6 +231,43 @@ or violates internal assertions when presented with a random, possibly
 malformed input. This variant of random testing is known as
 ``fuzzing'', and should be used as a complement to other forms of
 testing.
+
+\paragraph{Model-Based Testing}
+
+Another method for automatically generating test cases for a program
+is model-based testing, where formal models of the program's behavior
+can be used as test oracles, as guides for choosing test data, or
+both.
+
+Formal models of program behavior can be used as test oracles by
+compiling them into the software as \emph{runtime assertion
+  checks}. For example, assume the specification for some function $f$
+guarantees that some condition $x$ is true when it returns. If $x$ is
+ever false when $f$ returns, $f$ does not satisfy its
+specification. Any good set of unit tests for $f$ should detect this
+divergence, and it would certainly be straightforward to write (by
+hand) a test oracle that checked the value of $x$ after executing
+$f$. However, in many cases $f$'s specification can be
+\emph{automatically} transformed into a set of runtime assertions,
+such that (in this case) an error is always raised if $x$ is false
+when $f$ returns.  Compilers that perform such transformations are
+available for several programming languages and corresponding
+specification languages; some widely-used examples are Java and the
+Java Modeling Language (JML), C\# and Code Contracts, C and the
+Executable ANSI/ISO C Specification Language (E-ACSL), and Eiffel
+(which has an integrated specification language).
+
+The set of runtime assertion checks derived from a formal
+specification of a module effectively become a test oracle for that
+module; in general, more detailed specifications lead to better test
+oracles. For a function $f$ with such an oracle, each test is run by
+simply calling $f$ with some input. It is possible that the
+specification of $f$ restricts the set of possible inputs; if so,
+tests that supply invalid inputs are effectively meaningless and their
+output is ignored. A test that supplies valid inputs passes if all the
+runtime assertion checks pass and fails if any runtime assertion check
+fails. 
+
 
 \paragraph{Regression Testing}
 
@@ -377,9 +415,166 @@ properties about the correctness of a system.
 
 \subsubsection{Release Management \& Lifecycle}
 
-\subsubsection{First-Class Documentation}
+Release management is the process through which software moves from
+implementation through testing, validation, and verification into a
+finished product that can be used in its intended environment. Release
+management is primarily focused on the smooth integration of the
+different aspects of the project, and on adhering to practices that
+make releases repeatable, reliable, and auditable.
 
-\subsubsection{Automation}
+Release management and VCS workflows are tightly connected. For
+example, release managent would be responsible for creating a new
+release branch in the Git Flow model~\cite{atlassianworkflow},
+imposing a feature freeze (no new features, only bug fixes) on that
+branch, and eventually tagging that branch upon release and merging it
+back into the main development branch.
+
+For a project that delivers software as a service on a web server,
+release management would be responsible for deploying the software to
+production servers. For software delivered as a binary download or CD,
+release management would be responsible for cryptographically signing
+and distributing the binary. In both of these cases, the release
+manager serves as the final line of quality assurance before the
+software is used in its intended environment, and so she must be
+fluent enough with all aspects of the project and its processes to
+release software only once the processes have been faithfully
+executed.
+
+\subsubsection{Testable Documentation}
+
+Documentation of the design, implementation, and use of a software
+system is a standard requirement in software engineering
+methodologies. However when a system is under development and rapidly
+changing, documentation can lag behind and fall out of step with the
+latest version of the software, leading to errors and confusion.
+
+Where possible, documentation should be machine-testable (or even
+machine-generated) and integrated with the VCS rather than being a set
+of static resources maintained independently of the software
+itself. Much as testing gives the advantage of early software flaw
+detection, testable and generated documentation is less likely to
+become inconsistent with the software it describes.
+
+The form of testable documentation varies depending on the granularity
+of the documentation and the underlying technologies used by the
+project. For example, Business Object Notation
+(BON)~\cite{walden1995seamless} can be used as analyzable
+documentation at the specification, design, and architecture level.
+
+At the level of code modules and interfaces, documentation should be
+concretely executable like the ``doctest'' features available for
+programming languages like Python and
+Haskell~\cite{python3doctest}. Documentation in this style contains
+short examples that illustrate the expected use of a system and its
+expected response, for example in Python:
+
+\begin{lstlisting}[language=Python]
+"""
+This is the fibonacci module. It provides the function fib which
+returns the nth fibonacci number, where n >= 0.
+
+>>> fib(0)
+0
+>>> fib(10)
+55
+>>> fib(-1)
+Traceback (most recent call last):
+    ...
+ValueError: n must be >= 0
+"""
+\end{lstlisting}
+
+These executable tests should supplement, not replace traditional
+prose documentation. Since they amount to a form of unit test, they
+suffer from the same limitations. They usually only exercise a handful
+of concrete values, and cannot test non-functional properties like
+expected performance or thread safety.
+
+\subsubsection{Reproducibility \& Automation}
+
+A team can implement many of the processes in this section
+manually. Tests can be run by hand on developers' machines, code can
+be sent out for review by email, issues can be tracked in mailing list
+posts, and a release manager can build and package release artifacts
+by hand for each supported platform. Each time a step in a process
+must be manually performed, the probability of human error increases,
+and reproducing steps for later quality assurance and troubleshooting
+becomes harder.
+
+A manual operator might skip a step or perform a step out of order,
+for example running the test suite before integrating the latest
+changes from the VCS. The operator might also introduce new steps that
+seem necessary and obvious, but unless recorded will make it very
+difficult to reproduce or audit the process in the future. Finally,
+manual execution of a process, even if done correctly, takes much
+longer than automated execution.
+
+To prevent errors, improve reproducibility, and make development more
+efficient, processes should be automated as much as possible. The
+methodologies described in this section all support automation and
+reproducibility or can themselves be automated to a degree, but some
+play key roles:
+
+\paragraph{Version Control}
+
+The version control system is a linchpin of automation on a
+project. The versions it manages are the starting point for automated
+and reproducible continuous integration, testing, and software
+releases. The VCS can itself trigger automated processes, for example
+it could trigger a run of the test suite after every commit.
+
+Any automated process should be run in the context of a particular VCS
+version, and any artifacts produced by these processes should refer to
+this version. For example, if software has a built-in bug reporting
+feature, those reports should automatically include the version at the
+time the software was built. This allows engineers to easily reproduce
+the exact circumstances where the user discovered a flaw.
+
+Version control can only improve reproducibility when all of the
+relevant inputs to a process are managed in the VCS. For example, a
+software build process that depends on a configuration file in the
+user's home directory would not be reproducible on a different
+computer without that home directory.
+
+\paragraph{Testing}
+
+Manual testing can play an important role when evaluating a system,
+but any realistic system requires more tests than are feasible to
+perform manually. Even if the contents of a test suite are automatic,
+if that test suite is only run manually it will often be skipped,
+particularly when it takes a long time to run. Automating both the
+tests themselves and the running of those tests ensures that they will
+be run on a consistent basis, and that the results will be
+reproducible and traceable to a particular version.
+
+\paragraph{Continuous Integration}
+
+Continuous integration is another linchpin of project
+automation. Since CI tools are designed to automatically run on a
+regular basis and offer integration with the VCS, other processes are
+usually automated by using these tools. For example, after building
+the integrated software, a CI tool should run the test suite and
+archive the built artifacts for subsequent release management.
+
+\paragraph{Release Management}
+
+No process has as many moving parts or cross-project concerns as
+release management, making manual release management extremely
+error-prone. The entire process from checking out a version from the
+VCS to deploying the final release artifacts should be as automatic as
+possible. The manual intervention should amount to simply deciding
+which version to release, and checking before the final release that
+the automated process performed as expected.
+
+Because automation is inexpensive when using continuous integration,
+it is a good practice to have CI tools perform parts of the release
+management process on a regular basis, even when software is not ready
+for a release. If the process of producing a release is the same as
+performing an ordinary nightly build and test, it is less likely that
+problems will arise only at the release stage when it is much more
+costly to address those problems.
 
 \section{Technologies}
+\label{sec:technologies}
+
 \section{Interpreting Results}

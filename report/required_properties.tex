@@ -1,19 +1,65 @@
 \chapter{Required Properties of E2E Systems\ifdraft{ (Dan) (100\%)}{}}
 \label{chapter:required_properties}
 
-We now describe the required properties that E2E VIV systems must have
-in order to be considered for use in real elections. These
-requirements can be broadly divided into two groups: \emph{technical
-  requirements} and \emph{non-functional requirements}. Technical
-requirements are those that can be directly addressed by the design
-and implementation of the system, such as authentication requirements
-for voters and election officials. Non-functional requirements are
-those that are imposed on the system by external entities or where the
-system depends on external behaviors outside its control, such as
-specific election certification guidelines and operational
-procedures. Each of these groups is itself divided into several
-categories, and \autoref{fig:e2eviv_requirements_hierarchy} gives a
-high-level overview of these.
+In August 2010, the U.S. Election Assistance Commission issued a set
+of testing requirements for UOCAVA remote electronic voting system
+pilot projects~\cite{eac-uocava2010}. The general categories of
+requirements specified by the EAC included functional requirements,
+such as the need for the system to produce paper records of voter
+choices and generate human-readable ballot images; requirements on
+software development, such as allowable programming languages and
+coding conventions; usability, accessibility and privacy requirements,
+such as that a voter's ballot choices must remain private and that
+provisions must be made to support voters with disabilities; security
+requirements, including logging requirements, requirements on
+communications security within the system, and requirements on
+physical security and penetration resistance; quality assurance
+requirements describing the testing that must be done on the systems;
+and requirements about configuration management mechanisms, technical
+information, and documentation to be provided by system vendors.
+
+The EAC have some serious shortcomings, one of which is that several
+of the requirements seem arbitrary. For example, they specify (in
+Section 2.1 of the requirements document) that the voting system shall
+achieve a target error rate of no more than one in 10,000,000 ballot
+positions, with a maximum acceptable error rate in the test process of
+one in 500,000 ballot positions, without any justification for those
+numbers. They further specify (in Sections 2.1.1.1--2) that ``memory
+hardware, such as semiconductor devices and magnetic storage media,
+shall be accurate'' and that ``the design of equipment in all voting
+systems shall provide for protection against mechanical, thermal, and
+electromagnetic stresses that impact voting system accuracy'' without
+any guidance on how to evaluate such accuracy or protective ability.
+
+In addition to these shortcomings, some of the EAC requirements are
+inappropriate or invalid. The most obvious example of this is the set
+of requirements that mandate specific ``structured programming''
+characteristics of software implementation languages (Sections 4.1 and
+4.4), which seem to eliminate functional programming languages such as
+Haskell and Erlang---widely used in implementing high-assurance
+systems---from consideration entirely.
+
+If these issues were addressed, the EAC requirements could serve as a
+solid baseline set of requirements for remote electronic voting
+systems; effectively, addressing the ``IV'' in ``E2E VIV''. However,
+they are not strong enough to guarantee end-to-end verifiability,
+which---as previously discussed---is essential when considering
+Internet voting systems for use in real elections.  Thus, we describe
+here a set of required properties for E2E VIV systems that has
+significant overlap with the EAC requirements.
+
+The set of E2E VIV requirements can be broadly divided into two
+groups: \emph{technical requirements} and \emph{non-functional
+  requirements}. Technical requirements are those that can be directly
+addressed by the design and implementation of the system, such as
+authentication requirements for voters and election
+officials. Non-functional requirements are those that are imposed on
+the system by external entities or where the system depends on
+external behaviors outside its control, such as specific election
+certification guidelines and operational procedures. Each of these
+groups is itself divided into several categories, and
+\autoref{fig:e2eviv_requirements_hierarchy} gives a high-level
+overview of these.
 
 \begin{figure}
 \begin{center}
