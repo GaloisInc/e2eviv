@@ -182,8 +182,6 @@ flaws~\cite{inozemtseva2014coverage}, however more sophisticated
 coverage measures such as branch coverage are more
 promising~\cite{gligoric2013comparing}.
 
-\tododmz{Should we talk model-based testing/JMLUnitNG here? -ACF}
-
 \paragraph{Randomized Testing}
 
 Manually-written tests can only exercise a small fraction of the
@@ -229,6 +227,43 @@ or violates internal assertions when presented with a random, possibly
 malformed input. This variant of random testing is known as
 ``fuzzing'', and should be used as a complement to other forms of
 testing.
+
+\paragraph{Model-Based Testing}
+
+Another method for automatically generating test cases for a program
+is model-based testing, where formal models of the program's behavior
+can be used as test oracles, as guides for choosing test data, or
+both.
+
+Formal models of program behavior can be used as test oracles by
+compiling them into the software as \emph{runtime assertion
+  checks}. For example, assume the specification for some function $f$
+guarantees that some condition $x$ is true when it returns. If $x$ is
+ever false when $f$ returns, $f$ does not satisfy its
+specification. Any good set of unit tests for $f$ should detect this
+divergence, and it would certainly be straightforward to write (by
+hand) a test oracle that checked the value of $x$ after executing
+$f$. However, in many cases $f$'s specification can be
+\emph{automatically} transformed into a set of runtime assertions,
+such that (in this case) an error is always raised if $x$ is false
+when $f$ returns.  Compilers that perform such transformations are
+available for several programming languages and corresponding
+specification languages; some widely-used examples are Java and the
+Java Modeling Language (JML), C\# and Code Contracts, C and the
+Executable ANSI/ISO C Specification Language (E-ACSL), and Eiffel
+(which has an integrated specification language).
+
+The set of runtime assertion checks derived from a formal
+specification of a module effectively become a test oracle for that
+module; in general, more detailed specifications lead to better test
+oracles. For a function $f$ with such an oracle, each test is run by
+simply calling $f$ with some input. It is possible that the
+specification of $f$ restricts the set of possible inputs; if so,
+tests that supply invalid inputs are effectively meaningless and their
+output is ignored. A test that supplies valid inputs passes if all the
+runtime assertion checks pass and fails if any runtime assertion check
+fails. 
+
 
 \paragraph{Regression Testing}
 
