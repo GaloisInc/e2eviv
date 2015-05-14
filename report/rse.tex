@@ -155,9 +155,9 @@ Testing serves the key functions of uncovering flaws quickly, and
 ensuring that previously-fixed flaws do not recur in later
 versions. The assurance testing provides comes from performing these
 functions. It is impossible for testing to reveal all possible flaws
-in any realistic program -- the number of possible inputs for any such
+in any realistic program---the number of possible inputs for any such
 system is so large that an exhaustive test would effectively run
-forever -- but tests that successfully reveal and prevent recurrences
+forever---but tests that successfully reveal and prevent recurrences
 of some flaws provide more assurance than an untested system.
 
 Formal verification and testing should not be viewed as opposing
@@ -254,10 +254,9 @@ testing.
 
 \paragraph{Model-Based Testing}
 
-Another method for automatically generating test cases for a program
-is model-based testing, where formal models of the program's behavior
-can be used as test oracles, as guides for choosing test data, or
-both.
+Another method for automatically generating test cases is model-based
+testing, where formal models of the program's behavior can be used as
+test oracles, as guides for choosing test data, or both.
 
 Formal models of program behavior can be used as test oracles by
 compiling them into the software as \emph{runtime assertion
@@ -275,19 +274,39 @@ available for several programming languages and corresponding
 specification languages; some widely-used examples are Java and the
 Java Modeling Language (JML), C\# and Code Contracts, C and the
 Executable ANSI/ISO C Specification Language (E-ACSL), and Eiffel
-(which has an integrated specification language).
+(with its integrated specification language).
 
 The set of runtime assertion checks derived from a formal
-specification of a module effectively become a test oracle for that
-module; in general, more detailed specifications lead to better test
-oracles. For a function $f$ with such an oracle, each test is run by
-simply calling $f$ with some input. It is possible that the
-specification of $f$ restricts the set of possible inputs; if so,
-tests that supply invalid inputs are effectively meaningless and their
-output is ignored. A test that supplies valid inputs passes if all the
-runtime assertion checks pass and fails if any runtime assertion check
-fails. 
+specification of a module effectively becomes a test oracle for that
+module; in general, more precise specifications lead to better test
+oracles. For a function $f$ with such an oracle, each possible input
+to $f$ defines a test, and each test is run by simply calling $f$ with
+that input. A test passes if all the runtime assertion checks pass and
+fails if any runtime assertion check fails. If the specification of
+$f$ restricts the set of possible inputs, tests that supply invalid
+input are effectively meaningless and their output is ignored.
 
+Of course, it is impractical to call $f$ with every possible input;
+however, strategies such as randomized input data generation
+(discussed above) and ``interesting'' input data generation (for
+example, ensuring that all boundary conditions are tested for data
+types with boundaries, such as numeric types) can be used to cover the
+functionality of $f$ with a reasonable number of tests. Multiple test
+frameworks use these techniques to automatically generate and run
+model-based tests, including the JMLUnitNG tool for
+Java/JML~\cite{ZimmermanNagmoti10} (which integrates with the
+TestNG~\cite{TestNG} automated testing framework) and the AutoTest
+tool for Eiffel~\cite{AutoTest10}.
+
+Formal models of program behavior can also be used as guides for
+choosing test data; for example, AutoTest uses constraint solving
+techniques on programs and their specifications to ensure that test
+data satisfies input constraints on the functions under test.
+Techniques such as symbolic execution---analysis of the program to
+determine what inputs cause what execution paths to be taken---can
+also be used to choose test data, with the goal of achieving maximal
+coverage using a minimal set of test cases. The PEX testing tool for
+.NET~\cite{PEX08} uses this technique.
 
 \paragraph{Regression Testing}
 
