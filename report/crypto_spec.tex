@@ -1,263 +1,908 @@
-\chapter{Crypto Specification\ifdraft{ (Aggelos et al.) (15\%)}{}}
+\chapter{Crypto Specification\ifdraft{(Aggelos, Joe) (85\%)}{}}
 \label{chapter:crypto_spec}
 
+\todokiniry{Introduction to the chapter.}
 
-\section{Ideal Functionality of an E2E System---$\fete$}
-\todokiniry{Dan parked this here, because it doesn't belong in the
-  ``requirements'' chapter, but it may not really belong here
-  either. Still, it or some variant of it probably does. Do with it
-  what you will...}
-The basic protocol followed by any system implementing E2E verifiable
-elections can be characterized by an \emph{ideal functionality}. This
-ideal functionality, called $\fete$ and presented in
-\autoref{fig:required_properties:fete}, recognizes and interacts with
-the election authority $\EA$, the set of eligible voters
-$V_1,\ldots, V_n$ and the auditor $\AU$.  These are ``ideal-world''
-entities; a ``real-world'' implementation of $\fete$ may involve more
-parties that will enable the implementation to realize the ideal
+\section{Crypto Specification}
+
+\todokiniry{Introduction to this section.}
+
+\subsection{Ideal Functionality of an E2E System}
+
+In this section we introduce a template for expressing the core of an
+E2E verifiable system as an ideal functionality. An ideal
+functionality is an abstraction that expresses the I/O interfaces of
+the system with the parties that are involved in the e-voting process
+as well as the way the system is supposed to react on such
+inputs. Furthermore, the ideal functionality specification includes an
+I/O interface with the adversary that expresses precisely the type of
+information that is leaked to the adversary (the output channel of the
+interface) and the level of influence the adversary may have on the
+actions taken by the functionality (the input channel of the
+interface).
+
+The ideal functionality is supposed to operate in an ``ideal world''
+where parties have direct access to its interfaces. This means that
+the adversary is not able to block or highjack the communication of
+parties to and from the ideal functionality. The only way for the
+adversary to interfere is through its own interface. This emphasizes
+that the ideal functionality has precedence over the adversary in the
+ideal world. Contrary to that, in the “real world” such an ideal
+functionality does not exist and hence parties have to resort in the
+execution of a protocol that intends to implement the ideal
+functionality in reality. The conditions under which a protocol can be
+said to realize an ideal functionality are explained below.
+
+The intent of the ideal functionality is to express succinctly and in
+tandem all the required properties of a system. A protocol is said to
+realize an ideal functionality if it is possible to translate any
+attack in the real world to an attack in the ideal world in a way that
+no matter how the system is operated by the parties, it is impossible
+to achieve any distinguishing effect between the two worlds. The
+hallmark of a safe implementation of the ideal functionality is
+exactly this indistinguishability property. Establishing it requires a
+“security proof” that is constructive and algorithmic in nature. Given
+any real world adversary, an ideal world adversary (usually referred
+to as the simulator) is constructed that achieves the above
+indistinguishability property.
+
+An ideal functionality operates in the context of an ideal world
+execution, a simulation that involves the following parties: the
+functionality itself, the environment and the adversary. The
+environment is the main driver of the execution that describes the
+sequence of actions that take place in the interfaces of the ideal
+functionality. It is helpful to think of these actions as serialized
+however formulations of concurrent such executions are also
+possible. The environment is not concerned with how the ideal
+functionality operates as it only provides input and receives output
+from the interfaces of the functionality. At the same time the
+environment communicates with the adversary in some arbitrary
+unrestricted fashion (no assumptions are made about the interface of
+the environment with the ideal functionality). The latter property is
+essential to ensure the arbitrary composability of the election system
+within larger systems (that may involve other components such as
+deliberation platforms and so on). If the interface between
+environment and adversary is specified and restricted in some sense
+then it is typically the case that realizing the functionality becomes
+simpler however this may be done at the expense of sacrificing the
+composability of the protocol.
+
+For our objective, we will provide only a template for an ideal
+functionality for E2E voting. This emphasizes the fact that further
+research will be required to establish a precise formulation of this
+ideal functionality and furthermore there could be many different
+versions of the ideal functionality capturing similar but potentially
+different facets of the e-voting design problem.
+
+\subsubsection{Interfaces of the Ideal Functionality}
+
+The E2E ideal functionality has a number of interfaces that are
+described below. The interfaces are given to parties that the ideal
+functionality is able to identify. Some interfaces may be given to any
+party (without the functionality being concerned about the identity of
+this party).
+
+The administrator interface is the interface that is given to the
+operator of the election system. This interface enables the
+administrator to setup an election, an action that involves the
+description of the ballot together with any restrictions and
+constraints that need to be applied to the ballot casting phase (e.g.,
+how many and what choices are valid per question and so on). The
+initialization message should specify the type of election function
+(e.g., a plurality vote) that should be applied to the inputs
+collected from the voters as well as the list of eligible voters which
+should be a subset of the parties that the functionality is able to
+identify. The administrator is also responsible for opening and
+closing the polls.
+
+The voter interface is the interface that is provided to the
+voters. It allows a voter to cast a vote for the election that is
+controlled by the ideal functionality as long as the election is
+open. The interface is also able to return to the voter some feedback
+information that will enable the voter to verify that her vote has
+been correctly recorded and included in the final tally.
+
+The auditor interface is the interface that is provided to any
+interested party and it allows the auditing of the election result and
+of the election process in general. The auditor interface makes public
+all information about the election including the list of eligible
+voters. Furthermore after the closing of the polls, this interface,
+given the feedback of a voter, it will enable a response on whether
+the vote that has been recorded by the ideal functionality matches the
+original intent of the voter.
+
+The adversary interface enables the adversary to learn and influence
+the way the ideal functionality operates in a number of ways. First it
+enables the adversary to corrupt any party that is involved in the
+process. Corrupted parties are assumed to be under the control of the
+adversary. The identities of corrupted parties are kept by the ideal
+functionality, which may modify its operation depending on which
+parties are corrupted. Most importantly, in case of a corrupted
+administrator, the ideal functionality will allow the modification of
+the voters’ submitted votes.
+
+\subsubsection{Ideal Functionality}
+
+We now describe a general template describing how the functionality
+reacts when given input in any of its available interfaces. As
+discussed above, the description we give here should be interpreted as
+a general guide for expressing the syntax and properties of an ideal
+functionality for an E2E verifiable e-voting system rather than the
+definitive final formulation of such functionality. Using the below as
+a basis a number of different functionalities may be derived that
+share the same interfaces but differ slightly in the way they operate
+when given inputs to one or more of their interfaces.
+
+The functionality recognizes a number of parties some of which are
+given the special role of administrator. Furthermore, it is
+parameterized by a predicate $P(.,.)$ that determines the precision of
+the functionality i.e., how sensitive it is to adversarial
+modifications in the final tally compared to the tally that is
+calculated based on the recorded votes. Intuitively the $P(.,.)$
+predicate captures the fact that we may implement an E2E voting
+procedure via a protocol that cannot prevent with overwhelming
+probability an adversary from switching a handful of votes. Note that
+absolute precision can be achieved by setting $P(.,.)$ to be the
+equality predicate; in any case we require that for any $x,y$ if $x=y$
+then it holds that $P(x,y)$. We proceed to the description of the
+actions taken by the functionality.
+
+\begin{itemize}
+\item Given an initialization message in the administrator interface
+  it will parse it to extract the list of eligible voters and the
+  description of the ballot. It will forward the initialization
+  message to the adversary. Assuming the adversary enables it, will
+  check that the list of eligible voters is a subset of the list of
+  parties it can identify and it will respond with success to the
+  calling party. Otherwise it will respond with failure.
+\item Given an open polls message in the administrator interface it
+  will switch its internal state to accepting votes after taking
+  permission from the adversary.
+\item Given a cast vote message in the voter interface it will parse
+  it to extract a choice for the election's questions. Then, assuming
+  that the administrator is not corrupted, it will notify the
+  adversary about it without communicating the choices of the voter;
+  In case the administrator is corrupted the choices of the voter will
+  be provided to the adversary. When activated, the adversary will
+  decide whether a response back to the voter is to be provided; Given
+  permission, the ideal functionality will check that the voter is
+  among the eligible voters and it will check that the vote is valid
+  given the election's definition. If this is the case it will store a
+  record with the voter's identity and the choices she selected. Then,
+  it will request the feedback for the voter to be specified by the
+  adversary. This feedback will be returned to the voter in order to
+  signify that the ballot-casting submission has been accepted. The
+  adversary is free to provide the feedback string however the
+  functionality will restrict it to be unique: the adversary will not
+  be allowed to use the same feedback string twice. In any other
+  respect, the precise structure of this string is entirely left to
+  the discretion of the ideal world adversary. The feedback string is
+  appended to the voter record and is kept in the local state of the
+  ideal functionality.
+\item Given a close polls message in the administrator interface the
+  functionality will switch its internal state not to accept votes
+  anymore after taking permission from the adversary.  Then, it will
+  calculate the final result based on the records that are kept for
+  the eligible voters that have voted. It will forward the tally to
+  the adversary. This will be called the {\em calculated tally}. The
+  adversary will respond with a possibly modified tally that will be
+  referred to as the {\em final tally}. If the administrator is honest
+  the final tally will be forced by the functionality to be equal to
+  the calculated tally (independently of what the adversary
+  suggested). Both calculated tally and final tally will be recorded
+  in the local state of the ideal functionality.
+\item Given a read tally message in any interface it will forward the
+  request to the adversary. Assuming the adversary enables it, it will
+  return the final tally (note that this may be different from the
+  calculated tally in case the administrator is corrupted). The
+  functionality may also reveal together with the final tally the list
+  of feedback information given to each eligible voter in association
+  with the voter identities.
+\item Given a modify voter record message in the adversary interface,
+  the functionality will parse it to extract the voter's choice. Then,
+  assuming the functionality has been notified earlier that the
+  administrator is corrupted, that the polls are still open and that
+  the alternate voter's choice is valid given the election's
+  definition, it will change the voter's choice in the table where it
+  keeps the voter records making a note that the voter's choice has
+  been switched maliciously.
+\item Given a verify election record in the auditor interface, the
+  functionality will parse it to extract a voter feedback string. It
+  will forward this message to the adversary. If the adversary enables
+  it, it will attempt to identify the record of a voter that was given
+  such string and then return to the auditor a single bit signifying
+  whether the original voter intent has been tampered with or
+  not. Furthermore, it will utilize the predicate $P(.,.)$ and it will
+  pass to the predicate the calculated tally and the final tally. It
+  will return to the callee the output of the predicate.
+\end{itemize}
+
+\subsubsection{Security Characteristics}
+
+Using the template ideal functionality of the above section we next
+argue how a number of required properties are captured. We examine the
+properties individually.
+
+\paragraph{Voter Privacy.}  The ideal functionality ensures voter
+privacy up to a certain level by not disclosing the voter's choice
+when this is given to the functionality in the voter interface
+provided that the administrator is honest. We stress that voter
+privacy is not absolute since the revelation of the calculated tally
+to the adversarial interface when the polls close reveals some
+information about the choices of the voters. In extreme scenarios
+(e.g., only a single voter casts a ballot, a single honest voter
+exists among adversarial voters or everyone votes in the same way) no
+voter privacy remains after the tally is revealed to the adversary and
+naturally no e-voting implementation can be expected to protect
+privacy in these scenarios.
+
+\paragraph{E2E Verifiability.} The verifiability that is provided by
+the system is captured by the actions taken in the auditor
+interface. The auditor can use the feedback provided by the system
+after ballot casting to check whether the voter record has been
+modified by the adversary. Observe that such a modification can happen
+only in the case that the administrator is corrupted. It is easy to
+see that if all voters audit their ballot in the auditor interface (or
+delegate this task to a third party that performs it) it is guaranteed
+that the $P(.,.)$ predicate holds between the calculated tally and the
+final tally. In the other extreme, if nobody audits it is easy to see
+that no guarantee whatsoever is given for the final tally, which may
+deviate arbitrarily from the calculated tally. The intermediate
+setting where voters perform auditing with some probability will
+ensure the correctness of the tally in a statistical sense. We note
+that this is one of the distinctions of this ideal functionality
+compared to ideal functionality for ``secure multiparty computation''
+which is a standard cryptographic notion and the output, if produced,
+is guaranteed to be correct independently of the actions of the
+adversary.
+
+\paragraph{Receipt-freeness.} Receipt-freeness ensures that the voter
+does not obtain any feedback from the system that can be used to
+identify how she voted. Specifically, observe that, provided the
+administrator is honest, the feedback string is generated by the
+adversary and is independent of the voters' choices. It follows that
+this feedback cannot carry any voter choice information. On the other
+hand, if the administrator is corrupted observe that this property is
+not preserved: the feedback may be chosen as a function of the voter's
+choices and hence the receipt-freeness property cannot hold. Note that
+if a voter is corrupted after her vote is cast, the template ideal
+functionality will not divulge the voter record that it has kept in
+its local state. This points to the fact that any implementation of
+the ballot casting protocol should not leave traces from the ballot
+casting stage that unequivocally bind the procedure to a specific
+voter choice.
+
+\subsection{Corruption Robustness}
+
+The ideal functionality enables the corruption of any party in the
+election process. However, it keeps track of the parties that are
+corrupted and it still provides some security guarantees even in the
+case they are corrupted. We examine the effects of corruption from
+different perspectives.
+
+\subsubsection{Corrupt Election Administrator}
+
+A corrupt election administrator has a drastic effect in the way the
+ideal functionality operates. Note that in the template ideal
+functionality we express by a single entity the administrator of the
+election. In a protocol implementation that realizes the ideal
+functionality, the administrator may be implemented by a quorum of
+parties/trustees that collectively share the responsibility of the
+election administration. In such case, corrupting the administrator
+would amount to corrupting a sufficiently large number of trustees
+(the exact number is determined by the specifics of the
+implementation).  When operating the ideal functionality in the
+presence of a malicious administrator we observe that privacy and
+receipt-freeness is lost and moreover the voter intent as captured by
+the functionality can be modified by the adversary. Despite this, the
+functionality still offers a faithful auditing step and informs the
+auditor regarding the state of the voter intent as long as the auditor
+provides the feedback that was obtained by the voter at the completion
+of ballot casting. Note that the functionality enforces that the
+feedback provided, uniquely identifies each voter and thus any auditor
+that has at her possession proper feedback from a certain number of
+honest voters is guaranteed to be able to check the status of an equal
+number of voter records as preserved in the local state of the ideal
 functionality.
 
-$\fete$ accepts a number of commands from the election authority
-$\EA$, the voters and the auditors. At the same time it informs the
-(ideal world) adversary of certain actions that take place and is
-influenced by the adversary to perform certain actions. The ideal
-functionality keeps track of which parties are corrupted and may act
-according to their corruption status.
+\subsubsection{Corrupt Voters} 
 
-$\fete$ has two parameters:
+A corrupt voter is a voter that is controlled by the adversary. Voters
+may be corrupted at any moment either at the onset of the system
+operation or even during the ballot casting process. It is expected
+that an adversary controlling a certain number of voters is also able
+to shift an equal amount of votes in the final tally. However, the
+power of such an adversary is restricted to this level of capability
+and corrupt voters by themselves are incapable of disrupting the
+auditing process or jeopardizing the privacy of the other voters.
 
-\begin{enumerate}
-\item A function $f: (X\cup \{\bot\})^n\rightarrow E$ that defines the
-  election function, where $X$ defines the set of all possible ways
-  for an individual voter to vote and $E$ is the set of all possible
-  election results. The notation $X^n$ denotes all possible strings of
-  length $n$ over the alphabet $X$. The symbol $\bot$ stands for
-  ``undefined.''  The election function $f$ is invariant with respect
-  to $\bot$, i.e., $f(\bot, x) = f(x)$ for all $x$.  
-\item A relation $Q$ that defines the level of sensitivity to
-  manipulation permitted by $\fete$. In particular, for two possible
-  election results $T$ and $T'$ we say that $Q(T,T')$ holds if and
-  only if $T'$ is sufficiently close to $T$. For the most strict
-  version of $\fete$ we define $Q$ to be the equality relation over
-  $E$ (that is, $Q(T,T')$ holds if and only if $T=T'$). 
-\end{enumerate}
+\subsubsection{Corrupt Implementations} 
 
-\begin{figure}[t]
-\begin{center}
-\fbox{
-\begin{minipage}[h]{6in}
-\begin{center}
-\textbf{Functionality $\fete^{f, Q}$}
-\end{center}
-\vspace{1.5ex}
-  The functionality recognizes and interacts with the following
-  parties: (i) the election authority $\EA$; (ii) the eligible voters
-  $\mc{V}= \{V_1,\ldots, V_n\}$; (iii) the auditor $\AU$; and (iv) the
-  adversary $\mc{A}$.  It is parameterized by the relation $Q$ over
-  $E$ and the election function $f:(X\cup\{\bot\})^n \rightarrow E$.
-\vspace{1.5ex}
-\begin{itemize}
-\item Upon receiving an input $(\Create, sid, B)$ from the $\EA$,
-  record the tuple $(sid, B)$ such that $sid$ is the election
-  identifier and $B$ is a string defining the ballot of the election.
-  Send $(\Create, sid, B)$ to the adversary $\mc{A}$.
+A corrupt implementation in the context of an ideal functionality is
+any implementation that fails to realize the ideal functionality. In
+more detail, if an implementation is corrupt, this can be demonstrated
+via the existence of a real world adversary such that no matter how it
+is transformed into the ideal world there is an environment that
+produces a sequence of actions that lead to a distinguishing event
+between the real and the ideal world.
 
-\item Upon receiving an input $(\Deliver, sid)$ from $\EA$, deliver
-  $(B, s_i)$ to each voter $V_i$, where $s_i$ is some voter-specific
-  information that is provided by the adversary $\mc{A}$.\footnote{In
-    some systems, voters may request this information actively; hence,
-    $\fete$ will be passive and will not deliver the ballots.  In such
-    cases the adversary will adaptively provide the $s_i$ values.}
+\subsection{Absent Security Properties}
 
-\item Upon receiving an input $(\Vote, sid, a)$ from $V_i$, select a
-  unique identifier $vid$ and record the tuple $(vid, a)$ provided
-  $a\in X$.  If $\EA$ is honest, send $(\Vote,sid, vid)$ to the
-  adversary $\mc{A}$; if $\EA$ is corrupted, send
-  $(\Vote, sid, vid, V_i, a)$ to $\mc{A}$.\footnote{In some systems
-    the voter identity $V_i$ can be leaked to the adversary during
-    ballot casting.}
+In the template ideal functionality a number of security aspects are
+not dealt with explicitly. The fact that are not directly addressed is
+intentional as their inclusion would make the security specification
+substantially more complex. In this way, the template functionality
+provides a baseline for security that is a minimum threshold for
+end-to-end verifiability and privacy.  Given that a scheme attains at
+least the level of security suggested by the ideal functionality it
+should then be analyzed with respect to these additional properties as
+they can be desirable at least to a certain extent; whether a scheme
+is suitable for deployment in a certain context may depend also on its
+performance on these additional security characteristics.  We
+elaborate on them below.
 
-\item Upon receiving $(\RecordVote, sid, vid, b)$ from $\mc{A}$,
-  verify that a tuple $(vid, a)$ has been previously recorded and then
-  record the tuple $(V_i, a, b)$ provided that (i) $V_i$ is a voter
-  that has not previously been assigned a vote,\footnote{In some
-    systems the voter is allowed to change his/her mind and hence vote
-    multiple times.} (ii) the value $a$ is a valid choice consistent
-  with the ballot description $B$, and (iii) the value $b$ is unique
-  amongst received $\RecordVote$ messages.  Finally, return
-  $(\Receipt, b)$ to $V_i$.
+\paragraph{Denial of service attacks.} The template ideal
+functionality enables the adversary to prevent voters completing the
+ballot-casting protocol and may also prevent the tally from becoming
+available. From a definitional point of view, expressing such level of
+security is feasible by assuming certain qualities of the underlying
+communication and message passing mechanisms that are employed in the
+implementation. One way to extend the functionality to capture such a
+setting is to oblige the adversary to deliver its messages by certain
+deadlines; in such case the functionality may go ahead and deliver
+messages in its output interfaces without requiring the adversary to
+enable suc messages. In order to do this formally, a notion of time
+will have to be introduced in the model. This may be achieved by
+introducing a global clock functionality based on which such deadlines
+can be expressed.
 
-\item Upon receiving an input $(\Tally, sid)$ from the $\EA$, collect
-  all recorded inputs $\{(V_j, a_j, b_j)\}_{j\in \tilde{\mc{V}}}$,
-  where $\tilde{\mc{V}}$ is the set of voters that voted successfully,
-  and set $a_j = \bot$ for all $j\not\in \tilde{\mc{V}}$.  Compute
-  $T =f(\langle a_{1}, \ldots, a_n \rangle )$ and return $(\Tally, T)$
-  to $\mc{A}$.
+\paragraph{Coercion.} Even though the functionality does not permit
+coercion via the voter feedback it provides, the adversary may still
+achieve coercion by corrupting a voter (e.g., hacking into the voter's
+PC) and assuming her role. Extending the model to handle such coercion
+is feasible by mediating in a more strict way the way voter corruption
+takes place.
 
-\item Upon receiving $(\RecordTally, sid, \mc{M}, \hat{T})$ from
-  $\mc{A}$, where $\mc{M}$ can be parsed as a polynomial-size circuit,
-  set $\langle a'_{1}, \ldots, a'_n \rangle = \mc{M}(a_1,\ldots,a_n)$
-  and if $\exists j: (a'_j \neq a_j)$ and $\EA$ is honest then ignore
-  the message. In any other case, record $(\Result, T', \hat{T})$ and
-  $\langle a'_{1}, \ldots, a'_n \rangle$, where $T'$ is the election
-  result calculated as
-  $T' = f(\langle a'_{1}, \ldots, a'_n \rangle )$.
+\paragraph{Sybil attacks.} The set of voters is predetermined and
+integrated into the functionality. Hence, the adversary cannot
+manipulate the list of voters. It follows that the template
+functionality is applicable to the setting where the list of voters is
+predetermined, assumed to be public and the adversary may not tamper
+with it. The setting where the adversary can manipulate the system via
+the introduction of fake identities in the eligible voter list is not
+explicitly addressed. Nevertheless, note that the functionality can
+produce the list of identities that have participated in voting and in
+such case it can be possible for auditors to perform a check in order
+to verify whether the active voters correspond to real persons (e.g.,
+by selecting a small random sample of them and performing an in-person
+interview).
 
-\item Upon receiving $(\ReadTally, sid)$ from any party, 
-return $(\Result, \hat{T}, Q(\hat{T},T'))$.
+\paragraph{Privacy beyond the voters' choices.} The template
+functionality as written leaks to the adversary a number of voter
+behavior specific aspects including the time that a certain voter
+casts a ballot as well as the final list of voters that have
+participated in the election. As mentioned above, this is also a
+security feature as it enables the auditors to identify the list of
+active voters and validate their participation. Increasing privacy and
+reducing auditability by hiding the list of active voters is possible
+in the model.
 
-\item Upon receiving $(\Audit, b)$ from  from any party, 
-recover the triple $(V_j, a_j,b_j)$ such that $b_j = b$ and return 1 if and only 
-if $(a_j' = a_j)$ and 0 otherwise.
-\end{itemize}
-\end{minipage}
-}
-\end{center}
-\caption{The ideal functionality $\fete^{f,Q}$.}
-\label{fig:required_properties:fete}
-\end{figure}
+\paragraph{Accountability.} As written, the template functionality
+does not provide any mechanism to resolve disputes between sets of
+voters that claim their voter records have been compromised and an
+election administrator that claims the particular set of voters
+intends to disrupt the election by making false claims. Such dispute
+resolution mechanisms may be implemented judicially outside the
+security model taking into account threshold conditions (e.g., if the
+number of complaints is below a threshold then disputes are resolved
+in favor of the election administrator; note that this will affect the
+verifiability of the election in a statistical sense). However, it is
+also possible to enhance the model with accountability by having the
+ideal functionality present some information about the corruption
+state of parties (currently no such information is divulged to the
+auditor).
 
-The ideal functionality $\fete^{f,Q}$ captures the following set of
-security characteristics:
+\section{Contextual Analyses of Primary E2E Protocols}
 
-\begin{itemize}
-\item Provided the $\EA$ is not corrupted, the adversary is incapable
-  of extracting the voters' selections.
+In this section we overview a list of candidate e-voting systems from
+the perspective of privacy and verifiability in the context of the
+template ideal functionality. Further investigations will be able
+determine whether the schemes below (or close variants) are capable of
+realizing some instantiation of the template ideal functionality.  A
+common characteristic in all the systems we list below is the
+existence and general availability of a public-bulletin board that
+maintains unambiguously the transcript of the election. This is the
+transcript that will be used by the auditors to validate the election
+result together with feedback information collected from the voters.
+We remark that the above are in some sense minimal assumptions. If the
+voters are not able to have a unique view of the election transcript
+then it is impossible to have verifiability overall and the the
+template ideal functionality would immediately disqualify a system
+where an adversary can disrupt the voters' unique view of the election
+transcript.
 
-\item Provided the $\EA$ is not corrupted, all votes are recorded and
-  tallied according to the election function $f(\cdot)$.
+\subsection{Demos}
 
-\item Even if the $\EA$ is corrupted, a set of well defined votes are
-  assigned to the voters of the election (however, such votes may
-  deviate from the original voters' intent). The votes cannot be
-  manipulated when the $\EA$ is honest.
+Demos is a system that was recently put forth in \cite{demos}. The
+central construction idea views the administrator as operating in a
+three move protocol known as a Sigma protocol. At the initial stage,
+the administrator precomputes a sequence of encodings that contain all
+possible ways that a voter can vote in an election and posts them in a
+public bulletin board.  The administrator then distributes ballots
+that enable voters to cast their vote by essentially pointing to
+specific encoded information in the public bulletin board. The
+election terminates by having the administrator produce a proof in the
+bulletin board that the tally computation is correct.
 
-\item Even if the $\EA$ is corrupted, the functionality consistently
-  returns the same tally result to all parties that request
-  it. Furthermore, the functionality always tests the reported tally
-  according to the predicate $Q$ and reports the outcome, hence any
-  substantial (according to $Q$) deviation from the recorded tally
-  will be detectable by all honest parties.
+A key feature of the system is that the administrator precomputes for
+each voter two equivalent ways to cast a ballot and the voter is free
+to choose at random one of the two (say ``A'' or ``B''). While the A-B
+decision does not affect the way the voter interacts with the system,
+it introduces voter-side entropy that is independent of the voter's PC
+or device and can be collected and utilized to ensure the calculation
+of the tally is correct. Taking advantage of this feature DEMOS is
+capable of producing a proof that unequivocally ensures the result is
+correct (without having to rely on any additional assumption beyond
+the availability of the election transcript and the feedback from the
+voters).
 
-\item The functionality preserves voter intent and, in case of vote
-  manipulation, the voter or an auditor can use the unique receipts
-  provided in the completion of ballot-casting to test whether voter
-  intent was manipulated by a corrupt $\EA$. Any party may use those
-  receipts, hence verification is ``delegatable.''
-\end{itemize}
+From the implementation point of view, the voter interface requires
+the ballot encoding information. Given this information, ballot
+casting is straightforward as it is only needed to submit the
+corresponding pointer to the bulletin board. Note that the pointer
+itself does not violate the privacy of the voter since it merely
+points to an ciphertext that hides the actual choice under a
+cryptographic computational assumption (specifically, a variant of the
+Decisional Diffie Hellman assumption).
 
-Consider now a protocol $\pi$ that implements syntactically the ideal
-functionality $\fete$ (i.e., has the same I/O characteristics as
-$\fete$). Following standard notation and terminology we have the
-following:
+The verifiability of the system hinges on the fact that the election
+administrator will have to prove that the tally is correct by opening
+any of the unused ballot encodings in the public bulletin board. In
+order to attack verifiability effectively the administrator will have
+to guess the choice made by the voters in the A-B decision. While this
+may be feasible for just a handful of voters, it is shown in
+\cite{demos} that the probability of not getting caught drops
+exponentially in the distance of the deviation of the final tally from
+the calculated tally (in our present terminology).
 
-\begin{definition}
-  Let $f$ be an election function and $Q$ a predicate over the
-  election results.  The protocol $\pi$ implements $\fete^{f,Q}$
-  provided that, for all adversaries $\mc{A}$, there is a simulator
-  $\mc{S}$ so that for all environments $\mc{Z}$ it holds that
-\[ \Exec_{\pi, \mc{A}, \mc{Z}} \approx
-\Exec^{\fete^{f,Q}}_{\mc{S},\mc{Z}}  \ \ .\]
-\end{definition}
+Demos (or a Demos variant) has potential has the potential to realize
+some useful instantiation of the template ideal functionality given
+the proof arguments presented in \cite{demos} assuming there is
+sufficient entropy in the A-B decision that is performed by the
+voters.
 
-Note that the protocols that will be considered in practice may
-utilize simpler ideal functionalities. In such cases, the protocol
-$\pi$ implements $\fete$ conditional on the existence and availability
-of these other functionalities. Such functionalities include
-``authenticated channels'', a ``write-only bulletin board'', etc.
+\subsection{Helios}
 
-\paragraph{Party corruption.} As stated, the ideal functionality
-$\fete$ enables the adversary $\mc{A}$ to corrupt parties by issuing
-special $(\Corrupt, P)$ messages.  Given such a message, the ideal
-functionality $\fete$ will divulge to the adversary the complete I/O
-transcript from the interface between $\fete$ and $P$. We distinguish
-between static and adaptive corruptions. In the case of static
-corruptions all messages $(\Corrupt,P)$ are delivered at the onset of
-the execution, while for adaptive corruptions they can be delivered at
-any time.  For brevity we do not explicitly include the actions taken
-for $\Corrupt$ messages in the description of the functionality.
+Helios is a system that was introduced in \cite{helios} and culminates
+a long sequence of previous works that used client side encryption
+combined with a ciphertext processing stage that breaks the connection
+between the identity of the voter and her choices during ballot
+casting. The voter casts a ballot by utilizing a public-key encryption
+operation under a key that is provided by the election
+administrator. This key is typically generated by a quorum of trustees
+who collectively control the decryption operation under a certain
+threshold condition.
 
-In the real world, the corruption of an entity expresses an action
-taken by the adversary that results in the complete control of the
-entity's computing environment. A corrupted voter, specifically, loses
-privacy completely and the adversary may take any action on her
-behalf. For example, if corruption of a voter happens prior to ballot
-casting the adversary may vote on her behalf, while if corruption of a
-voter happens after ballot casting the adversary will learn her
-choice. If the adversary corrupts the $\EA$, it may try to manipulate
-some voters' ballots however to the extent permitted by $\fete$ (no
-matter how many parties are corrupted, $\fete$ always has the ``upper
-hand'').
+The verifiability features of such a system are based on two
+mechanisms. First, the voter is allowed to challenge her client side
+encryption device (be it a PC, smartphone or other system). This is
+performed at a moment where the device has produced a ciphertext; the
+voter is asked whether to cast it or audit it. In case of an audit the
+coins used for producing the ciphertext are presented and the voter
+obtains a transcript of information that can be used to verify that
+the ciphertext is properly constructed. Note that such information
+cannot be verified visually or by hand and the voter is required to
+keep this information and verify it using a second device (in order
+for the check to be meaningful this auditing device should run code
+that is independent from the voter's main device). When the voter has
+performed a number of audits and kept the results she can cast her
+encrypted ballot. With each ciphertext that is produced a ``smart
+ballot tracker'' information is provided as well, that is the hash of
+the ciphertext. This can be used by the voter to verify that the
+ciphertext that was generated is the same one that appears in the
+bulletin board.
 
-\subsection{Claims Regarding $\fete$}
+Helios utilizes non-interactive zero-knowledge (NIZK) proofs for (i)
+ensuring that the encrypted votes are of the proper form, and (ii)
+ensuring that the decryption is performed properly by the
+trustees. The presence and verification of those NIZKs is essential
+for the verifiability and privacy aspects of the system.
 
-\begin{claim}
-  Assuming the $\EA$ is not corrupted, the ideal functionality
-  $\fete^{f,Q}$ leaks no information about how honest voters vote,
-  except for information that is revealed from the partial tally of
-  the votes of the honest voters (according to $f$).
-\end{claim}
+Overall, auditing in Helios requires (i) the verification of the
+artifacts of the cast-or-audit process, (ii) checking that the smart
+ballot tracker corresponds to the hash of the ciphertext that is
+posted on the bulletin board and finally (iii) verifying the
+zero-knowledge proofs that ensure that the encrypted ballots are
+properly encoded and that the ciphertext processing (be it homomorphic
+or based on mix-nets) is properly executed.
 
-\begin{claim}
-  The adversary may delay the recording of an honest voter's ballot,
-  however when it is recorded the voter obtains a receipt that enables
-  her to verify that her vote has been properly recorded and tallied.
-\end{claim}
+The current implementation of Helios utilizes encryption with an
+additive homomorphic property so that vote tallying can be executed
+over the submitted ciphertexts. An alternative implementation that
+utilizes mix-nets for ciphertext processing has been proposed
+\cite{zeus}.
 
-\begin{claim}
-  The receipt each voter obtains after her vote is recorded is unique;
-  assuming the $\EA$ is honest, each receipt is independent of the
-  voter's choice and hence can safely be passed to, e.g., a third
-  party auditor $\AU$.
-\end{claim}
+Helios (or a Helios variant) has the potential to realize some useful
+instantiation of the template ideal functionality given that it can
+satisfy end-to-end verifiability assuming the voters perform the
+audit-or-check procedure following a probabilistic strategy. It should
+be noted that such proof will require the validity of the NIZK
+components that in the present system formulation relies on an
+abstraction called the random oracle model.
 
-\begin{claim}
-  When the $\EA$ is corrupted it is possible for the adversary to
-  manipulate all the votes (via computational manipulation
-  $\mc{M}(a_1,\ldots, a_n) = (a_1', \ldots, a'_n)$) and even provide
-  an incorrect tally $\hat{T}$; nevertheless, the ideal functionality
-  ensures that honest parties are notified about whether the reported
-  tally $\hat{T}$ and the recorded tally $T'$ satisfy the relation
-  $Q$, i.e., it returns $Q(T',\hat{T})$.
-\end{claim}
+\subsection{Norwegian System}
 
-\subsection{Security Properties Not Captured by $\fete$}
+The Norwegian system \cite{norwegian} is based on a protocol developed
+by Scytl. The administrator will generate for each voter a list of
+receipt codes, one for each possible choice. These are handed to the
+voters ahead of time. The voters submit their encrypted vote to the
+administrator. Using a special ciphertext processing operation it is
+possible for the administrator to extract from each ciphertext the
+code that corresponds to the choice of the voter and submit it back to
+the voter via an independent channel (e.g., if voting takes place
+using a PC the code can be transmitted back to a smartphone). This is
+argued to ensure the voter that the system has correctly recorded her
+intent without violating the privacy of the voter. The reason for that
+is that the code itself is pseudorandomly dependent on the choice of
+the voter and it is independently selected for each voter. Thus, the
+code by itself, reveals no useful information about the choice of the
+voter. At the same time, the ciphertext processing step ensures that
+the server calculating the code has to apply the proper function and
+extract the proper value while it is hard to guess an alternative
+value (given the pseudorandomness of the codes).
 
-We have intentionally omitted a number of security aspects from this
-specification of the ideal end-to-end functionality $\fete$:
+When the voter receives the code she can compare it with the
+information that is available to her and thus verify that the system
+correctly recoded her intention.
 
-\begin{itemize}
-\item \textbf{Denial of service attacks.} The ideal functionality as
-  written enables the adversary to prevent voters from completing the
-  ballot-casting protocol and prevent the tally from becoming
-  available. From a definitional point of view, expressing the
-  mitigation of such attacks is feasible by assuming certain qualities
-  of the underlying communication and message passing mechanisms
-  employed in the implementation. One way to extend the functionality
-  to capture such mitigation is to oblige the adversary to deliver the
-  $(\RecordVote)$ and $(\RecordTally)$ messages by certain
-  deadlines. In order to do this formally, a notion of time would have
-  to be introduced in the model, for example by introducing a global
-  clock functionality.
+Contrary to Helios or Demos, verifiability in this system can only
+hold provided that the adversary does not control the servers and the
+device used by the voter to cast the ballot. Indeed, in such case it
+is possible that the system deceives the voter that the proper choice
+was recorded while something else has been recorded instead. It
+follows that the verifiability guarantee for the Norwegian system is
+weaker (note that the template functionality can accommodate such
+weaker guarantees by suitably restricting the number and type of
+corrupt parties in the real execution; nevertheless, such restrictions
+would be preferable to be avoided if possible).
 
-\item \textbf{Coercion via corrupting voters.} Even though $\fete$
-  does not permit coercion via the receipts it provides, the adversary
-  may still achieve coercion by corrupting a voter (e.g., hacking into
-  the voter's computer). If this happens after the ballot-casting
-  protocol, $\fete$ reveals the choice of the voter and hence the
-  voter may be vulnerable to coercion.  Addressing this in the model
-  is feasible by further restricting the information that is divulged
-  when voter corruption takes place. Various intermediate levels of
-  corruption may be considered, e.g., is the voter capable of erasing
-  some information? rewriting some information? etc.
+\subsection{Remotegrity}
 
-\item \textbf{Sybil attacks.} The set of voters $V_1,\ldots,V_n$ is
-  predetermined and integrated into the functionality $\fete$. Hence,
-  the adversary cannot manipulate the list of voters.  It follows that
-  $\fete$ is applicable to the setting where the list of voters is
-  predetermined, assumed to be public, and immune to tampering by the
-  adversary. 
-\end{itemize}
+Remotegrity \cite{remotegrity} is a front-end system for Internet
+voting that can be combined with a back-end (such as Scantegrity-II
+\cite{scantegrity2} ) to offer a complete e-voting system with
+end-to-end verifiability guarantees.
+
+During initialization the system administrator precomputes a number of
+encoded ballots as well as commits to a properly formed set of tables
+of commitments in a public bulletin board. For each candidate choice
+there is a unique vote-code that is assigned to each voter and the
+tables commit to a correspondence between vote-codes and
+candidates. During the cast protocol the voter can select to audit or
+cast a vote. Audited ballots are spoiled and their correspondence in
+the tables will be revealed at the end of the process. Cast ballots on
+the other hand record a certain vote-code and the corresponding
+election choice will be revealed in a way that the correspondence to
+the voter will remain hidden.
+
+This is achieved via the interaction of two tables of commitments that
+become partially open depending on a source of public and verifiable
+randomness.
+
+Assuming that the adversary is incapable of biasing the independent
+random source that provides the challenge for the partial opening of
+the commitment tables it is possible to argue that the system
+satisfies a level of verifiability without sacrificing privacy.
+
+Based on this, the system has the potential for privacy and
+verifiability only in case of an adversarial environment where the
+randomness used to challenge the administrator remains unbiased and
+outside the control of the adversary. This is tight, as it is easy to
+see that in case the adversary completely controls the randomness used
+in the challenge stage she can produce any tally that is independent
+of the voter's intent.
+
+Regarding the randomness used there are several proposals for natural
+or human public phenomena that have been proposed for use in this
+context (for instance, stockmarket end of day quotes, weather
+measurements are potential candidates). We stress that using such
+sources of randomness is not straightforward as the randomness quality
+is limited and a proper extraction of uniform randomness needs to be
+applied.
+
+\subsection{RIES}
+
+The Rijnland Internet Election System (RIES) was used between
+2004-2006 for elections in Dutch District Water Boards and in 2006 for
+the Dutch expats in the parliamentary elections. The system is simpler
+than the systems examined above.
+
+The administrator produces a public-key encryption pair and one
+symmetric encryption key for each voter. Subsequently voters can
+submit vote-codes that are calculated as functions of their symmetric
+encryption key. The administrator who knows all symmetric encryption
+keys publishes a table of hashes on the vote-codes used by the
+voters. A voter interacts with her device providing the symmetric
+encryption key. The device prepares the vote-code (which is computable
+using the vote-code) and maintains that vote-code as a receipt for the
+voter. Meanwhile the administrator decrypts all votes and posts them
+to the bulletin board in some predetermined order (that also depends
+on the symmetric encryption key).
+
+Note that it is possible to calculate the final tally using the
+information that is put in the bulletin board by matching them with
+the hashed vote-codes. However, the system is not a candidate for
+realizing a reasonable variant of the template ideal functionality
+given that it produces receipts that unequivocally identify the way
+that voters choose their selection during ballot-casting. Indeed, the
+system is not receipt-free and hence cannot be used as a reasonable
+implementation of the ideal functionality.
+
+\subsection{Wombat}
+
+The wombat system \cite{wombat} falls in the same category as Helios
+and Zeus with the exception that it uses an onsite ballot-casting
+setup that also preserves the original voter intent in paper. The
+voters generate ciphertexts with the aid of a device with a printer
+that presents the voter choice both in ciphertext form as well as in
+plaintext form. The voter may choose to audit the combination using
+the same exact logic as the audit or cast mechanism described above in
+the Helios section.  When the voter decides to cast the ballot, she
+tears the plaintext part and places it in a ballot box. The ciphertext
+part is scanned and published in a bulletin board.
+
+The voter retains the encoding of the ciphertext that was cast as a
+fingerprint to match it with the information in the bulletin board
+(this plays the same role as the smart ballot tracker in the case of
+Helios).
+
+In order to preserve the privacy of the voters a mix-net final step is
+employed to ensure that ciphertexts become disassociated from the
+voters themselves. Overall the same verifiability and privacy
+arguments made in the case of Helios would apply here (while taking
+into account the fact that wombat is an on-site system).
+
+\newcommand{\PaV}{Pr{\^{e}}t {\`{a}} Voter}
+
+\subsection{vVote/\PaV}
+
+The vVote system is an adaptation of the \PaV system for the
+Australian state of Victoria elections \cite{vvote}. It retains the
+general structure of \PaV \cite{pret-a-voter}
+while it modifies the way the encryption of voter choices is performed
+so that it suits the style of elections of Victoria.
+
+Recall that \PaV paper ballots are divided into a left and
+right hand side. Each ballot contains a permutation of the choices
+that are available to the voter. The voter is invited to enter her
+choices in the right-hand-side while the names of the candidates
+appear (randomly permuted) in the left-hand-side. After marking, the
+left-hand-side is destroyed while the right-hand-side is scanned so
+that it is posted in the bulletin board as well as it is kept as a
+receipt. The right-hand-side contains also the encoding of a
+ciphertext that enciphers the permutation that was used in the ballot.
+
+Verifiability can be based on an audit-or-cast process on the printed
+ballot and the verification of the process in the bulletin
+board. Specifically, the voter can choose to spoil a ballot and reveal
+the encryption of the permutation which will enable the comparison of
+the encrypted permutation to the one physically shown in the the
+ballot. The voter can also track her ballot in the bulletin board
+(recall that the right hand side contains an encoding of the
+ciphertext). Finally the result is revealed after a mix-net operation
+which includes zero-knowledge proofs of knowledge to ensure that the
+mixing process is done correctly (namely, no ballots are substituted
+or removed at each mixing step).
+
+In principle the logic under which verifiability can be argued for
+vVote/\PaV is similar to that of Helios and Wombat.
+
+\section{Realizing Ideal Functionality}
+
+In this section we describe some general directions and tools
+regarding the realization of the ideal functionality. We start with
+the description of relevant cryptographic tools and then we move on to
+describe how it is possible to mechanize the security proof of
+realizing the ideal functionality.  A case study for one system is
+presented. Finally the case for open protocols and software
+independence is made.
+
+\subsection{Cryptographic Tools}
+
+A number of cryptographic tools play an important role in the design
+of e-voting schemes. We provide a list of some of these tools that
+have found use in the e-voting design of the systems we overviewed in
+the previous section.
+
+\paragraph{Commitment schemes.} A (non-interactive) commitment scheme
+is comprised of two algorithms $(\mathrm{Commit}, \mathrm{Verify})$
+and enables a party to produce a pair
+$(\psi, \rho) \leftarrow \mathrm{Commit}(m)$ so that $\psi$
+``commits'' to the value $m$ without revealing much information about
+$m$. Specifically, a party can commit to $m$ by sending $\psi$ to a
+public-bulletin board. At a later time, the party can reveal $m,\rho$
+and any interested party can verify that indeed the process was done
+correctly by running the predicate $\mathrm{Verify}(\rho, m, \psi)$
+and accepting the opening provided that the predicate returns true.
+It is possible that the two algorithms are parameterized by a public
+parameter $p$ that is available to all parties. In this case an
+algorithm may be added in the description that generates the parameter
+$p$. Depending on the type of commitment this algorithm may be
+required to be executed honestly. The security model requires that
+commitments are hiding, i.e., $\psi$ does not reveal any information
+about $m$, and binding, i.e., it is infeasible for the party that
+makes a commitment to $m$ to equivocate it and open it to a different
+value $m'$.
+
+\paragraph{Public-key encryption.} A public-key encryption is
+comprised of three algorithms
+$(\mathrm{Gen},\mathrm{Enc}, \mathrm{Dec})$.  The algorithm
+$\mathrm{Gen}$ produces a pair of public and secret-key denoted by
+$(pk,sk)$ while $\mathrm{Enc}(pk, \cdot )$ on input plaintext $m$ it
+samples a ciphertext $\psi$ that corresponds to $m$. Finally, the
+algorithm $\mathrm{Dec}(sk, \cdot )$ returns the plaintext that
+corresponds to the input $\psi$. The security model requires at
+minimum that an adversary that is given the public-key $pk$, is
+incapable of distinguishing between two ciphertexts that are sampled
+corresponding to different plaintexts, even if such plaintexts are
+adversarially chosen.
+
+\paragraph{Additively homomorphic encryption.} A homomorphic
+(public-key) encryption scheme adds the following property to the
+$\mathrm{Enc}(pk, \cdot)$ algorithm.  First the space of plaintexts is
+endowed with a group structure over a binary addition operation
+$+$. Then, given $\psi_1 = \mathrm{Enc}(pk, m_1)$ and
+$\psi_2 = \mathrm{Enc}(pk, m_2)$ it is possible to compute a
+ciphertext $\psi$ that belongs to the encryptions
+$\mathrm{Enc}(pk, m_1 + m_2)$. Furthermore, we also require that if
+at least one of $\psi_1, \psi_2$ is sampled uniformly over all
+ciphertexts then the output $\psi$ is following the uniform
+distribution over all ciphertexts of $m_1 + m_2$.
+
+Additive homomorphic encryption enables processing of ciphertexts in
+various ways that are useful in e-voting systems.  Two important uses
+of such schemes are as follows: (i) Given $k$ ciphertexts
+$\psi_1, \ldots, \psi_k$ encoding $v_1, \ldots, v_k \in \{0,1\}$ it is
+possible to derive a single ciphertext $\psi$ that encodes
+$T= \sum^k_{i=1} v_i$. Such $T$ can be used to derive the tally of an
+election in case each plaintext $v_i$ corresponds to an election
+choice made by the $i$-th voter.  (ii) Given
+$\psi = \mathrm{Enc}(pk, m)$ it is possible to ``refresh'' the
+randomness of $\psi$ by processing $\psi$ together with
+$\mathrm{Enc}(pk, 0)$. The resulting ciphertext is uniformly
+distributed over the ciphertexts encoding $m$.
+
+\paragraph{Secret-sharing.} A secret-sharing scheme is comprised of
+two algorithms $(\mathrm{Gen}, \mathrm{Rec})$ that operate as
+follows. Given parameters $(n,t)$ and a value $s$ the algorithm
+$\mathrm{Gen}$ produces $n$ ``shares'' $s_1, \ldots, s_n$. The
+algorithm $\mathrm{Rec}$ given any subset of size at least $t$ from
+the set $\{s_1, \ldots, s_n\}$ reconstructs the value $s$.  The
+security guarantee that we require for a secret-sharing scheme is that
+if the adversary has any set of size less than $t$ values from
+$s_1,\ldots, s_n$, it should be incapable of finding any non-trivial
+information about $s$.  The value $t$ is called the threshold of the
+secret-sharing scheme.
+
+An additional property for secret-sharing schemes is verifiability,
+where the reconstruction algorithm is capable of detecting shares that
+are incorrect based on some public information that is provided by the
+$\mathrm{Gen}$ algorithm.
+
+\paragraph{Threshold encryption.} A threshold (public-key) encryption
+is equipped with a multiparty protocol that implements the
+$\mathrm{Gen}()$ public/secret-key generation algorithm between a set
+of parties. Specifically, this protocol is parameterized by two
+integers $(t,n)$ and enables a set of $n$ parties (sometimes called
+trustees) to produce the value $pk$ as well as a secret-sharing of the
+value $sk$ with threshold $t$. The shares of the secret-key $sk$ are
+kept by the trustees and can be revealed when it is time to decrypt a
+ciphertext.
+
+A threshold encryption scheme is also capable of achieving threshold
+decryption if there is a protocol that implements the algorithm
+$\mathrm{Dec}()$ by the trustees so that each one of them uses her own
+share of the secret-key $sk$ but is not required to reveal it.
+Threshold decryption is particularly important in practice since it is
+typically desirable to apply the decryption function $\mathrm{Dec}$
+selectively only to specific ciphertexts that may be identified by the
+system that utilizes threshold encryption.
+
+The property required by a threshold encryption is similar to that of
+secret-sharing.  The adversary should be incapable of finding any
+information about a target ciphertext if it controls less than $t$
+trustees. Importantly, the adversary should be incapable of doing so,
+despite the fact it may be participating on various threshold
+decryption operations running concurrently on ciphertexts other than
+the target ciphertext.
+
+\paragraph{Zero-knowledge proofs.} A zero-knowledge (ZK) proof is a
+protocol between two parties, called the prover and the verifier, that
+is associated with a language $L = \{x \mid \exists w : R(x,w)\}$
+where $R$ is a polynomial-time predicate in a parameter $k$ and $x,w$
+are strings of length $k$.  The protocol enables the prover to
+convince the verifier that she is in possession of a ``witness'' $w$
+regarding the fact that $x\in L$.
+
+The properties required by a ZK proof is completness, soundness and
+zero-knowledge.  Informally, completeness requires that the verifier
+accepts an honest prover, soundness expresses that the prover cannot
+cheat (e.g., that she cannot convince the verifier if she does not
+know the witness) and zero-knowledge that the verifier cannot learn
+anything significant about $w$ from interacting with the prover beyond
+the fact that $x\in L$. Sometimes it may be the case that $x\in L$ is
+a given fact and the protocol has the objective to demonstrate simply
+that the prover is in possession of the witness $w$.  Protocols with
+this property are called ZK proofs of knowledge.
+
+An important variation of ZK proofs are non-interactive ZK (NIZK)
+proofs, where the prover is capable of producing a string $\pi$ in one
+move that by itself can convince the verifier regarding the status of
+the statement $x\in L$ (or that the prover is in possession of the
+witness $w$). A NIZK requires a public parameter $p$ that should be
+honestly produced (independently of the prover and the verifier).
+
+\paragraph{Mix-nets.} A mix-net is a protocol executed sequentially by
+a set of servers on a set of ciphertexts that originate from a
+public-key encryption scheme.  Specifically, a mix-net can be built
+upon a single algorithm $\mathrm{Shuffle}()$ that is given the
+public-key $pk$ as well as a sequence of ciphertexts
+$\vec\psi = (\psi_1,\ldots, \psi_n)$.  The algorithm produces a
+sequence of ciphertexts $\vec\psi' = (\psi_1', \ldots, \psi'_n)$ as
+well as a ``proof'' $\pi$. The proof $\pi$ can be in the form of a
+NIZK that ensures the following fact about the values
+$(pk, \vec \psi, \vec \psi')$. Let $M$ be the sequence of plaintexts
+that in the $i$-th position is equal to
+$ \mathrm{Dec}(\psi_i) \rangle$ and similarly $M'$ the sequence of
+plaintexts that in the $i$-position is equal to
+$\mathrm{Dec}(\psi_i') \rangle$.  It should hold that there is a
+permutation $\mu$ over $n$ elements such that the $j$-th element of
+$M$ equals to the $\mu(j)$ element of $M'$ for all $j=1,\ldots, n$.
+
+Given the $\mathrm{Shuffle}()$ algorithm observe that we can apply it
+sequentially on the same sequence of ciphertexts. If a sequence of $m$
+servers apply $\mathrm{Shuffle}()$ one after the other, it is easy to
+see that the correspondence between the original sequence of
+ciphertexts and the final sequence of ciphertexts will be hidden
+provided that at least one server remains honest.
+
+\subsection{Formal Mechanization of Ideal Functionality}
+[Joe]
+
+\subsection{Case Study Mechanization of Demos} 
+[Joe]
+
+\subsection{Specification of Open Protocols} 
+
+[Joe?]
+
+\subsection{The Case for Software Independence}
+
+A voting system is software independent if an undetected change or
+error in its software cannot cause an undetected change or error in an
+election outcome.  A way to achieve software independence is to endow
+the voting system with the capability to record voter intent
+physically in a way that is immediately verifiable by the voter at the
+time of ballot-casting. Given such record, one would subsequently
+perform a random audit to ensure that the published election outcome
+(generated by software) does not deviate from the result that would
+have been calculated if the physical record was used in the tallying
+process.
+
+A notable example of such procedure currently in place is in the state
+of Connecticut where optical scan voting machines are used. The marked
+paper ballots are retained after the election in each precinct. After
+the end of the election when the tally is announced, a sample of
+precincts is randomly elected at the state level and a manual hand
+count is performed. The results of the hand count are audited and a
+statistical analysis is conducted to confirm the e-voting tally at a
+certain confidence level.  See \cite{connecticut-audit} for more
+details regarding the procedure that is followed.
+
+%connecticut-audit
+%State-wide Elections, Optical Scan Voting Systems, and the Pursuit of Integrity – ieee.pdf
+%IEEE TRANSACTIONS ON INFORMATION FORENSICS AND SECURITY, Volume: 4 Issue: 4 Part: 1, December 2009
+
 
 %%% Local Variables:
 %%% mode: latex
