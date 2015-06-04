@@ -116,11 +116,13 @@ regarding existing systems that are not publicly tested or vetted. This
 study aims to break this impasse and reconcile these concerns.
 
 The scientific leaders on this project have often pointed out security
-vulnerabilities in past systems, however the E2E VIV Project has led
-us to agree that Internet Voting (IV) can happen, but that it must be
-in a system that takes advantage of end-to-end verifiability and
-auditability. \todo{I strengthened the claim here to make the point
-  more clearly, but would appreciate a fact-check from others -ACF}
+vulnerabilities in past systems. If Internet Voting (IV) can happen, it must be in a system that takes advantage of end-to-end verifiability and auditability. 
+% however the E2E VIV Project has led
+% us to agree that Internet Voting (IV) can happen, but that it must be
+% in a system that takes advantage of end-to-end verifiability and
+% auditability. 
+\todo{I strengthened the claim here to make the point
+  more clearly, but would appreciate a fact-check from others -ACF} \todo{I'm not sure who the ``us'' is in the statement I commented out, because I don't know that the security experts agree that IV can happen? I know that it is a stronger statement than I can support at this time. I changed it to something I could agree with. -- PLV}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Definition}
@@ -128,11 +130,14 @@ auditability. \todo{I strengthened the claim here to make the point
 
 The term ``end-to-end'' is often used casually, without a precise
 definition in mind. For the purposes of this study, E2E verifiability
-is a property of an election system with important components: first,
-that voters can individually check that their ballots are cast as they
-intend; and second, that anyone can check that all of the cast ballots
-have been accurately tallied\footnote{Definition from Dr.~Josh
+is a property of an election system and can be split into two sub-properties:  
+% with important components: 
+\begin{itemize}
+\item voters can individually check that their ballots are cast as they
+intend
+\item anyone can check that all of the cast ballots have been accurately tallied\footnote{Definition from Dr.~Josh
   Benaloh, Senior Cryptographer at Microsoft Research.}.
+\end{itemize}
 
 While systems of this nature have been developed in the past, none
 have been broadly used or successfully commercialized; the E2E VIV
@@ -147,18 +152,21 @@ and usability.
 For those concerned with election integrity, there is a justifiably
 negative reflex in response to IV: it takes all of the problems with
 current remote voting systems and adds all of the problems and
-security vulnerabilities of the Internet. The E2E VIV Project has
-sought to make the case that use of the Internet enables and
-facilitates the introduction of E2E-verifiability (E2EV), and that the
-benefits of E2EV may be able to overcome the vulnerabilities
-introduced by using the Internet.
+security vulnerabilities of the Internet. 
+The E2E VIV Project has sought to make the case that 
+% use of the Internet enables and
+% facilitates the introduction of E2E-verifiability (E2EV), and that 
+the benefits of E2EV may address some of the vulnerabilities
+introduced by the use of the Internet.e
+\todo{Again, I commented out the overly optimistic note and replaced it-PLV}
 
 No participant in this project discounted the concerns of voting over
 the Internet, nor do we view E2EV as a magic sauce that makes the
 Internet secure. Nevertheless we believe that E2E properties are quite
-relevant to IV, since these properties are achieved even when votes
-are cast on untrusted devices like PCs and transmitted over an
+relevant to IV, since when these properties are achieved, it is independent of whether votes
+are cast on untrusted devices like PCs or transmitted over an
 untrusted medium such as the Internet.
+\todo{Modified the description of E2E properties-PLV}
 
 The E2E VIV Project does not attempt to make the Internet
 secure. Instead, we examine how E2EV negates many (although not all)
@@ -253,7 +261,7 @@ traditional paradigm with only a few vendors able to survive despite
 demand to move away from outdated, expensive, hardware-oriented
 solutions.
 
-We would consider it a success to produce a specficiation for a
+We would consider it a success to produce a specification for a
 usable, secure E2E-verifiable remote voting technology, to identify
 its strengths and weaknesses and reasons to pursue or not pursue this
 approach to remote and/or disabled citizen voting.
@@ -284,8 +292,7 @@ the following requirements are fulfilled:
   dialog with participants in the project.
 \item[Independent Validation] It must be possible for a moderately
   proficient IT expert to objectively determine, in a reasonable time
-  frame with reasonable cost, if any election system constructed which
-  claims to fulfill the specification.
+  frame with reasonable cost, whether a constructed election system fulfills the specification.
 \item[Evidence-Based Decisions] Every decision made in the crafting of
   the specification must be objectively justifiable and the evidence
   for the decision must be traceable.
@@ -353,7 +360,7 @@ and testing. An Advisory Council was established to broaden the
 communication with interested members of the election community.
 
 Overseas Vote Foundation (OVF), as the official grantee, was
-responsible the overall project conception, proposal development,
+responsible for the overall project conception, proposal development,
 presentations, communications, management, team recruitment,
 contractual obligations, public relations, events and budgeting. Deep
 experience in the arena of overseas and military voting, absentee
@@ -569,7 +576,7 @@ communities has been essential. These include:
   1622 committee focusing on elections. The IEEE Voting System
   Standards Committee 1622 (VSSC/1622) is creating standards and
   guidelines around a common data format for election data. The aim is
-  that that future election equipment used in U.S. elections and
+  that future election equipment used in U.S. elections and
   abroad can interoperate more easily. It is the intention of the VSSC
   that standards and guidelines being developed will be required in
   future versions of the EAC's VVSG.
@@ -584,7 +591,9 @@ communities has been essential. These include:
     voting system testing and certification standards, standards which
     mandate compliance with the VVSG.}
 
-  - How do standards and E2E VIV relate?
+How do standards and E2E VIV relate?
+
+\todo{NIST has held a couple of workshops on E2E voting systems in an effort to understand what might be required of the  standardization process. Andrew Regenscheid would be a good person to check with re: what NIST or EAC/TGDC might have done recently--PLV}
 \item \textbf{Vendors.}
 \item \textbf{Hackers and Hacktivists.}
 \item \textbf{Election Officials.}
@@ -652,7 +661,7 @@ outcomes.
 
 Fulfilling the usability and security requirements would not be
 sufficient for a positive assessment by the expert team. A full system
-specification that is usable and secure may be, for example, far to
+specification that is usable and secure may be, for example, far too
 expensive to build, too difficult to deploy and manage, or mandate too
 much expertise from election officials to operate. Social
 non-functional requirements may trump technical functional
@@ -754,7 +763,7 @@ about their participation.
 
 Various quantitative measures related to voter participation and
 interaction are measured automatically, both within their web browsers
-and on the STAR-Vote server. Must of this data is akin to the
+and on the STAR-Vote server. Most of this data is akin to the
 analytics that any professional website collects about its users: How
 do voters navigate the site?  Where does a voter pause for a long time
 and read?  When does a voter ask for help?  When does a voter hover
