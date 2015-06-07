@@ -434,10 +434,10 @@ and vote tally may be checked.
 
 Between 2011 and 2014, the Norwegian government ran an Internet remote
 voting trial~\cite{gjosteen2012} using a cryptographic protocol
-designed by Scytl, a commercial voting system vendor. Scytl and the
-Norwegian government assert that this is an E2E system. If the claim is
-accurate, this is among the first efforts by commercial voting system vendors to
-enable E2E elections. (Note that Remotegrity has also been commercialized and it was used in 2011). 
+designed by Scytl, a commercial voting system vendor. 
+% If the claim is
+% accurate, this is among the first efforts by commercial voting system vendors to
+% enable E2E elections. (Note that Remotegrity has also been commercialized and it was used in 2011). 
 
 The Norwegian system uses a three-channel model involving postal mail,
 the Internet, and SMS text messaging. Before the election, the voter
@@ -467,6 +467,9 @@ report on the operation of the system and the problems
 they had observing it offers useful insight into the administration of
 E2E systems in general as well as the particulars of the Norwegian
 system~\cite{carter2013}.
+
+Scytl and the
+Norwegian government assert that this is an E2E system. However, the paper says that, if the voter's encryption software colludes with the return code generator (both presumably run on software written by Scytl), it can lead the voter into believing her vote was cast accurately even when it is not. Thus its property of voter-verifiability relies on voting system software behaving honestly. Additionally, the system does not provide a proof of the tally and hence the tally is not universally verifiable. Finally, there is no information that enables a voter to know which of her votes was counted (if she casts multiple vote to ward off coercion). Because the correctness of the tally is not possible without the correct votes being included in the count, the voting public also does not have the information to determine that only one vote was counted for each voter. For all these reasons, Scytl as used in the Norwegian elections is not considered an E2E system. 
 
 \subsection{Wombat}
 
@@ -712,7 +715,7 @@ relatively small concession to make in an already-flawed system.
 
 On the other hand, a well-designed E2E system requires a much smaller
 base of trust for voters to have confidence in the results of an
-election. The additional requirement of trusting an assitive device is not a flaw of the E2E system, but, instead, a limitation inherent to the use of assistive devices. 
+election. The additional requirement of trusting an assistive device is not a flaw of the E2E system, but, instead, a limitation inherent to the use of assistive devices. It may be mitigated by enabling the voter with the need for assistance to use multiple assistive devices, and by requiring that all voters, whether in need of assistance or not, use similar assistive devices or a universal interface. This ensures that the assistive device and/or interface is tested by multiple users. 
 % By requiring an expanded base of trust in order to be
 % accessible, the existing E2E systems undermine their E2E properties.
 
