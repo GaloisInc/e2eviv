@@ -18,7 +18,7 @@ requirements describing the testing that must be done on the systems;
 and requirements about configuration management mechanisms, technical
 information, and documentation to be provided by system vendors.
 
-The EAC have some serious shortcomings, one of which is that several
+The EAC requirements have some serious shortcomings, one of which is that several
 of the requirements seem arbitrary. For example, they specify (in
 Section 2.1 of the requirements document) that the voting system shall
 achieve a target error rate of no more than one in 10,000,000 ballot
@@ -99,10 +99,11 @@ mathematically deduced from the final distribution of votes. For
 example, if a referendum passes with 100\% of the vote, there is no
 way to hide the fact that every voter approved of the referendum;
 however, if the result is mixed, it must be impossible for any
-individual voter to prove how she voted. This must be the case even
+individual voter to prove how she voted. 
+\todo{``This must be the case even
 when the voter can create digital evidence of her actions by, for
 example, video recording the ballot casting process or photographing a
-completed ballot.
+completed ballot.'' I believe this is misleading. I do not know of such an E2E protocol. In order to work, it must allow the voter to vote multiple times. Yet, it must allow it to appear that the video-recorded vote was cast, hence its encryption must be among those counted in a verifiable manner. Yet, this vote must not count, and the later vote should replace it. I can think of a possible approach to solve this problem, but I do not know of any protocol that has this functionality now, and I know of at least one effort to develop such a protocol that has hit road blocks. -Poorvi}
 
 In some elections voters are allowed to cast multiple ballots with
 only the last cast ballot counting toward the final election tally,
@@ -144,8 +145,10 @@ usability requirement that applies to the system as a whole.
 
 The first vote casting requirement is that, if a voter receives a
 final vote confirmation (e.g., ``Thank you for voting!'' or a similar
-notice) from the system, she can be certain that her ballot was
-recorded correctly. This is the usability counterpart to the
+notice) from the system, the ballot casting process is complete and the system has recorded the vote. \todo{I did not want to use ``she can be certain that her ballot was recorded correctly'' because that gives a verifiablility flavor to the statement but verifying a vote is not part of the casting process. -- Poorvi}  
+%she can be certain that her ballot was
+% recorded correctly. 
+This is the usability counterpart to the
 functional requirement that ballot records and voter records must be
 maintained correctly even in the event of server failures.
 
@@ -162,8 +165,7 @@ before being deployed in a real election.
 
 \subsection{Accessibility}
 
-Accessibility---the property of being usable by and useful to the
-disabled---is one of the main goals of an E2E VIV system. It is
+Accessibility---the property of being usable by and useful to voters with disabilities---is one of the main goals of an E2E VIV system. It is
 closely related to usability, but there are several requirements
 associated specifically with accessibility that go beyond typical
 usability requirements. 
@@ -171,7 +173,7 @@ usability requirements.
 Users must be involved in the design of the system to identify
 accessibility constraints at each stage of the development
 process. Consideration must be given to the system's compatibility
-with existing technologies designed to help disabled individuals; for
+with existing technologies designed to help individuals with disabilities; for
 example, the system should be developed in a way that allows assistive
 input devices such as switches, eye trackers and screen readers to be
 used in addition to keyboards, mice and touchscreens. Similarly, the
@@ -358,9 +360,9 @@ that there must be official published manifests of the system used to
 run any election, indicating details of the software and versions
 used, dates of installation, and brief descriptions of their
 functionality. Both public and private manifests must be maintained;
-these should be identical, except that details about software used
+these should be identical, \todo{``except that details about software used
 solely to protect the system against attacks may be omitted from the
-public manifest for security reasons. Well-defined procedures must
+public manifest for security reasons'' -- I don't understand how this is not ``security by obscurity''? Also, how does one know what the purpose of the secret software is if it cannot be examined? I don't think anything about the software should be secret. Passwords and keys may be kept secret -- Poorvi}. Well-defined procedures must
 exist for both updating the manifests to reflect changes to the
 installed software and checking the installed software against the
 manifests to detect tampering.
@@ -460,7 +462,7 @@ understandable.
 
 In addition, the election protocol implemented by the system
 (communication, cryptographic, etc.) must have associated formal
-proofs of correctness and security.
+proofs of correctness and security to the extent possible. Note that it is rarely possible to provide proofs of integrity properties, hence the security properties that are proven will tend to be privacy properties. 
 
 
 \section{Non-functional Requirements}
@@ -549,7 +551,7 @@ display (visual, audio or tactile, depending on accessibility
 requirements) used by the voter to cast the vote as soon as the vote
 has been cast. When a paper proof of an electronic vote is provided to
 the voter at a polling station, the voter must not be allowed to show
-it to any other person or to remove it from the polling station.
+it to any other person or to remove it from the polling station. \todo{Note that the only protocols with receipt freedom are those that assume a private channel with the voting system and/or a trusted voting computer. This is not a reasonable assumption in a remote voting scenario, and you might want to remove this para or emphasize that it describes a requirement of polling booth systems. -- Poorvi} 
 
 With respect to counting the votes, an E2E VIV system must not allow
 the disclosure of any vote counts until after the system has stopped
@@ -649,7 +651,7 @@ interface of an E2E VIV system must be understandable and easily
 usable, and registration requirements for electronic voting must not
 pose an impediment to voter participation. E2E VIV systems should be
 designed, as far as is practicable, to maximize the opportunities they
-provide for the disabled. Unless remote electronic voting channels are
+provide for voters with disabilities. Unless remote electronic voting channels are
 universally accessible, they must be used only as an additional and
 optional means of voting beyond polling places or more traditional
 remote voting methods. 
