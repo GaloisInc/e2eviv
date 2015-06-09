@@ -6,6 +6,8 @@
   the third person past tense, because it sounds like we're talking
   about a different artifact. I've already made some changes to first
   person, but I'd appreciate other eyes on this. -ACF}
+\todokiniry{We'll have a copy-editor take care of that starting around
+  15 June. -JRK}
 
 %=====================================================================
 \section{The E2E VIV Project}
@@ -116,13 +118,23 @@ regarding existing systems that are not publicly tested or vetted. This
 study aims to break this impasse and reconcile these concerns.
 
 The scientific leaders on this project have often pointed out security
-vulnerabilities in past systems. If Internet Voting (IV) can happen, it must be in a system that takes advantage of end-to-end verifiability and auditability. 
+vulnerabilities in past systems. If Internet Voting (IV) can happen,
+it must be in a system that takes advantage of end-to-end
+verifiability and auditability.
 % however the E2E VIV Project has led
 % us to agree that Internet Voting (IV) can happen, but that it must be
 % in a system that takes advantage of end-to-end verifiability and
 % auditability. 
-\todo{I strengthened the claim here to make the point
-  more clearly, but would appreciate a fact-check from others -ACF} \todo{I'm not sure who the ``us'' is in the statement I commented out, because I don't know that the security experts agree that IV can happen? I know that it is a stronger statement than I can support at this time. I changed it to something I could agree with. -- PLV}
+\todo{I strengthened the claim here to make the point more clearly,
+  but would appreciate a fact-check from others -ACF} 
+\todo{I'm not sure who the ``us'' is in the statement I commented out,
+  because I don't know that the security experts agree that IV can
+  happen? I know that it is a stronger statement than I can support at
+  this time. I changed it to something I could agree with. -- PLV}
+\todokiniry{Agreed Poorvi---we cannot include that latter clause
+  unless the bulk of the experts, after reviewing the feasibility
+  chapter and proposed recommendations, are in alignment on this
+  topic. -JRK}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Definition}
@@ -130,44 +142,56 @@ vulnerabilities in past systems. If Internet Voting (IV) can happen, it must be 
 
 The term ``end-to-end'' is often used casually, without a precise
 definition in mind. For the purposes of this study, E2E verifiability
-is a property of an election system and can be split into two sub-properties:  
+is a property of an election system and can be split into two
+sub-properties:
 % with important components: 
 \begin{itemize}
 \item voters can individually check that their ballots are cast as they
 intend
-\item anyone can check that all of the cast ballots have been accurately tallied\footnote{Definition from Dr.~Josh
-  Benaloh, Senior Cryptographer at Microsoft Research.}.
+\item anyone can check that all of the cast ballots have been
+  accurately tallied\footnote{Definition from Dr.~Josh Benaloh, Senior
+    Cryptographer at Microsoft Research.}.
 \end{itemize}
-Note that it should be possible to perform the above checks even in instances where election officials do not follow procedures and there are errors or malware in voting technology. 
+Note that it should be possible to perform the above checks even in
+instances where election officials do not follow procedures and there
+are errors or malware in voting technology.
 
 While systems of this nature have been developed in the past, none
 have been broadly used or successfully commercialized; the E2E VIV
 Project has made a concerted effort to be informed by these past
 efforts and build upon them as appropriate. Usability factors were
 also considered from the outset of the study to address the
-significant challenges faced by remote voters and voters with disabilities when using
-such systems. This study is intended to enable development efforts in
-E2E systems that are viable with respect to security, auditability,
-and usability.
+significant challenges faced by remote voters and voters with
+disabilities when using such systems. This study is intended to enable
+development efforts in E2E systems that are viable with respect to
+security, auditability, and usability.
 
 For those concerned with election integrity, there is a justifiably
 negative reflex in response to IV: it takes all of the problems with
 current remote voting systems and adds all of the problems and
-security vulnerabilities of the Internet. 
-The E2E VIV Project has sought to make the case that 
+security vulnerabilities of the Internet.  The E2E VIV Project has
+sought to make the case that
 % use of the Internet enables and
 % facilitates the introduction of E2E-verifiability (E2EV), and that 
 the benefits of E2EV may address some of the vulnerabilities
-introduced by the use of the Internet.e
-\todo{Again, I commented out the overly optimistic note and replaced it-PLV}
+introduced by the use of the Internet.
+\todo{Again, I commented out the overly optimistic note and replaced
+  it-PLV}
+\todokiniry{I'm ok with that. In fact, I would change this clause to
+  be more in alignment with Josh's recommendation that the
+  introduction of E2EV elections technology should first witness
+  experimentation in a supervised setting, a la STAR-Vote. -JRK}
 
 No participant in this project discounted the concerns of voting over
 the Internet, nor do we view E2EV as a magic sauce that makes the
 Internet secure. Nevertheless we believe that E2E properties are quite
-relevant to IV, since when these properties are achieved, it is independent of whether votes
-are cast on untrusted devices like PCs or transmitted over an
-untrusted medium such as the Internet.
+relevant to IV, since when these properties are achieved, it is
+independent of whether votes are cast on untrusted devices like PCs or
+transmitted over an untrusted medium such as the Internet.
 \todo{Modified the description of E2E properties-PLV}
+\todokiniry{Looks good.  For these kinds of accepted edits, I'm going
+  to commit a snapshot with both comments and then we'll trim them out
+  during copy-editing. Thanks for your contributions, Poorvi! -JRK}
 
 The E2E VIV Project does not attempt to make the Internet
 secure. Instead, we examine how E2EV negates many (although not all)
@@ -293,7 +317,8 @@ the following requirements are fulfilled:
   dialog with participants in the project.
 \item[Independent Validation] It must be possible for a moderately
   proficient IT expert to objectively determine, in a reasonable time
-  frame with reasonable cost, whether a constructed election system fulfills the specification.
+  frame with reasonable cost, whether a constructed election system
+  fulfills the specification.
 \item[Evidence-Based Decisions] Every decision made in the crafting of
   the specification must be objectively justifiable and the evidence
   for the decision must be traceable.
@@ -378,6 +403,9 @@ and usability aspects of the study.
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Team Members}
 \label{sec:team-members}
+
+\todokiniry{We'll be turning this section into a more attractive
+  illustration to enumerate participants in the project. -JRK}
 
 \textbf{Project Manager:} Susan Dzieduszycka-Suinat, Overseas Vote Foundation
 
@@ -520,7 +548,7 @@ the project team to assist on the Comparative Analysis of E2E systems.
 Although not on the official project team, there are several
 communities relevant to the E2E VIV Project outside of those
 represented on the expert teams, and interaction with members of these
-communities has been essential. These include:
+communities has been essential. These communities include:
 \begin{itemize}
 \item \textbf{Election verification advocates.} Election verification
   advocates are plentiful, well-informed, and strongly connected.
@@ -538,18 +566,18 @@ communities has been essential. These include:
   be acceptable to the advocate community, even for an end-to-end
   verifiable Internet voting system.
 
-  A small number of advocates are for verifiable Internet voting, a
-  small number are adamantly against Internet voting of any kind, but
-  the bulk of advocates are on-the-fence. That majority recognize
-  that there are significant scientific and engineering challenges in
-  designing and developing a Internet voting system. Moreover, they
-  recognize that the decision to deploy such a system is very much a
-  subjective, political one. For example, in some contexts, it is
-  viewed as perfectly acceptible to use a non-verifiable, outsourced
-  election apparatus (such as Everyone Counts' product); say for the
-  voting of the winner of a reality show. But for government
-  elections of any value, such an option is unacceptable to virtually
-  every advocate.
+  A small number of advocates are \textbf{for} verifiable Internet
+  voting, a small number are adamantly \textbf{against} Internet
+  voting of any kind, but the bulk of advocates are on-the-fence. That
+  majority recognize that there are significant scientific and
+  engineering challenges in designing and developing a Internet voting
+  system. Moreover, they recognize that the decision to deploy such a
+  system is very much a subjective, political one. For example, in
+  some contexts, it is viewed as perfectly acceptible to use a
+  non-verifiable, outsourced election apparatus (such as Everyone
+  Counts' product); say for the voting of the winner of a reality
+  show. But for government elections of any value, such an option is
+  unacceptable to virtually every advocate.
 
   Consequently, being fully transparent with---and listening to the
   feedback from---the election verification advocate community is
@@ -573,14 +601,14 @@ communities has been essential. These include:
   cannot be plugged together. Finally, there was unsufficient buy-in
   from the election research community.
 
-  In 2015 though, this situation changed with the rebirth of the IEEE
-  1622 committee focusing on elections. The IEEE Voting System
-  Standards Committee 1622 (VSSC/1622) is creating standards and
+  In 2015 though, this situation changed with the rebirth of the
+  IEEE~1622 committee focusing on elections. The IEEE Voting System
+  Standards Committee~1622 (VSSC/1622) is creating standards and
   guidelines around a common data format for election data. The aim is
-  that future election equipment used in U.S. elections and
-  abroad can interoperate more easily. It is the intention of the VSSC
-  that standards and guidelines being developed will be required in
-  future versions of the EAC's VVSG.
+  that future election equipment used in U.S. elections and abroad can
+  interoperate more easily. It is the intention of the VSSC that
+  standards and guidelines being developed will be required in future
+  versions of the EAC's VVSG.
 
   Many of the top researchers, election advocates, and election
   officials in the world are a part of this committee. Additionally,
@@ -592,17 +620,43 @@ communities has been essential. These include:
     voting system testing and certification standards, standards which
     mandate compliance with the VVSG.}
 
-How do standards and E2E VIV relate?
+  Standards are critical to any future work on E2E VIV systems for
+  several reasons.  First, given the compositional nature of most E2EV
+  election systems' designs, it is not unreasonable to expect that
+  different subsystems will be created and supported by different
+  organizations.  Second, in order to effect arbitrary third party
+  verification, clearly defined common data formats must be used.
+  Third, at some point in the future, if E2E VIV systems are accepted
+  in the mainstream, they must be certified by the EAC.  As such, EAC,
+  NIST, and IEEE standards must recognize their core capabilities,
+  subsystems, interfaces, and what constitutes legitimate evidence of
+  correctness and security. Moreover, it is sensible to presume that
+  there should be a standard means by which these aspects and evidence
+  are documented to expedite a sound, accurate, and expedited
+  certification process.
 
-\todo{NIST has held a couple of workshops on E2E voting systems in an effort to understand what might be required of the  standardization process. Andrew Regenscheid would be a good person to check with re: what NIST or EAC/TGDC might have done recently--PLV}
+\todo{NIST has held a couple of workshops on E2E voting systems in an
+  effort to understand what might be required of the standardization
+  process. Andrew Regenscheid would be a good person to check with re:
+  what NIST or EAC/TGDC might have done recently--PLV}
+
+\todokiniry{I'll directly approach Andrew, whom I know and is on the
+  external advisory group of this project, for that kind of specific
+  input. -JRK}
+
 \item \textbf{Vendors.}
+
 \item \textbf{Hackers and Hacktivists.}
+
 \item \textbf{Election Officials.}
+
 \item \textbf{Citizens}
+
 \end{itemize}
 
 \todokiniry{Joe: Do you want to say anything about these groups?
   Should we remove this last paragraph and this list? -Susan}
+\todokiniry{I'm writing this section today. -JRK}
 
 %=====================================================================
 \section{Methodology}
@@ -638,13 +692,27 @@ How do standards and E2E VIV relate?
 \section{Outcome}
 \label{sec:outcome}
 
-The E2E VIV Project has produced a System Specification Development
-and Documentation (referred to as a ``technical report'' for short)
-including a Whole Product Solution Specification for an E2E VIV
-Election System (referred to as an ``election system'' for short). The
-assessment of the system by the expert team has had two possible
-outcomes.
+This project has produced a high-level system specification, in the
+form of a set of business and technical requirements.  Accompanying
+that set of requirements are recommendations about the underlying
+means by which those requirements should be fulfilled.  
 
+These recommendations focus on the three dimensions necessary to
+fulfill the very strenuous requirements of any E2EV system:
+cryptography, architecture, and engineering.  The cryptographic
+foundation is a formal framework in which to evaluate E2EV
+cryptographic protocols.  The architecture specification is a formal
+description of a parameterized architecture space in which solutions
+can be designed, built, and evaluated.  Finally, the rigorous
+engineering necessary to create a high-assurance E2E VIV product is
+spelled out via a recommended software engineering process,
+methodology, and set of technologies which, when used properly, can be
+used to fulfill the security and correctness technical requirements
+while generating the necessary evidence that the system is
+fit-for-purpose.
+
+Given these underlying recommendations, the assessment of the system
+by the expert team has had two possible outcomes:
 \begin{enumerate}
 \item Positively: the majority of the expert team may decide that the
   specified election system meets all of the requirements set forth by
@@ -668,45 +736,6 @@ much expertise from election officials to operate. Social
 non-functional requirements may trump technical functional
 requirements.
 
-The Whole Product Solution Specification is written in one or more
-specification languages that cover the technical needs of the E2E VIV
-Project, particularly with regards to third party high-assurance
-verification and validation of implementations. Galois recommended
-using Alloy [10], RAISE [9], or PVS [18] to codify a formal domain
-model, BON [21] to specify the election system's informal domain
-model, requirements, architecture, and design, and F [8] and Cryptol
-[4] to specify election system protocols.
-
-\todo{link these to the appropriate bibtex citations}
-
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Deliverables Produced}
-\label{sec:deliv-prod}
-
-A set of reports and a set of demonstrators have been produced. Some
-elements and report sections are technical, and some non-technical.
-
-Galois contends that all project results should be SMART:
-\begin{itemize}
-\item Specific: the determination of whether a result is accomplished
-  is as objective as possible;
-\item Measurable: major results have a tracking dashboard on the
-  project website and are updated and reviewed weekly;
-\item Attainable: E2E VIV Project participants believe they can
-  achieve the results they propose;
-\item Relevant: results contribute to the priorities, goals, or
-  on-going; operation of the project, and offer clear value to the
-  project; and
-\item Trackable: progress toward the achievement of a result is
-  monitored, including project budget.
-\end{itemize}
-
-Moreover, each result must have a customer. A customer is an
-individual or group who will negotiate a result and who will be
-actively engaged. They will truly care that the result is achieved and
-work to make us all successful in doing so. The customers of the E2E
-VIV Project are the Local and State Election Officials.
-
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{User Interface Design}
 \label{sec:user-interf-design}
@@ -715,14 +744,23 @@ The user interface (or UI for short) of the E2E VIV election system is
 the critical factor in ensuring that the system is simultaneously
 usable, accessible, and secure. Consequently, a detailed UI design
 informed by user experience (UX, for short) and accessibility testing
-is a mandatory component of a detailed system specification.
+is a mandatory component of a future detailed system specification.
 
-Usability and accessiblity testing is a key component of this report,
-and the outcome of that testing is meant to inform the UI design of
-any future E2E VIV systems. As such, most of the effort relating to
-UI and UX within the project is focused on developing a technical
-infrastructure and process for the efficient definition and execution
-of qualitative and quantitative usability and accessibility studies.
+At the moment, this report's system specification is focused on
+high-level requirements for any E2EV election system (internet
+voting-based or not).  As such, a number of requirements focus on UI
+and UX and stipulate the necessary framing for UI/UX designs and
+studies.
+
+Usability and accessibility studies and testing is a key component of
+this report, and the outcome of this first study is meant to inform
+the UI design of any future E2E VIV systems. As such, most of the
+effort relating to UI and UX within the project is focused on
+developing a technical infrastructure and complementary process for
+the efficient definition and execution of qualitative and quantitative
+usability and accessibility studies.
+
+% Text to move starts here...
 
 In order to effect these goals, a demonstration system that mimics a
 voter's interaction with an E2E VIV system has been developed by
@@ -763,8 +801,8 @@ about their behavior so that they can make a fully-informed judgement
 about their participation.
 
 Various quantitative measures related to voter participation and
-interaction are measured automatically, both within their web browsers
-and on the STAR-Vote server. Most of this data is akin to the
+interaction can be measured automatically, both within their web
+browsers and on the STAR-Vote server. Most of this data is akin to the
 analytics that any professional website collects about its users: How
 do voters navigate the site?  Where does a voter pause for a long time
 and read?  When does a voter ask for help?  When does a voter hover
@@ -774,13 +812,56 @@ voters examine the bulletin board?  Is there a correlation between the
 interactive behavior of a voter while voting and their likelihood of
 voting, challenging, or auditing correctly?
 
-=wrap up=
+% ...and ends here.
 
+The initial usability study that was conducted gathered qualitative
+feedback from several dozen voters.  Based upon that study, whose full
+report is included in \autoref{appendix:usability_study}, three
+conclusions were reached about voters' mental models about internet
+voting.
+
+\begin{enumerate}
+\item \emph{Voters intrinsically trust the voting system and their
+    election officials.}  This trust is both a blessing and a curse.
+  A blessing because it means that election officials and the
+  government are working with voters that have a positive disposition
+  and trust can only be lost and does not need to be won. But it is
+  also a curse because it means that voters will trust internet voting
+  systems that have no transparency, end-to-end security, or
+  verifiability. As such, this opens the door for existing vendors to
+  sell their technology and gather naive voter feedback as
+  ``evidence'' that their systems are fit-for-purpose for modern
+  public elections.
+\item \emph{While many voters are supportive of having verifiability
+    in their election system, very few voters are interested in
+    learning about verifiability and taking the necessary time and
+    energy to perform verifiability.} Happily, only a small fraction
+  of voters needs to actually verify for most E2E VIV election schemes
+  to generate sufficient indendent evidence that the election outcome
+  is correct. As such, our requirements and recommendations reflect
+  this level of voter engagement and suggest several means by which
+  the threshold for election verification is always achieved.
+  \todokiniry{Make sure requirements for verifiability and our
+    recommendations are strengthened given the UX study. -JRK}
+\item \emph{Voter expect the internet voting experience to be somehow
+    different from a traditional voting experience, be it on paper
+    ballot or computer-assisted in a supervised setting.} It was not
+  uncommon for voters to say, ``Huh, that's it?!'' after completing
+  their voting process. Voters' mental models trained to expect
+  modern, rich web surfing experiences a la Facebook, YouTube, and
+  Amazon and novel, interactive user experiences on their smart phones
+  like Siri, Google Maps, and Uber. Consequently, this raised
+  expectation opens the door for novel experimentation for 21st
+  century voter experiences.
+\end{enumerate}
 
 \todokiniry{Joe: Are you putting forward a “detailed UI design” –
   please adjust this as needed... and finish this section. I cannot
   finish on Outcomes.... -Susan}
 \todo{this seems too detailed for Intro -ACF}
+\todokiniry{Agreed, I will move the detailed parts of this section
+  elsewhere to complement the UX study results that are being dropped
+  into this report. I'll do that in the next commit or so. -JRK}
 
 %=====================================================================
 \section{Next Steps}
