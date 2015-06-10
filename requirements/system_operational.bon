@@ -9,12 +9,10 @@ explanation
 scenario "PUBLIC_SYSTEM_MANIFEST" -- @ref derived from Rec(2004)11 Appendix III, C. 69.
 description
   "The electoral authority shall publish an official manifest of the \
- \ software used in an e-election or e-referendum.  It may exclude \
- \ from the public manifest data protection software for security \
- \ reasons. At the very least the manifest shall indicate the software \
- \ used, the versions, its date of installation and a brief description. \
- \ A procedure shall be established for updating the manifest to reflect \
- \ changes to the installed software."
+ \ software used in an e-election or e-referendum.  At the very least \
+ \ the manifest shall indicate the software used, the versions, its date \
+ \ of installation and a brief description. A procedure shall be established \
+ \ for updating the manifest to reflect changes to the installed software."
  
 scenario "PRIVATE_SYSTEM_MANIFEST" -- @ref derived from Rec(2004)11 Appendix III, C. 69.
 description
