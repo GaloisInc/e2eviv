@@ -1,11 +1,35 @@
 \chapter{Crypto Specification\ifdraft{(Aggelos, Joe) (85\%)}{}}
 \label{chapter:crypto_spec}
 
-\todokiniry{Introduction to the chapter.}
+As no existing E2E VIV system, nor E2E protocol, fulfills the
+requirements set forth in this report, we cannot provide a full
+cryptographic system or protocol specification.  The development and
+verification of such a specification will be one of the primary
+deliverables of a phase two of this project.
+
+In order to frame that speculative future research, a formalized ideal
+functionality for an E2E system is a useful foundation for examining
+and comparing E2E protocols. Consequently, this chapter provides such
+a foundation.  
+
+This chapter also discusses the appropriate cutting-edge technologies
+that should be used to mechanize and verify E2E protocols and their
+cryptographic algorithms. Mechanization and formal verification is
+mandatory for this work. E2E protocols are of critical import for
+public elections, as national digitally supported elections are a
+critical system that directly impacts national security.
 
 \section{Crypto Specification}
 
-\todokiniry{Introduction to this section.}
+Cryptographic specifications are typically written ``on paper'' in
+peer-reviewed articles. With increasing frequency, algorithms and
+protocols are mechanized, either within general-purpose logic
+frameworks such as Coq, or in specialized environments such as
+EasyCrypt. The foundations discussed in the following sections has not
+yet been mechanized, but must be as a first step toward any future E2E
+protocol work. A discussion of the modern best-practices for such
+mechanization and verification is included in the conclusion of this
+chapter.
 
 \subsection{Ideal Functionality of an E2E System}
 
@@ -23,7 +47,7 @@ interface).
 
 The ideal functionality is supposed to operate in an ``ideal world''
 where parties have direct access to its interfaces. This means that
-the adversary is not able to block or highjack the communication of
+the adversary is not able to block or high-jack the communication of
 parties to and from the ideal functionality. The only way for the
 adversary to interfere is through its own interface. This emphasizes
 that the ideal functionality has precedence over the adversary in the
@@ -707,7 +731,7 @@ realizing the ideal functionality.  A case study for one system is
 presented. Finally the case for open protocols and software
 independence is made.
 
-\subsection{Cryptographic Tools}
+\subsection{Commonly Used Cryptographic Tools}
 
 A number of cryptographic tools play an important role in the design
 of e-voting schemes. We provide a list of some of these tools that
@@ -824,7 +848,7 @@ are strings of length $k$.  The protocol enables the prover to
 convince the verifier that she is in possession of a ``witness'' $w$
 regarding the fact that $x\in L$.
 
-The properties required by a ZK proof is completness, soundness and
+The properties required by a ZK proof is completeness, soundness and
 zero-knowledge.  Informally, completeness requires that the verifier
 accepts an honest prover, soundness expresses that the prover cannot
 cheat (e.g., that she cannot convince the verifier if she does not
@@ -866,17 +890,117 @@ see that the correspondence between the original sequence of
 ciphertexts and the final sequence of ciphertexts will be hidden
 provided that at least one server remains honest.
 
-\subsection{Formal Mechanization of Ideal Functionality}
-[Joe]
+\subsection{Other Potentially Useful Cryptographic Tools}
 
-\subsection{Case Study Mechanization of Demos} 
-[Joe]
+There are several other cryptographic tools that have not yet seen
+much application in the context of E2E protocol design. Several are
+briefly summarized here, in part because they represent opportunities
+for novel research directions in E2E protocol design. They also
+described because some naive proposals for election systems include
+the use of these tools, and should be identified and rejected.
 
-\subsection{Specification of Open Protocols} 
+\paragraph{Blockchains.} A blockchain is...
+
+\paragraph{Multi-party computation.} Multi-party computation (MPC) is...
+
+\paragraph{Functional encryption.} Functional encryption is...
+
+\paragraph{Fully homomorphic cryptography.} Fully homomorphic
+cryptography is...
+
+\section{Formal Mechanization of Ideal Functionality}
+
+As mentioned above, in order to contextualize E2E protocol designs,
+especially to compare-and-contrast them from an objective framing, the
+ideal functionality must be mechanized.
+
+The premiere environments in which to perform such mechanization are
+Coq, EasyCrypt, CryptoVerif, and Cryptol. Each choice has pros and
+cons, and it is certainly a reasonable to consider mechanizing
+protocols, and their dependent algorithms, in multiple environments.
+In general, any framework chosen must be trusted by cryptographers,
+open source, and have liberal licensing.
+
+There are several other excellent useful environments that should be
+considered for future mechanization work, such as higher-order
+frameworks such as PVS, Isabelle, and HOL, and protocol-centric tools
+such as F\*, CVK, and ProVerif, which we will not describe in detail
+here.
+
+\paragraph{Coq.} Coq is a general purpose logical framework based upon
+the Calculus of Inductive Constructions. It has a small trusted core,
+proofs are first-class constructs, and there are several libraries
+available for reasoning about not only cryptographic algorithms and
+protocols, but also the correctness of programs written in a variety
+of languages. A significant amount of recent research focusing on the
+verification of cryptographic algorithms and protocols has used Coq,
+including Princeton's work on formally verifying SHA and HMAC,
+Harvard's work on reasoning with the Foundational Cryptography
+Framework, and IMDEA's early work on their precursor to EasyCrypt,
+CertiCrypt.
+
+\paragraph{EasyCrypt.} EasyCrypt is a toolset for reasoning about
+relational properties of probabilistic computations with adversarial
+code. Its main application is the construction and verification of
+game-based cryptographic proofs. Initial applications of EasyCrypt
+focused on encryption and signature schemes, but recent extensions
+reason about the security of cryptographic systems, which achieve
+specific functionalities through intricate combinations of several
+primitives. These developments have expanded significantly the scope
+of potential applications of EasyCrypt, as reflected in the recent
+formalization of secure function evaluation and verifiable
+computation. Moreover, they have enabled the formalization of examples
+that were previously out of scope, for instance modular proofs of
+security for key-exchange protocols and E2E protocols like
+Helios. EasyCrypt was custom-designed by Barthe and his colleagues at
+IMDEA and INRIA.
+
+\paragraph{CryptoVerif.} CryptoVerif is a computationally sound
+mechanized prover for cryptographic protocols created by Blanchet and
+his collaborators. It has been used to reason about the secrecy and
+correspondence properties of numerous protocols and gives a bound on
+the probability of any attack.
+
+\paragraph{Cryptol.} Cryptol is a domain-specific language for
+specifying cryptographic algorithms. A Cryptol implementation of an
+algorithm resembles its mathematical specification more closely than
+an implementation in a general purpose language. Using a specification
+in Cryptol, programmers can generate their own test vectors, prove
+theorems, and (using other tools) verify equivalence to their own
+programs, or even generate code or hardware from the specification.
+Cryptol version 2 is open source and available under a 3-clause BSD
+license. Galois's goal is that it becomes a widely adopted standard
+for expressing cryptographic algorithms.
+
+Our recommendation is to experiment with each of these alternatives,
+formalizing ideal functionality and at least one E2E protocol. Based
+upon that case study, an objective decision can be made about which
+toolset to use in the long run. 
+
+\subsection{Recommendations}
+
+Based upon our experience, the most promising approach is to use Coq
+to formalize systems and reason about implementations written in C
+(using CompCert and VST), Cryptol to specify cryptographic algorithms
+and simple protocols and reason about their, and their
+implementations' (in LLVM or JVM), correctness, use EasyCrypt to
+reason about algorithms' and protocols' security properties, and use
+F\* to specify and reason about protocols that need a Javascript or
+.Net implementations.
+
+\section{Specification of Open Protocols} 
+
+E2E protocols, while cryptographic protocols, are at their core, just
+protocols. They specify the means by which different subsystems
+communicate with each other. If we presume that different subsystems
+may be implemented by different parties, and that multiple independent
+implementations of critical components (such as tabulation and
+verification subsystems) is mandatory, then the precise specification
+of open protocols is critical.
 
 [Joe?]
 
-\subsection{The Case for Software Independence}
+\section{The Case for Software Independence}
 
 A voting system is software independent if an undetected change or
 error in its software cannot cause an undetected change or error in an
