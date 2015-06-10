@@ -36,6 +36,60 @@
   split personality of the Demos protocol for usability for the
   typical set of voters.}
 
+% Text to move starts here...
+
+In order to effect these goals, a demonstration system that mimics a
+voter's interaction with an E2E VIV system has been developed by
+Galois. That system is a variant of the STAR-Vote system designed by
+Wallach et al.~\cite{star-vote}. STAR stands for Secure, Transparent,
+Auditable, and Reliable. STAR-Vote is an end-to-end verifiable ballot
+marking device. As such, it is not designed for, or meant to be used
+for, Internet voting. But insofar as its voting process is identical
+to that of most of E2E VIV election schemes in the literature, we
+decided to use it as a demonstration vehicle for usability and
+accessibility experiments.
+
+The Galois STAR-Vote implementation has a web-based UI, thus can be
+used and demonstrated remotely for interactive and non-interactive
+experiments to gather both qualitative and quantitative feedback.
+Several variants of STAR-Vote have been implemented for UX testing.
+These variants include simple changes---like different typeface
+choices and sizes, background colors, supporting images, help text,
+mouse pointer graphics, etc.---as well as more complex changes---like
+different voter, challenge, and audit workflows.
+
+In an interactive, qualitative experiment, a facilitator and a voter
+communicate using a video chat system such as Skype and the voter
+shares their desktop with the facilitator. Optimally, the facilitator
+is someone who is deeply familiar with the issues of E2E VIV systems,
+is familiar with STAR-Vote, and has expertise in usability and
+accessibility. The voter then uses (one of several variants of)
+STAR-Vote, voicing their thoughts and feelings about their experience
+in real-time. After the voter has completed their participation in the
+demonstration election, the facilitator uses a script to query them
+about their impressions.
+
+For a non-interactive, quantitative experiment, voters will be
+solicited via social media, mailing lists, etc. to experiment with
+(variants of) STAR-Vote. Sample voters in these experiments are given
+ample information about what kinds of information is being collected
+about their behavior so that they can make a fully-informed judgement
+about their participation.
+
+Various quantitative measures related to voter participation and
+interaction can be measured automatically, both within their web
+browsers and on the STAR-Vote server. Most of this data is akin to the
+analytics that any professional website collects about its users: How
+do voters navigate the site?  Where does a voter pause for a long time
+and read?  When does a voter ask for help?  When does a voter hover
+over a button a long time before they decide to click it?  How often
+do voters challenge ballots or verify their votes?  How often do
+voters examine the bulletin board?  Is there a correlation between the
+interactive behavior of a voter while voting and their likelihood of
+voting, challenging, or auditing correctly?
+
+% ...and ends here.
+
 \subsection{Availability}
 
 \todokiniry{Reflect upon the current state-of-the-art in providing
