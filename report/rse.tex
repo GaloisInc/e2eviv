@@ -3,14 +3,14 @@
 
 Sound engineering practices are the foundation for building reliable
 and secure software of any type. This is particularly true for
-critical systems which must be trusted to perform important tasks
+critical systems that must be trusted to perform important tasks
 correctly, and where the consequences for failure threaten lives,
-political system integrity, and property.
+property, or political system integrity.
 
 This section introduces methodologies that help reduce errors and
 improve confidence in software development. We avoid discussion of
 particular technologies except to illustrate our recommended
-methodologies with examples in pracice.
+methodologies with examples in practice.
 
 \section{Informal System Specifications}
 
@@ -221,8 +221,8 @@ values, as they can instead make assertions about all possible
 values.
 
 For example, a unit test for an addition implementation might by hand
-assert that $0+0=0$, $1+0=0$, and $2^{32}+0=0$, but a random test
-could assert that for all integers $x$, $x+0=0$. Unless the range of
+assert that $0+0=0$, $1+0=1$, and $2^{32}+0=2^{32}$, but a random test
+could assert that for all integers $x$, $x+0=x$. Unless the range of
 the input is very small, a random test will not provide an exhaustive
 proof of the property it expresses. It can, however, easily provide
 orders of magnitude more test cases than hand-written tests, and will
@@ -233,7 +233,7 @@ formula usable by formal techniques, easing the transition to a
 verified system~\cite{swierstra2012xmonad}.
 
 In the addition example above, it is straightforward to generate
-random integers and check whether the result is zero. However,
+random integers and check whether the results are correct. However,
 randomized testing is situational, since an oracle is not always
 straightforward to develop, and even the random input generator can be
 quite complicated for complex input types. For example, random testing
@@ -244,7 +244,7 @@ used are primarily other C compilers.
 
 Because it is difficult to apply random testing to programs with
 complex input types and no readily-available oracles, random testing
-is most commonly applied to unit tests. Random testing can still be
+is most commonly found in unit tests. Random testing can still be
 useful in such cases by relaxing the requirements of the input
 generator and oracle, and simply observing whether a program crashes
 or violates internal assertions when presented with a random, possibly
@@ -616,7 +616,81 @@ costly to address those problems.
 \section{Technologies}
 \label{sec:technologies}
 
+Here, we provide some recommendations about specific technologies
+that, at present, are well suited (and in some cases, \emph{not} well
+suited) to performing rigorous software engineering of the type we
+have described. These recommendations are based on experience applying
+these methods over the last 15+ years; however, they are not meant to
+be a rigid set of rules or to unconditionally exclude technologies not
+mentioned here. The landscape of software development languages and
+tools is constantly changing; new languages and tools appear, while
+old languages and tools disappear, are marginalized, or evolve in
+possibly surprising ways.
+
 \subsection{Domain Modeling}
+
+For domain modeling, we recommend the Business Object Notation
+(BON)~\cite{walden1995seamless} and Extended Business Object Notation
+(EBON)~\todokiniry{should we have a reference for EBON? if so, which
+  one?}. BON is both a language and a design/refinement method
+encompassing informal domain analysis and modeling, formal modeling,
+and implementation-independent high- and medium-level
+specification. BON has a well-defined semantics, is easy to learn and
+write (especially the informal models, which are effectively
+collections of simple English sentences), and has equally-expressive
+textual and graphical notations. BON was originally developed for use
+with the Eiffel programming language and is well-supported by the
+EiffelStudio tool suite; however, it can be used with other
+specification and implementation languages. EBON adds additional
+\emph{semantic properties} to BON, allowing BON to express properties
+relating to domains such as concurrency, ownership, responsibility,
+bug tracking, literate programming, and version control.
+
+We recommend BON over the Unified Modeling Language (UML), which has
+seen much wider use in the software industry, for several
+reasons. First, BON's equivalently expressive textual and graphical
+notations are easy to work with and manipulate. Current UML supports
+only a graphical notation, though there is an unsupported official
+``Human-Usable Textual Notation'' for UML~\cite{HUTN}; it was last
+updated in 2004, reflects only the version of UML that was current at
+the time, and is not as expressive as graphical UML. Currently, there
+are at least a dozen different and mutually-incompatible textual UML
+dialects supported by various tools, none of which are as expressive
+as graphical UML and most of which have significant readability
+issues.
+
+Second, BON's semantics are an integral part of the language and
+method and are easily understandable. By comparison, UML effectively
+has no semantics; the Object Constraint Language (OCL)---the
+specification language typically associated with UML models---is a
+very complex expression language, and is not an integral part of UML.
+
+Third, BON was explicitly designed to support \emph{seamlessness} and
+\emph{reversibility}. Seamlessness is the property that allows BON
+models to be smoothly (and, in many cases, completely automatically)
+translated to lower-level specification languages, and further to
+executable implementations. Reversibility is the property that allows
+consistency to be maintained between the models, which serve as an
+important part of the documentation of the resulting system, and the
+resulting implementations---when the implementation is changed, that
+change can be (again, often completely automatically) propagated back
+up to the BON model.
+
+Fourth, BON supports high-level domain modeling using natural
+language, making it easy to communicate models not only among software
+developers but also with other stakeholders in the development
+process. For example, the BON representation of the E2E VIV
+requirements in \autoref{appendix:bon_requirements} consists almost
+entirely of requirements expressed using simple English sentences; it
+is therefore far more accessible to a wide audience than an equivalent
+set of UML diagrams would be.
+
+Finally, BON is \emph{small}. Its specification is a fraction of the
+size of the UML specification, and its visual representation is
+significantly less complex; for example, it has only two types of
+arrowhead for connections among entities, in contrast to UML's seven
+types plus additional adornments. \tododmz{I think this paragraph, if
+  we keep it, could be much better.}
 
 \subsection{Specification Languages}
 
