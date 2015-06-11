@@ -998,7 +998,29 @@ implementations of critical components (such as tabulation and
 verification subsystems) is mandatory, then the precise specification
 of open protocols is critical.
 
-[Joe?]
+The best practice for protocol specification is to formalize the
+protocol using a precise mechanization, provide a reference
+implementation, and provide a means by which any implementation can be
+validated against the specification. Given the aforementioned
+toolsets---ProVerif, EasyCrypt, CryptoVerif, and F\*---specifying the
+protocols is a straightforward proposition. Verifing the protocol's
+correctness and security properties is a much more challenging, though
+not insurmountable, proposition. 
+
+The real challenge is in verifying an implementation's
+correctness. Full blown formal verification of implementations, while
+possible, takes a significant amount of effort, typically several man
+months of work. Moreover, if a specification is not written with the
+intention of supporting a protocol under evolution, re-verifying
+changes in an implementation of a protocol can require as much effort
+as the original verification.
+
+Rigorous validation of a protocol, on the other hand, takes
+significantly less effort and is more flexible in the face of protocol
+evolution. Recent work from Cambridge focusing on the rigorous
+specification and implementation of TLS~\cite{nqsb-TLS} in a pure
+functional style exemplifies the kind of reference implementation that
+should be written for an E2E protocol.
 
 \section{The Case for Software Independence}
 
