@@ -899,14 +899,137 @@ for novel research directions in E2E protocol design. They also
 described because some naive proposals for election systems include
 the use of these tools, and should be identified and rejected.
 
-\paragraph{Blockchains.} A blockchain is...
+\paragraph{Hashchains and blockchains.} A hash chain is a data store
+that holds a ledger of sequential records in a cryptographically
+secure fashion~\cite{HC}. Hashchains are commonly used to record a
+sequence of causally dependent events with cryptographic integrity and
+non-repudiation. Within the context of election systems, hashchains
+are a common means by which to record privacy-preserving election logs
+for post-election audit, construct digital ballot boxes, craft public
+bulletin boards that contain evidence of an election's correctness and
+security properties, and more~\cite{HC-for-elections}.
 
-\paragraph{Multi-party computation.} Multi-party computation (MPC) is...
+A hashchain $H$ is constructed by the repeated application of a
+cryptographic hash function $h$. Linear hashchains are of the form
+$H^{k}=h(x_{k}\otimesh(...h(x_{2}\otimesh(x_{1}\otimesh(\perp\otimes\perp)))))$
+where each (identical) hash $h$ is applied to a fusion $\otimes$
+(often defined as xor) of the previous hashchain and a new ledger
+element $x$. The bottom element $\perp$ can be one of a number of
+potential root values (e.g., a prefix of the public key of a given
+election), depending upon the context of the application of the
+hashchain. 
 
-\paragraph{Functional encryption.} Functional encryption is...
+Non-linear hashchains are trees of linear hashchains~\cite{NLHC}. They
+are useful in the context of disconnected devices with causally or
+temporally connected ledgers (e.g., disconnected DRMs used in a given
+election)~\cite{NLHC-for-elections}.
 
-\paragraph{Fully homomorphic cryptography.} Fully homomorphic
-cryptography is...
+A blockchain is a distributed data store that holds a ledger of
+transactions in a cryptographically secure
+fashion~\cite{blockchains}. It is a kind of distributed hashchain,
+wherein multiple computers compute and communicate to determine what
+the next data element of the hashchain/tree using a consensus
+protocol. Blockchains often rely upon a cryptographic work factor to
+determine consensus as well as to prevent manipulation of the ledger
+by powerful adversaries.
+
+Proposals to use blockchains for elections are
+plentiful~\cite{blockchains-for-elections}, but have been shown to be
+naive in most instances and inappropriate as a foundation for a public
+election E2E protocol. The only reasonable proposal for the use of
+blockchains for parts of an election protocol is from Clark and
+Essex~\cite{CommitCoin}.
+
+\paragraph{Multi-party computation and linear secret sharing.} Secure
+multi-party computation (MPC) is a collaborative privacy-preserving
+computation technology.  MPC permits a (typically small) collection of
+parties to compute a collaborative result without any parties gaining
+any knowledge about the inputs provided by the parties, expect what
+can be determined from the output of the computation~\cite{MPC}. 
+
+Since systems compute on encrypted data, computation can take place on
+public systems, such as in a public cloud. Moreover, since systems can
+communicate using a published public protocol to collaboratively
+compute, parties can be implemented by multiple, cooperating or
+competing, organizations.
+
+In the kind of MPC known as linear (or additive) sharing, computation
+proceeds on data that appears entirely random~\cite{LSS}. Certain
+operations, such as addition or logical-XOR can be performed locally,
+but operations such as multiplication or logical-AND require a network
+communication between the parties. Consequently, the computational
+overhead of MPC is large, and the cost is measured in orders of
+magnitude slowdown with respect to computing in the clear.
+
+However, efficiency improvements over the last few years have shifted
+the potential applicability of MPC from just micro-benchmarks to
+user-level applications, including some that have a data volume
+comparable to elections. Consequently, there may be real opportunities
+in the use of MPC for E2E elections.
+
+\paragraph{Functional encryption.} Functional encryption (FE) is a
+kind of public-key cryptography in which possessing a secret key
+permits one to learn a function of what the ciphertext is encrypting,
+and nothing more~\cite{FE}.
+
+More precisely, a FE scheme for a given functionality $F$ consists of
+the following four algorithms:
+\begin{enumerate}
+\item $(pk, msk) \leftarrow Setup(1^\lambda)$: creates a public key
+  $pk$ and a master secret key $msk$,
+\item $sk \leftarrow Keygen(msk, k)$: uses the master secret key to
+  generate a new secret key $sk$ for value $k$,
+\item $c \leftarrow Enc(pk, x)$: uses the public key to encrypt a
+  message $x$, and
+\item $F(k, x) \leftarrow Dec(sk, c)$: uses secret key to calculate a
+  function of the value $c$ encrypts.
+\end{enumerate}
+
+FE's primary use is in encrypted databases whose security properties
+are determined, in part, by the computations permitted on its
+encrypted data~\cite{CryptDB}. Consequently, FE may prove useful in
+the storing of, or computing on, election data like ballots, audit
+logs, and more.
+
+FE encryption generalizes several existing primitives including
+identity-based encryption (IBE) and attribute-based encryption (ABE),
+both of which may be useful in the context of authentication in E2E
+protocols~\cite{IBE,ABE}.
+
+\paragraph{Fully homomorphic encryption.} Fully homomorphic encryption
+(FHE) is a more powerful version of the aforementioned partial
+homomorphic encryption (in the form of additive or multiplicative
+homomorphic encryption) cryptosystem.  FHE permits arbitrary
+computation on encrypted data, but is prohibitively slow (several
+orders of magnitude slower than plaintext computation) and ciphertexts
+are enormous (dozens to hundreds of megabytes in size).  
+
+It is unclear if FHE has potential application in the context of E2E
+protocols, but given the swelling interest in FHE and the availability
+of open source implementations of FHE libraries, surly we will see its
+applications, particularly in the context of cloud deployments of
+election systems.
+
+\paragraph{Verifiable computing.} Verifiable computing is a new area
+of R\&D which focuses on the offloading of computation to an untrusted
+system (say, an untrusted DRM evoting machine or a cloud hosting
+service), and yet having a means by which to check that the
+computation was performed correctly.
+
+Several technologies exist to help verify that a computation performed
+by untrusted workers is correct, including the use of secure
+coprocessors, Trusted Platform Modules (TPMs), interactive proofs, and
+more~\cite{TPM-stuff}. These verifications are either interactive,
+which require the client to interact with the worker to verify the
+correctness proof, or are non-interactive protocols which can be
+proven in the random oracle model.
+
+The utility of verifiable computing in the context of E2E VIV is
+obvious, but the state-of-the-art is still far from being able to
+handle the kind of data volumes mandated by public elections. It is to
+be expected that new results in both verifiable computing, and E2E
+protocols that presume the existence of efficient verifiable
+computing, will be forthcoming.
 
 \section{Formal Mechanization of Ideal Functionality}
 
