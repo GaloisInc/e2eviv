@@ -911,7 +911,8 @@ security properties, and more~\cite{HC-for-elections}.
 
 A hashchain $H$ is constructed by the repeated application of a
 cryptographic hash function $h$. Linear hashchains are of the form
-$H^{k}=h(x_{k}\otimesh(...h(x_{2}\otimesh(x_{1}\otimesh(\perp\otimes\perp)))))$
+$H^{k}=h(x_{k} \otimes h(...h(x_{2} \otimes h(x_{1} \otimes h(\perp
+\otimes \perp)))))$
 where each (identical) hash $h$ is applied to a fusion $\otimes$
 (often defined as xor) of the previous hashchain and a new ledger
 element $x$. The bottom element $\perp$ can be one of a number of
