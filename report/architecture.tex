@@ -17,8 +17,10 @@ It is important to note that we are \emph{not} making a concrete
 recommendation for a specific E2EVIV system architecture. The
 cryptographic foundations of E2EVIV protocols have been developed to a
 point where we have fairly high confidence in their ability to
-eventually provide the required security and auditability
-properties. However, there are many open engineering issues associated
+% eventually provide the required security and auditability
+% properties. 
+detect errors in election outcome (whether unintentional or malicious) and protect ballot privacy. 
+However, E2EVIV protocols do not prevent such errors, and an implemented E2EVIV system should minimize the chances of there being such errors. For this reason, there are many open engineering issues associated
 with actually building, running, and maintaining an E2EVIV system that
 fulfills its requirements in the face of both routine/expected
 failures and a wide range of security threats. Because of these open
@@ -26,7 +28,7 @@ engineering issues, architectural experimentation---preferably,
 empirical testing of various possible architectures to determine the
 most appropriate one(s) to deploy in real-world election
 scenarios---is vital to actually implementing a successful E2EVIV
-system.
+system. \todo{I made changes to the early part of the above para to clarify that E2E protocols only detect problems but do not prevent hem. This we must do everything else necessary for the "security" and reliability of the outcome--Poorvi}
 
 \section{Non-Functional Requirements Forcing Architectural Factors}
 
@@ -125,7 +127,7 @@ address ranges) for E2EVIV system components can open the system to
 denial of service attacks, limit deployment flexibility, and make it
 more difficult to recover from failures. The architecture should be
 chosen such that IP addresses need not be hard-coded; preferably, they
-should be changeable be on-the-fly (i.e., during a live election
+should be changeable on-the-fly (i.e., during a live election
 scenario) if necessary to protect or restore system integrity.
 
 \paragraph{DDoS Mitigation.} Content distribution and network
@@ -157,7 +159,7 @@ themselves in the same manner as machines in a distributed
 system. This implementation style can improve security in general, by
 reducing the effort required to demonstrate the security of each
 component and by minimizing potential attack surfaces once the
-components are deployed.
+components are deployed. 
 
 \paragraph{Secure Multi-Party Computation (MPC).} A common situation
 in distributed computing systems is that a number of systems, each
@@ -181,36 +183,40 @@ inherently suspect. The following are descriptions of the various
 aspects of the system that must be trusted, and some possible ways to
 establish that trust.
 
-\paragraph{Trusting the Electoral Authority.} The public must be able
-to trust that the electoral authority, including elected or appointed
-government officials and potentially others employed or contracted by
-them to carry out election tasks, will not compromise the integrity of
-the election process or its results. In the event of a completely
-corrupt electoral authority, the entirety of the election process, all
-evidence presented to the public, and all announced results can be
-fabricated; thus, we need both mechanisms that minimize the
-possibility of a completely corrupt electoral authority and mechanisms
-that allow for the detection of corruption if the electoral authority
-includes at least one honest official.
+\paragraph{Trusting the Electoral Authority.} 
+\todo{I changed the first couple of paras which seem to be oriented towards E2E systems which provide computational integrity and unconditional privacy. The practical E2E systems, though, or at least the ones that have been used in elections (PaV, Helios, Scantegrity) all provide unconditional integrity and computational privacy. I've changed the description to reflect this. If there was a particular voting system that you had in mind that is not covered by my description, perhaps one can add another para? Note that I use the following sentence that privacy advocates might jump upon: "This also means that fewer than 7 officials cannot compromise vote secrecy." Poorvi}
+% The public must be able
+% to trust that the electoral authority, including elected or appointed
+% government officials and potentially others employed or contracted by
+% them to carry out election tasks, will not compromise the integrity of
+% the election process or its results. In the event of a completely
+% corrupt electoral authority, the entirety of the election process, all
+% evidence presented to the public, and all announced results can be
+% fabricated; thus, we need both mechanisms that minimize the
+% possibility of a completely corrupt electoral authority and mechanisms
+% that allow for the detection of corruption if the electoral authority
+% includes at least one honest official.
 
-One mechanism to help accomplish this is threshold cryptography, where
+In general, the electoral authority is responsible for the integrity of the election outcome, the privacy of the votes, and the availability of the election system. Most E2EVIV systems do not require the public to trust the electoral authority or election technology (including election servers run by election officials or any others assigned to this task by the electoral authority) to detect election integrity problems. The systems are designed to enable the public to detect integrity issues without requiring trust in electoral authorities or election technology, as long as the website is secure with the ability to detect tampering. Additionally, these systems typically use threshold cryptography so that vote privacy is not compromised as long as a minimum number of election officials behave as required by the protocol. The use of threshold cryptography also influences the ability of individual election officials to affect a denial of services. 
+
+In threshold cryptography, 
 the cryptographic keys that allow for results to be generated by the
 election system are divided into some number of shares, a smaller
 threshold number of which are required to actually generate
 results. For example, the keys might be divided into 10 shares, each
 of which is entrusted to a different official and at least 7 of which
-are required to generate the tally. This allows the election to
+are required to generate the tally. This also means that fewer than 7 officials cannot compromise vote secrecy. This allows the election to
 proceed in situations where some of the election officials are unable
-(due to accident, illness, etc.) or unwilling (due to corruption) to
-produce the keys, as well as providing a check against corruption by
+(due to accident, illness, etc.) or unwilling (due to denial of service efforts to stall the election outcome from being tallied) to
+produce the keys, as well as providing a check against vote secrecy violations by
 requiring at least 7 of the 10 officials to collaborate in generating
-the tally. This check against corruption can be strengthened even
+the tally. The check against denial of service can be strengthened even
 further with public ceremonies surrounding key generation, share
-distribution, and tally generation, so that the specific electoral
+distribution, and tally generation so that the specific electoral
 officials involved are publicly known and can be held accountable for
-their actions.
+efforts to stall the tally computation and its verification. 
 
-Another mechanism to increase trust in the electoral authority is
+\todo{I'm not sure the following para is relevant in the presence of the bulletin board, which contains all the information needed for election officials to compute election outcome. In particular, attempts to manipulate the election will be detected based on the use of E2E protocols, and not based on physical security. Poorvi} Another mechanism to increase trust in the electoral authority is
 access restriction; if the election system allows physical access only
 via computing systems at specific, publicly-known and well-secured
 locations, and only during specified time frames, it is far more
@@ -246,7 +252,7 @@ on itself at startup time and compares it against a known value;
 this can detect accidental corruption (data storage errors, spurious
 bit flips, etc.) but generally not malicious corruption, because an
 attacker that successfully corrupts any part of the software could
-also corrupt its self-certification mechanism.
+also corrupt its self-certification mechanism. Similarly, a voter relies on the client to check the signature whether using code signing or self-certification, and a malicious client can modify the software and pretend it passed the signature check. \todo{Added this last sentence: Poorvi} 
 
 Proof-carrying code~\cite{Necula02} allows software to be shipped with
 accompanying formal correctness proofs that can be easily verified by
@@ -276,8 +282,10 @@ software must not cause an undetectable change or error in an election
 outcome---is an example of this approach. Even if the software is
 fully trusted, an untrusted server can corrupt it in arbitrary ways;
 software independence doesn't stop such corruption, but does guarantee
-that it will never affect the election results, and therefore allows
-for recovery even though the servers cannot be trusted.
+that if it affects the election results, it will be detected. 
+% and therefore allows
+% for recovery even though the servers cannot be trusted. 
+E2EVIV systems are designed to be software independent. \todo{Added previous sentence and modified the one before it: Poorvi}
 
 Even though distrusting the servers is useful in ensuring robust
 protocol and system design, steps should still be taken to make the
@@ -380,7 +388,7 @@ significant research is still needed in this area.
 
 One potential approach for implementing a high assurance voting client
 as a web application is to start with a high-level language that
-support the sorts of analysis necessary to provide the required
+supports the sorts of analysis necessary to provide the required
 correctness and security guarantees.  Mozilla's asm.js~\cite{asm.js}
 is a strict subset of JavaScript that can be used as a target for
 compiling such higher-level languages. One nice side effect is that
@@ -390,18 +398,19 @@ research and tool development, it should be possible to develop a high
 assurance voting client, compile it to asm.js, and deploy it as a web
 application.
 
+\todo{Notice that the second sentence is inconsistent with the coercion-resistance requirement we have been discussing over email I added the last sentence. Poorvi}
 With respect to the second issue, corruption of the voter's computing
 environment, there is a wide range of possible threats. One, which we
 cannot address as part of an E2EVIV system implementation, is
 surreptitious logging/monitoring software that records the voter's
 actions and transmits them to a third party. Detection and prevention
-of such monitoring can be accomplished through standard secure
+of such monitoring can be improved through standard secure
 computing practices such as malware scanning and the use of reverse
 firewalls (preventing the computer from making outgoing connections
 that are not approved by the user or by system security
 policies). However, we can only recommend that voters take such
 protective measures, and the voting client software cannot detect
-whether they are actually in place.
+whether they are actually in place. Additionally, it is possible that a rare effort towards such monitoring is not detected by malware scanning or the use of reverse firewalls.  
 
 Another threat is posed by malicious web browsers or OS libraries that
 may deceive the voter into taking unintended actions. Such malicious
@@ -415,13 +424,15 @@ casting; and spoof the client-side verification screens to make a
 voter mistakenly believe she is voting when she is actually not
 interacting with the rest of E2EVIV system at all. Many of these
 threats can be partially or completely mitigated through judicious use
-cryptography and good user interface design---for example, prominent
+of cryptography and good user interface design---for example, prominent
 use of confirmation codes transmitted out-of-band, such as via postal
 mail, to authenticate communications between the voter and the system
 in both directions---but there will always be the possibility of
-malicious action on the part of untrusted client systems. Essentially,
-the best we can do is ensure that any individual corrupted client
-system cannot violate the integrity of any other part of the system.
+malicious action on the part of untrusted client systems. A good E2EVIV system will enable a voter to detect any such effort that changes election outcome. Additionally, an E2EVIV system with dispute resolution will enable a voter to prove that there is a problem. 
+% Essentially,
+% the best we can do is ensure that any individual corrupted client
+% system cannot violate the integrity of any other part of the system.
+\todo{The sentence I commented out is not true. I added two sentences: Poorvi}
 
 \paragraph{Trusting the Data.} As previously discussed, communications
 can be protected using TLS and custom cryptographic protocols.
@@ -446,9 +457,10 @@ difficult, though still technically possible if the system is
 sufficiently compromised and its usage is not closely monitored
 (recomputing the entire hash chain would generally require significant
 computational resources). Replication of the data and the hash chain
-in multiple locations that must be accessed independently can
-significantly mitigate the possibility of such a compromise going
-undetected.
+in multiple locations that must be accessed independently further prevents manipulation. 
+% can
+% significantly mitigate the possibility of such a compromise going
+% undetected.
 
 One way to prevent inappropriate disclosure of data while retaining
 the advantages of well-known and well-understood database technology
@@ -458,6 +470,8 @@ systems like MySQL and Postgres. Other possibilities include novel MPC
 frameworks like ShareMonad~\cite{Launchbury14} and partial or full
 homomorphic cryptographic schemes such as ElGamal and BGV that enable
 computation of encrypted results over encrypted data.
+
+The use of a public append-only bulletin board with vote encryptions published in a tamper-evident and encouraging voters and observers to frequently check the board provides a means of detecting data manipulation, while the above safeguards make it additionally difficult. \todo{added the last para because we need to communicate that E2E goes beyond the standard security safeguards: Poorvi}
 
 \paragraph{Trusting the Voter.} The voter, like the voting client, is
 a ``weak link'' in the security of an E2EVIV system. It is possible
@@ -494,6 +508,7 @@ votes may help mitigate these issues, at least to the extent that they
 can make it more difficult for non-malicious voters to compromise
 their own security.
 
+\todo{The following para contradicts the earlier requirement of coercion-resistance we are discussing over email: Poorvi}
 Of course, it is impossible to defend an E2EVIV system against
 individual voters who are determined (or compelled) to compromise the
 security of their own votes; ``shoulder surfing'' and ``rubber hose''
@@ -755,18 +770,18 @@ The architectural dimensions we have identified are the following:
 \item \textbf{Key Distribution Method} \ In all the possible
   implementations of an E2EVIV system, encryption keys will be
   required to fulfill security, privacy, and integrity
-  requirements. The ways in which these keys will be determined by the
+  requirements. The ways in which these keys will be generated is determined by the
   cryptographic algorithms chosen for use in the system, but the ways
   in which they are distributed depend on architectural choices. For
   example, public ``key generation and distribution'' ceremonies and
   the use of threshold cryptography for the keys that enable
   generation of the final tally, described in \autoref{sec:trust}, may
   be used to improve trust in the system and making it more resilient
-  in the face of partial corruption of the electoral
-  authority. However, the generation and use of encryption keys in the
+  in the face of attempts by the electoral
+  authority to determine votes or prevent the completion of the election tally or its audit. However, the generation and use of encryption keys in the
   system is not limited to the election authority; as a result of the
   pervasive use of TLS encryption for communication, keys are
-  continually generated and exchanged throughout the system.
+  continually generated and exchanged throughout the system. \todo{Modified the second to last sentence: Poorvi}
 
   The most widespread method of key distribution today is the public
   key infrastructure (PKI), which manages digital certificates and
