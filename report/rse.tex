@@ -649,15 +649,15 @@ bug tracking, literate programming, and version control.
 We recommend BON over the Unified Modeling Language (UML), which has
 seen much wider use in the software industry, for several
 reasons. First, BON's equivalently expressive textual and graphical
-notations are easy to work with and manipulate. Current UML supports
-only a graphical notation, though there is an unsupported official
-``Human-Usable Textual Notation'' for UML~\cite{HUTN}; it was last
-updated in 2004, reflects only the version of UML that was current at
-the time, and is not as expressive as graphical UML. Currently, there
+notations are easy to work with and manipulate. UML supports only a
+graphical notation, though there is also an unsupported official
+``Human-Usable Textual Notation''~\cite{HUTN}; it was last updated in
+2004, reflects only the version of UML that was current at the time,
+and is not as expressive as the graphical notation. Currently, there
 are at least a dozen different and mutually-incompatible textual UML
 dialects supported by various tools, none of which are as expressive
-as graphical UML and most of which have significant readability
-issues.
+as the UML graphical notation and most of which have significant
+readability issues.
 
 Second, BON's semantics are an integral part of the language and
 method and are easily understandable. By comparison, UML effectively
@@ -666,33 +666,69 @@ specification language typically associated with UML models---is a
 very complex expression language, and is not an integral part of UML.
 
 Third, BON was explicitly designed to support \emph{seamlessness} and
-\emph{reversibility}. Seamlessness is the property that allows BON
-models to be smoothly (and, in many cases, completely automatically)
-translated to lower-level specification languages, and further to
+\emph{reversibility}. Seamlessness is the property that allows a BON
+model to be smoothly (and, in many cases, completely automatically)
+refined to lower-level specification languages, and further to
 executable implementations. Reversibility is the property that allows
-consistency to be maintained between the models, which serve as an
-important part of the documentation of the resulting system, and the
-resulting implementations---when the implementation is changed, that
-change can be (again, often completely automatically) propagated back
-up to the BON model.
+consistency to be maintained between the BON model, which is an
+important part of the system documentation, and the resulting
+implementation---when the implementation is changed, that change can
+be (again, often completely automatically) propagated back up to the
+BON model. Seamlessness and reversibility are both useful properties
+for ensuring that the final software product accurately reflects the
+original domain analysis and architecture design.
 
 Fourth, BON supports high-level domain modeling using natural
 language, making it easy to communicate models not only among software
 developers but also with other stakeholders in the development
-process. For example, the BON representation of the E2E VIV
-requirements in \autoref{appendix:bon_requirements} consists almost
-entirely of requirements expressed using simple English sentences; it
-is therefore far more accessible to a wide audience than an equivalent
-set of UML diagrams would be.
+process. The BON representation of the E2E VIV requirements in
+\autoref{appendix:bon_requirements} consists almost entirely of simple
+English sentences; it is therefore far more accessible to a wide
+audience than an equivalent set of UML diagrams would be.
 
-Finally, BON is \emph{small}. Its specification is a fraction of the
-size of the UML specification, and its visual representation is
-significantly less complex; for example, it has only two types of
-arrowhead for connections among entities, in contrast to UML's seven
-types plus additional adornments. \tododmz{I think this paragraph, if
-  we keep it, could be much better.}
+Finally, BON is \emph{simple}. Its specification is a fraction of the
+size of the UML specification, and its graphical representation is
+significantly less complex. For example, arrows in BON diagrams only
+have two possible appearances (a single or double line, with a single
+filled arrowhead) as compared to UML's proliferation of arrow types
+(solid and dashed lines, filled and empty arrowheads, diamonds, and
+circles, and additional connection markings). 
 
 \subsection{Specification Languages}
+
+In addition to its use for domain modeling, BON can also be used as a
+specification language and we recommend it as such. However, once they
+have been written, BON specifications are typically refined further
+into lower-level specification languages that are more well-tuned to
+particular implementation languages.
+
+Programming languages for which there is an obvious best choice of
+low-level specification language include Java (JML), C# (Code
+Contracts), and C (ACSL or E-ACSL). Some implementation languages,
+such as SPARK (a dialect of Ada)~\cite{SPARK2014} and Eiffel, have
+integrated specification languages. These specification languages all
+have several features that we consider essential for efficient and
+effective use: straightforward syntax and semantics, integration with
+widely-used software development environments, and tool support for
+performing analysis and verification. In the case of JML and Eiffel,
+tool support is also available for automated reversible refinement
+from BON.
+
+In any given project, different parts of the architecture may be
+implemented in different languages; for example, it might be
+appropriate to implement computation-intensive parts of a design in a
+language like C while implementing user interface scaffolding in a
+language like Java or C#. Thus, multiple specification languages may
+be used in a single project, though we would recommend that 
+high level specifications be written in a single language to the
+extent possible.
+
+There are also language-neutral specification languages and associated
+development tools, such as Alloy~\cite{Alloy}, VDM~\cite{VDM} and
+Z~\cite{Zed}, which themselves support refinement to various
+implementation languages. These can be used effectively, either by
+themselves or alongside other specification languages in a reliable
+software engineering process.
 
 \subsection{Implementation Languages}
 
