@@ -1,9 +1,148 @@
 \chapter{Conclusion\ifdraft{ (Joe K./Susan) (0\%)}{}}
 \label{chapter:conclusion}
 
+Internet voting (IV) is a wave moving towards voters and elections
+officials.  Ensuring that, when it hits us, we have a firm foundation
+for trust in our elections---particularly with regards to their
+correctness, security, usability, and accessibility---is paramount.
+
+Given the in-depth analysis summarized in this report, the team of E2E
+VIV experts involved with this project have produced the following
+results, made a concrete set of recommendations, and highlighted next
+steps for various related communities.
+
 \section{Results}
+
+As promised as a part of the proposal that created this project,
+several deliverables have been produced.  
+
+Primary amongst them is the ``whole product solution'' specification
+contained in~\autoref{chapter:required_properties}. This
+specification, which comes in the form as a set of mandatory
+requirements, is useful to several audiences, including:
+\begin{itemize}
+\item \emph{legislators} and their staff who are interested in
+  crafting law that relates to remote elections, particularly IV
+  elections and elections for UOCAVA and disabled voters,
+\item \emph{election officials} specifying (via RFIs or RFPs) or
+  evaluating IV products or services,
+\item \emph{activists} interested in obtaining a better understanding
+  of, and advocating for, E2E-VIV systems,
+\item \emph{testing organizations} interested in certifying IV
+  systems,
+\item \emph{standards bodies} interested in standardizing what
+  constitutes various classes of IV technologies and how rigorous
+  certification of IV systems should look,
+\item \emph{technologists} interested in implementing E2E-VIV systems.
+\end{itemize}
+
+Moreover, this report also includes several other artifacts useful to
+a subset of these audiences, including:
+\begin{itemize}
+\item a cryptographic foundation with which to evaluate and compare
+  various E2E protocols and E2E-VIV
+  systems~(\autoref{chapter:crypto_spec}),
+\item an analysis of the architecture space of E2E-VIV
+  systems~(\autoref{chapter:architecture}),
+\item precise recommendations on the state-of-the-art for rigorous
+  engineering of E2EV systems~(\autoref{cha:rigor-softw-engin}),
+\item a framing for an ongoing discussion about the feasibility of
+  designing, constructing, certifying, legalizing, and operationalizing
+  E2E-VIV systems~(\autoref{chapter:feasibility}), and
+\item an analysis of the outstanding issues that must be tackled in
+  future stages of this field, including political, legal, research,
+  engineering, and business challenges~(\autoref{sec:next-steps}).
+\end{itemize}
+
 \section{Recommendation (YES or NO???)}
+
+Synthesizing all of the above information, the E2E-VIV expert team has
+come to the following conclusion and set of
+recommendations. \todokiniry{This is being dropped into this document
+  in this form not because it has been decided, but simply to expedit
+  editing and layout as we push to completion.  I am using an edited
+  version of Josh's proposed text and ideas here---they do not reflect
+  Galois's position in these matters.}
+
+\subsection{Conclusion}
+\label{sec:conclusion}
+
+\begin{center}
+  \textbf{\emph{Recommendation I.} We \emph{do not} assert that
+    Internet voting (IV) \emph{should} be pursued,\\
+    nor do we assert that IV should \emph{never} be pursued.}
+\end{center}
+
+There is clearly no consensus for either of these positions.
+
+\begin{center}
+  \textbf{\emph{Recommendation II.} Public elections should not be
+    conducted over the Internet\\
+    using systems that are not end-to-end verifiable.}
+\end{center}
+
+Some may say that public elections should not be conducted over the
+Internet at all, but we have uniform support as a community of the
+assertion above, as opposed to the kind of ``naked'' IV that we are
+beginning to see today. Non-end-to-end verifiable systems are
+irresponsible and should never be used. We all know of the numerous
+vulnerabilities of Internet applications, and the idea of voting with
+an unverifiable Internet application is alarming, to say the least.
+
+\begin{center}
+  \textbf{\emph{Recommendation III.} End-to-end verifiable Internet
+    voting systems should not be used before end-to-end verifiable
+    poll-site voting systems have been widely-deployed and experience
+    has been gained from their use.}
+\end{center}
+
+Gaining experience with E2E-verifiability in the simpler in-person
+setting before attempting the more complex Internet setting seems like
+a natural and prudent step, but there is another reason for starting
+with in-person systems.  Few jurisdictions are willing to release
+separate tallies for their in-person and remote voters, but a
+verifiable system needs to publish a tally to be verified.  If only
+the remote voters use an E2E-verifiable system, then the sub-tally of
+the remote voters must be reported.\footnote{It may be possible to mix
+  a small number of not individually-verified remote votes in with
+  fully-verified in-person votes in such a way as to produce a single
+  universally-verifiable tally, but it is difficult to imagine how the
+  reverse might be accomplished in a meaningful way.}
+ 
+The pragmatism in this recommendation is simpler than the technical
+justification: We as a community of expert firmly believe that if we
+were to assert that Internet voting cannot be conducted with adequate
+security and assurance, then we will be ignored and see widespread use
+of horrid, unverifiable Internet voting systems within ten years.
+Vendors will claim to have solved the security problems, and eager
+officials will buy these systems.  Elections may be altered with no
+public awareness, and vendors will assert that they were right and we
+were wrong.  If election officials get lucky and manage to find
+evidence left by a careless attacker after altering an election, it
+will be a Pyrrhic victory.
+ 
+In making these recommendations, we realize that we have created a
+narrow pathway to adoption and assert that no attempt at Internet
+voting should deviate from this path.  This path is a difficult one to
+follow.  After all, building an in-person E2E-verifiable voting system
+is no small task.  After several years, there will be few, if any,
+E2E-VIV systems in common use.  But any E2E-VIV system is enormously
+better than the naked Internet voting alternatives.  
+
+In addition, we recognize that we get the side-benefit of the
+deployment of E2E-verifiable in-person systems, which has the bonus of
+improving the integrity of our in-person voting systems.
+
+\begin{center}
+  \textbf{Recommendation IV:} E2E-VIV systems must be designed,
+  constructed, verified, and certified as high-assurance systems
+  according to the most stringent engineering requirements of
+  mission-critical and safety-critical systems.
+\end{center}
+
 \section{Next Steps}
+\label{sec:next-steps}
+
 \subsection{Political/Legal Challenges}
 \subsection{Research Challenges}
 \subsection{Engineering Challenges}
