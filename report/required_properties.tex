@@ -42,14 +42,14 @@ systems---from consideration entirely.
 
 If these issues were addressed, the EAC requirements could serve as a
 solid baseline set of requirements for remote electronic voting
-systems; effectively, addressing the ``IV'' in ``E2E VIV''. However,
+systems; effectively, addressing the ``IV'' in ``E2E-VIV''. However,
 they are not strong enough to guarantee end-to-end verifiability,
 which---as previously discussed---is essential when considering
 Internet voting systems for use in real elections.  Thus, we describe
-here a set of required properties for E2E VIV systems that has
+here a set of required properties for E2E-VIV systems that has
 significant overlap with the EAC requirements.
 
-The set of E2E VIV requirements can be broadly divided into two
+The set of E2E-VIV requirements can be broadly divided into two
 groups: \emph{technical requirements} and \emph{non-functional
   requirements}. Technical requirements are those that can be directly
 addressed by the design and implementation of the system, such as
@@ -66,17 +66,17 @@ overview of these.
 \begin{center}
 \includegraphics[width=6in]{required_properties_resources/hierarchy}
 \end{center}
-\caption{The hierarchy of requirements for E2E VIV systems.}
+\caption{The hierarchy of requirements for E2E-VIV systems.}
 \label{fig:e2eviv_requirements_hierarchy}
 \end{figure}
 
 The following is a high-level description of the categories and many
 of the requirements within each; \autoref{appendix:bon_requirements}
-contains a complete listing of all E2E VIV system requirements
+contains a complete listing of all E2E-VIV system requirements
 expressed in the Business Object Notation.
 
 \section{Technical Requirements}
-There are ten categories of technical requirements for E2E VIV
+There are ten categories of technical requirements for E2E-VIV
 systems: functional, accessibility, usability, security,
 authentication, auditing, system operational, reliability,
 interoperability, and certification. 
@@ -84,7 +84,7 @@ interoperability, and certification.
 \subsection{Functional} 
 \label{sec:functional}
 
-The functional requirements of an E2E VIV system deal primarily with
+The functional requirements of an E2E-VIV system deal primarily with
 the casting and recording of ballots and associated voter records. One
 important requirement is that there must be a correspondence between
 the recorded ballots and the voters that are listed as having voted; a
@@ -145,7 +145,7 @@ voting.
 
 \subsection{Usability}
 
-The usability of an E2E VIV system is critical to its successful
+The usability of an E2E-VIV system is critical to its successful
 adoption and use. Since the user experience is so important, many of
 the requirements of the system have some relation to usability even
 though they may be categorized under other headings. There are,
@@ -165,7 +165,7 @@ whether or not her ballot was recorded (e.g., she clicked a ``submit''
 button but never got a response from the system), she must be free
 to attempt to vote again.
 
-Finally, usability testing must be performed on any E2E VIV system
+Finally, usability testing must be performed on any E2E-VIV system
 before it is deployed. The reports of the usability testing must be
 made public, and the system must achieve satisfactory test results
 before being deployed in a real election.
@@ -173,7 +173,7 @@ before being deployed in a real election.
 \subsection{Accessibility}
 
 Accessibility---the property of being usable by and useful to voters
-with disabilities---is one of the main goals of an E2E VIV system. It
+with disabilities---is one of the main goals of an E2E-VIV system. It
 is closely related to usability, but there are several requirements
 associated specifically with accessibility that go beyond typical
 usability requirements.
@@ -204,7 +204,7 @@ satisfactory test results before being deployed in a real election.
 
 Security and authentication are closely related and together represent
 the broadest set of technical requirements, consisting of both
-requirements on the E2E VIV system itself (data storage,
+requirements on the E2E-VIV system itself (data storage,
 communications, etc.) and requirements on the voting and counting
 processes enabled by the system (voter authorization, voter privacy,
 tally accuracy, etc.).
@@ -297,13 +297,13 @@ process itself for as long as required. Vote tabulation must be
 correct tally from some record even if the election system software is
 compromised.
 
-Finally, it is expected that a deployed E2E VIV system will be an
+Finally, it is expected that a deployed E2E-VIV system will be an
 attractive target for highly-capable adversaries that wish to
 influence election results or to disrupt election processes. With this
 in mind, the system must be designed and tested assuming that an
 adversary has a budget of US\$10 per voter per election that can be
 applied toward any critical subset of votes or voters of their
-choosing; thus, an E2E VIV system for use in a U.S. presidential
+choosing; thus, an E2E-VIV system for use in a U.S. presidential
 election would need to be designed and tested assuming that an
 adversary has a budget of approximately US\$1,300,000,000.
 
@@ -314,14 +314,14 @@ be assessed by independent bodies as appropriate.
 \subsection{Auditing}
 
 The ability to perform comprehensive audits of system activity is one
-of the important distinguishing aspects of an E2E VIV system as
+of the important distinguishing aspects of an E2E-VIV system as
 compared to other voting systems; as a result, there are several
 system requirements related specifically to auditing, in addition to
 those security requirements (such as the tracking of accurate timing
 information) that touch on auditing.
 
 First, the audit system must be designed and implemented as part of
-the E2E VIV system from the beginning; it cannot be added as an
+the E2E-VIV system from the beginning; it cannot be added as an
 afterthought to an existing system. Audit and monitoring facilities
 must be integrated into all levels of the system, from low-level
 communications among individual computers to high-level interactions
@@ -353,9 +353,9 @@ affected ballots. If a tradeoff must be made between maintaining voter
 privacy and identifying the perpetrators of fraud, the system must
 resolve that tradeoff in favor of voter privacy.
 
-In order for an E2E VIV system to be trusted, its auditability must
+In order for an E2E-VIV system to be trusted, its auditability must
 extend to its own source code as well as the activities it performs
-during an election. Therefore, the E2E VIV system software, including
+during an election. Therefore, the E2E-VIV system software, including
 any official monitoring and auditing applications, must be published
 in source form along with documentation, instructions for building and
 running, and a digital signature as a proof of authenticity.
@@ -400,7 +400,7 @@ election.
 
 \subsection{Reliability}
 
-In order to be successfully used to conduct elections, an E2E VIV
+In order to be successfully used to conduct elections, an E2E-VIV
 system must satisfy strict reliability requirements with respect to
 both its behavior under normal conditions and its behavior while under
 attack.
@@ -422,7 +422,7 @@ unplugging servers or disconnecting storage devices. Redundant
 failover components must be in place for all critical components of
 the system in order to ensure the 10 minute maximum recovery time.
 
-An E2E VIV system is likely to be a tempting target for distributed
+An E2E-VIV system is likely to be a tempting target for distributed
 denial of service (DDoS) attacks; it must be able to continue correct
 operation during a sustained DDoS attack at a specified level on any
 combination of its back-end components with no more than a specified
@@ -445,7 +445,7 @@ attack technology.
 
 \subsection{Interoperability}
 
-E2E VIV systems must use open, rather than proprietary, data and
+E2E-VIV systems must use open, rather than proprietary, data and
 communication standards for interoperability among their various
 components and services. Whenever possible, the Election Markup
 Language (EML) or a similar standard ratified by an international
@@ -476,14 +476,14 @@ rapidly in the verification community.
 
 \section{Non-functional Requirements}
 
-There are five categories of non-functional requirements for E2E VIV
+There are five categories of non-functional requirements for E2E-VIV
 systems: operational, procedural, legal, assurance, and
 maintenance/evolvability.
 
 \subsection{Operational}
 \label{req:operational}
 
-The operational requirements on E2E VIV systems deal with several
+The operational requirements on E2E-VIV systems deal with several
 distinct issues including election and registration timing, voter
 registration, candidate nominations and lists, receipt freedom, voter
 assistance, and the handling of hardware and software platform issues
@@ -499,7 +499,7 @@ channel (such as a dedicated phone number) in addition to being
 available via the Internet. Voters must receive clear guidance about
 exactly what client configurations (i.e., hardware platforms,
 operating systems, browsers, browser plugins, other applications, and
-versions thereof) are required by or supported by the E2E VIV system,
+versions thereof) are required by or supported by the E2E-VIV system,
 and what common components, plugins, or other software (e.g., pop-up
 blockers, script blockers) may interfere with voting. In addition,
 voters must receive clear guidance about configuration choices they
@@ -509,7 +509,7 @@ privacy-protecting browser plugins, voting from temporary virtual
 machines, logging out of social networks, disabling
 non-election-related Internet communications, etc.
 
-In any election carried out using an E2E VIV system, the relevant
+In any election carried out using an E2E-VIV system, the relevant
 jurisdiction's legal provisions must provide for clear timetables
 concerning all stages of the election. The period during which a vote
 may be cast electronically must not begin before the public is
@@ -521,7 +521,7 @@ at supervised polling stations, the time periods for remote and
 supervised voting need not be identical; however, remote voting should
 not be allowed after the period for supervised voting has ended.
 
-An E2E VIV system must have a publicly accessible voters' register
+An E2E-VIV system must have a publicly accessible voters' register
 that is regularly updated. Each voter must be able to check, at a
 minimum, that her information as recorded on the register is accurate,
 and must be able to request corrections of any inaccurate
@@ -542,10 +542,10 @@ to be on the ballot (for example, candidate party affiliation is often
 required to appear). The system must also avoid displaying any
 messages that may influence voters' choices. Additional information
 about voting options might be made available from an electronic voting
-site as part of an E2E VIV system, separate from the actual electronic
+site as part of an E2E-VIV system, separate from the actual electronic
 ballot; if so, such information must be presented without bias.
 
-E2E VIV systems are likely to be made available for testing by voters
+E2E-VIV systems are likely to be made available for testing by voters
 and election officials, both before and during elections. They must
 therefore indicate clearly, before the final casting of any ballot,
 whether the ballot is being cast in a real election or as part of a
@@ -553,7 +553,7 @@ test. In the case of a test that occurs simultaneously with a real
 election, individuals casting test ballots should subsequently be
 directed to the appropriate voting channel for casting real ballots.
 
-E2E VIV systems must exhibit receipt freedom (mentioned previously in
+E2E-VIV systems must exhibit receipt freedom (mentioned previously in
 the technical requirements); that is, they must not enable the voter
 to possess a proof of the choices they have made in a cast
 vote. Receipt freedom has two different meanings, depending upon
@@ -580,7 +580,7 @@ vote, it must not be possible for the adversary to irrefutably
 conclude, either during the election or after the election is
 certified, that the coerced/sold vote is, in fact, as recorded.
 
-With respect to counting the votes, an E2E VIV system must not allow
+With respect to counting the votes, an E2E-VIV system must not allow
 the disclosure of any vote counts until after the system has stopped
 accepting electronic ballots. Tally information must not be disclosed
 to the public until after the end of the voting period (including all
@@ -596,7 +596,7 @@ affected votes had their integrity violated; the effect of such
 integrity violations on the election results will vary based on the
 legal provisions of the involved jurisdictions.
 
-Finally, any deployed E2E VIV system must function correctly as an
+Finally, any deployed E2E-VIV system must function correctly as an
 open system, where large parts (specifically, any remote client
 hardware and software) are unknown, unsecured, uncertified, and
 completely out of the control of election officials. The system must
@@ -606,7 +606,7 @@ elections.
 
 \subsection{Procedural}
 
-Successful deployment of E2E VIV systems requires certain procedures
+Successful deployment of E2E-VIV systems requires certain procedures
 to be followed with respect to their provisioning, certification,
 maintenance, availability, and use. Because such systems are critical
 pieces of public infrastructure, information about their functioning
@@ -628,11 +628,11 @@ method before, and separately from, the casting of an electronic
 ballot during a real election.
 
 The electoral authority must take steps to ensure the reliability and
-security of the E2E VIV system; for example, guarding equipment,
+security of the E2E-VIV system; for example, guarding equipment,
 providing suitable reliable power supplies, etc. All possible steps
 should be taken to avoid the possibility of fraud or unauthorized
 intervention during the voting process, and the electoral authority
-must satisfy itself that the E2E VIV system is genuine and operates
+must satisfy itself that the E2E-VIV system is genuine and operates
 correctly before using it to conduct a real election. 
 
 Only individuals appointed by the electoral authority should have
@@ -645,7 +645,7 @@ activities should take place outside of election periods.
 
 Observers must be allowed to be present, to the extent permitted by
 law, to observe and comment on the conduct and establishment of the
-results of any election conducted using an E2E VIV system. During an
+results of any election conducted using an E2E-VIV system. During an
 election period, any authorized intervention affecting the system must
 be carried out by a team of at least two people, be the subject of a
 written report, and be monitored by representatives of the election
@@ -668,22 +668,22 @@ the Internet portion of the election are correct.
 \subsection{Legal}
 
 Legal requirements arise primarily from the application of existing
-law to E2E VIV systems. These include requirements on accessibility
+law to E2E-VIV systems. These include requirements on accessibility
 and availability; on the counting of votes, number of votes per voter,
 and anonymity of votes; and on restrictions with respect to reverse
-engineering or testing of E2E VIV systems.
+engineering or testing of E2E-VIV systems.
 
 To comply with accessibility and availability requirements, the voting
-interface of an E2E VIV system must be understandable and easily
+interface of an E2E-VIV system must be understandable and easily
 usable, and registration requirements for electronic voting must not
-pose an impediment to voter participation. E2E VIV systems should be
+pose an impediment to voter participation. E2E-VIV systems should be
 designed, as far as is practicable, to maximize the opportunities they
 provide for voters with disabilities. Unless remote electronic voting
 channels are universally accessible, they must be used only as an
 additional and optional means of voting beyond polling places or more
 traditional remote voting methods.
 
-The E2E VIV system must insure that at most one electronic vote from
+The E2E-VIV system must insure that at most one electronic vote from
 each voter is included in the final tally, that every vote cast
 electronically is counted, and that each vote cast electronically is
 counted only once. In jurisdictions where electronic and traditional
@@ -705,15 +705,15 @@ blank ballot), must indicate clearly to the voter when the voting
 procedure has been completed, and must preserve voter anonymity.
 
 There must be no legal impediments to interested parties who want to
-study the E2E VIV system. In particular, no nondisclosure agreement or
+study the E2E-VIV system. In particular, no nondisclosure agreement or
 contract of any kind may be required for such download and study, or
-for building, testing and publishing test results for the E2E VIV
+for building, testing and publishing test results for the E2E-VIV
 system.
 
 \subsection{Assurance}
 
 There are several assurance requirements with respect to the
-implementation, documentation, and licensing of E2E VIV
+implementation, documentation, and licensing of E2E-VIV
 systems. First, client side software---that is, any software that is
 expected to be used on a system serving as a voting terminal, whether
 a supervised machine at a polling place or an unsupervised machine
@@ -730,7 +730,7 @@ All aspects of the design, architecture, algorithms and documentation
 for the entire Internet voting system (not just the E2EV core) should
 be published and available for free download by anyone. As the system
 changes, all associated documentation must be kept up to date, and no
-new version of an E2E VIV system should be certified until it has
+new version of an E2E-VIV system should be certified until it has
 up-to-date documentation. 
 
 The source code, build scripts, issue tracking system, security
@@ -744,7 +744,7 @@ the system.
 
 Maintenance and evolvability requirements are closely related, and
 essentially stipulate that an electoral authority, or any entity
-engaged by an electoral authority, must be able to change an E2E VIV
+engaged by an electoral authority, must be able to change an E2E-VIV
 system in response to changes in the legal or technical environment in
 which it operates. 
 
