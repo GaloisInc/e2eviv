@@ -7,21 +7,133 @@ critical systems that must be trusted to perform important tasks
 correctly, and where the consequences for failure threaten lives,
 property, or political system integrity.
 
-This section introduces methodologies that help reduce errors and
-improve confidence in software development. We avoid discussion of
-particular technologies except to illustrate our recommended
-methodologies with examples in practice.
+This chapter introduces rigorous software engineering methodologies
+that help reduce errors and improve confidence in software
+development.
 
 \section{Informal System Specifications}
 
+An \emph{informal system specification} is a human-readable
+description of the system's purpose, functionality, and high-level
+design. Informal specifications should be understandable not only to
+the system's developers, but also to other stakeholders: clients for
+whom the system is being developed, users of the system,
+administrative staff who maintain the system, and auditors who
+evaluate the system.
+
+A complete informal system specification consists of a domain model, a
+set of requirements and scenarios, and a set of concept
+specifications. We describe each of these in turn. 
+
 \subsection{Domain Models}
+
+A \emph{domain model} of a system identifies the various concepts in
+the system, their attributes and roles, and the relationships among
+them. Domain models can be expressed in various ways, both textual and
+graphical. Regardless of their form, they are essentially lists of
+concepts with associated brief human-readable descriptions of
+themselves and their relationships to other concepts.
+
+For example, the domain model for E2E-VIV systems (see
+\autoref{appendix:domain_model}) includes, among other concepts,
+``election'', ``contest'', ``ballot question'', and ``choice''. It
+describes an election as ``a formal process of selecting choices in
+one or more contests'', and says that a ballot question is a specific
+type of contest, namely ``a decision among two or more courses of
+action''.
+
+Importantly, while a good domain model comprehensively identifies and
+defines the concepts and relationships in a system, it does not
+otherwise constrain the realization of those concepts and
+relationships or the actual behavior of the system. Constraints on the
+realization and behavior of the system are provided by the
+requirements, scenarios, and concept specifications, and in
+significantly more detail by the formal specifications.
 
 \subsection{Requirements and Scenarios}
 
-\tododmz{traceability and automation; reflect back upon requirements
-  and scenarios previously described}
+A system's \emph{requirements} are, essentially, the statements that
+must be true of the system's implementation when it is
+complete. Requirements are typically phrased as simple
+natural-language sentences, each of which expresses a single testable
+property of the system. ``The e-voting system shall maintain the
+privacy of individuals.'' and ``All voter authentication secrets must
+be changed at least once in every election cycle.'' are examples of
+E2E VIV requirements; the full set of requirements is described in
+\autoref{chapter:required_properties}, and the informal requirements
+document itself is in \autoref{appendix:bon_requirements}.
+
+There are several different kinds of requirement, but they can be
+broadly divided into two basic types: \emph{functional} and
+\emph{non-functional}.
+
+Functional requirements are those that specify how the system must
+behave and what outputs it must generate given certain sets of inputs
+under certain conditions. For example, one functional requirement
+of E2E VIV systems is that only eligible voters may cast ballots.
+
+Non-functional requirements are those that specify overall
+characteristics of the system, such as a lower bound on its
+availability or an upper bound on its cost. For example, one
+non-functional requirement of E2E VIV systems is that they must be
+Open Source.
+
+\emph{Scenarios} are descriptions of interactions among the entities
+in the system, or between the system and its environment. A scenario
+is typically expressed as a short paragraph describing the actions of
+the entities involved, though numbered lists (to indicate a sequence
+of operations) or communication diagrams (to indicate the flow of data
+during a scenario) are also reasonable representations. A scenario may
+also be expressed as a collection of requirements that, together,
+describe the behavior of a part of the system under certain
+circumstances.
+
+It is important that requirements and scenarios describe not only the
+\emph{ideal} behavior of the system, but also how the system deals
+with situations that are less than ideal. Communication failures, data
+corruption, and malicious attacks of various kinds should all be
+addressed in a system's requirements and scenarios.
+
+As the system is developed, \emph{traceability} of the requirements
+and scenarios is critical. It must be possible to identify, for every
+requirement and scenario, one or more system tests demonstrating that
+the system addresses that requirement or scenario. This should
+preferably be done automatically as part of automated testing and
+continuous integration processes, and in a way that makes it clear to
+developers which, if any, requirements and scenarios remain to be
+addressed.
 
 \subsection{Concept Specifications}
+
+A \emph{concept specification} is an informal description of the
+behavior of a concept named the system's domain model. Concept
+specifications help to clarify what the roles and responsibilities of
+the concepts in the model are with respect to the functionality of the
+system. A typical concept specification is a set of English sentences
+called \emph{queries}, \emph{commands} and \emph{constraints},
+describing respectively what information the concept possesses, what
+the concept can do, and what limitations exist on its
+behavior.\todo{Do we need to write something about why we're
+  ``anthropomorphizing'' concepts? -dmz}
+
+A query is phrased as a simple question, such as ``What is your
+name?'' or ``How old are you?'', that the concept must be able to
+answer. Queries provide an informal description of the data
+encapsulated in the concept, because the concept must contain all the
+data necessary to answer any of the queries that may be posed to it. 
+
+A command is phrased as an exclamation, such as ``Cast this vote!'' or
+``Log this user out!'', describing an action that the concept must
+take. This provides an informal description of the behavior
+encapsulated in the concept, because the concept must be able to take
+all (and only) the actions described in its commands.
+
+Finally, a constraint is phrased as a declaration, such as ``A voter
+must be eligible for this election to cast a vote.'' or ``Only users
+that are logged in may be logged out.'', describing the circumstances
+under which queries and commands may be issued. This provides an
+informal description of the conditions under which queries and
+commands may be issued to a concept. 
 
 \subsection{Utility of Informal Specifications}
 
@@ -37,16 +149,14 @@ methodologies with examples in practice.
 
 \subsection{Utility of Formal Specifications}
 
-\section{Methodology}
-
-\subsection{Engineering Methodology}
+\section{Engineering Methodology}
 
 \todoacf{Introduce context with NIST, ISO standards for methodology?}
 
 \todoacf{Lay out the characteristics we want more explicitly, eg,
   freedom from flaws, repetability, correctness}
 
-\subsubsection{Version Control}
+\subsection{Version Control}
 
 Version control systems (VCS) manage changes between the versions of a
 project as it evolves during the course of development. Revision
@@ -87,9 +197,9 @@ productivity suffers and it becomes more difficult later to isolate
 which commit introduced a bug. Each VCS supports multiple workflow
 practices that should be adopted in order to limit these problems and
 get the most benefit from VCS
-use~\cite{atlassianworkflow}\cite{pilato2008version}.
+use~\cite{atlassianworkflow,pilato2008version}.
 
-\subsubsection{Issue Tracking}
+\subsection{Issue Tracking}
 
 During much of the software development and maintenance process, teams
 add features and fix bugs. In an issue tracking system, each new
@@ -138,7 +248,7 @@ importance and urgency, discuss potential solutions, assign developers
 to implement those solutions, and finally make sure the problem is
 resolved and notify the users who originally reported the problem.
 
-\subsubsection{Testing}
+\subsection{Testing}
 
 Software testing practices are a key component of any software
 engineering methodology. Even when parts of a system are formally
@@ -178,7 +288,7 @@ no single testing practice is sufficient to cover the above
 list. Instead, multiple types of testing should be used in
 combination on every project.
 
-\paragraph{Unit Testing}
+\subsubsection{Unit Testing}
 
 Unit testing exercises the smallest components (the ``units'') of a
 program that are feasible to test. The granularity of unit tests
@@ -206,7 +316,7 @@ flaws~\cite{inozemtseva2014coverage}, however more sophisticated
 coverage measures such as branch coverage are more
 promising~\cite{gligoric2013comparing}.
 
-\paragraph{Randomized Testing}
+\subsubsection{Randomized Testing}
 
 Manually-written tests can only exercise a small fraction of the
 potential inputs to a program. When test cases can be generated
@@ -252,7 +362,7 @@ malformed input. This variant of random testing is known as
 ``fuzzing'', and should be used as a complement to other forms of
 testing.
 
-\paragraph{Model-Based Testing}
+\subsubsection{Model-Based Testing}
 
 Another method for automatically generating test cases is model-based
 testing, where formal models of the program's behavior can be used as
@@ -308,7 +418,7 @@ also be used to choose test data, with the goal of achieving maximal
 coverage using a minimal set of test cases. The PEX testing tool for
 .NET~\cite{PEX08} uses this technique.
 
-\paragraph{Regression Testing}
+\subsubsection{Regression Testing}
 
 In addition to unit and integration tests written to reflect the
 specifications of a system, new tests should be added whenever a flaw
@@ -333,7 +443,7 @@ flaws as quickly as possible, running tests less frequently is a
 tradeoff, and prioritizing and minimizing the cost of testing is an
 area of active research~\cite{yoo2012regression}.
 
-\paragraph{Integration Testing}
+\subsubsection{Integration Testing}
 
 While unit testing and regression testing detects flaws on a
 per-module granularity, integration testing detects flaws in the
@@ -375,7 +485,7 @@ deployed environment (it may not even be a general-purpose computer),
 and so the integration tests must accurately recreate that
 environment.
 
-\subsubsection{Continuous Integration}
+\subsection{Continuous Integration}
 
 The expense of fixing software flaws increases over time as other
 parts of a program accumulate over time around those flaws. When a
@@ -415,7 +525,7 @@ validation of the system and the creation of the final release, it is
 less likely that the final release will have flaws that would have
 been caught through earlier testing.
 
-\subsubsection{Code Review}
+\subsection{Code Review}
 
 Code review practices involve examining the results of the software
 development process to find flaws, identify potential improvements,
@@ -452,7 +562,7 @@ however, as they typically are meant to discover small-scale defects
 and help developers avoid common pitfalls rather than proving overall
 properties about the correctness of a system.
 
-\subsubsection{Release Management \& Lifecycle}
+\subsection{Release Management and Lifecycle}
 
 Release management is the process through which software moves from
 implementation through testing, validation, and verification into a
@@ -479,7 +589,7 @@ fluent enough with all aspects of the project and its processes to
 release software only once the processes have been faithfully
 executed.
 
-\subsubsection{Testable Documentation}
+\subsection{Testable Documentation}
 
 Documentation of the design, implementation, and use of a software
 system is a standard requirement in software engineering
@@ -529,7 +639,7 @@ suffer from the same limitations. They usually only exercise a handful
 of concrete values, and cannot test non-functional properties like
 expected performance or thread safety.
 
-\subsubsection{Reproducibility \& Automation}
+\subsection{Reproducibility and Automation}
 
 A team can implement many of the processes in this section
 manually. Tests can be run by hand on developers' machines, code can
@@ -716,21 +826,61 @@ from BON.
 
 In any given project, different parts of the architecture may be
 implemented in different languages; for example, it might be
-appropriate to implement computation-intensive parts of a design in a
-language like C while implementing user interface scaffolding in a
+appropriate to implement some computation-intensive parts of a design
+in a language like C while implementing the rest of the design in a
 language like Java or C\#. Thus, multiple specification languages may
-be used in a single project, though we would recommend that 
-high level specifications be written in a single language to the
-extent possible.
+be used in a single project, though we recommend that high level
+specifications be written in a single language to the extent possible.
 
-There are also language-neutral specification languages and associated
-development tools, such as Alloy~\cite{Alloy}, VDM~\cite{VDM} and
-Z~\cite{Zed}, which themselves support refinement to various
-implementation languages. These can be used effectively, either by
-themselves or alongside other specification languages in a reliable
-software engineering process.
+There are also several language-neutral specification languages and
+associated development tools, such as Alloy~\cite{Alloy},
+VDM~\cite{VDM}, Z~\cite{Zed} and Event-B~\cite{Abrial10}, which
+themselves support refinement to various implementation
+languages. These can be used effectively, either by themselves or
+alongside other specification languages, in a rigorous software
+engineering process. 
 
 \subsection{Implementation Languages}
+
+The choice of implementation language is clearly important, and there
+are many possible choices; hundreds (possibly thousands) of
+programming languages exist and dozens of those are actually viable,
+with widespread adoption, tool support, and support communities. In
+most cases, language choice determines programming style: for example,
+Eiffel imposes an pure object-oriented style while Haskell imposes a
+pure functional style. Language choice also determines the set of
+existing functionality, in the form of standard libraries accompanying
+the language or well-established external libraries available for use
+with the language, on which developers can rely while building the
+implementation. 
+
+Implementation languages are distinguished by different programming
+styles, different methods for error handling, different security
+guarantees, and different ways in which programmers can make mistakes
+(both minor and catastrophic). For rigorous software engineering, we
+recommend languages with strong type systems that actively prevent
+programmers from making any of a large class of errors. We also
+recommend languages that automatically handle memory allocation and
+deallocation, which prevents another large class of errors and many
+potential security issues. Finally, we recommend languages that either
+have good specification and verification tool support or are designed
+explicitly for the implementation of high-assurance software. It is
+certainly possible to implement reliable software in languages that do
+not have all these features---for example, code can be written in a
+safe subset of C, specified with ACSL, and verified with various
+tools---but it is significantly more difficult to do so.
+
+The six implementation languages we currently recommend for rigorous
+software engineering are (in alphabetical order) C\#, Eiffel, Erlang,
+Haskell, Java, and SPARK.\todo{Is this list complete or did I forget
+  one? Does Erlang belong? I think it does, but it doesn't quite fit
+  the mold of the other languages in terms of verifiability. -dmz} No
+single implementation language is ideal for every project, and it is
+often appropriate to use multiple languages in the same project; for
+example, it would be reasonable to write the computational core of a
+voting system in a pure functional language like Haskell and the
+voter-facing user interface components in an object-oriented language
+like Java.
 
 \subsection{Static Analysis}
 
@@ -744,7 +894,51 @@ software engineering process.
 
 \subsection{Version Control}
 
+For version control we recommend using either Git or Mercurial. Both
+are current-generation distributed version control systems, supporting
+various models of collaboration, and both are well-supported. Both
+also have associated services---GitHub~\cite{GitHub} for Git,
+BitBucket~\cite{BitBucket} for Mercurial, and
+SourceForge~\cite{SourceForge} for either one---that provide
+repository hosting, issue tracking, web hosting, and wiki
+functionality. Git is currently the more popular of the two by a
+significant margin, but they are both good options for new projects,
+and the choice between them is mainly one of developer personal
+preference.
+
+We recommend against using older, centralized version control systems
+such as Subversion and CVS. In general, their mechanisms for handling
+concurrent development and maintenance of multiple versions of
+software are significantly more awkward than those of the
+current-generation systems, and the single synchronization point
+inherent in their centralized architectures makes it more difficult
+for developers to work offline.
+
 \subsection{Issue Tracking}
+
+There are several good choices for issue tracking. If the version
+control repository is hosted by one of the well-known hosting services
+(GitHub, BitBucket, SourceForge), the obvious choice is to use the
+issue tracker integrated with that service. Otherwise, there are
+several choices, both proprietary and open-source, for either cloud
+hosted or locally installed issue tracking.
+
+Atlassian's JIRA~\cite{JIRA}, JetBrains's YouTrack~\cite{YouTrack},
+and Fog Creek Software's FogBugz~\cite{FogBugz} are all hosted issue
+trackers that integrate with both Git and Mercurial repositories. JIRA
+and YouTrack are also offered as standalone commercial products that
+can be installed and maintained locally. All three have roughly
+equivalent capabilities and the choice among them, like the choice
+between Git and Mercurial, is largely a matter of developer
+preference.
+
+Trac~\cite{Trac} (along with its spinoff project Apache
+BloodHound~\cite{ApacheBloodhound}) and Redmine~\cite{Redmine} are
+open-source issue tracking systems supporting both Git and Mercurial,
+which can be installed locally and used for free. They are also
+reasonable choices when installed and managed appropriately, though
+their user interfaces are generally less polished than those of the
+commercial options.
 
 \subsection{Testing}
 
