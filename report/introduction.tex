@@ -6,6 +6,9 @@
 \label{sec:e2e-viv-project}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% this is just a comment. perhaps it has been done and I don't know about it, but we need to introduce the
+% long name of the project and its abbreviated name "End-to-End Verifiable Internet Voting: Specification and Feasibility 
+% Assessement Study (E2E VIV Project) - to just make that this section header/title. 
 
 Elections have been conducted for millennia, but the technologies used
 to cast and tally votes have varied and evolved tremendously over that
@@ -116,15 +119,17 @@ auditability, and usability.
 
 For those concerned with election integrity, there is a justifiably
 negative reflex in response to IV: it takes all the problems with
-current remote voting systems and adds all the problems and security
+current remote voting systems and adds to them all the problems and security
 vulnerabilities of the Internet. The E2E-VIV Project has sought to
 make the case that use of the Internet enables and facilitates the
 introduction of E2E-verifiability (E2E-V), and that the benefits of
 E2E-V may be able to adequately mitigate the vulnerabilities
-introduced by using the Internet. No participant in this project
+introduced by using the Internet. 
+
+No participant in this project
 discounts the concerns of voting over the Internet, nor is E2E-V
-viewed as a magic sauce that makes the Internet secure. Nevertheless
-we believe that E2E-V properties are quite relevant to IV, since these
+viewed as a magic fix that makes the Internet secure. Nevertheless,
+we believe that E2E-V (security?) properties are quite relevant to IV, since these
 properties are achieved even when votes are cast on potentially
 untrusted devices like personal computers and transmitted over an
 untrusted medium such as the Internet. The E2E-VIV Project does not
@@ -137,11 +142,28 @@ in currently deployed voting systems.
 \subsection{A Proposed Study and Objectives}
 \label{sec:proposed-study-and-objectives}
 
-Within this climate, a project proposal was written by the Overseas
-Vote Foundation (OVF),\footnote{Since the start of the study, the
-  Overseas Vote Foundation has been renamed as ``Overseas Vote'', an
-  initiative of U.S. Vote Foundation.} a nonpartisan, nonprofit
-organization dedicated to overseas and military voter participation.
+Within this climate, 
+% comment from susan: we may need to define again what exact climate, as we have lost the original flow
+a project proposal was developed and written by Susan Dziedusyzcka-Suinat 
+of the Overseas Vote Foundation (OVF) \footnote{Since the start of 
+  the study, the Overseas Vote Foundation has been renamed as ``Overseas 
+  Vote", an initiative of U.S. Vote Foundation, which has broadened its 
+  mission to include U.S. domestic and absentee voters.} 
+the leading nonpartisan, nonprofit organization dedicated to overseas 
+and military voter participation and one that has maintained an unwaivering
+commitment to the cause of election integrity. Known for its work in 
+developing user-oriented voter services for the full range of overseas
+and military voter needs, OVF was ideally suited to conceive of, define
+and manage this project. Over the past decade, OVF was at the forefront 
+of introducing software solutions for this voter base, from its launch 
+of the first online state-by-state customized voter registration/absentee 
+ballot wizard for overseas and military voters, the first online Federal 
+Write-in Absentee Ballot with dynamic candidate lists, the first Hosted 
+System Solutions for states or organizations who wanted to offer to better 
+overseas and military voter services to the first Election Official 
+Directory API. The market space that OVF opened a decade ago has become 
+a profitable one for many vendors since. 
+
 On December 19, 2013, OVF announced the launch of this project as the
 End-to-End Verifiable Internet Voting: Specification and Feasibility
 Assessment Study (E2E-VIV Project). The project funding was provided
@@ -154,6 +176,7 @@ proposal envisioned a project to examine the future of voting and how
 it might be executed securely online; one that approached the question
 of Internet-voting from a research perspective, and that sought to
 fill in the gaps of the many open questions plaguing the discussion.
+% I broke up the following paragraphs a bit. They seemed like very large blocks of text that could be naturally broken down a bit more
 The stated aim was to examine whether an end-to-end verifiable
 Internet voting system can be built that would offer a viable and
 responsible alternative to current systems to support the voting
@@ -165,28 +188,30 @@ research what is really needed by voters and election officials, and
 to determine whether this form of voting can meet those needs and
 still guarantee security of the election. Equally important, it will
 identify potential tradeoffs and shortcomings that represent the
-diverse range of values we hold dear in our elections.'' For this
+diverse range of values we hold dear in our elections.'' 
+
+For this
 study, a unique team of experts in computer science, usability, and
 auditing together with a selection of local election officials from
-key counties around the U.S. has been assembled. The focus is to
+key counties around the U.S. was been assembled. The focus is to
 produce a system specification and set of testing scenarios, which if
 they meet the requirements for security, auditability, and usability,
-would then be placed in the public domain. At the same time, every
-effort will be made to demonstrate that confidence in a voting system
+would then be placed in the public domain. At the same time, a strong
+effort was made to demonstrate that confidence in a voting system
 is built on a willingness to verify its security through testing and
 transparency.
 
 There is a historical misunderstanding in the U.S. election community
-that the E2E-VIV Project aims to correct. Our country's foremost
+that the E2E-VIV Project has aimed to correct. Our country's foremost
 scientists are not against technology advancements, nor are they
 inherently at odds with the election officials who seek technology
 improvements to meet their administrative challenges. Instead, the
-U.S. scientific community is extremely skeptical of unproven claims of
+U.S. scientific community has continued to be extremely skeptical of unproven claims of
 security regarding existing systems that are not publicly tested or
-vetted. This study aims to break this impasse and reconcile these
+vetted. This study aimed to break this impasse and reconcile these
 concerns. The scientific leaders on this project have often pointed out
 security vulnerabilities in past systems; however the E2E-VIV Project
-has led us to agree that if Internet Voting (IV) can happen, it must
+has led them to agree that if Internet Voting (IV) can happen, it must
 be in a system that takes advantage of end-to-end verifiability and
 auditability.
 % however the E2E-VIV Project has led
@@ -205,12 +230,19 @@ the privacy of voters, are easily used by all voters, and are robust
 against both accidental and intentional disruptions. Additionally, it
 should be publically demonstrable that these properties are achieved.
 
-This project shows that the scientific community cares deeply about
+This project showed that the scientific community cares deeply about
 addressing the needs and requests of election officials as they serve
 remote voters, that they have a great motivation to address these
 questions when given a constructive opportunity to do so, and that
-they would like to work together to examine the possibilities in this
-realm.
+they would like to work together with election administrators to examine 
+the possibilities in this realm. It also demonstrated that the scientific 
+community needs to improve at understanding the practical aspects of 
+administration of elections and in collaborating and communicating with 
+election officials to develop technical solutions. 
+
+% maybe add some things it shows outside of the scientific community? I invite you to change what I added.
+% I added this because of the obvious divide in opinion that was evident on the first workshop and how the two sides 
+% treated and responded to one another. Also, based on some roadshow feedback. 
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Project Goal}
@@ -223,13 +255,12 @@ realm.
 The goal of this project was to specify and define a system and its
 testing scenarios for an online voting method that can provide both
 security and confidence to voters that their selections are accurately
-recorded and counted. The premise is that end-to-end verifiability
-negates many, although not all, of the risks of voting via the
-Internet while introducing substantial new benefits that are not found
-in currently-deployed voting systems. The project presumed that
-E2E-VIV is a possible answer, or at least a step toward one, and
-explored how well it can meet the needs of many voters and election
-officials. Additionally, any shortcomings found with this approach
+recorded and counted. The premise is that E2E-V negates many, although 
+not all, of the risks of voting via the Internet while introducing 
+substantial new benefits that are not found in currently-deployed voting 
+systems. The project presumed that E2E-V is a possible answer, or at least 
+a step toward one, and explored how well it can meet the needs of many voters 
+and election officials. Additionally, any shortcomings found with this approach
 would serve as a starting point for future work.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -245,7 +276,7 @@ seeking of broad acceptance of the report's processes and conclusions
 \subsection{Deliverables}
 \label{sec:deliverables}
 
-The main deliverable of the E2E-VIV Project is the development of a
+The main deliverable of the E2E-VIV Project was the development of a
 ``whole product solution'' specification (or simply ``specification'')
 for a trustworthy E2E-VIV election system.
 
@@ -260,42 +291,44 @@ and ballot secrecy, privacy, and confidentiality.
 \subsection{A First Step}
 \label{sec:first-step}
 
-This project represents the first step in an examination of whether
-one day E2E-VIV might be possible. The current plan is to examine the
+This project represented the first step in an examination of whether
+one day E2E-VIV might be possible. The plan was to examine the
 potential for an E2E-VIV remote voting system together with election
 officials, taking into close account their needs and the needs of
 disabled voters. If a system can one day be developed based on these
-principles, then this should be determined. A viable outcome of this
-study with respect to security, auditability, and usability will
+principles, then this would be determined. A viable outcome of this
+study with respect to security, auditability, and usability would
 enable development efforts to ensue.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Success}
 \label{sec:success}
 
-Beyond the concrete outcomes of this project, the fact that this
-project takes a research and testing-based approach to a problem that
-has been ``in stalemate mode'' will, it is hoped, stimulate election
+Beyond the concrete outcomes of this project, the fact that it 
+took a research and testing-based approach to a problem that
+had been ``in stalemate mode'' would, it was hoped, stimulate election
 development overall. The election industry has been operating in a
 traditional paradigm with only a few vendors able to survive despite
 demand to move away from outdated, expensive, hardware-oriented
-solutions. A successful outcome of this project is the production of a
+solutions. A successful outcome of this project would be the production of a
 specification for a usable, secure E2E-verifiable remote voting
 technology, to identify its strengths and weaknesses, and to develop
 reasons to pursue or not pursue this approach to remote and/or
-disabled citizen voting. However, from the beginning it was clear that
-if the project were to determine that current techniques are weak and
+disabled citizen voting. 
+
+However, from the beginning it was clear that
+if the project were to determine that current techniques were weak and
 should not be pursued, then this would also be an outcome with many
 useful implications. A complete success for this project would be to
-produce a specification that is: 1) supported by the vast majority of
+produce a specification that would be: 1) supported by the vast majority of
 the expert teams, including the technical, usability, testing, and
 research teams; 2) endorsed by the vast majority of the advisory
 council; and 3) endorsed by the major stakeholders in elections
 administration as represented by the project's local election
-officials. Additionally, the E2E-VIV Project hopes to receive support
+officials. Additionally, the E2E-VIV Project hoped to receive support
 and endorsement from many members of the electronic voting activism
 community, as represented by key members of the Election Verification
-Network and the Verified Voting Foundation. The specification is
+Network, the Verified Voting Foundation and beyond. The specification was
 intended to fulfill the following requirements:
 
 \begin{description}
@@ -318,19 +351,20 @@ intended to fulfill the following requirements:
 
 The original project was tightly limited to involve system
 specification and testing only. No system development was envisioned
-in this phase beyond mock-ups to help test usability. However, this
+in Phase I beyond mock-ups to help test usability. However, this
 changed early on in the project when Dr.~Joseph Kiniry of Galois, Inc.
-came on board to manage the project and its team.
+was engaged as the technical project manager and introduced to the project
+a new engineering team. 
 
 The Galois engineers brought significant expertise to the project and
 set about developing a set of rigorous engineering artifacts,
 ``demonstrators'', fit for refinement into a working election system,
 and against which third parties can perform independent validation and
-verification. According to Galois, demonstrators are technical
+verification. Galois defined demonstrators as technical
 artifacts from the point of view of definition and constructions, but
 non-technical artifacts from the point of view of
-demonstration. Galois suggests that all demonstrators developed using
-Galois IR\&D funding be:
+demonstration. The demonstrators developed using
+Galois IR\&D {define} funding would be:
 \begin{itemize}
 \item developed in a completely transparent and public fashion within
   the Galois GitHub Organization,
