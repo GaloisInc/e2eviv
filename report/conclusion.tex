@@ -1,4 +1,4 @@
-\chapter{Conclusion\ifdraft{ (Joe K./Susan) (0\%)}{}}
+\chapter{Conclusion\ifdraft{ (Joe K./Susan) (85\%)}{}}
 \label{chapter:conclusion}
 
 Internet voting (IV) is a wave moving towards voters and elections
@@ -54,7 +54,7 @@ a subset of these audiences, including:
   engineering, and business challenges~(\autoref{sec:next-steps}).
 \end{itemize}
 
-\section{Recommendation (YES or NO???)}
+\section{Recommendations}
 
 Synthesizing all of the above information, the E2E-VIV expert team has
 come to the following conclusion and set of
@@ -63,9 +63,6 @@ recommendations. \todokiniry{This is being dropped into this document
   editing and layout as we push to completion.  I am using an edited
   version of Josh's proposed text and ideas here---they do not reflect
   Galois's position in these matters.}
-
-\subsection{Conclusion}
-\label{sec:conclusion}
 
 \begin{center}
   \textbf{\emph{Recommendation I.} We \emph{do not} assert that
@@ -134,14 +131,107 @@ deployment of E2E-verifiable in-person systems, which has the bonus of
 improving the integrity of our in-person voting systems.
 
 \begin{center}
-  \textbf{Recommendation IV:} E2E-VIV systems must be designed,
-  constructed, verified, and certified as high-assurance systems
-  according to the most stringent engineering requirements of
-  mission-critical and safety-critical systems.
+  \textbf{\emph{Recommendation IV:} E2E-VIV systems must be designed,
+    constructed, verified,\\
+    certified, operated, and supported as high-assurance systems
+    according to the most\\
+    rigorous engineering requirements of mission- and safety-critical
+    systems.}
 \end{center}
+
+It is sometimes argued that a \emph{strongly software independent}
+voting system need not be implemented in high-quality software. While
+theoretically true, this attitude has no practical value.
+
+There are several implications of developing and using a low-quality
+implementation of any E2EV voting system:
+\begin{enumerate}
+\item \textbf{Privacy violations. }While E2EV systems can mitigate
+  issues of election integrity well, they do little to mitigate
+  matters relating to privacy.  A poorly implemented E2EV system will
+  be able to identify when something goes ``wrong'' with the election,
+  but that's of little remedy if voter or vote privacy has been
+  violated.
+\item \textbf{The impact of bugs.} A poorly-implemented system is
+  enormously more likely to have bugs which trigger failures in
+  verification, thereby increasing the burdon of the election
+  administrator in mitigating partial failures and potentially
+  significantly impacting voter trust in the election's officials,
+  apparatus, and outcome.
+\item \textbf{Security mandates quality.} A low-quality implementation
+  is vastly more difficult, some might say impossible, to secure in
+  the presence of insider and outsider attack. Security is not a
+  band-aid one slaps on a poorly built system---it is achieved through
+  a combination of rigorous process, method, design, implementation,
+  validation, verification, deployment, and operation.
+\end{enumerate}
+
+In summary, the only way to reasonable implement an E2EV system that
+is correct, secure, and does not have enormous post-deployment fiscal
+and trust implications on election officials is to do so using
+high-assurance software engineering tools and techniques.
+
+\begin{center}
+  \textbf{\emph{Recommendation V:} E2E-VIV systems must be usable and
+  accessible to the\\
+  typical set of abled and disabled voters.}
+\end{center}
+
+Attempting to design and build a voting system that is usable
+accessible to every voter that exists is a foolhardy task. One would
+end up denying a useful system to 99.9\% of the population for the
+one-in-hundred thousand voter who is seriously sight, mobility, and
+mentally disabled. 
+
+Instead, our target audience should be, in addition to fully
+able-bodied and mentally fit voters, voters that have challenges in
+vision, hearing, comprehension, and motion and yet still can use some
+kind of computing device. By simply tackling the low-hanging fruit of
+universal design---via a qualitative and quantitative testing-based
+experimentation platform to assess usability and accessibility and
+following best practices~\cite{materials-at-elections.itif.org},
+recommendations~\cite{WAI,Section508,WAVE}, and
+standards~\cite{standards} in accessible UI design and
+implementation---we will be able to service not only nearly every
+UOCAVA voter, but also in the long term the upwards of 84M disabled
+voters in the U.S.A.~\cite{Brennen,CensusData}. 
+
+We must also look to, and learn, from the excellent AnywhereBallot and
+EZ Ballot experiments~\cite{AnywhereBallot,EZBallot} of the
+AVTI~\cite{AVTI}.  We must engage with the researchers and attendees
+at CSUN's annual Annual International Technology and Persons with
+Disabilities Conference~\cite{CSUN}. Only by having direct engagement
+with our stakeholders---voters, both abled and disabled---and
+witnessing their joys and struggles of participating in democracy can
+we have any hope of understanding how to witness usable design in
+E2E VIV.
+
+\begin{center}
+  \textbf{\emph{Recommendation VI:} An appropriate group of dedicated
+    experts in the subject area should\\
+    design a bespoke open source E2E-VIV system that fulfills the
+    requirements included in\\
+    this report and that design should be implemented in a set
+    high-assurance prototypes.}
+\end{center}
+
+Moreover, those prototypes should be objectively evaluated using
+appropriate validation and verification tools and techniques against
+both functional properties (correctness and security) and
+non-functional properites (accessibility, capacity, disaster recovery,
+fault tolerance, maintainability, performance, reliability,
+resilience, scalability, and usability) mentioned herein.
+
+Only with the public availability and peer-review of such a focused
+E2E-VIV system for the American public can we see a path forward
+toward the use of Internet voting for public elections.
 
 \section{Next Steps}
 \label{sec:next-steps}
+
+To fulfill these recommendations, there are several open challenges
+and next steps for legislators, researchers, engineers, and
+businesses.
 
 \subsection{Political/Legal Challenges}
 \subsection{Research Challenges}
