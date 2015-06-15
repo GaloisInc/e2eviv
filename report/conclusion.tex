@@ -3,11 +3,11 @@
 
 Internet voting (IV) is a like an impending wave moving towards voters and elections
 officials.  Ensuring that, when it hits us, we have a firm foundation
-for trust in our elections---particularly with regards to their
-correctness, security, usability, and accessibility---is paramount.
+for trust in our elections - particularly in regards to their
+correctness, security, usability, and accessibility - is paramount.
 
 Given the in-depth analysis summarized in this report, the E2E-VIV
-Project team involved have produced the following
+Project team have produced the following
 results, made a concrete set of recommendations, and highlighted next
 steps for various related communities.
 
@@ -21,18 +21,20 @@ contained in~\autoref{chapter:required_properties}. This
 specification, which comes in the form as a set of mandatory
 requirements, is useful to several audiences, including:
 \begin{itemize}
-\item \emph{legislators} and their staff who are interested in
+\item \emph{legislators} and their staffs who are interested in
   crafting laws that relate to remote elections, particularly IV
-  elections and elections for overseas and military, and disabled voters,
+  elections and elections for overseas, military, and disabled voters;
 \item \emph{election officials} specifying (via RFIs or RFPs) or
-  evaluating IV products or services,
+  evaluating IV products or services;
+  % do we need to include (via RFIs or RFPs)?
 \item \emph{activists} interested in obtaining a better understanding
-  of, and advocating for, E2E-VIV systems,
+  of, and advocating for, E2E-VIV systems;
 \item \emph{testing organizations} interested in certifying IV
-  systems,
+  systems;
 \item \emph{standards bodies} interested in standardizing what
   constitutes various classes of IV technologies and how rigorous
-  certification of IV systems should be specified,
+  % is "rigorous certification" different from "certification"? (sorry, I really don't know!)
+  certification of IV systems should be specified;
 \item \emph{technologists} interested in implementing E2E-VIV systems.
 \end{itemize}
 
@@ -63,6 +65,7 @@ recommendations. \todokiniry{This is being dropped into this document
   editing and layout as we push to completion.  I am using an edited
   version of Josh's proposed text and ideas here---they do not reflect
   Galois's position in these matters.}
+% I am looking forward to seeing the Galois position and how it might be different. Dying for a breakthrough here.... S. 
 
 \begin{center}
   \textbf{\emph{Recommendation I.} We \emph{do not} assert that
@@ -144,74 +147,80 @@ improving the integrity of our in-person voting systems.
 It is sometimes argued that a \emph{strongly software independent}
 voting system need not be implemented in high-quality software. While
 theoretically true, this attitude has no practical value.
+% why? why even say this? 
 
 There are several implications of developing and using a low-quality
-implementation of any E2EV voting system:
+implementation of any E2E-V voting system:
 \begin{enumerate}
-\item \textbf{Privacy violations. }While E2EV systems can mitigate
+\item \textbf{Privacy violations. }While E2E-V systems can mitigate
   issues of election integrity well, they do little to mitigate
-  matters relating to privacy.  A poorly implemented E2EV system will
+  matters relating to privacy. A poorly implemented E2E-V system will
   be able to identify when something goes ``wrong'' with the election,
   but that's of little remedy if voter or vote privacy has been
   violated.
-\item \textbf{The impact of bugs.} A poorly-implemented system is
-  enormously more likely to have bugs which trigger failures in
-  verification, thereby increasing the burdon of the election
-  administrator in mitigating partial failures and potentially
-  significantly impacting voter trust in the election's officials,
+  % do we need to say "voter or vote" - maybe choose one. and why mix the feature of identifying errors with privacy. "When something goes wrong" is incredibly general. Need to be more specific here about what that means.
+  
+\item \textbf{The impact of bugs.} It is vastly more likely that a poorly-implemented E2E-V system 
+  will have software engineering bugs in design, functionality, security or other areas which trigger failures in
+  verification. These will thereby increasing the burden on the election
+  administrator to mitigate partial failures and potentially have
+  significant impact on the voters' trust in the election, its administrators,
   apparatus, and outcome.
+  % geez, isn't there another word for bugs?
 \item \textbf{Security mandates quality.} A low-quality implementation
-  is vastly more difficult, some might say impossible, to secure in
-  the presence of insider and outsider attack. Security is not a
-  band-aid one slaps on a poorly built system---it is achieved through
+  is vastly more difficult to secure in
+  the presence of insider and outsider attack. It may even be impossible to secure it. Security is not a
+  band-aid to tape onto a poorly built system - it is achieved through
   a combination of rigorous process, method, design, implementation,
   validation, verification, deployment, and operation.
+  % how do we judge a low- vs. high-quality implementation? Is that discussed somewhere in a technical chapter?
 \end{enumerate}
 
-In summary, the only way to reasonable implement an E2EV system that
+In summary, the only way to reasonable implement an E2E-V system that
 is correct, secure, and does not have enormous post-deployment fiscal
 and trust implications on election officials is to do so using
 high-assurance software engineering tools and techniques.
-
+% I don't know why, but I don't like the way this is phrased. I don't even really understand what it says except that it is like fear mongering and then it tells me to do something I can't do. Why do I feel like it will piss people off? Maybe we could say it differently - for example: In light of the summation of these issues which must be contended with in the development of an E2E-V system, a responsible implementation will.... etc. 
 \begin{center}
   \textbf{\emph{Recommendation V:} E2E-VIV systems must be usable and
   accessible to the\\
   typical set of abled and disabled voters.}
 \end{center}
 
-Attempting to design and build a voting system that is usable
-accessible to every voter that exists is a foolhardy task. One would
-end up denying a useful system to 99.9\% of the population for the
-one-in-hundred thousand voter who is seriously sight, mobility, and
-mentally disabled. 
-
-Instead, our target audience should be, in addition to fully
-able-bodied and mentally fit voters, voters that have challenges in
-vision, hearing, comprehension, and motion and yet still can use some
-kind of computing device. By simply tackling the low-hanging fruit of
-universal design---via a qualitative and quantitative testing-based
+Attempting to design and build a voting system that is usable and
+accessible to every voter that exists is an imprudent task. The
+one-in-one-hundred thousand voter who is seriously sight, mobility, and
+mentally disabled would be assisted at the expense of 
+denying a useful system to 99.9\% of the population. 
+% I hope this stat is confirmed! 
+Instead, in addition to fully
+able-bodied and mentally fit voters, our target audience should include voters that have challenges in
+vision, hearing, comprehension, and motion yet still can use some
+kind of computing device. By tackling the low-hanging fruit of
+universal design - via a qualitative and quantitative testing-based
 experimentation platform to assess usability and accessibility and
 following best practices~\cite{materials-at-elections.itif.org},
 recommendations~\cite{WAI,Section508,WAVE}, and
 standards~\cite{standards} in accessible UI design and
-implementation---we will be able to service not only nearly every
-UOCAVA voter, but also in the long term the upwards of 84M disabled
+implementation - we will be able to service nearly every
+overseas and miltiary voter, but also in the long term, the upwards of 84M disabled
 voters in the U.S.A.~\cite{Brennen,CensusData}. 
 
-We must also look to, and learn, from the excellent AnywhereBallot and
+We must also look to, and learn, from the AnywhereBallot and
 EZ Ballot experiments~\cite{AnywhereBallot,EZBallot} of the
 AVTI~\cite{AVTI}.  We must engage with the researchers and attendees
 at CSUN's annual Annual International Technology and Persons with
 Disabilities Conference~\cite{CSUN}. Only by having direct engagement
-with our stakeholders---voters, both abled and disabled---and
-witnessing their joys and struggles of participating in democracy can
-we have any hope of understanding how to witness usable design in
-E2E VIV.
+with our stakeholders - voters, both abled and disabled - and
+witnessing their joys and struggles of participating in democracy, can
+we have any hope of understanding how to develop usable design in
+E2E-VIV.
 
 \begin{center}
   \textbf{\emph{Recommendation VI:} An appropriate group of dedicated
     experts in the subject area should\\
-    design a bespoke open source E2E-VIV system that fulfills the
+    % Perhaps... "A recognized group of qualified subject-matter specialists with credentials in [list - things like cyber-security, high-assurance cyrptographic methods etc...] should be identified and tasked to...."
+    design a customized open source E2E-VIV system that fulfills the
     requirements included in\\
     this report and that design should be implemented in a set
     high-assurance prototypes.}
@@ -225,7 +234,7 @@ fault tolerance, maintainability, performance, reliability,
 resilience, scalability, and usability) mentioned herein.
 
 Only with the public availability and peer-review of such a focused
-E2E-VIV system for the American public can we see a path forward
+E2E-VIV system for the U.S. public can we see a path forward
 toward the use of Internet voting for public elections.
 
 \section{Next Steps}
