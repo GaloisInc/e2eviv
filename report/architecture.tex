@@ -1,4 +1,4 @@
-\chapter{Architecture\ifdraft{ (Joe K./Dan) (95\%)}{}}
+\chapter{Architecture\ifdraft{ (Joe K./Dan) (100\%)}{}}
 \label{chapter:architecture}
 
 The \emph{architecture} of a computing system, akin to the
@@ -217,18 +217,6 @@ generation so that the specific electoral officials involved are
 publicly known and can be held accountable for efforts to stall the
 tally computation and its verification.
 
-\todo{I'm not sure the following para is relevant in the presence of
-  the bulletin board, which contains all the information needed for
-  election officials to compute election outcome. In particular,
-  attempts to manipulate the election will be detected based on the
-  use of E2E protocols, and not based on physical security. Poorvi}
-\todo{I agree to a point: the kind of trust engendered in these kinds
-  of access controls are more practical and psychological than
-  theoretical. They help, but are not strictly necessary.  I'm going
-  to leave the paragraph in for the moment if only because so many
-  electoral authorties have, and will continue to want, such
-  controls. -JRK} 
-
 Another mechanism to increase trust in the electoral authority is
 access restriction; if the election system allows physical access only
 via computing systems at specific, publicly-known and well-secured
@@ -412,25 +400,20 @@ research and tool development, it should be possible to develop a high
 assurance voting client, compile it to asm.js, and deploy it as a web
 application.
 
-\todo{Notice that the second sentence is inconsistent with the
-  coercion-resistance requirement we have been discussing over email I
-  added the last sentence. Poorvi} \todokiniry{While true, this does
-  not invalidate the introduction of the relevant mandatory or
-  recommended requirement. -JRK} 
 With respect to the second issue, corruption of the voter's computing
 environment, there is a wide range of possible threats. One, which we
-cannot address as part of an E2E-VIV system implementation, is
-surreptitious logging/monitoring software that records the voter's
-actions and transmits them to a third party. Detection and prevention
-of such monitoring can be improved through standard secure computing
-practices such as malware scanning and the use of reverse firewalls
-(preventing the computer from making outgoing connections that are not
-approved by the user or by system security policies). However, we can
-only recommend that voters take such protective measures, and the
-voting client software cannot detect whether they are actually in
-place. Additionally, it is possible that a rare effort towards such
-monitoring is not detected by malware scanning or the use of reverse
-firewalls.
+do not know how to address as part of an E2E-VIV system
+implementation, is surreptitious logging/monitoring software that
+records the voter's actions and transmits them to a third
+party. Detection and prevention of such monitoring can be improved
+through standard secure computing practices such as malware scanning
+and the use of reverse firewalls (preventing the computer from making
+outgoing connections that are not approved by the user or by system
+security policies). However, we can only recommend that voters take
+such protective measures, and the voting client software cannot detect
+whether they are actually in place. Additionally, it is possible that
+a rare effort towards such monitoring is not detected by malware
+scanning or the use of reverse firewalls.
 
 Another threat is posed by malicious web browsers or OS libraries that
 may deceive the voter into taking unintended actions. Such malicious
