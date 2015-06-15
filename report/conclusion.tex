@@ -16,7 +16,7 @@ steps for various related communities.
 As promised in the proposal that created this project,
 several deliverables have been produced.  
 
-Primary amongst them is the ``whole product solution'' specification
+Primary among them is the ``whole product solution'' specification
 contained in~\autoref{chapter:required_properties}. This
 specification, which comes in the form as a set of mandatory
 requirements, is useful to several audiences, including:
@@ -56,24 +56,19 @@ a subset of these audiences, including:
 
 \section{Recommendations}
 
-Synthesizing all of the above information, the E2E-VIV Project team has
-come to the following conclusion and set of
-recommendations. \todokiniry{This is being dropped into this document
-  in this form not because it has been decided, but simply to expedit
+Synthesizing all of the above information, the E2E-VIV Project team
+has come to the following conclusion and set of recommendations, with
+the caveat that the experts \emph{do not} assert that Internet voting
+(IV) \emph{must} be pursued, nor do they assert that IV must
+\emph{never} be pursued. There is clearly no consensus for either of
+these positions.\todokiniry{This is being dropped into this document
+  in this form not because it has been decided, but simply to expedite
   editing and layout as we push to completion.  I am using an edited
   version of Josh's proposed text and ideas here---they do not reflect
   Galois's position in these matters.}
 
 \begin{center}
-  \textbf{\emph{Recommendation I.} We \emph{do not} assert that
-    Internet voting (IV) \emph{should} be pursued,\\
-    nor do we assert that IV should \emph{never} be pursued.}
-\end{center}
-
-There is clearly no consensus for either of these positions.
-
-\begin{center}
-  \textbf{\emph{Recommendation II.} Public elections should not be
+  \textbf{\emph{Recommendation E2EV.} Public elections should not be
     conducted over the Internet\\
     using systems that are not end-to-end verifiable.}
 \end{center}
@@ -89,10 +84,10 @@ application is alarming, to say the least.
 % maybe there is a different way to phrase this. Not sure about the word "alarming"...
 
 \begin{center}
-  \textbf{\emph{Recommendation III.} End-to-end verifiable Internet
-    voting systems should not be used before end-to-end verifiable
-    poll-site voting systems have been widely-deployed and experience
-    has been gained from their use.}
+  \textbf{\emph{Recommendation SUPERVISED-FIRST.} End-to-end
+    verifiable Internet voting systems should not be used before
+    end-to-end verifiable poll-site voting systems have been
+    widely-deployed and experience has been gained from their use.}
 \end{center}
 
 Gaining experience with E2E-verifiability in the simpler in-person
@@ -133,7 +128,8 @@ deployment of E2E-verifiable in-person systems, which has the bonus of
 improving the integrity of our in-person voting systems.
 
 \begin{center}
-  \textbf{\emph{Recommendation IV:} E2E-VIV systems must be designed,
+  \textbf{\emph{Recommendation HIGH-ASSURANCE:} E2E-VIV systems must
+    be designed,
     constructed, verified,\\
     certified, operated, and supported as high-assurance systems
     according to the most\\
@@ -156,7 +152,7 @@ implementation of any E2EV voting system:
   violated.
 \item \textbf{The impact of bugs.} A poorly-implemented system is
   enormously more likely to have bugs which trigger failures in
-  verification, thereby increasing the burdon of the election
+  verification, thereby increasing the burden of the election
   administrator in mitigating partial failures and potentially
   significantly impacting voter trust in the election's officials,
   apparatus, and outcome.
@@ -174,9 +170,9 @@ and trust implications on election officials is to do so using
 high-assurance software engineering tools and techniques.
 
 \begin{center}
-  \textbf{\emph{Recommendation V:} E2E-VIV systems must be usable and
-  accessible to the\\
-  typical set of abled and disabled voters.}
+  \textbf{\emph{Recommendation UNIVERSAL-DESIGN:} E2E-VIV systems must
+    be usable and accessible to the\\
+    typical set of abled and disabled voters.}
 \end{center}
 
 Attempting to design and build a voting system that is usable
@@ -209,7 +205,7 @@ we have any hope of understanding how to witness usable design in
 E2E VIV.
 
 \begin{center}
-  \textbf{\emph{Recommendation VI:} An appropriate group of dedicated
+  \textbf{\emph{Recommendation MOVE-FORWARD:} An appropriate group of dedicated
     experts in the subject area should\\
     design a bespoke open source E2E-VIV system that fulfills the
     requirements included in\\
@@ -220,7 +216,7 @@ E2E VIV.
 Moreover, those prototypes should be objectively evaluated using
 appropriate validation and verification tools and techniques against
 both functional properties (correctness and security) and
-non-functional properites (accessibility, capacity, disaster recovery,
+non-functional properties (accessibility, capacity, disaster recovery,
 fault tolerance, maintainability, performance, reliability,
 resilience, scalability, and usability) mentioned herein.
 
@@ -236,6 +232,91 @@ and next steps for legislators, researchers, engineers, and
 businesses.
 
 \subsection{Political/Legal Challenges}
+
+The greatest fear voiced by election verification scientists,
+activists, and E2EV researchers is that legislators will aggressively
+mandate the experimentation with---or use of---Internet voting before
+a correct, secure, open, usable, accessible E2E-VIV system
+exists. Such a mandate will facilitate only existing vendors whose
+systems open the door to wholesale election manipulation or failure
+with their lack of verifiability and transparency. Aggressive early
+adoption of election technology must be tempered by a clear
+understanding that voters' trust in their elections is hard won and
+easily lost.
+
+Scientists and activists are also highly concerned that election
+systems will be deployed with an inappropriate pace due to irrational
+motivators. For example, directors of elections, secretaries of state,
+or legislator may make promises about election modernization to win an
+election or to look better than a sister state or jurisdiction. Or
+perhaps a technology like Internet voting is deployed, seemingly
+successfully, at the local level for an inconsequential election and,
+based upon that ``success'', electoral authorities decide, without any
+evidence that it is a wise decision, to reuse the same technology in
+the next federal election. These slides down the slippery slope of
+adoption are another major concern and must be avoided.
+
+As such, the political and legal challenges---and related
+opportunities---focus on how to legislate the evidence-based measured
+introduction of new elections technologies, Internet voting
+included. \emph{The precise formulation for a not-too-hot,
+  not-too-cold pace, milestones, and success criteria for the
+  introduction of E2E-VIV systems must be a primary focus on any next
+  phase of this project.}
+
 \subsection{Research Challenges}
+
+The key research challenge highlighted in this report are twofold,
+focusing on the standard balance between security and usability.
+
+First, the critical definition of the E2E-VIV protocol bespoke for
+U.S.A. elections is very challenging. In particular, the research
+community does not immediately know how to solve four key challenges:
+(i) how to handle large-scale dispute resolution, (ii) how to make
+verifiability comprehensible and useful to the average voter, and
+(iii) how to authenticate voters for public elections, and (iv) how to
+avoid voter coercion and vote selling in the context of digital
+observation of voting and verification.
+
+Second, the usability facets of E2E-VIV also still has several
+research challenges. Principally, they are (v) how to ensure usable vote
+privacy in the presence of client-side malware and (vi) how to ensure
+that verification is comprehensible, usable, and accessible to the
+typical set of voters.
+
+While each of these six questions is challenging, the community
+believes that they are surmountable for a dedicated team in a
+speculative next phase of this project.
+
 \subsection{Engineering Challenges}
+
+The engineering challenges are straightforward, at least to those
+organizations that have expertise in high-assurance systems. Even so,
+this challenge is not for the faint-hearted. After all, deploying a
+high-assurance distributed system of the scale and import of a public
+E2E-VIV election system has never been attempted. 
+
+That being said, given the size, complexity, and nature of verified
+software systems being deployed in military, intelligence, scientific,
+and civilian settings, this engineering challenge can be conquered
+with the right team with appropriate resources.
+
 \subsection{Business Opportunities}
+
+Lastly, the business opportunities for an E2E-VIV system---and the
+potential positive impact on the world that such a system will
+have---is an enormous motivator for many. 
+
+Imagine a world where inexpensive elections have high participation
+rates by a well-informed, engaged public. Imagine elections where the
+disabled and abled have equal vote and equal opportunity. Imagine
+elections where corrupt electoral authorities or governments have no
+ability to manipulate the outcome. Imagine elections that truly
+capture the voice of the people and increase their confidence and
+trust in their government. 
+
+This opportunity to impact the world for good through trustworthy
+democracy is a supremely worthwhile goal, and while challenges remain,
+we should strive toward it.
+
+
