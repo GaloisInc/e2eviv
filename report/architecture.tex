@@ -9,30 +9,30 @@ these choices are driven by the system's requirements, both technical
 and non-functional, as well as by external factors such as the
 availability or affordability of computing hardware or network
 bandwidth. In this chapter we describe the architectural issues
-associated with E2EVIV systems, present a model encompassing the
+associated with E2E-VIV systems, present a model encompassing the
 various possible architectural choices for such systems, and briefly
 explore some architectural variants.
 
 It is important to note that we are \emph{not} making a concrete
-recommendation for a specific E2EVIV system architecture. The
-cryptographic foundations of E2EVIV protocols have been developed to a
+recommendation for a specific E2E-VIV system architecture. The
+cryptographic foundations of E2E-VIV protocols have been developed to a
 point where we have fairly high confidence in their ability to
 % eventually provide the required security and auditability
 % properties. 
 detect errors in election outcome (whether unintentional or malicious) and protect ballot privacy. 
-However, E2EVIV protocols do not prevent such errors, and an implemented E2EVIV system should minimize the chances of there being such errors. For this reason, there are many open engineering issues associated
-with actually building, running, and maintaining an E2EVIV system that
+However, E2E-VIV protocols do not prevent such errors, and an implemented E2E-VIV system should minimize the chances of there being such errors. For this reason, there are many open engineering issues associated
+with actually building, running, and maintaining an E2E-VIV system that
 fulfills its requirements in the face of both routine/expected
 failures and a wide range of security threats. Because of these open
 engineering issues, architectural experimentation---preferably,
 empirical testing of various possible architectures to determine the
 most appropriate one(s) to deploy in real-world election
-scenarios---is vital to actually implementing a successful E2EVIV
+scenarios---is vital to actually implementing a successful E2E-VIV
 system. \todo{I made changes to the early part of the above para to clarify that E2E protocols only detect problems but do not prevent hem. This we must do everything else necessary for the "security" and reliability of the outcome--Poorvi}
 
 \section{Non-Functional Requirements Forcing Architectural Factors}
 
-Several non-functional requirements of E2EVIV systems force the
+Several non-functional requirements of E2E-VIV systems force the
 inclusion or consideration of specific architectural factors. We
 consider each of these in turn.
 
@@ -45,13 +45,13 @@ launched a Voting System Testing and Certification Program in 2007;
 prior to 2007, voting systems were typically tested and certified by
 the National Association of State Election Directors (NASED). The
 EAC's guidelines are voluntary; however, many jurisdictions have
-mandated adherence to them, so an E2EVIV system that is to be widely
+mandated adherence to them, so an E2E-VIV system that is to be widely
 deployed must follow them as well as any other state and local
 guidelines.
 
 Certification processes generally require that a specific
 implementation of a system be presented to a certification laboratory;
-in the E2EVIV context, this would likely consist of a complete set of
+in the E2E-VIV context, this would likely consist of a complete set of
 source files, plus binaries built to run on specific platforms and
 with specific external dependencies, and any custom hardware to be
 used in the system. Certification is typically an expensive process,
@@ -67,7 +67,7 @@ implementation issues and respond to changing customer needs. For
 example, since its first release in September 2008 the Google Chrome
 web browser has seen 42 major releases---an average of about one every
 two months---and many minor patch releases in between. That sort of
-release cycle is simply not an option for an E2EVIV system, unless the
+release cycle is simply not an option for an E2E-VIV system, unless the
 voting system certification regime changes dramatically.
 Architectural decisions made during the system's development must
 therefore be undertaken with great care, because major architectural
@@ -75,7 +75,7 @@ changes will be extremely expensive.
 
 \subsection{Abstraction}
 
-The software in an E2EVIV system must be high assurance, and must, as
+The software in an E2E-VIV system must be high assurance, and must, as
 discussed above, undergo a certification process before it can be used
 in actual elections. Thus, the software must be designed and
 implemented with a level of abstraction that enables the generation of
@@ -94,8 +94,8 @@ subsystems.
 \subsection{Deployment}
 
 There is a wide spectrum of possible deployment scenarios for an
-E2EVIV system, each of which leads to certain decisions about its
-architecture. At one extreme, the servers for an E2EVIV system could
+E2E-VIV system, each of which leads to certain decisions about its
+architecture. At one extreme, the servers for an E2E-VIV system could
 be hosted on a bespoke server cluster, built from the ground up
 specifically for the system and housed in a facility under the
 physical control of electoral authorities or their authorized
@@ -112,7 +112,7 @@ requirements.
 \subsection{Threats}
 \label{sec:threats}
 
-Mitigating the potential threats to E2EVIV systems also leads to
+Mitigating the potential threats to E2E-VIV systems also leads to
 various architectural choices. The following are some of the threat
 vectors and mitigation strategies that need to be considered.
 
@@ -123,7 +123,7 @@ attack. Therefore, the architecture should attempt to minimize or
 eliminate such failure points.
 
 \paragraph{Easy DDoS Targets.} The use of fixed IP addresses (or
-address ranges) for E2EVIV system components can open the system to
+address ranges) for E2E-VIV system components can open the system to
 denial of service attacks, limit deployment flexibility, and make it
 more difficult to recover from failures. The architecture should be
 chosen such that IP addresses need not be hard-coded; preferably, they
@@ -136,19 +136,19 @@ traffic for their clients through their own high-bandwidth global
 content distribution networks, can detect and protect against DDoS
 attacks. They can also provide other benefits, such as higher
 availability and improved response time. Such services could easily be
-used to deliver static data to clients in an E2EVIV system; however,
+used to deliver static data to clients in an E2E-VIV system; however,
 although they support technologies such as WebSockets for dynamic
 data, they cannot necessarily protect systems that have complex
 back-end architectures and client-server interactions. It is unclear
 whether such services can successfully be used for all interactions in
-E2EVIV systems without compromising privacy or other requirements;
+E2E-VIV systems without compromising privacy or other requirements;
 even if it is possible, doing so would certainly require specific
 considerations in the design of the system architecture.
 
 \paragraph{Non-Standard Foundations.} One way of countering threats is
 to build the system using non-standard foundational techologies. For
 example, instead of being built atop general-purpose operating systems
-like Linux or NetBSD, E2EVIV system components could be implemented as
+like Linux or NetBSD, E2E-VIV system components could be implemented as
 \emph{unikernels}~\cite{Madhavapeddy13}, effectively single-purpose
 application/operating system combinations that run directly atop
 hypervisors such as Xen~\cite{Xen}. Unikernels, written using
@@ -177,7 +177,7 @@ detail in the following section.
 \subsection{Distributing Trust}
 \label{sec:trust}
 
-The distribution of trust in an E2EVIV system is critical: if the
+The distribution of trust in an E2E-VIV system is critical: if the
 system is not trustworthy, the election results generated by it are
 inherently suspect. The following are descriptions of the various
 aspects of the system that must be trusted, and some possible ways to
@@ -197,7 +197,7 @@ establish that trust.
 % that allow for the detection of corruption if the electoral authority
 % includes at least one honest official.
 
-In general, the electoral authority is responsible for the integrity of the election outcome, the privacy of the votes, and the availability of the election system. Most E2EVIV systems do not require the public to trust the electoral authority or election technology (including election servers run by election officials or any others assigned to this task by the electoral authority) to detect election integrity problems. The systems are designed to enable the public to detect integrity issues without requiring trust in electoral authorities or election technology, as long as the website is secure with the ability to detect tampering. Additionally, these systems typically use threshold cryptography so that vote privacy is not compromised as long as a minimum number of election officials behave as required by the protocol. The use of threshold cryptography also influences the ability of individual election officials to affect a denial of services. 
+In general, the electoral authority is responsible for the integrity of the election outcome, the privacy of the votes, and the availability of the election system. Most E2E-VIV systems do not require the public to trust the electoral authority or election technology (including election servers run by election officials or any others assigned to this task by the electoral authority) to detect election integrity problems. The systems are designed to enable the public to detect integrity issues without requiring trust in electoral authorities or election technology, as long as the website is secure with the ability to detect tampering. Additionally, these systems typically use threshold cryptography so that vote privacy is not compromised as long as a minimum number of election officials behave as required by the protocol. The use of threshold cryptography also influences the ability of individual election officials to affect a denial of services. 
 
 In threshold cryptography, 
 the cryptographic keys that allow for results to be generated by the
@@ -230,7 +230,7 @@ to allow members of the public to validate that their own ballots were
 cast as intended and counted as cast, also acts as a significant check
 against corruption by the electoral authority.
 
-\paragraph{Trusting the Software.} The software in an E2EVIV system
+\paragraph{Trusting the Software.} The software in an E2E-VIV system
 must be trusted to fulfill the system's requirements. Making all
 development artifacts freely available as open source is an important
 step toward such trust, as it allows for independent verification that
@@ -258,7 +258,7 @@ Proof-carrying code~\cite{Necula02} allows software to be shipped with
 accompanying formal correctness proofs that can be easily verified by
 a theorem prover or certifying compiler at runtime. Such proofs can
 help increase the trustworthiness of software and can easily be
-included in small critical sections of an E2EVIV system, but are
+included in small critical sections of an E2E-VIV system, but are
 impractical for verifying the correctness of the entire system.
 
 Another way of increasing trust in the software is to ensure that all
@@ -285,7 +285,7 @@ software independence doesn't stop such corruption, but does guarantee
 that if it affects the election results, it will be detected. 
 % and therefore allows
 % for recovery even though the servers cannot be trusted. 
-E2EVIV systems are designed to be software independent. \todo{Added previous sentence and modified the one before it: Poorvi}
+E2E-VIV systems are designed to be software independent. \todo{Added previous sentence and modified the one before it: Poorvi}
 
 Even though distrusting the servers is useful in ensuring robust
 protocol and system design, steps should still be taken to make the
@@ -294,7 +294,7 @@ number of components that must be trusted; an example would be using
 servers that support unikernel architectures, as described in
 \autoref{sec:threats}, to ensure that there is little to no other
 potentially vulnerable software software, including OS libraries,
-running alongside the E2EVIV components.
+running alongside the E2E-VIV components.
 
 Another way to increase trust in the servers is to deploy them in a
 dynamic, possibly public, cloud infrastructure. In this way, the
@@ -333,13 +333,13 @@ more than one is acceptable). If an unexpected certificate is provided
 by the server, even if the hostname on the certificate matches the
 hostname of the server, the connection fails.
 
-Certificates used in E2EVIV systems should have signature chains that
+Certificates used in E2E-VIV systems should have signature chains that
 involve not only a certificate authority (like Comodo, Symantec, etc.)
 but also the electoral authority or other appropriate government
 entity; requiring the electoral authority to be involved in the
 signature chain ensures that certificates cannot be issued for
 malicious purposes by a rogue certificate authority and used to
-compromise a running E2EVIV system.
+compromise a running E2E-VIV system.
 
 Finally, all communications of critical information (ballot
 information, voter information, logs, audit data, etc.) in the
@@ -348,7 +348,7 @@ using custom cryptographic protocols, so that even in the unlikely
 event of a TLS compromise the data is protected.
 
 \paragraph{Trusting the Voting Client.} One clear ``weak link'' in the
-security of an E2EVIV system is the voting client, which must by
+security of an E2E-VIV system is the voting client, which must by
 definition---regardless of its implementation technology---involve
 untrusted machines belonging to individual voters. There are two
 potential issues: first, the voting client software itself might be
@@ -366,7 +366,7 @@ provide even stronger guarantees, but rely on the presence of a
 Trusted Platform Module (TPM) in the voter's computer.  However, the
 fact that TPMs are not universally deployed (for example, Apple has
 not shipped a computer, tablet, or phone with a TPM since 2006) means
-that E2EVIV systems cannot rely on Trusted Computing techniques.
+that E2E-VIV systems cannot rely on Trusted Computing techniques.
 
 Implementing the voting client as a web application can alleviate some
 concern about the corruption of distributed native application
@@ -401,7 +401,7 @@ application.
 \todo{Notice that the second sentence is inconsistent with the coercion-resistance requirement we have been discussing over email I added the last sentence. Poorvi}
 With respect to the second issue, corruption of the voter's computing
 environment, there is a wide range of possible threats. One, which we
-cannot address as part of an E2EVIV system implementation, is
+cannot address as part of an E2E-VIV system implementation, is
 surreptitious logging/monitoring software that records the voter's
 actions and transmits them to a third party. Detection and prevention
 of such monitoring can be improved through standard secure
@@ -418,17 +418,17 @@ code might do any or all of the following: manipulate the appearance
 of the voting client such that a voter believes she has voted for a
 particular candidate or choice when she has actually voted for a
 different one; block or corrupt communications between the voting
-client and the rest of the E2EVIV system, causing the voter to
+client and the rest of the E2E-VIV system, causing the voter to
 unintentionally spoil ballots or otherwise interfering with vote
 casting; and spoof the client-side verification screens to make a
 voter mistakenly believe she is voting when she is actually not
-interacting with the rest of E2EVIV system at all. Many of these
+interacting with the rest of E2E-VIV system at all. Many of these
 threats can be partially or completely mitigated through judicious use
 of cryptography and good user interface design---for example, prominent
 use of confirmation codes transmitted out-of-band, such as via postal
 mail, to authenticate communications between the voter and the system
 in both directions---but there will always be the possibility of
-malicious action on the part of untrusted client systems. A good E2EVIV system will enable a voter to detect any such effort that changes election outcome. Additionally, an E2EVIV system with dispute resolution will enable a voter to prove that there is a problem. 
+malicious action on the part of untrusted client systems. A good E2E-VIV system will enable a voter to detect any such effort that changes election outcome. Additionally, an E2E-VIV system with dispute resolution will enable a voter to prove that there is a problem. 
 % Essentially,
 % the best we can do is ensure that any individual corrupted client
 % system cannot violate the integrity of any other part of the system.
@@ -440,7 +440,7 @@ However, the communicated data needs to be committed to stable storage
 at some point, in order to be verified, tallied, and audited. Standard
 database technology is inappropriate for this purpose because of the
 data integrity, confidentiality, and provenance requirements that must
-be met in an E2EVIV system. Data must be encrypted at rest to protect
+be met in an E2E-VIV system. Data must be encrypted at rest to protect
 against straightforward physical theft of storage devices, and should
 remain encrypted during as much of the system's computation as
 possible to protect against manipulation or disclosure by either
@@ -474,12 +474,12 @@ computation of encrypted results over encrypted data.
 The use of a public append-only bulletin board with vote encryptions published in a tamper-evident and encouraging voters and observers to frequently check the board provides a means of detecting data manipulation, while the above safeguards make it additionally difficult. \todo{added the last para because we need to communicate that E2E goes beyond the standard security safeguards: Poorvi}
 
 \paragraph{Trusting the Voter.} The voter, like the voting client, is
-a ``weak link'' in the security of an E2EVIV system. It is possible
+a ``weak link'' in the security of an E2E-VIV system. It is possible
 for voters to compromise their own authentication credentials
 intentionally or otherwise, allowing others to vote on their behalf;
 to falsely challenge their own legitimately cast votes either
 maliciously or because of mistaken memory; and to be misled into
-either ``voting'' on a system other than the actual E2EVIV system or
+either ``voting'' on a system other than the actual E2E-VIV system or
 missing the time window for ballot casting.
 
 In an unsupervised system, voters are responsible for their own
@@ -489,10 +489,10 @@ authority can strongly encourage certain security measures, such as
 use of antivirus/antimalware software on appropriate platforms, manual
 checking of SSL certificates to ensure that they are signed by the
 electoral authority, and installation of up-to-date OS, browser, and
-E2EVIV system software and security patches. However, there will
+E2E-VIV system software and security patches. However, there will
 inevitably be voters who do not follow these recommendations, and it
 is generally not possible---especially if it is web-based---for the
-E2EVIV system to evaluate a voter's compliance with them and act
+E2E-VIV system to evaluate a voter's compliance with them and act
 accordingly.  Moreover, even voters using completely uncorrupted
 computers can fall victim to social engineering attacks such as
 official-looking physical mailers with false voting codes and false
@@ -509,7 +509,7 @@ can make it more difficult for non-malicious voters to compromise
 their own security.
 
 \todo{The following para contradicts the earlier requirement of coercion-resistance we are discussing over email: Poorvi}
-Of course, it is impossible to defend an E2EVIV system against
+Of course, it is impossible to defend an E2E-VIV system against
 individual voters who are determined (or compelled) to compromise the
 security of their own votes; ``shoulder surfing'' and ``rubber hose''
 attacks\footnote{These are both actual terms of art in the field of
@@ -529,7 +529,7 @@ mistakes in cryptographic algorithm and protocol implementations that
 completely compromise system security.
 
 It is clearly essential that proofs be carried out for all novel
-cryptographic protocols used in an E2EVIV system. These proofs may be
+cryptographic protocols used in an E2E-VIV system. These proofs may be
 carried out on paper, or may be mechanized such that they are
 checkable by computers. Moreover, all cryptographic protocol
 implementations must be verified against their specifications; if the
@@ -540,7 +540,7 @@ correctness-preserving fashion.
 
 It is also essential that only well-studied secure cryptographic
 algorithms and pseudorandom random number generators (PRNGs) be used
-in E2EVIV systems. The need for secure cryptographic algorithms is
+in E2E-VIV systems. The need for secure cryptographic algorithms is
 obvious; the fact that bad sources of randomness can cause many
 vulnerabilities in the otherwise-sound cryptographic systems built
 atop them is less so. Exploits related directly to weak or absent
@@ -550,7 +550,7 @@ payment systems, large-scale theft from Android-based Bitcoin wallets,
 and a complete compromise of the PlayStation 3 game console's digital
 signature process.
 
-E2EVIV systems may use cryptographic algorithms and PRNGs approved by
+E2E-VIV systems may use cryptographic algorithms and PRNGs approved by
 government agencies, such as those specified by NIST in the Federal
 Information Processing Standards (FIPS), but should be restricted to
 those that have also been extensively studied by non-government
@@ -562,7 +562,7 @@ door'' allowing it to defeat the system's cryptography.\footnote{As
   worked to insert similar back doors into other cryptographic
   systems.}  Similarly, hardware entropy generators such as the RdRand
 functionality found in current Intel processors can be used to provide
-entropy in an E2EVIV system, but must not be the sole sources of
+entropy in an E2E-VIV system, but must not be the sole sources of
 entropy; since they are opaque subsystems whose functional details are
 not available for inspection, they may contain hidden weaknesses or
 back doors. The output of such generators can be combined with other
@@ -587,7 +587,7 @@ attack within Bell Labs, and similar attacks have occurred ``in the
 wild'' against systems such as the Delphi development environment for
 Windows application; with stakes as high as controlling national
 election results, it is not a stretch to believe that such attacks
-would be attempted against E2EVIV systems.
+would be attempted against E2E-VIV systems.
 
 There are multiple ways to mitigate the possible impact of such an
 attack. One is to ensure that the system uses a diverse set of
@@ -604,7 +604,7 @@ Double-Compiling'' \cite{Wheeler09}.
 
 \subsection{Scalability}
 
-An E2EVIV system, particularly at the national level, must be able to
+An E2E-VIV system, particularly at the national level, must be able to
 handle a wide range of demand. It is human nature that many voters
 will wait until the last day, or even the last hour, of a voting
 period to cast their votes. Moreover, it is likely that attacks
@@ -621,7 +621,7 @@ required.
 
 \subsection{Availability}
 
-E2EVIV systems must exhibit high availability;
+E2E-VIV systems must exhibit high availability;
 \autoref{chapter:required_properties} stated an explicit requirement
 for 99.9\% uptime during election periods and the ability to recover
 from generalized (i.e., not caused by natural disaster or malicious
@@ -636,7 +636,7 @@ way that does not foreclose the use of such techniques.
 \subsection{Usability}
 
 Usability, including accessibility for disabled voters, is of
-paramount importance in an E2EVIV system. Especially for the
+paramount importance in an E2E-VIV system. Especially for the
 voter-facing parts of the system, the choice of implementation
 technology may have a significant effect on usability. Essentially,
 choices may need to be made between using Web technologies, which have
@@ -650,10 +650,10 @@ complexity.
 \section{Architectural Feature Model}
 
 As we have seen, there are many considerations to take into account
-when making architectural decisions about an E2EVIV system. Here, we
+when making architectural decisions about an E2E-VIV system. Here, we
 model the various architectural dimensions, and the (possibly wide)
 range of choices within each, to give a sense of the potential
-solution space for a workable E2EVIV system architecture.
+solution space for a workable E2E-VIV system architecture.
 
 The Business Object Notation diagram in \autoref{figure:arch-choices}
 shows the architectural choices that need to be made; for each
@@ -670,7 +670,7 @@ architectural variants.
 \begin{center}
 \lstinputlisting[style=bon,frame=lines]{architecture_resources/architecture-dimensions.bon}
 \end{center}
-\caption{A specification of the possible variants for an E2EVIV system.}
+\caption{A specification of the possible variants for an E2E-VIV system.}
 \label{figure:arch-choices}
 \end{figure}
 
@@ -694,7 +694,7 @@ The architectural dimensions we have identified are the following:
 
 \item \textbf{Cryptographic Protocols} \ The set of cryptographic
   algorithms and protocols used to protect voter privacy and insure
-  ballot integrity is a critical component in any E2EVIV
+  ballot integrity is a critical component in any E2E-VIV
   system. Security characterizations of individual cryptographic
   algorithms (e.g., block ciphers such as AES, standard public key
   cryptosystems such as RSA, threshold cryptosystems such as ElGamal)
@@ -702,7 +702,7 @@ The architectural dimensions we have identified are the following:
   selection of individual algorithms is generally a matter of picking
   an appropriate algorithm and security strength for a given
   task. However, since novel cryptographic protocols such as those
-  required to implement E2EVIV systems are not widely used or studied,
+  required to implement E2E-VIV systems are not widely used or studied,
   evidence must be provided for the security of any such protocols
   used in a deployed system. Such evidence can be provided in two
   basic ways: through ``paper'' proofs that are carefully checked by
@@ -721,7 +721,7 @@ The architectural dimensions we have identified are the following:
   guarantees correctness.
 
 \item \textbf{Evidence of Correctness} \ The development of a high
-  assurance system such as an E2EVIV system proceeds from a
+  assurance system such as an E2E-VIV system proceeds from a
   specification, at some level of formality, to an implementation that
   is intended to fulfill the specification. Assurance that the
   implementation actually does fulfill the specification can generally
@@ -768,7 +768,7 @@ The architectural dimensions we have identified are the following:
   system in formats such that conformance checking is feasible.
 
 \item \textbf{Key Distribution Method} \ In all the possible
-  implementations of an E2EVIV system, encryption keys will be
+  implementations of an E2E-VIV system, encryption keys will be
   required to fulfill security, privacy, and integrity
   requirements. The ways in which these keys will be generated is determined by the
   cryptographic algorithms chosen for use in the system, but the ways
@@ -792,7 +792,7 @@ The architectural dimensions we have identified are the following:
   see that the certificate was in fact issued to her bank rather than
   a man-in-the-middle attacker. As described in \autoref{sec:trust},
   PKI can be used to guarantee to voters (in the event that they
-  check) that their connections to an E2EVIV system are secured using
+  check) that their connections to an E2E-VIV system are secured using
   a certificate issued to and signed by the electoral authority. PKI
   is effectively mandatory for secure Internet connections using the
   TLS protocol, but may also be used to manage other keys in the
@@ -820,12 +820,12 @@ The architectural dimensions we have identified are the following:
   Alice because of the trust relationship they have established, and
   Alice can trust any key that he has signed (or that has been signed
   by a key he has signed, etc.). Key distribution via a web of trust
-  could be useful in various parts of E2EVIV systems, as a means of
+  could be useful in various parts of E2E-VIV systems, as a means of
   collectively building trust relationships within the system rather
   than relying on the single points of failure inherent in PKI
   infrastructures.
 
-\item \textbf{Deployment Style} \ The E2EVIV software can be deployed
+\item \textbf{Deployment Style} \ The E2E-VIV software can be deployed
   in one of three ways: (1) servers run entirely on trusted servers
   managed by the electoral authority or its designated
   representatives, and client applications access the servers through
@@ -889,7 +889,7 @@ states accurately reflect each other for redundancy or availability).
 In this architecture the Web/App Server (to which voters, using either
 a web-based interface or custom applications, connect to cast their
 ballots) is a client of the Database, which stores all information
-relevant to the operation of the E2EVIV system (ballot styles, cast
+relevant to the operation of the E2E-VIV system (ballot styles, cast
 and spoiled ballots, etc.). In an actual implementation, the
 monolithic Database would likely be split into multiple databases
 since the access patterns and performance needs for data such as
@@ -1019,7 +1019,7 @@ demand.
 Despite the use of the word ``cloud'', a dynamic cloud architecture
 need not actually be deployed on a public cloud infrastructure;
 private cloud infrastructures consisting of only trusted servers may
-be built as necessary to support the system.\footnote{In the E2EVIV
+be built as necessary to support the system.\footnote{In the E2E-VIV
   context, however, public cloud infrastructures are likely preferable
   for economic reasons; it is virtually inconceivable that an
   electoral authority or its suppliers could build a cloud
@@ -1060,7 +1060,7 @@ peer's knowledge about its network environment and the locations of
 other peers.
 
 Authority in a peer-to-peer architecture is fully distributed. In the
-case of an E2EVIV system, the electoral authority would set up and
+case of an E2E-VIV system, the electoral authority would set up and
 maintain some trusted peers as a way to ``bootstrap'' the peer-to-peer
 network, and political organizations (parties, lobbying groups, etc.)
 might also choose to maintain peers, perhaps with their own
@@ -1078,7 +1078,7 @@ differ from those of the other architectures we have described. While
 some of the computer systems controlled by the electoral authority
 might be trusted, the vast majority of systems belonging to individual
 voters or political organzations will certainly not be; it is
-impossible to run a peer-to-peer E2EVIV system using only trusted
+impossible to run a peer-to-peer E2E-VIV system using only trusted
 computing resources.\footnote{This is true of ``pure'' peer-to-peer
   architectures of the type we are discussing in this section; an
   architecture where only the \emph{servers} interact in a
@@ -1087,7 +1087,7 @@ computing resources.\footnote{This is true of ``pure'' peer-to-peer
   fixed set of servers or in a dynamic cloud.} It is therefore
 important to ensure that no corrupt peer, or set of corrupt peers, can
 undetectably compromise election results, violate voter privacy, or
-otherwise violate the E2EVIV system requirements.
+otherwise violate the E2E-VIV system requirements.
 
 One way to address this problem is to employ a \emph{blockchain}, like
 that used in Bitcoin and other cryptocurrencies, to log critical
@@ -1110,7 +1110,7 @@ casting sessions; moreover, the situation where more than half the
 peer computing power is dishonest can be detected (by the honest part
 of the network, or by external observers) and dealt with in various
 ways. Thus, maintaining the integrity of a blockchain should be
-reasonably straightforward in an E2EVIV system. However, other aspects
+reasonably straightforward in an E2E-VIV system. However, other aspects
 of implementing a peer-to-peer architecture---such as distribution of
 the computing client to voters and organizations, achieving sufficient
 ease of use and performance, etc.---may prove more difficult.
@@ -1119,11 +1119,11 @@ ease of use and performance, etc.---may prove more difficult.
 
 As can be seen from the many architectural dimensions we have
 described and the primary architectural variants we have briefly
-discussed, there are many different ways in which an E2EVIV system
+discussed, there are many different ways in which an E2E-VIV system
 could be designed and implemented. It is not clear which of the
 primary variants would be the ``best'' option, nor is it clear exactly
 what criteria would be used to make that determination among multiple
-architectures that fulfill all the E2EVIV requirements. Further
+architectures that fulfill all the E2E-VIV requirements. Further
 research and experimentation is therefore necessary to determine a
-suitable path forward for E2EVIV implementation and deployment.
+suitable path forward for E2E-VIV implementation and deployment.
 
