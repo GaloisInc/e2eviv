@@ -5,10 +5,12 @@
 \section{The E2E-VIV Project}
 \label{sec:e2e-viv-project}
 
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-% this is just a comment. perhaps it has been done and I don't know about it, but we need to introduce the
-% long name of the project and its abbreviated name "End-to-End Verifiable Internet Voting: Specification and Feasibility 
-% Assessement Study (E2E VIV Project) - to just make that this section header/title. 
+% ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% this is just a comment. perhaps it has been done and I don't know
+% about it, but we need to introduce the long name of the project and
+% its abbreviated name "End-to-End Verifiable Internet Voting:
+% Specification and Feasibility Assessment Study (E2E VIV Project) -
+% to just make that this section header/title.
 
 Elections have been conducted for millennia, but the technologies used
 to cast and tally votes have varied and evolved tremendously over that
@@ -44,7 +46,7 @@ devote scarce resources to support outdated voting systems, while
 lacking the means to certify the new voting systems they would like.
 
 Election integrity advocates assert that secure, tested, certified
-remote voting systems that election officials envision aren’t
+remote voting systems that election officials envision are not
 available. The scientific community does not consider online ballot
 return systems secure, and no such systems had been certified at the
 time of this writing. As a result, email has become a common interim
@@ -119,50 +121,48 @@ auditability, and usability.
 
 For those concerned with election integrity, there is a justifiably
 negative reflex in response to IV: it takes all the problems with
-current remote voting systems and adds to them all the problems and security
-vulnerabilities of the Internet. The E2E-VIV Project has sought to
-make the case that use of the Internet enables and facilitates the
-introduction of E2E-verifiability (E2E-V), and that the benefits of
-E2E-V may be able to adequately mitigate the vulnerabilities
-introduced by using the Internet. 
+current remote voting systems and adds to them all the problems and
+security vulnerabilities of the Internet. The E2E-VIV Project has
+sought to make the case that use of the Internet enables and
+facilitates the introduction of E2E-verifiability (E2E-V), and that
+the benefits of E2E-V may be able to adequately mitigate the
+vulnerabilities introduced by using the Internet.
 
-No participant in this project
-discounts the concerns of voting over the Internet, nor is E2E-V
-viewed as a magic fix that makes the Internet secure. Nevertheless,
-we believe that E2E-V (security?) properties are quite relevant to IV, since these
-properties are achieved even when votes are cast on potentially
-untrusted devices like personal computers and transmitted over an
-untrusted medium such as the Internet. The E2E-VIV Project does not
-attempt to make the Internet secure. Instead, it examines how E2E-V
-negates many (although not all) of the risks of voting via the
-Internet while introducing substantial new benefits that are not found
-in currently deployed voting systems.
+No participant in this project discounts the concerns of voting over
+the Internet, nor is E2E-V viewed as a magic fix that makes the
+Internet secure. Nevertheless, we believe that E2E-V properties are
+quite relevant to IV, since these properties are achieved even when
+votes are cast on potentially untrusted devices like personal
+computers and transmitted over an untrusted medium such as the
+Internet. The E2E-VIV Project does not attempt to make the Internet
+secure. Instead, it examines how E2E-V negates many (although not all)
+of the risks of voting via the Internet while introducing substantial
+new benefits that are not found in currently deployed voting systems.
 
 %=====================================================================
 \subsection{A Proposed Study and Objectives}
 \label{sec:proposed-study-and-objectives}
 
-Within this climate, 
-% comment from susan: we may need to define again what exact climate, as we have lost the original flow
-a project proposal was developed and written by Susan Dziedusyzcka-Suinat 
-of the Overseas Vote Foundation (OVF) \footnote{Since the start of 
-  the study, the Overseas Vote Foundation has been renamed as ``Overseas 
-  Vote", an initiative of U.S. Vote Foundation, which has broadened its 
-  mission to include U.S. domestic and absentee voters.} 
-the leading nonpartisan, nonprofit organization dedicated to overseas 
-and military voter participation and one that has maintained an unwaivering
-commitment to the cause of election integrity. Known for its work in 
-developing user-oriented voter services for the full range of overseas
-and military voter needs, OVF was ideally suited to conceive of, define
-and manage this project. Over the past decade, OVF was at the forefront 
-of introducing software solutions for this voter base, from its launch 
-of the first online state-by-state customized voter registration/absentee 
-ballot wizard for overseas and military voters, the first online Federal 
-Write-in Absentee Ballot with dynamic candidate lists, the first Hosted 
-System Solutions for states or organizations who wanted to offer to better 
-overseas and military voter services to the first Election Official 
-Directory API. The market space that OVF opened a decade ago has become 
-a profitable one for many vendors since. 
+Within this context, a project proposal was developed and written by
+Susan Dziedusyzcka-Suinat of the Overseas Vote Foundation (OVF)
+\footnote{Since the start of the study, the Overseas Vote Foundation
+  has been renamed as ``Overseas Vote", an initiative of U.S. Vote
+  Foundation, which has broadened its mission to include U.S. domestic
+  and absentee voters.}  the leading nonpartisan, nonprofit
+organization dedicated to overseas and military voter participation
+and one that has maintained an unwaivering commitment to the cause of
+election integrity. Known for its work in developing user-oriented
+voter services for the full range of overseas and military voter
+needs, OVF was ideally suited to conceive of, define and manage this
+project. Over the past decade, OVF was at the forefront of introducing
+software solutions for this voter base, from its launch of the first
+online state-by-state customized voter registration/absentee ballot
+wizard for overseas and military voters, the first online Federal
+Write-in Absentee Ballot with dynamic candidate lists, the first
+Hosted System Solutions for states or organizations who wanted to
+offer to better overseas and military voter services to the first
+Election Official Directory API. The market space that OVF opened a
+decade ago has become a profitable one for many vendors since.
 
 On December 19, 2013, OVF announced the launch of this project as the
 End-to-End Verifiable Internet Voting: Specification and Feasibility
@@ -176,7 +176,7 @@ proposal envisioned a project to examine the future of voting and how
 it might be executed securely online; one that approached the question
 of Internet-voting from a research perspective, and that sought to
 fill in the gaps of the many open questions plaguing the discussion.
-% I broke up the following paragraphs a bit. They seemed like very large blocks of text that could be naturally broken down a bit more
+
 The stated aim was to examine whether an end-to-end verifiable
 Internet voting system can be built that would offer a viable and
 responsible alternative to current systems to support the voting
@@ -190,16 +190,15 @@ still guarantee security of the election. Equally important, it will
 identify potential tradeoffs and shortcomings that represent the
 diverse range of values we hold dear in our elections.'' 
 
-For this
-study, a unique team of experts in computer science, usability, and
-auditing together with a selection of local election officials from
-key counties around the U.S. was been assembled. The focus is to
-produce a system specification and set of testing scenarios, which if
-they meet the requirements for security, auditability, and usability,
-would then be placed in the public domain. At the same time, a strong
-effort was made to demonstrate that confidence in a voting system
-is built on a willingness to verify its security through testing and
-transparency.
+For this study, a unique team of experts in computer science,
+usability, and auditing together with a selection of local election
+officials from key counties around the U.S. was been assembled. The
+focus is to produce a system specification and set of testing
+scenarios, which if they meet the requirements for security,
+auditability, and usability, would then be placed in the public
+domain. At the same time, a strong effort was made to demonstrate that
+confidence in a voting system is built on a willingness to verify its
+security through testing and transparency.
 
 There is a historical misunderstanding in the U.S. election community
 that the E2E-VIV Project has aimed to correct. Our country's foremost
@@ -316,20 +315,20 @@ technology, to identify its strengths and weaknesses, and to develop
 reasons to pursue or not pursue this approach to remote and/or
 disabled citizen voting. 
 
-However, from the beginning it was clear that
-if the project were to determine that current techniques were weak and
-should not be pursued, then this would also be an outcome with many
-useful implications. A complete success for this project would be to
-produce a specification that would be: 1) supported by the vast majority of
-the expert teams, including the technical, usability, testing, and
-research teams; 2) endorsed by the vast majority of the advisory
-council; and 3) endorsed by the major stakeholders in elections
-administration as represented by the project's local election
-officials. Additionally, the E2E-VIV Project hoped to receive support
-and endorsement from many members of the electronic voting activism
-community, as represented by key members of the Election Verification
-Network, the Verified Voting Foundation and beyond. The specification was
-intended to fulfill the following requirements:
+However, from the beginning it was clear that if the project were to
+determine that current techniques were weak and should not be pursued,
+then this would also be an outcome with many useful implications. A
+complete success for this project would be to produce a specification
+that would be: 1) supported by the vast majority of the contributors,
+including the technical, usability, testing, and research teams; 2)
+endorsed by the vast majority of the advisory council; and 3) endorsed
+by the major stakeholders in elections administration as represented
+by the project's local election officials. Additionally, the E2E-VIV
+Project hoped to receive support and endorsement from many members of
+the electronic voting activism community, as represented by key
+members of the Election Verification Network, the Verified Voting
+Foundation and beyond. The specification was intended to fulfill the
+following requirements:
 
 \begin{description}
 \item[Independent Implementation] The specification must be of
@@ -355,28 +354,6 @@ in Phase I beyond mock-ups to help test usability. However, this
 changed early on in the project when Dr.~Joseph Kiniry of Galois, Inc.
 was engaged as the technical project manager and introduced to the project
 a new engineering team. 
-% I would suggest moving the final para of this section here and then changing "The Galois engineers brought significant expertise to the project and set about developing" to "The Galois engineers developed"
-The Galois engineers brought significant expertise to the project and
-set about developing a set of rigorous engineering artifacts,
-``demonstrators'', fit for refinement into a working election system,
-and against which third parties can perform independent validation and
-verification. Galois defined demonstrators as technical
-artifacts from the point of view of definition and constructions, but
-non-technical artifacts from the point of view of
-demonstration. The demonstrators developed using
-Galois IR\&D {define} funding were:
-% the demonstrators "were", "are" or "will be"?
-\begin{itemize}
-\item developed in a completely transparent and public manner within
-  the Galois GitHub Organization,
-\item cross-referenced, and thus traceable to and from, all
-  specification aspects (from domain models to behavioral design
-  specifications),
-\item replicated into the E2E-VIV GitHub Organization, and
-\item licensed under either a mainstream Open Source license with a
-  strong community or an alternative license tuned to the elections
-  community.
-\end{itemize}
 
 Significantly, Galois is a leader in the process of computing on data
 while it remains encrypted, and in the automated generation,
@@ -391,6 +368,26 @@ election systems development challenge. Galois’s management agreed to
 donate a significant portion of engineering time to the project in
 order to build “demonstrators” that would be used to prove the
 concepts of E2E-V and to further examine security and usability.
+
+The Galois engineers developed a set of rigorous engineering
+artifacts, ``demonstrators'', fit for refinement into a working
+election system, and against which third parties can perform
+independent validation and verification. Galois defined demonstrators
+as technical artifacts from the point of view of definition and
+constructions, but non-technical artifacts from the point of view of
+demonstration. The demonstrators developed using Galois interent
+research and development funding are:
+\begin{itemize}
+\item developed in a completely transparent and public manner within
+  the Galois GitHub Organization,
+\item cross-referenced, and thus traceable to and from, all
+  specification aspects (from domain models to behavioral design
+  specifications),
+\item replicated into the E2E-VIV GitHub Organization, and
+\item licensed under either a mainstream Open Source license with a
+  strong community or an alternative license tuned to the elections
+  community.
+\end{itemize}
 
 %=====================================================================
 \section{People}
@@ -417,9 +414,9 @@ communications gave OVF a unique edge in managing the project.
 Galois, Inc. provided the technical and engineering project
 management. Named as the technical project manager, Dr.~Joseph Kiniry,
 working as a Principal Investigator at Galois, facilitated the
-communication and decision-making of the expert teams. He became the
-main author and editor of the report and ran all engineering projects
-and usability aspects of the study.
+communication and decision-making of the team. He became the main
+author and editor of the report and ran all engineering projects and
+usability aspects of the study.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Team Members}
@@ -783,7 +780,7 @@ discussed above.\footnote{For several examples of these communities,
   platforms, etc.}
   
 As we exit Phase I of this project and, speculatively, move to Phase
-2 - R&D, a wide range of elections officials must be actively engaged in
+2 - R\&D, a wide range of elections officials must be actively engaged in
 the design and deployment of E2E-VIV technology, and we must foster
 the formation of a healthy, active, and supportive community,
 including volunteers and commercial IT firms, around it.
@@ -851,35 +848,36 @@ in the first phase of the E2E-VIV project, Galois organized the
 technical project management in a workflow that focused on delivering
 an evidence-based report and its complementary open source technical
 artifacts.  This methodology is summarized as follows.
-% is it possible to reduce the use of the word "expert"? Can we say participants, team members, contributors in some of these cases? In our roadshow, there was feedback that overuse of the word was taken poorly by election officials - who are - afterall - the true experts in elections. I don't want us to repeat this and get the same shut-off-valve reaction.  
+
 \begin{enumerate}
-\item \textbf{Absorb all input from experts.}
+\item \textbf{Absorb all input from team members.}
 \item \textbf{Read all literature on Internet voting.}
 \item \textbf{Write baseline business and technical requirements and
-    solicit feedback from technical experts.}
+    solicit feedback from technical team.}
 \item \textbf{Write personas as foundation for UX studies.}
 \item \textbf{Interview LEOs based upon requirements and personas;
     include in interview information about their current elections
     framing.}
 \item \textbf{Outline report and solicit text and reflections from
-    experts.}
+    team members.}
 \item \textbf{Reflect upon latest advances in cryptography for E2E-VIV.}
 \item \textbf{Reflect upon latest advances for reasoning about
     cryptography algorithms, protocols, and implementations.}
 \item \textbf{Craft a parameterized architecture space that reflect
     underlying requirements and standard cryptographic protocols.}
-\item \textbf{Integrate all expert text and reflections and craft a
-    final report table of contents.}
-\item \textbf{Solicit more text and reflections from experts based
-    upon final report table of contents.}
-\item \textbf{Write chapters that were as-of-yet unwritten by experts.}
-\item \textbf{Solicit input from all experts on Part 1.}
-\item \textbf{Solicit input from technical experts on Part 2.}
-\item \textbf{Solicit initial reflections from technical experts on
-    feasibility of Part 2 potential recommendations.}
-\item \textbf{Gather all input from experts (good and bad, nuances,
-    disagreements, etc.) and capture all in appendices, citations, and
-    footnotes.}
+\item \textbf{Integrate all team member text and reflections and craft
+    a final report table of contents.}
+\item \textbf{Solicit more text and reflections from team members
+    based upon final report table of contents.}
+\item \textbf{Write chapters that were as-of-yet unwritten by team
+    members.}
+\item \textbf{Solicit input from all team members on Part 1.}
+\item \textbf{Solicit input from technical team members on Part 2.}
+\item \textbf{Solicit initial reflections from technical team members
+    on feasibility of Part 2 potential recommendations.}
+\item \textbf{Gather all input from team members (good and bad,
+    nuances, disagreements, etc.) and capture all in appendices,
+    citations, and footnotes.}
 \item \textbf{Identify useful illustrations and figures for report and
     farm out drafting of such to illustrator.}
 \item \textbf{Copy-edit, layout, polish, and release report.}
