@@ -27,12 +27,16 @@ specifications. We describe each of these in turn.
 
 \subsection{Domain Models}
 
-A \emph{domain model} of a system identifies the various concepts in
-the system, their attributes and roles, and the relationships among
-them. Domain models can be expressed in various ways, both textual and
-graphical. Regardless of their form, they are essentially lists of
-concepts with associated brief human-readable descriptions of
-themselves and their relationships to other concepts.
+A \emph{domain model} of a system identifies the various concepts
+(also called \emph{classes} or \emph{classifiers} in some domain
+modeling techniques) in the system, their attributes and roles, and
+the client and inheritance relationships among them. Domain models can
+be expressed in various ways, both textual and graphical. Regardless
+of their form, they are essentially lists of concepts with associated
+brief human-readable descriptions of themselves and their
+relationships to other concepts. A good domain model provides a shared
+vocabulary and gives a big picture view of the concepts involved in
+the system upon which all the stakeholders can agree.
 
 For example, the domain model for E2E-VIV systems (see
 \autoref{appendix:domain_model}) includes, among other concepts,
@@ -40,15 +44,25 @@ For example, the domain model for E2E-VIV systems (see
 describes an election as ``a formal process of selecting choices in
 one or more contests'', and says that a ballot question is a specific
 type of contest, namely ``a decision among two or more courses of
-action''.
+action''. The relationship between a ballot question and a contest is
+an inheritance relationship: a ballot question \emph{is a} specific
+type of contest, with a certain set of characteristics. The
+relationship between elections, choices, and contests is that an
+election \emph{has}, or \emph{is a client of}, at least one choice and
+at least one contest, because the description of an election
+explicitly refers to choices and contests.
 
 Importantly, while a good domain model comprehensively identifies and
 defines the concepts and relationships in a system, it does not
 otherwise constrain the realization of those concepts and
-relationships or the actual behavior of the system. Constraints on the
-realization and behavior of the system are provided by the
-requirements, scenarios, and concept specifications, and in
-significantly more detail by the formal specifications.
+relationships or the actual behavior of the system. The description of
+``ballot question'' does not specify \emph{how} a decision among two
+or more courses of action is made, and the description of ``election''
+does not specify \emph{how} choices in contests are
+selected. Constraints such as these on the realization and behavior of
+the system are provided in general terms by the requirements,
+scenarios, and informal concept specifications, and are precisely
+expressed in formal specifications.
 
 \subsection{Requirements and Scenarios}
 
@@ -65,15 +79,12 @@ document itself is in \autoref{appendix:bon_requirements}.
 
 There are several different kinds of requirement, but they can be
 broadly divided into two basic types: \emph{functional} and
-\emph{non-functional}.
-
-Functional requirements are those that specify how the system must
-behave and what outputs it must generate given certain sets of inputs
-under certain conditions. For example, one functional requirement
-of E2E VIV systems is that only eligible voters may cast ballots.
-
-Non-functional requirements are those that specify overall
-characteristics of the system, such as a lower bound on its
+\emph{non-functional}. Functional requirements are those that specify
+how the system must behave and what outputs it must generate given
+certain sets of inputs under certain conditions. For example, one
+functional requirement of E2E VIV systems is that only eligible voters
+may cast ballots. Non-functional requirements are those that specify
+overall characteristics of the system, such as a lower bound on its
 availability or an upper bound on its cost. For example, one
 non-functional requirement of E2E VIV systems is that they must be
 Open Source.
@@ -94,39 +105,44 @@ with situations that are less than ideal. Communication failures, data
 corruption, and malicious attacks of various kinds should all be
 addressed in a system's requirements and scenarios.
 
-As the system is developed, \emph{traceability} of the requirements
-and scenarios is critical. It must be possible to identify, for every
-requirement and scenario, one or more system tests demonstrating that
-the system addresses that requirement or scenario. This should
-preferably be done automatically as part of automated testing and
-continuous integration processes, and in a way that makes it clear to
+As the system is built, \emph{traceability} of the requirements and
+scenarios is critical. It must be possible to identify, for every
+requirement and scenario, the related parts of the formal
+specification and implementation, and the links among informal
+specification, formal specification, and implementation need to be
+kept current when any of them change. Moreover, it must be possible to
+identify one or more system tests demonstrating that the system
+implementation adequately addresses each requirement or scenario. This
+should preferably be done automatically as part of automated testing
+and continuous integration processes, in a way that makes it clear to
 developers which, if any, requirements and scenarios remain to be
 addressed.
 
 \subsection{Concept Specifications}
 
-A \emph{concept specification} is an informal description of the
-behavior of a concept named the system's domain model. Concept
-specifications help to clarify what the roles and responsibilities of
-the concepts in the model are with respect to the functionality of the
-system. A typical concept specification is a set of English sentences
-called \emph{queries}, \emph{commands} and \emph{constraints},
-describing respectively what information the concept possesses, what
-the concept can do, and what limitations exist on its
-behavior.\todo{Do we need to write something about why we're
-  ``anthropomorphizing'' concepts? -dmz}
+A \emph{concept specification} is an informal behavioral description
+of a concept in the system's domain model. Concept specifications help
+to clarify what the roles and responsibilities of the concepts in the
+model are with respect to the overall functionality of the system. A
+typical concept specification is a set of English sentences called
+\emph{queries}, \emph{commands} and \emph{constraints}, describing
+respectively what information the concept possesses, what the concept
+can do, and what limitations exist on its behavior.\todo{Do we need to
+  write something about why we're ``anthropomorphizing'' concepts?
+  -dmz}
 
-A query is phrased as a simple question, such as ``What is your
-name?'' or ``How old are you?'', that the concept must be able to
-answer. Queries provide an informal description of the data
-encapsulated in the concept, because the concept must contain all the
-data necessary to answer any of the queries that may be posed to it. 
+A query is phrased as a simple question, such as ``How many votes have
+been cast?'' or ``Is this voter eligible to vote in this contest?'',
+that the concept must be able to answer. Queries provide an informal
+description of the data encapsulated in the concept, because the
+concept must contain all the data necessary to answer any of the
+queries that may be posed to it.
 
 A command is phrased as an exclamation, such as ``Cast this vote!'' or
 ``Log this user out!'', describing an action that the concept must
 take. This provides an informal description of the behavior
 encapsulated in the concept, because the concept must be able to take
-all (and only) the actions described in its commands.
+all (and only) the actions described by its commands.
 
 Finally, a constraint is phrased as a declaration, such as ``A voter
 must be eligible for this election to cast a vote.'' or ``Only users
@@ -140,7 +156,7 @@ clarifies the roles, responsibilities and relationships of a concept
 in the system. The process of creating informal concept specifications
 may lead to the realization that some necessary concepts are missing
 from the domain analysis, that some single concepts are actually
-multiple related concepts that need to be specified separately, or
+multiple related concepts that need to be described separately, or
 that multiple concepts that were thought to be distinct are actually
 aspects of the same concept. Second, it serves as a ``template'' for
 developers implementing the concept, and---with appropriate tool
@@ -150,15 +166,138 @@ specifications and implementation frameworks.
 
 \subsection{Utility of Informal Specifications}
 
+\todo{I'm not sure we actually need subsections on why these various
+  aspects of specification are useful, given that there's a bit of
+  that in all the other subsections already... -Dan}
+
 \section{Formal System Specifications}
+
+A \emph{formal system specification} is a machine-readable,
+mathematical description of the system's functionality and
+design. Formal specifications are meant to be used both by the
+system's developers and by the various tools employed during the
+development and testing process to validate the system against its
+specification. They may also be used by code generation tools to
+directly, and automatically, generate parts of the system. The formal
+system specification is a refinement of the informal system
+specification, and there must be a demonstrable and traceable
+correspondence between the informal and formal specifications.
+
+A complete formal system specification consists of architecture,
+concept, source code, and protocol specifications, though some of
+these specifications, such as the architecture specification, may be
+minimal for simple systems. We describe each of these in turn.
 
 \subsection{Architecture Specifications}
 
+\tododmz{TODO}
+
 \subsection{Concept Specifications}
+
+A \emph{formal concept specification} is a formal behavioral
+description of a concept in the system's domain mode. Formal concept
+specifications are refinements of informal concept specifications, as
+described in the previous section. It is possible for multiple
+informal concept specifications to refine to the same formal concept
+specification; for example, two informal concept specifications
+``list'' and ``queue'' might both refine to the same formal concept
+specification, ``linear data structure''.
+
+Like informal concept specifications, formal concept specifications
+have queries and commands, which are expressed
+expressed as \emph{features}. A feature is a typed interface to a
+concept; for example, a formal specification of the ``election''
+concept might refine the informal query ``How many votes have been
+cast?'' with a feature of type \texttt{integer} called
+\texttt{number\_of\_votes\_cast}, and the informal command ``Cast this
+vote!'' with a feature of type \texttt{vote -> void} (that is, taking
+a vote as a parameter and returning no result) called
+\texttt{cast\_vote}. It is possible for a single query or command to
+refine to multiple features. 
+
+Features may be private, accessible only to a given concept or group
+of concepts, or may be public, accessible to the entire system. It is
+possible for a concept to have private features that are not direct
+refinements of its informal queries and commands. For example, the
+``election'' concept might have restricted features representing the
+entire database of candidates for office and ways to update that
+database, but only allow unrestricted access to the database via a
+query requesting the candidates for a particular race.
+
+Formal concept specifications also have constraints, which are
+expressed as \emph{preconditions} and \emph{postconditions} on
+features or as \emph{invariants}, as appropriate. Preconditions,
+postconditions and invariants are a part of the Design by Contract
+development technique~\cite{OOSC}: a precondition is a statement
+that must be true in order to invoke a feature; a postcondition is a
+statement that must be true after a feature has been invoked; and an
+invariant is a statement that must be true at all (observable)
+times. For example, an informal constraint on an election that the
+number of votes cast can never be negative could be expressed as a
+postcondition \texttt{Result > 0} on the
+\texttt{number\_of\_votes\_cast} feature (i.e., the result of invoking
+the feature is always non-negative), or could be expressed as an
+invariant \texttt{number\_of\_votes\_cast > 0} on the election concept
+as a whole. 
+
+In addition to refinements of queries, commands and constraints, each
+formal concept specification also contains refinements of inheritance
+and client relationships described in the domain model. Inheritance
+relationships are directly stated in formal concept specifications,
+and client relationships are implicitly stated through the types
+assigned to the concept's features.
+
+A formal concept specification, like an informal one, has two main
+purposes. First, it expresses some of the requirements of the system
+in precise mathematical terms that can be checked for logical
+consistency and various other desirable properties before
+implementation begins; this allows for early detection of problems
+with the requirements or their realizations. Second, it can be used
+with automated code generation tools to create a significant amount of
+the implementation and source code specification automatically, in a
+provably-correct and traceable fashion.
 
 \subsection{Source Code Specifications}
 
+A \emph{source code specification} is an annotation integrated into,
+or otherwise associated with, a piece of source code that makes formal
+statements about its behavior. Source code specifications are
+typically direct refinements of the preconditions, postconditions and
+invariants from formal concept specifications, and often are the same
+mathematical statements rendered in a different syntax. However,
+source code specifications may also formalize aspects of the system
+that are not dealt with in the formal concept specifications, such as
+memory and CPU usage limits, algorithmic efficiency, fine-grain
+concurrency properties, and cross-concept properties that cannot be
+expressed (or are difficult to express) in individual concept
+specifications.
+
+Source code specifications are generally written in a language that is
+directly related to the implementation language, and in some cases are
+written in the implementation language itself. Thus, the choice of
+implementation language has a significant effect on the types of
+source code specifications that can be written and the effort it takes
+to write them. With appropriate tool support, which is available for
+several implementation languages of various styles, many source code
+specifications can be generated automatically from formal concept
+specifications, and some can be inferred from parts of the
+implementation.
+
+The main purpose of source code specifications is to enable automated
+tools to verify or validate the associated implementations. Static
+analyzers can verify, using automated theorem proving techniques, that
+implementations satisfy their formal specifications without the need
+to actually run the code. Runtime assertion checking compilers can use
+the specifications to generate executable code that contains
+continuous runtime checks, so that any runtime violation of the
+specification will be detected. Automated test generators can use the
+specifications to generate high-coverage unit test suites to exercise
+the finished implementation. All of these can significantly increase
+the reliability of the software, and in most cases they require
+minimal developer effort after the specifications have been written. 
+
 \subsection{Protocol Specifications}
+
 
 \subsection{Utility of Formal Specifications}
 
@@ -897,7 +1036,14 @@ like Java.
 
 \subsection{Static Analysis}
 
+(static analyzers such as OpenJML~\cite{OpenJML} for Java with
+JML~\cite{JMLReferenceManual} specifications and
+Frama-C~\cite{Frama-C} for C with ACSL~\cite{ACSL} specifications) 
+
 \subsection{Dynamic Analysis}
+
+(runtime assertion checkers such as those built into
+Eiffel~\cite{Eiffel} and SPARK 2014~\cite{SPARK2014})
 
 \subsection{Model Checking}
 
