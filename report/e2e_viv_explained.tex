@@ -25,7 +25,7 @@ Typical Internet voting election processes have six phases:
     under the distribution phase.}.
   \item[Voting] Voters then fill out their ballots, often with the help of
     software installed on their own computers.
-  \item[Casting] Filled out ballots are then returned to the election
+  \item[Casting] Completed ballots are then returned to the election
     officials; as with distribution, different architectures use different
     mechanisms.
   \item[Tallying] The tallying phase includes the remainder of the election
@@ -49,20 +49,22 @@ Typical Internet communications involve not just the computers owned by the
 two parties communicating, but also many intermediary computers controlled
 by neither party. A good election system needs to account for this, making
 it impossible for these intermediates to intercept ballots for viewing or
-modification during transit. Another concern is that voters computers are
-rarely administered by experts, and as a result many of them are compromised
+modification during transit. 
+
+Another concern is that voters computers are
+rarely administered by system administration professionals, and as a result many of them are compromised
 by outside forces. One consequence of this is that the voting phase itself
-may become corrupted: even if the ballot arrives unchanged at the voter,
+may become corrupted: even if the ballot arrives unchanged to the voter,
 malware on the voter's computer may change the way the ballot is displayed
-or the way the vote is recorded before casting the vote. It can be difficult
+or the way the vote is recorded before casting the ballot. It can be difficult
 to design a system that is resistant to this kind of attack without
 seriously sacrificing the usability of the system. Some systems use
 alternative distribution mechanisms as cross-checks; for example, sending
-something to the voter by postal mail which can be used to check that the
+a code to the voter by postal mail which can be used to check that the
 ballot displayed by their computer is correct.
 
 To the extent that it is possible, it is desirable for Internet voting to be
-private and anonymous. Voters should feel comfortable voting the way they
+private and anonymous. Voters should feel comfortable voting they way they
 like (and not feeling pressured to vote for a particular candidate or to
 vote a particular way on some issue); the fewer people who know or can find
 out the way a given voter voted, the more comfortable they can feel. On the
@@ -71,7 +73,12 @@ registered to vote, and even then want to record only one vote from each
 voter. Thus there is a tension during the vote casting phase between
 retaining the anonymity of votes and ensuring that a vote is coming from
 somebody who ought to be able to vote.
-
+% I keep struggling with the fact that I think vote and ballot are two different things and that you are using them 
+% interchangeably. A ballot can have many votes on it... I think people cast "ballots". 
+% Is it "vote casting" or as I would say it ballot casting - they vote by casting a ballot,
+% election officials record one ballot to a voter, but that ballot could contain
+% many votes on it... isn't the ballot tied to the voter, and then the votes to the ballot,
+% or maybe, I am using this language wrong - just thought I would note it. 
 \tododmwit{ask Joe for a reference to the audit that showed that voting
 terminal logs retained exactly who voted for what}
 One popular approach to this problem in existing systems is to initially
@@ -98,7 +105,9 @@ people who created the system to avoid bugs or trusting in the inability of
 third parties to influence the behavior of the system. As applied to
 anonymity: since it is not easy to prove to somebody else that you have
 deleted some information, one must simply avoid giving them that information
-in the first place. This theme---of being not just correct, but
+in the first place. 
+
+This theme---of being not just correct, but
 verifiable---is one of the central ones of verifiable Internet voting, and
 is a critical part of the defense against the software bugs, security
 vulnerabilities, and sophisticated cybercrimes that history tells us are
