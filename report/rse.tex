@@ -5,11 +5,12 @@ Sound engineering practices are the foundation for building reliable
 and secure software of any type. This is particularly true for
 critical systems that must be trusted to perform important tasks
 correctly, and where the consequences for failure threaten lives,
-property, or political system integrity.
-
-This chapter introduces rigorous software engineering methodologies
-that help reduce errors and improve confidence in software
-development.
+property, or political system integrity. In this chapter, we introduce
+rigorous software engineering techniques related to specification,
+implementation, testing, maintenance, and project management that help
+reduce errors and improve confidence in software development. We also
+provide recommendations for specific technologies to use in the
+construction of critical systems such as E2E-VIV systems.
 
 \section{Informal System Specifications}
 
@@ -23,7 +24,7 @@ evaluate the system.
 
 A complete informal system specification consists of a domain model, a
 set of requirements and scenarios, and a set of concept
-specifications. We describe each of these in turn. 
+specifications.
 
 \subsection{Domain Models}
 
@@ -39,18 +40,18 @@ vocabulary and gives a big picture view of the concepts involved in
 the system upon which all the stakeholders can agree.
 
 For example, the domain model for E2E-VIV systems (see
-\autoref{appendix:domain_model}) includes, among other concepts,
-``election'', ``contest'', ``ballot question'', and ``choice''. It
-describes an election as ``a formal process of selecting choices in
-one or more contests'', and says that a ballot question is a specific
-type of contest, namely ``a decision among two or more courses of
-action''. The relationship between a ballot question and a contest is
-an inheritance relationship: a ballot question \emph{is a} specific
-type of contest, with a certain set of characteristics. The
-relationship between elections, choices, and contests is that an
-election \emph{has}, or \emph{is a client of}, at least one choice and
-at least one contest, because the description of an election
-explicitly refers to choices and contests.
+\autoref{appendix:domain_model}) includes, among many others, the
+concepts ``election'', ``contest'', ``ballot question'', and
+``choice''. It describes an election as ``a formal process of
+selecting choices in one or more contests'', and says that a ballot
+question is a specific type of contest, namely ``a decision among two
+or more courses of action''. The relationship between a ballot
+question and a contest is an inheritance relationship: a ballot
+question \emph{is a} specific type of contest, with a certain set of
+characteristics. One relationship among elections, choices, and
+contests is that an election \emph{has}, or \emph{is a client of}, at
+least one choice and at least one contest, because the description of
+an election explicitly refers to choices and contests.
 
 Importantly, while a good domain model comprehensively identifies and
 defines the concepts and relationships in a system, it does not
@@ -58,11 +59,11 @@ otherwise constrain the realization of those concepts and
 relationships or the actual behavior of the system. The description of
 ``ballot question'' does not specify \emph{how} a decision among two
 or more courses of action is made, and the description of ``election''
-does not specify \emph{how} choices in contests are
-selected. Constraints such as these on the realization and behavior of
-the system are provided in general terms by the requirements,
-scenarios, and informal concept specifications, and are precisely
-expressed in formal specifications.
+does not specify \emph{how} choices in contests are selected. Such
+constraints on the realization and behavior of the system are
+described in general terms in requirements, scenarios, and informal
+concept specifications, and are precisely expressed in formal
+specifications.
 
 \subsection{Requirements and Scenarios}
 
@@ -73,7 +74,7 @@ natural-language sentences, each of which expresses a single testable
 property of the system. ``The e-voting system shall maintain the
 privacy of individuals.'' and ``All voter authentication secrets must
 be changed at least once in every election cycle.'' are examples of
-E2E VIV requirements; the full set of requirements is described in
+E2E-VIV requirements; the full set of requirements is described in
 \autoref{chapter:required_properties}, and the informal requirements
 document itself is in \autoref{appendix:bon_requirements}.
 
@@ -82,11 +83,11 @@ broadly divided into two basic types: \emph{functional} and
 \emph{non-functional}. Functional requirements are those that specify
 how the system must behave and what outputs it must generate given
 certain sets of inputs under certain conditions. For example, one
-functional requirement of E2E VIV systems is that only eligible voters
+functional requirement of E2E-VIV systems is that only eligible voters
 may cast ballots. Non-functional requirements are those that specify
 overall characteristics of the system, such as a lower bound on its
 availability or an upper bound on its cost. For example, one
-non-functional requirement of E2E VIV systems is that they must be
+non-functional requirement of E2E-VIV systems is that they must be
 Open Source.
 
 \emph{Scenarios} are descriptions of interactions among the entities
@@ -101,9 +102,16 @@ circumstances.
 
 It is important that requirements and scenarios describe not only the
 \emph{ideal} behavior of the system, but also how the system deals
-with situations that are less than ideal. Communication failures, data
-corruption, and malicious attacks of various kinds should all be
-addressed in a system's requirements and scenarios.
+with situations that are less than ideal. System failures,
+communication disruptions, data corruption, and malicious attacks of
+various kinds should all be addressed in a system's requirements and
+scenarios. It is not necessary to specify these at a level of detail
+that provides explicit sequences of steps to recover from any given
+failure or attack; rather, they can be addressed in general terms. For
+example, one requirement of E2E-VIV systems that addresses system
+failures is ``If service goes down for any reason other than regional
+natural disaster or malicious attack, service must be restored in no
+more than 10 minutes''.
 
 As the system is built, \emph{traceability} of the requirements and
 scenarios is critical. It must be possible to identify, for every
@@ -113,8 +121,8 @@ specification, formal specification, and implementation need to be
 kept current when any of them change. Moreover, it must be possible to
 identify one or more system tests demonstrating that the system
 implementation adequately addresses each requirement or scenario. This
-should preferably be done automatically as part of automated testing
-and continuous integration processes, in a way that makes it clear to
+should preferably be done automatically as part of testing and
+continuous integration processes, in a way that makes it clear to
 developers which, if any, requirements and scenarios remain to be
 addressed.
 
@@ -127,9 +135,7 @@ model are with respect to the overall functionality of the system. A
 typical concept specification is a set of English sentences called
 \emph{queries}, \emph{commands} and \emph{constraints}, describing
 respectively what information the concept possesses, what the concept
-can do, and what limitations exist on its behavior.\todo{Do we need to
-  write something about why we're ``anthropomorphizing'' concepts?
-  -dmz}
+can do, and what limitations exist on its behavior. 
 
 A query is phrased as a simple question, such as ``How many votes have
 been cast?'' or ``Is this voter eligible to vote in this contest?'',
@@ -164,81 +170,83 @@ support for the formal specification and implementation
 languages---can be used to automatically generate initial formal
 specifications and implementation frameworks.
 
-\subsection{Utility of Informal Specifications}
-
-\todo{I'm not sure we actually need subsections on why these various
-  aspects of specification are useful, given that there's a bit of
-  that in all the other subsections already... -Dan}
-
 \section{Formal System Specifications}
 
 A \emph{formal system specification} is a machine-readable,
-mathematical description of the system's functionality and
-design. Formal specifications are meant to be used both by the
-system's developers and by the various tools employed during the
-development and testing process to validate the system against its
-specification. They may also be used by code generation tools to
-directly, and automatically, generate parts of the system. The formal
-system specification is a refinement of the informal system
-specification, and there must be a demonstrable and traceable
-correspondence between the informal and formal specifications.
+mathematical description of the system's functionality and design. It
+is a refinement of an informal system specification, and there must be
+a demonstrable and traceable correspondence between the informal and
+formal system specifications. Formal specifications are meant to be
+used both by the system's developers and by the various tools employed
+during the development and testing process to validate the system
+against its specification. They may also be used to automatically
+generate partial or full implementations of system components, create
+and run test suites, and generate part of the system documentation.
 
 A complete formal system specification consists of architecture,
-concept, source code, and protocol specifications, though some of
-these specifications, such as the architecture specification, may be
-minimal for simple systems. We describe each of these in turn.
+concept, source code, and protocol specifications; some of these, such
+as the architecture specification, may be minimal for simple
+systems.
 
 \subsection{Architecture Specifications}
 
-\tododmz{TODO}
+An \emph{architecture specification} is a precise description of the
+system's architecture, formalizing both the relationships among the
+concepts in the system and the relationships between these concepts
+and the physical implementation of the system. 
+
+\todokiniry{A bit of further discussion, without talking about tools.}
 
 \subsection{Concept Specifications}
 
 A \emph{formal concept specification} is a formal behavioral
-description of a concept in the system's domain mode. Formal concept
+description of a concept in the system's domain model. Formal concept
 specifications are refinements of informal concept specifications, as
 described in the previous section. It is possible for multiple
 informal concept specifications to refine to the same formal concept
 specification; for example, two informal concept specifications
-``list'' and ``queue'' might both refine to the same formal concept
-specification, ``linear data structure''.
+``list'' and ``queue'' might both refine to the formal concept
+specification ``linear data structure''.
 
 Like informal concept specifications, formal concept specifications
-have queries and commands, which are expressed
-expressed as \emph{features}. A feature is a typed interface to a
-concept; for example, a formal specification of the ``election''
-concept might refine the informal query ``How many votes have been
-cast?'' with a feature of type \texttt{integer} called
+have queries and commands; in formal concept specifications, these are
+expressed as typed interfaces to the concept called
+\emph{features}. For example, a formal specification of the
+``election'' concept might refine the informal query ``How many votes
+have been cast?'' with a feature of type \texttt{integer} called
 \texttt{number\_of\_votes\_cast}, and the informal command ``Cast this
 vote!'' with a feature of type \texttt{vote -> void} (that is, taking
 a vote as a parameter and returning no result) called
 \texttt{cast\_vote}. It is possible for a single query or command to
-refine to multiple features. 
+refine to multiple features of different types; for example, a ``Log
+in!''  command might be implemented as two features, one taking
+username and password parameters and the other taking an
+authentication token parameter.
 
-Features may be private, accessible only to a given concept or group
-of concepts, or may be public, accessible to the entire system. It is
-possible for a concept to have private features that are not direct
-refinements of its informal queries and commands. For example, the
-``election'' concept might have restricted features representing the
-entire database of candidates for office and ways to update that
-database, but only allow unrestricted access to the database via a
-query requesting the candidates for a particular race.
+Features may be restricted, accessible only to a given concept or
+group of concepts, or unrestricted, accessible to the entire
+system. It is possible for a concept to have restricted features that
+are not direct refinements of its informal queries and commands. For
+example, the ``election'' concept might have restricted features
+representing the entire database of candidates for office and ways to
+update that database, but only allow unrestricted access to the
+database via a query (refined from the informal specification)
+requesting the candidates for a particular race.
 
-Formal concept specifications also have constraints, which are
-expressed as \emph{preconditions} and \emph{postconditions} on
-features or as \emph{invariants}, as appropriate. Preconditions,
-postconditions and invariants are a part of the Design by Contract
-development technique~\cite{OOSC}: a precondition is a statement
-that must be true in order to invoke a feature; a postcondition is a
-statement that must be true after a feature has been invoked; and an
-invariant is a statement that must be true at all (observable)
-times. For example, an informal constraint on an election that the
-number of votes cast can never be negative could be expressed as a
-postcondition \texttt{Result > 0} on the
-\texttt{number\_of\_votes\_cast} feature (i.e., the result of invoking
-the feature is always non-negative), or could be expressed as an
-invariant \texttt{number\_of\_votes\_cast > 0} on the election concept
-as a whole. 
+Formal concept specifications also have constraints, expressed as
+\emph{preconditions} and \emph{postconditions} on features or as
+\emph{invariants}, as appropriate. Preconditions, postconditions and
+invariants are part of the Design by Contract development
+technique~\cite{OOSC}: a precondition is a predicate that must be true
+in order to invoke a feature; a postcondition is a predicate that must
+be true after a feature has been invoked; and an invariant is a
+predicate that must be true at all (observable) times. For example, an
+informal constraint that the number of votes cast can never be
+negative could be expressed as a postcondition \texttt{Result > 0} on
+the \texttt{number\_of\_votes\_cast} feature (guaranteeing that the
+result of invoking the feature is always non-negative), or could be
+expressed as an invariant \texttt{number\_of\_votes\_cast > 0} on the
+``election'' concept as a whole.
 
 In addition to refinements of queries, commands and constraints, each
 formal concept specification also contains refinements of inheritance
@@ -249,19 +257,19 @@ assigned to the concept's features.
 
 A formal concept specification, like an informal one, has two main
 purposes. First, it expresses some of the requirements of the system
-in precise mathematical terms that can be checked for logical
-consistency and various other desirable properties before
-implementation begins; this allows for early detection of problems
-with the requirements or their realizations. Second, it can be used
-with automated code generation tools to create a significant amount of
-the implementation and source code specification automatically, in a
-provably-correct and traceable fashion.
+in precise mathematical terms that can be checked for various
+desirable properties, such as logical consistency, before
+implementation begins; this allows for early detection of a class of
+possible problems with the requirements or their realizations. Second,
+it can be used with automated code generation tools to create a
+significant amount of the implementation and source code specification
+automatically, in a provably-correct and traceable fashion.
 
 \subsection{Source Code Specifications}
 
 A \emph{source code specification} is an annotation integrated into,
 or otherwise associated with, a piece of source code that makes formal
-statements about its behavior. Source code specifications are
+statements about the code's behavior. Source code specifications are
 typically direct refinements of the preconditions, postconditions and
 invariants from formal concept specifications, and often are the same
 mathematical statements rendered in a different syntax. However,
@@ -273,35 +281,92 @@ expressed (or are difficult to express) in individual concept
 specifications.
 
 Source code specifications are generally written in a language that is
-directly related to the implementation language, and in some cases are
+closely related to the implementation language, and in some cases are
 written in the implementation language itself. Thus, the choice of
-implementation language has a significant effect on the types of
-source code specifications that can be written and the effort it takes
-to write them. With appropriate tool support, which is available for
-several implementation languages of various styles, many source code
+implementation language has a significant effect on what source code
+specifications can be written and how much effort it takes to write
+them. With appropriate tool support, which is available for several
+implementation languages of various styles, many source code
 specifications can be generated automatically from formal concept
-specifications, and some can be inferred from parts of the
-implementation.
+specifications. Additionally, some can be inferred by analyzing parts
+of the implementation.
 
-The main purpose of source code specifications is to enable automated
-tools to verify or validate the associated implementations. Static
-analyzers can verify, using automated theorem proving techniques, that
-implementations satisfy their formal specifications without the need
-to actually run the code. Runtime assertion checking compilers can use
-the specifications to generate executable code that contains
-continuous runtime checks, so that any runtime violation of the
-specification will be detected. Automated test generators can use the
-specifications to generate high-coverage unit test suites to exercise
-the finished implementation. All of these can significantly increase
-the reliability of the software, and in most cases they require
-minimal developer effort after the specifications have been written. 
+Source code specifications enable extended static checking
+(ESC)~\cite{ESC98} tools to verify, using automated theorem proving
+techniques, that implementations satisfy their formal specifications
+without actually executing the code. This verification is
+\emph{modular}, meaning that individual components of the
+implementation are verified in isolation. For example, when verifying
+the postcondition of a feature $X$ the verifier makes a number of
+assumptions: first, that $X$'s precondition is satisfied when $X$ is
+invoked; second, that all invariants applicable to $X$ are satisfied
+when $X$ is invoked; and third, that all features invoked by $X$
+behave correctly with respect to their specifications. This modularity
+allows static verification to be performed continuously during system
+development in an efficient, incremental fashion, providing assurance
+that the completed parts of the implementation are correct and
+highlighting the parts of the implementation that do not yet satisfy
+their specifications.
+
+Source code specifications can provide significant benefits at runtime
+as well. Runtime assertion checking compilers can use the
+specifications to generate executable code that continuously checks
+for runtime violations of the specification and flags errors when such
+violations occur. Automated test generators can use the specifications
+to generate high-coverage unit test suites to exercise the
+implementation. Runtime assertion checking and automated test
+generation can significantly increase the reliability of the finished
+system, and in most cases require minimal developer effort after the
+specifications are written.
 
 \subsection{Protocol Specifications}
 
+A \emph{protocol specification} is a formal description of an
+information exchange among multiple parts of a system. Each distinct
+type of information exchange in the system---such as registering a
+candidate or casting a vote---has an associated protocol that must be
+followed. We consider only \emph{application-level protocols} that
+specify what type of information is exchanged, how it is encoded, how
+(and whether) it is encrypted or digitally signed, and the sequences
+of interactions the involved parties perform. We assume the existence
+of well-specified lower-level protocols that enable information
+transmission, such as the transport protocols used to encode
+information into Internet Protocol packets and the physical protocols
+used to convert those packets into electrical or optical signals and
+send them to remote destinations.
 
-\subsection{Utility of Formal Specifications}
+Application-level protocols are described, typically in terms of
+communicating finite-state machines, using one of several languages
+specifically devised for protocol specification. Automated tools
+process these descriptions to verify that the protocols have, or
+demonstrate that they do not have, various properties. These include
+both security properties, such as whether an adversary can gain access
+to data that is supposed to be secret or modify data without being
+detected, and non-security properties, such as whether the protocol
+always terminates in an acceptable state. Protocol specification
+languages and tools are typically designed to specify and verify
+cryptographic protocols, but can also be used to specify and verify
+insecure communication protocols by simply ignoring security
+properties; in the case of an E2E-VIV system, the vast majority of the
+application-level protocols are cryptographic protocols and require
+security property verification.
 
-\section{Engineering Methodology}
+The choice of protocol specification language is almost always
+independent from any other specification language choices made when
+engineering a system, because of its specialized nature: specifying
+and verifying the interactions of a multiparty protocol is
+significantly different from specifying and verifying the behavior of
+individual features or software modules. However, once a protocol is
+verified, parts of its formal description can be embedded in the
+source code specifications of appropriate system modules. For example,
+the module that implements the receiving side of a vote casting
+protocol can (and should) contain an associated formal model of the
+appropriate protocol state machine and its state transformation rules;
+this model can then be verified and validated in a modular fashion
+alongside the rest of the source code specifications to provide
+evidence that the system actually implements the verified protocol.
+
+\section{Implementation Methodology}
 
 \todoacf{Introduce context with NIST, ISO standards for methodology?}
 
@@ -555,20 +620,16 @@ example, ensuring that all boundary conditions are tested for data
 types with boundaries, such as numeric types) can be used to cover the
 functionality of $f$ with a reasonable number of tests. Multiple test
 frameworks use these techniques to automatically generate and run
-model-based tests, including the JMLUnitNG tool for
-Java/JML~\cite{ZimmermanNagmoti10} (which integrates with the
-TestNG~\cite{TestNG} automated testing framework) and the AutoTest
-tool for Eiffel~\cite{AutoTest10}.
+model-based tests.
 
 Formal models of program behavior can also be used as guides for
-choosing test data; for example, AutoTest uses constraint solving
+choosing test data; for example, some tools use constraint solving
 techniques on programs and their specifications to ensure that test
 data satisfies input constraints on the functions under test.
 Techniques such as symbolic execution---analysis of the program to
 determine what inputs cause what execution paths to be taken---can
 also be used to choose test data, with the goal of achieving maximal
-coverage using a minimal set of test cases. The PEX testing tool for
-.NET~\cite{PEX08} uses this technique.
+coverage using a minimal set of test cases. 
 
 \subsubsection{Regression Testing}
 
@@ -958,31 +1019,45 @@ circles, and additional connection markings).
 
 \subsection{Specification Languages}
 
-In addition to its use for domain modeling, BON can also be used as a
-specification language and we recommend it as such. However, once they
-have been written, BON specifications are typically refined further
-into lower-level specification languages that are more well-tuned to
-particular implementation languages.
+In addition to its use for domain and architecture modeling, BON can
+also be used as an architecture specification and concept
+specification language and we recommend its use as such. Once written,
+BON specifications can be refined further into architectural
+specification languages for expressing detailed architectural
+properties, source code specification languages for integration with
+particular implementation languages, and protocol specification
+languages for formalizing interactions within the system.
+
+UML is the most commonly used tool for architecture specification, but
+is not well suited to rigorous software engineering because it lacks
+semantics. We recommend using BON for high-level architecture
+specification and a formal architecture specification language with
+strong semantics, such as the SAE Architecture Analysis and Design
+Language (AADL)~\cite{AADL}, for low-level architecture
+specification. \todokiniry{Reasonable?  Other architecture
+  specification languages?}
 
 Programming languages for which there is an obvious best choice of
-low-level specification language include Java (JML), C\# (Code
-Contracts), and C (ACSL or E-ACSL). Some implementation languages,
-such as SPARK (a dialect of Ada)~\cite{SPARK2014} and Eiffel, have
-integrated specification languages. These specification languages all
-have several features that we consider essential for efficient and
-effective use: straightforward syntax and semantics, integration with
-widely-used software development environments, and tool support for
-performing analysis and verification. In the case of JML and Eiffel,
-tool support is also available for automated reversible refinement
-from BON.
+source code specification language include Java
+(JML~\cite{JMLReferenceManual}), C\# (Code
+Contracts~\cite{CodeContracts}), and C (ACSL~\cite{ACSL}). Some
+implementation languages, such as SPARK~\cite{SPARK2014} (a dialect of
+Ada) and Eiffel, have integrated specification languages. These
+specification languages all have several features that we consider
+essential for efficient and effective use: straightforward syntax and
+semantics, integration with widely-used software development
+environments, and tool support for performing analysis and
+verification. In the case of JML and Eiffel, tool support is also
+available for automated reversible refinement from BON.
 
 In any given project, different parts of the architecture may be
-implemented in different languages; for example, it might be
+implemented in different languages. For example, it might be
 appropriate to implement some computation-intensive parts of a design
 in a language like C while implementing the rest of the design in a
-language like Java or C\#. Thus, multiple specification languages may
-be used in a single project, though we recommend that high level
-specifications be written in a single language to the extent possible.
+language like Java or C\#. Thus, multiple source code specification
+languages may be used in a single project, though we recommend that
+high level specifications be written in a single language to the
+extent possible.
 
 There are also several language-neutral specification languages and
 associated development tools, such as Alloy~\cite{Alloy},
@@ -991,6 +1066,20 @@ themselves support refinement to various implementation
 languages. These can be used effectively, either by themselves or
 alongside other specification languages, in a rigorous software
 engineering process. 
+
+Finally, any of several protocol specification languages can be used
+to specify the interaction protocols within the system. These include
+the High-Level Protocol Specification Language (HLSPL) used by
+Avispa~\cite{Avispa}, typed $\pi$-calculus as used by
+ProVerif~\cite{ProVerif} and CryptoVerif~\cite{CryptoVerif},
+Casper~\cite{Casper}, and Scyther Protocol Description Language
+(SPDL)~\cite{Scyther}. Each language is directly tied to a protocol
+verification tool, and each tool has its own strengths and weaknesses
+with respect to verifying different types of protocol; thus, the
+choice of tool for verifying a given protocol dictates the choice of
+language for specifying that protocol (or vice-versa), and it may be
+appropriate to use different tools for different protocols within the
+system.
 
 \subsection{Implementation Languages}
 
@@ -1023,33 +1112,146 @@ safe subset of C, specified with ACSL, and verified with various
 tools---but it is significantly more difficult to do so.
 
 The six implementation languages we currently recommend for rigorous
-software engineering are (in alphabetical order) C\#, Eiffel, Erlang,
-Haskell, Java, and SPARK.\todo{Is this list complete or did I forget
-  one? Does Erlang belong? I think it does, but it doesn't quite fit
-  the mold of the other languages in terms of verifiability. -dmz} No
-single implementation language is ideal for every project, and it is
-often appropriate to use multiple languages in the same project; for
-example, it would be reasonable to write the computational core of a
-voting system in a pure functional language like Haskell and the
-voter-facing user interface components in an object-oriented language
-like Java.
+software engineering are (in alphabetical order) C\# (excluding unsafe
+code), Eiffel, Erlang, Haskell, Java, and SPARK. \todo{Is this list
+  complete or did I forget one? Does Erlang belong? I think it does,
+  but it doesn't quite fit the mold of the other languages in terms of
+  verifiability. -dmz} No single implementation language is ideal for
+every project, and it is often appropriate to use multiple languages
+in the same project; for example, it would be reasonable to write the
+computational core of a voting system in a pure functional language
+like Haskell and the voter-facing user interface components in an
+object-oriented language like Java.
 
 \subsection{Static Analysis}
 
-(static analyzers such as OpenJML~\cite{OpenJML} for Java with
-JML~\cite{JMLReferenceManual} specifications and
-Frama-C~\cite{Frama-C} for C with ACSL~\cite{ACSL} specifications) 
+Static analysis tools process the system's source code to provide
+information about the system without executing the code.  There are
+many forms of static analysis, ranging from simple syntactic checks to
+full functional verification of source code specifications. The
+following set of recommendations is not exhaustive, and in particular
+does not discuss specific tools covering all the recommended types of
+static analysis for all the recommended programming languages; many
+useful static analysis tools that can be effectively deployed in a
+rigorous software engineering process are not mentioned here.
+
+At least one static analysis tool should be used to enforce some set
+of code style and formatting guidelines, so that the implementation's
+code base is consistently readable. Examples of tools that enforce
+such guidelines are Checkstyle~\cite{Checkstyle} for Java and
+StyleCop~\cite{StyleCop} for C\#. The style enforcement tool(s) should
+be run automatically and frequently, either within each developer's
+environment (for example, a Checkstyle plugin can run Checkstyle every
+time a file is saved in any of the commonly-used Java IDEs) or as part
+of the version control or continuous integration processes.
+
+Static analysis tools should also be used to detect ``code smells''
+and other problematic aspects of the implementation. The presence of
+significant amounts of duplicate code in multiple locations in the
+implementation and the excessive use of numeric literals that should
+be declared as symbolic constants are examples of code smells; other
+problematic aspects might (depending on the implementation language)
+include memory leaks, buffer overflows, and concurrency problems.
+Static analysis tools that can detect these issues include
+FindBugs~\cite{FindBugs} and PMD~\cite{PMD} for Java,
+ReSharper~\cite{ReSharper} for C\#, Eiffel
+Inspector~\cite{EiffelInspector}, and SPARK Pro~\cite{SPARKPro}.
+
+Finally, static analysis tools should be used to verify protocol
+specifications and source code specifications. As previously
+mentioned, the choice of tool for verifying protocol specifications is
+dictated by the choice of protocol specification language. Source code
+specifications can be verified with extended static checking tools,
+such as OpenJML~\cite{OpenJML} for Java with JML specifications,
+Frama-C~\cite{Frama-C} for C with ACSL specifications, and SPARK
+Pro. In addition, source code can be proven equivalent to a reference
+implementation or to a formal model using tools like the Software
+Analysis Workbench (SAW)~\cite{SAW}; this type of analysis is
+particularly useful when verifying the correctness of cryptographic
+algorithms, which are pervasive in E2E-VIV systems.
 
 \subsection{Dynamic Analysis}
 
-(runtime assertion checkers such as those built into
-Eiffel~\cite{Eiffel} and SPARK 2014~\cite{SPARK2014})
+Dynamic analysis tools monitor a running system to measure aspects of
+its operation and detect undesirable behavior. There are many
+different forms of dynamic analysis and many dynamic analysis tools;
+like the static analysis recommendations above, the following set of
+recommendations is not meant to be exhaustive.
+
+One important form of dynamic analysis that we strongly recommend
+using when possible is runtime assertion checking (RAC), previously
+mentioned in associated with model-based testing. RAC compiles runtime
+checks for specification conformance into the implementation, which
+ensures that any runtime violations of the source code specifications
+will be detected and reported. OpenJML for Java, Code Contracts for
+C\#, SPARK 2014, and Eiffel all support RAC compilation with their
+associated specification languages.
+
+Another form of dynamic analysis that can be useful is
+\emph{specification inference}. Tools like Daikon~\cite{Ernst2007},
+which works on Java and C\# programs, can infer likely specifications
+(particularly invariants) that may have been missed during the
+specification refinement process. If these inferred specifications are
+valid, and are added to the source code specifications, they can
+assist ESC tools in verification and provide additional runtime
+checks; in some cases, the additional specifications can allow ESC
+tools to verify parts of the implementation that they otherwise could
+not.
+
+\emph{Coverage analysis} is another useful form of dynamic analysis,
+particularly when used in conjunction with automated testing. Coverage
+analysis tools, such as EMMA~\cite{EMMA} for Java,
+OpenCover~\cite{OpenCover} for C\#, and
+GNATcoverage~\cite{GNATcoverage} for SPARK, can provide information
+about ``how much'' of the code was executed during a particular
+run. ``How much'' can be expressed using several different metrics,
+including \emph{statement coverage} (the percentage of the source
+statements actually executed), \emph{branch coverage} (the percentage
+of the program branches that were taken during the execution), and
+\emph{path coverage} (the percentage of possible execution paths that
+were taken during the execution). When used in conjunction with
+automated testing these coverage metrics can give a rough idea of test
+suite quality; for example, a test suite that does not exercise the
+entirety of the system by at least one metric is clearly not as good
+as a test suite that exercises the entirety of the system by all
+coverage metrics. 
+
+Dynamic analysis can also be used to detect issues related to memory
+(leaks, corruption), concurrency (deadlock, spinning, data races),
+resource allocation (unclosed sockets and files), and security (buffer
+overflows and other vulnerabilities). Some of these issues are already
+mitigated by the languages and other forms of analysis we
+recommend---for example, none of the languages we recommend allow
+programs to be vulnerable to buffer overflow attacks in the same way
+that C and C++ programs can be---but it is useful to run dynamic
+analysis tools to detect the ones that are not. There are too many
+such tools, of too many types, to list here.
+
+Finally, dynamic analysis can be used to \emph{profile} the executable
+code, monitoring it to determine which parts are executed most
+frequently and to find performance bottlenecks. This allows developers
+to gather empirical evidence for use in comparing multiple
+implementation choices (e.g., what data structure variant to use for a
+particular part of the system's data model), rather than blindly
+guessing at the consequences of implementation decisions. It can also
+help to direct optimization efforts when tuning the system for
+performance late in the development process. All the languages we
+recommend have associated profiling tools, many of which are
+integrated into their respective development environments.
 
 \subsection{Model Checking}
 
+
 \subsection{Constraint Solving}
 
+\todo{It's not clear to me that we really need a section on constraint
+  solving; it seems to be covered by static and dynamic analysis and
+  testing.}
+
 \subsection{Model-Based Synthesis}
+
+\todokiniry{I'm not really up-to-date on the tools for model-based
+  synthesis. -dmz} 
 
 \subsection{Version Control}
 
@@ -1100,6 +1302,46 @@ their user interfaces are generally less polished than those of the
 commercial options.
 
 \subsection{Testing}
+
+Testing is an integral part of the development process, and many
+different tools exist to automate the generation of unit tests and the
+execution of unit, regression and integration tests. In general we
+recommend that tests be run as often as possible, preferably both as
+part of a continuous integration process and by individual developers
+as they implement specific parts of the system. 
+
+The use of a test automation framework is essential. Many unit test
+automation frameworks take the same form, originated by the
+SUnit~\cite{SUnit} framework for Smalltalk in the late 1990s, and are
+typically referred to as \emph{xUnit} frameworks. Test cases are
+written in a special format, combined into test suites, and executed
+by a test execution program that gathers information about which tests
+pass, which tests fail, and how any test failures occur. This
+information is then presented to the developer in a textual or
+graphical format.  JUnit~\cite{JUnit} and TestNG~\cite{TestNG} for
+Java, NUnit~\cite{NUnit} for C\#, and HUnit-Plus~\cite{HUnit-Plus} for
+Haskell are examples of such frameworks. We strongly recommend the use
+of an xUnit framework for test automation, especially for complex
+scenario tests that cannot be automatically generated by other testing
+tools.
+
+Randomized testing tools, such as the original
+QuickCheck~\cite{QuickCheck} for Haskell and the many QuickCheck-like
+tools developed for other languages (most of which are named
+``QuickCheck for X'' or ``X-QuickCheck''), automatically generate
+random unit tests. Some of these tools are guided in their test data
+choices by performing constraint solving on existing source code
+specifications; others require manual guidance on the part of the
+developer. We recommend that random testing be used in most projects,
+especially for automatic generation of simple unit tests that would
+otherwise require significant developer effort.
+
+Since all systems implemented using rigorous software engineering
+techniques have at least some formal specifications, we recommend that
+some form of model-based testing be used. Several test frameworks use
+model-based testing techniques to automatically generate and run
+tests, including JMLUnitNG~\cite{ZimmermanNagmoti10} for Java/JML,
+AutoTest~\cite{AutoTest10} for Eiffel, and PEX~\cite{PEX08} for C\#.
 
 \subsection{Roots of Trust}
 
