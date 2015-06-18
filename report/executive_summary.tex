@@ -1,292 +1,158 @@
 \chapter{Executive Summary\ifdraft{ (Joe K./Susan) (0\%)}{}}
 \label{chapter:executive_summary}
 
-\begin{itemize}
-\item framing of project \& methodology
-\item who is involved
-\item who funded it
-\item goals and deliverables
-\item feasibility
-\item recommendation
-\item ``why now'' coupled to history
-\item why do existing systems suck
-\item ``how'' what is E2E-VIV (illustration)
-\item five key mandatory properties: end-to-secure, verifiability,
-  100\% accessible, high-assurance, transparent
-\item crypto framing
-\item architectural framing
-\item RSE framing
-\item conclusion and future phases
-\end{itemize}
+Internet voting was first proposed over thirty years ago. In the
+intervening years, a handful of companies and a twenty-odd governments
+have created Internet voting technology that has been used in
+thousands of elections to collect millions of votes all around the
+world except, until very recently, in the U.S.A.
 
-% [Susan here - this is my outline - I am visualizing the report in a
-% printed or online format]
+Every month, while one government experiments with a new computing
+technology into their elections, another decides that their last
+experiment was a failure and they shut down yet another very expensive
+failed IT project. All the while, a dedicated group of scientists and
+activists---hackers, cryptographers, cyber-security geeks, usability
+experts---have fought tooth-and-nail against the use of insecure
+voting systems around the world.
 
-% Thinking out loud about how to make this piece simple, powerful and
-% satisfying...  
+Their fight, and those governments' excitement, is particularly
+focused on Internet voting. After all, voter turnout is at a seventy
+year low, many millennials are politically disengaged, and voting
+equipment purchased with HAVA funds is falling apart and there is
+little state and federal funding to replace it. This is the a perfect
+storm for our democracy, and Internet voting seems to be the silver
+bullet.
 
-% Define the what and how: let’s make it completely unambiguous. With
-% an ILLUSTRATION.
+After all, the Internet permeates our lives. Smart phones. Social
+media. Online banking. Streaming music and
+movies. Google. Bitcoin. Online gaming. Why not voting?
 
-% Define the current challenge of IV - that is the basis and reason
-% for doing this project - (despite all the hacking, Snowden, Target,
-% IRS, Sony) Americans love a challenge - we want to find a way. This
-% search will never stop. It is the responsibility of the scientific
-% and election communities to team up, research and pursue a real
-% answer.
+Imagine a world where inexpensive elections have high participation
+rates by a well-informed, engaged public. Imagine elections where the
+disabled and abled have equal vote and equal opportunity. Imagine
+elections where corrupt electoral authorities or governments have no
+ability to manipulate the outcome. Imagine elections that truly
+capture the voice of the people and increase their confidence and
+trust in their government. Many imagine Internet voting as the
+solution that takes us to this democratic utopia.
 
-% What is the challenge in the context of Elections in the USA (PCEA,
-% modernization, OVR, coupled with lack of certification, diminished
-% funding, pressure on LEOs to act, wildly fragmented implementation
-% across 10K+ jurisdictions)
+Then imagine a world where millions have voted, we are about to
+tabulate a hundred million digital votes, and suddenly the electoral
+authority discovers intruders in their servers.
 
-% What’s the problem - I mean hey - we can bank online! Come on,
-% people!
+Or worse yet, imagine that exit polls show that the outcome is razor
+thin between candidates “Alice Democrat” and “Bob Republican”, those
+responsible for the election push the button to ask their election
+server who has won, and the machine says “Charlie Communist”' and
+hundreds of politicians, electoral officials, and reporters look at
+each other with wide-eyed disbelief.
 
-% So, what is the BFD of this report? I mean it! What has been
-% “discovered”. Give it to me straight!
+Today's Internet voting technology guarantees these kinds of horrific
+failures. Digital activists self-identifying as Anonymous with a
+grudge, Super PAC-contracted blackhat hackers, and enemy nation states
+will use their nearly unlimited resources to ensure such.
 
-% How will it affect our future of voting? Will we vote online and
-% when can we expect to? Come on, people - that is why I am reading
-% your Exec Summary!
+The only possible solution to this digital democratic dilemma is
+End-to-End Verifiable Internet Voting, or E2E-VIV for short. How to
+create an E2E-VIV for the American public is the focus of the report
+you hold in your hands.
 
-% What’s in the report, how is it organized and what part of it am I
-% interested to read?
+E2E-VIV systems hold the promise of secure, trustworthy
+elections. They do so by giving voters, elections officials, and the
+general public the ability to observe an election and determine that
+it is well-run, not manipulate, and has a trustworthy outcome. 
 
-% How is life on earth different now that we have this new report -
-% this new frame of reference. What might happen now that this
-% knowledge is released into the universe?
+E2E-VIV system provide these verifiability guarantees by permitting
+(1) voters to check that their vote was recorded correctly, (2) voters
+to check that their vote was included in the final tally, (3) election
+officials to determine if there was any election manipulation or
+errors and mitigate such, and (4) the general public to count the vote
+and double-check the announced outcome of the election. 
 
-% E2E-VIV Diagram - perhaps show it as a line, what is the beginning “End” and the final “End”.
-%    Voter Intent	 Distribute Ballots	       Record Votes as Cast	  Verify Vote Counted as Cast     Announce Results
-% E------||--------||---------||-----------||----------||---------||-----------------||-----------||---------||----E
-% 	Set Up Election	    Cast Votes as Intended	Count Votes as Recorded	 Allow Public to Verify
+Meanwhile, while providing all of these guarantees, voter privacy is
+preserved and vote selling and voter coercion are avoided and attempts
+at such can be detected. 
 
-% Starting over here - trying out my Super-Susan-Simple-Outline - a no
-% obligations trial!
-% 1. End-to-End Verifiable Internet Voting (E2E-VIV): let’s break this down...
-% what is End-to-End (E2E)?
-% what is Verifiability?
-% what is E2E-V when applied to an election?
-% what about putting the E2E-V election process onto the Internet to
-% create E2E-VIV?
-% what challenges are encountered - why, in simple terms is this hard?
+In other words, we maintain the security and privacy of today's
+paper-based elections, and yet increase the trustworthiness of our
+elections.
 
-% Q. What is End-to-End?
-% A. The term End-to-End (E2E) in the context of elections refers to the
-% entire process of voting starting with the voter’s intent through to
-% the announcement of the election results.
-% Q. What is Verifiability? 
-% Verifiability (V) is the ability to prove something, to show
-% evidence that allows you to confirm or substantiate a fact.
-% Q. What is End-to-End Verifiability when applied to an election? 
-% End-to-End Verifiability (E2E-V) in an election means you can check
-% that your vote was cast as you intended it, recorded as such and
-% counted correctly. It also means that anyone can check the outcome
-% of the election. In essence, E2E-V is considered a “property” of an
-% election.
-% Q. Is it beneficial to add E2E-V properties into Internet voting to
-% create E2E-VIV?
-% Adding E2E-V properties to an election conducted over the Internet
-% would bring in security assurances that are lacking in every
-% currently available Internet voting system. Elections are, however,
-% multifaceted and their implementation involves a diverse set of
-% challenges, security being top of the priority list, but closely
-% tied with several others.
-% Q. What, specifically, are the challenges in developing an E2E-VIV
-% System? 
-% At the same time that certain security challenges are positively
-% addressed with E2E-VIV, new challenges in other aspects of
-% elections, specifically, usability, privacy, authentication, 100%
-% accessibility, transparency and auditability [add total list] are
-% created. 
-% Q. Is it possible to overcome these challenges and define an E2E-VIV
-% System that we could build, make available to the public and openly
-% test? 
-% This question is at the heart of the End-to-End Verifiable Internet
-% Voting: Specification and Feasibility Assessment Study (E2E-VIV
-% Project) that was defined and undertaken by U.S. Vote Foundation
-% between September 2013 and July 2015. 
-% Q. End-to-End Verifiable Internet Voting: Specification and
-% Feasibility Assessment Study (E2E-VIV Project)
-% With support from The Democracy Fund, U.S. Vote Foundation (US Vote) was enabled to manage the project and recruit a diverse team of elections specialists including leading election officials, scientists and academics who had studied this topic for decades, usability, testing and auditing experts. In mid-2014, US Vote engaged Galois, Inc. to lead the technical project development. The Galois engineering team brought deep knowledge, skill and experience in the arena of high-assurance cryptographic science - the element at the core of the E2E challenge. In addition, Galois contributed to the project resources with development of key demonstration technology pieces for E2E-VIV.
-% The E2E-VIV Project team took on the challenge to examine these difficult election systems  and engineering challenges that we face with Internet voting and put forward a specification and feasibility assessment for how to move forward to begin developing and openly testing such systems. 
+While the promise of E2E-VIV is decades old, our ability to design and
+build such a system, especially in the face of enormous security
+threats, is only recently possible with recent advances in computer
+science and cyber-security.  High-assurance software engineering,
+software formal verification, formal computer-assisted verification of
+advanced cryptographic protocols and algorithms—none of these were
+practical, and some where not even possible, as recent as ten years
+ago.
 
-% The natural movement to modernize elections
+Internet voting must be not only end-to-end verifiable, but it must
+also be usable, accessible, and open source.  As such, this report
+contains over one hundred requirements that must be satisfied by any
+E2E-VIV system.
 
-% Elections have been conducted for millennia and are the cornerstone
-% of democracy, but the technologies used to cast and tally votes have
-% varied and evolved tremendously over that time.  Much of our
-% discourse now takes place online, and many have called for elections
-% to follow this trend and asked why they haven’t done so already.
- 
-% The E2E-VIV Research Report
+Security and usability are always at odds. Nearly all E2E-VIV
+protocols designed to date focus on security at the expense of
+usability.  Only recently have cryptographers started to consider
+usability as a primary requirement when designing new protocols.  It
+is a recognized serious challenge that an future work in this area
+must address.
 
-% In this E2E-VIV research report, we examine the future of voting
-% and how it might be executed securely online. Specifically, we
-% explore whether an end-to-end verifiable Internet voting (E2E-VIV)
-% election system can be built that would offer a viable and
-% responsible alternative to current systems aimed at support for the
-% overseas, military and disabled voter communities. The chief
-% deliverable is a System Speciﬁcation and Documentation for an
-% E2E-VIV Election System.
- 
-% I think this might be covered above. This project combines the
-% abilities, knowledge, experience, and expertise of a diverse group
-% of technologists, computer scientists, usability and auditing
-% specialists, and election ofﬁcials committed to election
-% integrity. The technical team, comprised of academic and scientific
-% specialists, has long term, proven experience in E2E-V technology,
-% cryptography, usability, and testing.
- 
-% % Findings and Recommendations Outcomes (frankly I would split these
-% into two separate sections. Let’s keep each section short.
+Software is only trusted by security professionals if its description,
+including all of its documentation and source code, is publicly
+peer-reviewed.  This does not, of course, mean that anyone can change
+the code.  It does mean that anyone can read and comment on it,
+improving its clarity, elegance, and correctness for the benefit of
+all.
 
-% The E2E-VIV Project team has determined that it is technically
-% feasible to design, develop and support an open source E2E-VIV
-% system. This report puts forth the following:
-% ·      A complete set of requirements for an E2E-VIV system.
-% Systems which fulfill these requirements and provide evidence of
-% such in an open transparent manner, which allows verification and
-% certification, may be considered as ian E2E- VIV system
-% ·      A collection of alternative architectures for E2E-VIV systems.
-% The precise solution architecture will depend upon the threats that
-% governments care to address
-% ·      A set of rigorous engineering methodologies, technologies,
-% and tools. These technologies are fundamental to building an E2E-VIV
-% system that is correct and secure.
-% ·      The security foundations of an E2E-VIV system
-% Lorem ipsum dolor site et.
-% ·      The need for  a comprehensive usability study.
-% The usability challenges that emerge with the introduction of new
-% voting processes that enable and guarantee the integrity of E2E-VIV
-% systems, remain formidable, yet we believe,
-% surmountable. Significantly higher-level UX design effort is needed
-% on actual prototype systems coupled with a comprehensive usability
-% study. An iterative process between the designers and usability
-% engineers will be required to adequately address the usability
-% challenges.  
-% ·      Phase II Research and Development.
-% The E2E-VIV Project team recommends continuation of this effort
-% through a Phase II R&D effort, which would include the development
-% of an E2E-VIV prototype, testing, user interface, usability and
-% accessibility refinements and testing, --( add some tech soup here -
-% the meaty stuff like crypto and rigorous engineering ….)
+This report contains the plan for executing on this difficult but
+worthwhile mission.  The cryptographic, architectural, and engineering
+foundations on which this edifice must be built are spelled out in
+this report.  How must cryptographic protocols be created, evaluated,
+and certified?  What kinds of architectures facilitate deploying the
+system for different sorts of electoral authorities, including
+considerations for their certification constraints, finances, and
+existing electoral processes.  What are the best practices in the
+design and development of mission-critical systems, as public
+elections are obviously nationally critical?
 
-% What is End-to-End Verifiable Internet Voting (E2E-VIV)
+The four key recommendations made in this report are:
+\begin{enumerate}
+\item Public elections should not be conducted over the Internet using
+  systems that are not end-to-end verifiable.
 
-% An end-to-end verifiable Internet voting system guarantees the
-% security of the ballot casting process, provides evidence of the
-% correctness of both the system and the election, and outputs results
-% that are verifiable by independent third parties.
+\item  End-to-end verifiable Internet voting systems should not be used
+  before end-to-end verifiable poll-site voting systems have been
+  widely-deployed and experience has been gained from their use.
 
-% End-to-End
+\item  E2E-VIV systems must be designed, constructed, verified, certified,
+  operated, and supported as high-assurance systems according to the
+  most rigorous engineering requirements of mission- and
+  safety-critical systems.
 
-% Verifiable
-% Internet Voting
+\item  E2E-VIV systems must be usable and accessible to the typical set of
+  abled and disabled voters.
+\end{enumerate}
 
-% A system designed to be secure from threats (for example, hackers,
-% insider attacks and administrative errors) from the beginning (the
-% voter’s intent) to the end of the voting process (the election
-% outcome).
+Living up to these recommendations, while fulfilling the requirements
+contained in this report, is an incredibly challenging, but is also an
+enormous opportunity to do good for the world.  America is known for
+tackling the most difficult problems, as well as for striving to help
+other democratic countries.  Moreover, America has most of the best
+minds and companies is the world that are capable of fulfilling this
+mission.
 
-% A system that allows independent third parties to check that [the
-% election is being properly conducted?] and that the outcome of the
-% election is correct. Current elections do this by …
+The future of End-to-End Verifiable Internet Voting is clear: we must
+move to a second phase of this project and tackle the recommendations
+head-on.  We must create a usable, secure, correct prototype E2E-VIV
+system that fulfills the requirements contained in this report so that
+electoral authorities countrywide can begin to experiment with
+Internet voting, first for their UOCAVA and disabled voters, and
+perhaps later, only after those experiments are an unmitigated
+success, for the general public.
 
-% A system that transmits voter choice over the Internet, by any
-% means, including any aspect of the voting process that is online,
-% for example , online voting, voting by phone over VoIP, equipment
-% that uploads precinct results to a central tally system, etc.
+Now is the time.  We must take this opportunity.  The alternative is a
+future where Internet voting is a reality, but we have no confidence
+in our elections or democracy.
 
-% How it Works: tell me the tough stuff in simple language
-
-% Characteristics / Requirements  of E2E VIV Systems
-% Do we want to say - ?
-% End-to-End Verifiability is considered a “property” of an election
-% system which comprises and an important set of capabilities.  An
-% E2E-VIV system:
-% ·      Permits voters to check that their votes are recorded
-% properly, without violating their privacy
-% ·      Permits voters to check that their votes are included in the
-% final tally  
-% ·      Permits anyone to check that all of the cast ballots have
-% been tallied correctly 
-
-% To be able to do this, it must have a set of
-% characteristics/functionalities? (I am holding “property” for the
-% overarching statement at the top - you may not agree…). A complete
-% set of required properties can be found in chapter 5. the most
-% important properties it must have are:
-
-% end-to-end secure, verifiable,
-% 100% accessible, high-assurance, transparent
- 
-% Why now?
-
-% Our election systems are in need of modernization and it is a
-% natural tendency for election administrators to consider all
-% possible technical solutions including online voting. It is the
-% responsibility of ….fill in - to offer guidance and  ...
-
-% Many IV implementations exist overseas, however we need our own
-% frame of reference in the US and for the US - one which takes into
-% account the seriousness of US national elections and structure of
-% our elections administration framework and structure
-
-% More and more of what we do is going online
-
-% The internet facilitates a lot of things
-
-% Election officials want the supposed benefits of an online system
-% for efficacy
-
-% There are no existing solutions exist that are deemed suitable by
-% experts in terms of security and robustness
-
-% In lieu of a good solution, people are using bad ones. Email, closed
-% source vendors, etc.
-
-% Recent developments in the field: STAR-Vote? Expert collaboration?
-% time is now
-
-% • feasibility
-% Designing an E2E VIV System
-%  • crypto framing
-%  • architectural framing 
-% • RSE framing
-% • other?
-%  
-% Recommendations
-
-% Callout: Why open source?
-
-% Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-% efficitur aliquet turpis, vitae eleifend lacus tempor at. Aliquam
-% tempor, ex in fermentum tempus, risus ipsum finibus ipsum, ac
-% gravida odio augue ut risus. In sollicitudin luctus leo ut
-% interdum. Aenean tincidunt gravida pharetra. Donec eu quam eget
-% mauris pretium mattis eget et est.
- 
-% Callout: Why is Internet voting so challenging?
-
-% If we can bank online, why can’t we vote online?
-% In banking, the bank... 
-% Knows who you are
-% Knows every transaction you make
-% Has a ledger on all transactions in the bank
-% The bank and the federal government insure loss
-
-% In elections... 
-% Voter identity and vote are private
-% No ledger of all transactions
-% No insurance if something goes wrong
- 
-%  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-%  efficitur aliquet turpis, vitae eleifend lacus tempor at. Aliquam
-%  tempor, ex in fermentum tempus, risus ipsum finibus ipsum, ac
-%  gravida odio augue ut risus.
-
-
- 
 
