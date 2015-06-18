@@ -1366,10 +1366,12 @@ otherwise require significant developer effort.
 
 Since all systems implemented using rigorous software engineering
 techniques have at least some formal specifications, we recommend that
-some form of model-based testing be used. Several test frameworks use
-model-based testing techniques to automatically generate and run
-tests, including JMLUnitNG~\cite{ZimmermanNagmoti10} for Java/JML,
-AutoTest~\cite{AutoTest10} for Eiffel, and PEX~\cite{PEX08} for C\#.
+some form of model-based testing be used if appropriate tools are
+available for the implementation and specification languages. Several
+test frameworks use model-based testing techniques to automatically
+generate and run tests, including JMLUnitNG~\cite{ZimmermanNagmoti10}
+for Java/JML, AutoTest~\cite{AutoTest10} for Eiffel, and
+PEX~\cite{PEX08} for C\#.
 
 \tododmz{Add a discussion of fuzzing, particularly security fuzzers
   like \url{http://lcamtuf.coredump.cx/afl/} and John's work at
