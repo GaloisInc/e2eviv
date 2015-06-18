@@ -1,28 +1,54 @@
 \chapter{Feasibility\ifdraft{ (\emph{Joe, David, et al.}) (25\%)}{}}
 \label{chapter:feasibility}
 
-\todokiniry{Introduction: frame entire report in terms of its coverage,
-  main thrusts, action items, etc.}
+In the first fifty-odd pages of this report, in Chapters 2 through 5,
+we laid out the motivation for, history of, and requirements on a
+remote voting system that both experts demand and the public will
+trust.  
 
-\todokiniry{Reflect upon what factors play into determining if taking a
-  next step on this work is feasible: technical aspects are security,
-  usability, operational, availability, and non-technical aspects are
-  law, politics, operational (from an LEO and SOS point-of-view), and
-  fiscal.}
+Then in Chapters 6 through 8 we described the necessary cryptographic,
+architecture, and engineering foundations, tools, and techniques
+necessary for designing and building a system that fulfills the
+criterion set out in Chapter 5's requirements.
 
-\todokiniry{Who determines feasibility?  What are the context in which
-  such an assessment must take place?  Who is/are the aligners and who
-  is the decider on a final determination?}
+But just because it seems \emph{possible} to design and develop such a
+system, does not mean that it is \emph{feasible} to do so.
+
+This chapter analyses the question of feasibility from several
+dimensions, some of which are \emph{technical} (correctness, security,
+usability, availability) and others \emph{non-technical} (law,
+politics, fiscal, research, development, operational, and
+business). After discussing each of these semi-orthogonal dimensions,
+we summarize with an integrated feasibility analysis, focusing on the
+question of ``Does it makes sense to practically tackle the problem of
+E2E-VIV at this time?''
+
+In what follows feasibility is determined by a principled examination
+of the current state-of-affairs based upon the peer-reviewed
+literature, extensive conversations with those responsible for
+elections, multi-year dialogs with election verification activists,
+and decades of experience in the design and development of secure
+high-assurance systems.
+
+The final determination of feasibility is not up to us, as authors of
+this report. This is a decision, for the most part, that must be made
+by those organizations with resources that can be brought to bear on
+this problem. The aligners with that decision---primarily the activist
+community and legislatures---while important, are not critical at this
+point in time, given the deployment velocity of unverifiable internet
+voting systems worldwide.
+
+%=====================================================================
+\section{Technical Feasibility Analysis}
+
+\todokiniry{If E2E-VIV is not technically feasible, then we are DOA.}
 
 \todokiniry{Briefly summarize the main outstanding research and
   engineering challenges, as those are what a phase 2 of this project
   focuses upon.  We have little control over what legislators and
   legislators, LEOs, and SOSs decide in the coming years.}
 
-%=====================================================================
-\section{Technical Feasibility Analysis}
-
-\todokiniry{If E2E-VIV is not technically feasible, then we are DOA.}
+\subsection{Correctness}
 
 \subsection{Security}
 
@@ -121,14 +147,6 @@ voting, challenging, or auditing correctly?
   highwater.  How does phase 2 and 3 look given that vendors are
   selling product and that politicians do not care about nuances?}
 
-\subsection{Operational}
-
-\todokiniry{Pay attention particularly to LEO considerations.  They want
-  a product that is double-click deployable, integrates with their
-  existing EMSs, and is easy and cheap to maintain and deploy,
-  primarily through a set of competitive companies that provides
-  various SLAs.}
-
 \subsection{Fiscal}
 
 \todokiniry{Reflect upon the cost of previous experiements in developing
@@ -158,6 +176,14 @@ voting, challenging, or auditing correctly?
 \todokiniry{How feasible is integration with local election systems and
   processes, especially given how many jursidictions have rolled their
   own EMSs?}
+
+\subsection{Business}
+
+\todokiniry{Pay attention particularly to LEO considerations.  They want
+  a product that is double-click deployable, integrates with their
+  existing EMSs, and is easy and cheap to maintain and deploy,
+  primarily through a set of competitive companies that provides
+  various SLAs.}
 
 %=====================================================================
 \section{Integrated Feasibility Analysis}
