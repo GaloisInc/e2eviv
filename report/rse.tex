@@ -968,12 +968,9 @@ possibly surprising ways.
 
 \subsection{Domain Modeling}
 
-\todokiniry{Some mention of RAISE, VDM, Z, and B are necessary.}
-
 For domain modeling, we recommend the Business Object Notation
 (BON)~\cite{walden1995seamless} and Extended Business Object Notation
-(EBON)~\todokiniry{should we have a reference for EBON? if so, which
-  one?}. BON is both a language and a design/refinement method
+(EBON. BON is both a language and a design/refinement method
 encompassing informal domain analysis and modeling, formal modeling,
 and implementation-independent high- and medium-level
 specification. BON has a well-defined semantics, is easy to learn and
@@ -987,18 +984,18 @@ specification and implementation languages. EBON adds additional
 relating to domains such as concurrency, ownership, responsibility,
 bug tracking, literate programming, and version control.
 
-We recommend BON over the Unified Modeling Language (UML), which has
-seen much wider use in the software industry, for several
+We recommend BON over the Unified Modeling Language (UML), the de
+facto standard for modeling in the software industry, for several
 reasons. First, BON's equivalently expressive textual and graphical
 notations are easy to work with and manipulate. UML supports only a
 graphical notation, though there is also an unsupported official
 ``Human-Usable Textual Notation''~\cite{HUTN}; it was last updated in
 2004, reflects only the version of UML that was current at the time,
-and is not as expressive as the graphical notation. Currently, there
-are at least a dozen different and mutually-incompatible textual UML
-dialects supported by various tools, none of which are as expressive
-as the UML graphical notation and most of which have significant
-readability issues.
+and is not as expressive as the graphical notation. Tool support
+currently exists for at least a dozen different and
+mutually-incompatible textual UML dialects, none of which are as
+expressive as the UML graphical notation and most of which have
+significant readability issues.
 
 Second, BON's semantics are an integral part of the language and
 method and are easily understandable. By comparison, UML effectively
@@ -1006,13 +1003,13 @@ has no semantics; the Object Constraint Language (OCL)---the
 specification language typically associated with UML models---is a
 very complex expression language, and is not an integral part of UML.
 
-Third, BON was explicitly designed to support \emph{seamlessness} and
-\emph{reversibility}. Seamlessness is the property that allows a BON
-model to be smoothly (and, in many cases, completely automatically)
-refined to lower-level specification languages, and further to
-executable implementations. Reversibility is the property that allows
-consistency to be maintained between the BON model, which is an
-important part of the system documentation, and the resulting
+Third, BON explicitly supports (and encourages) \emph{seamlessness}
+and \emph{reversibility}. Seamlessness is the property that allows a
+BON model to be smoothly (and, in many cases, completely
+automatically) refined to lower-level specification languages, and
+further to executable implementations. Reversibility is the property
+that allows consistency to be maintained between the BON model, which
+is an important part of the system documentation, and the resulting
 implementation---when the implementation is changed, that change can
 be (again, often completely automatically) propagated back up to the
 BON model. Seamlessness and reversibility are both useful properties
@@ -1035,6 +1032,14 @@ filled arrowhead) as compared to UML's proliferation of arrow types
 (solid and dashed lines, filled and empty arrowheads, diamonds, and
 circles, and additional connection markings). 
 
+While we recommend BON based on our own experience, it is not the only
+reasonable choice for domain analysis in a rigorous software
+engineering context. The Vienna Development Method (VDM)~\cite{VDM},
+Z~\cite{Zed}, the B Method~\cite{BMethod}, and the Rigorous Approach
+to Industrial Software Engineering (RAISE)~\cite{RAISE} are all
+well-established domain analysis methods with textual representations,
+well-defined semantics, and tool support.
+
 \subsection{Specification Languages}
 
 In addition to its use for domain and architecture modeling, BON can
@@ -1049,13 +1054,10 @@ languages for formalizing interactions within the system.
 UML is the most commonly used tool for architecture specification, but
 is not well suited to rigorous software engineering because it lacks
 semantics. We recommend using BON for high-level architecture
-specification and a formal architecture specification language with
-strong semantics, such as the SAE Architecture Analysis and Design
-Language (AADL)~\cite{AADL}, for low-level architecture
-specification. \todokiniry{Reasonable?  Other architecture
-  specification languages?}
-
-\tododmz{Mention of SysML is appropriate here.}
+specification and a dedicated architecture specification language,
+such as the SAE Architecture Analysis and Design Language
+(AADL)~\cite{AADL} or the OMG Systems Modeling Language
+(SysML)~\cite{SysML}, for low-level architecture specification.
 
 Programming languages for which there is an obvious best choice of
 source code specification language include Java
@@ -1087,21 +1089,19 @@ languages. These can be used effectively, either by themselves or
 alongside other specification languages, in a rigorous software
 engineering process. 
 
-\tododmz{Must add mention of EasyCrypt.}
-
 Finally, any of several protocol specification languages can be used
 to specify the interaction protocols within the system. These include
 the High-Level Protocol Specification Language (HLSPL) used by
 Avispa~\cite{Avispa}, typed $\pi$-calculus as used by
 ProVerif~\cite{ProVerif} and CryptoVerif~\cite{CryptoVerif},
-Casper~\cite{Casper}, and Scyther Protocol Description Language
-(SPDL)~\cite{Scyther}. Each language is directly tied to a protocol
-verification tool, and each tool has its own strengths and weaknesses
-with respect to verifying different types of protocol; thus, the
-choice of tool for verifying a given protocol dictates the choice of
-language for specifying that protocol (or vice-versa), and it may be
-appropriate to use different tools for different protocols within the
-system.
+Casper~\cite{Casper}, EasyCrypt~\cite{EasyCrypt}, and Scyther Protocol
+Description Language (SPDL)~\cite{Scyther}. Each language is directly
+tied to a protocol verification tool, and each tool has its own
+strengths and weaknesses with respect to verifying different types of
+protocol; thus, the choice of tool for verifying a given protocol
+dictates the choice of language for specifying that protocol (or
+vice-versa), and it may be appropriate to use different tools for
+different protocols within the system.
 
 \subsection{Implementation Languages}
 
@@ -1135,18 +1135,16 @@ tools---but it is significantly more difficult to do so.
 
 The nine implementation languages we currently recommend for rigorous
 software engineering are (in alphabetical order) C (in a safe subset
-such as $C_{0}$~\cite{C0} or that which VST~\cite{VST} can reason
-about), C\# (excluding unsafe code), Eiffel, Erlang,
-Gallina~\cite{Gallina}, Haskell~\cite{Haskell}, Java,
-OCaml~\cite{OCaml}, and SPARK. \todo{Is this list complete or did I
-  forget one? Does Erlang belong? I think it does, but it doesn't
-  quite fit the mold of the other languages in terms of
-  verifiability. -dmz} No single implementation language is ideal for
-every project, and it is often appropriate to use multiple languages
-in the same project; for example, it would be reasonable to write the
-computational core of a voting system in a pure functional language
-like Haskell and the voter-facing user interface components in an
-object-oriented language like Java.
+such as C$_{0}$~\cite{C0} or the C dialect supported by the Verified
+Software Toolchain~\cite{VST}), C\# (excluding unsafe code), Eiffel,
+Erlang, Gallina (the executable specification language for the Coq
+proof assistant~\cite{Coq}), Haskell, Java, OCaml, and SPARK. No
+single implementation language is ideal for every project, and it is
+often appropriate to use multiple languages in the same project; for
+example, it would be reasonable to write the computational core of a
+voting system in a pure functional language like Haskell and the
+voter-facing user interface components in an object-oriented language
+like Java.
 
 \subsection{Static Analysis}
 
@@ -1268,13 +1266,6 @@ integrated into their respective development environments.
 
 \tododmz{Alloy, PVS, SPIN, UPPAAL}
 
-\subsection{Constraint Solving}
-
-\todo{It's not clear to me that we really need a section on constraint
-  solving; it seems to be covered by static and dynamic analysis and
-  testing.}
-\todo{Agreed. Kill it.}
-
 \subsection{Model-Based Synthesis}
 
 \todokiniry{I'm not really up-to-date on the tools for model-based
@@ -1379,8 +1370,25 @@ PEX~\cite{PEX08} for C\#.
 
 \subsection{Roots of Trust}
 
-\tododmz{Get a paragraph or two from Adam Wick or Dave Lamkins about
-  this topic.}
+All computing systems are built with multiple layers of abstraction;
+the bottom layer is the hardware on which the system runs, followed by
+the firmware, the operating system (which may itself have multiple
+layers), and finally the applications. In general, higher layers of
+the system must trust that lower layers are not malicious and are
+performing according to their specifications. The \emph{roots of
+  trust} in a computing system are the hardware and software
+components of the system that are inherently trusted. 
+
+For example, in current general-purpose computers, the boot
+firmware---the first code that executes when the machine is powered
+on---is a root of trust. If the boot firmware is secure, the system
+can use it to ``bootstrap'' trust; for example, the system can use
+trusted cryptographic functions to verify the integrity of software
+modules before loading them. However, if the boot firmware is
+compromised in some way, it can inject malicious software into any
+code that it loads, and no other part of the system can be trusted.
+
+\tododmz{further explanation here}
 
 \section{Evidence-based Elections Technology}
 
