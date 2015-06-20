@@ -493,8 +493,8 @@ testing should be used in combination on every project.
 
 \subsubsection{Unit Testing}
 
-Unit testing exercises the smallest components (the ``units'') of a
-program that are feasible to test. The granularity of unit tests
+\emph{Unit testing} exercises the smallest components (the ``units'')
+of a program that are feasible to test. The granularity of unit tests
 varies by programming language, but typically unit tests are small
 enough to test the implementation within a single module, class, or
 other per-file abstraction.
@@ -526,12 +526,12 @@ potential inputs to a program. When test cases can be generated
 randomly, it is much cheaper to produce a large number of test cases
 that can explore a larger fraction of potential inputs.
 
-With randomized testing, developers specify a means for generating the
-inputs to a test, and provide a function or ``oracle'' for evaluating
-whether the test succeeded with those inputs. These test generators
-can more closely mirror specifications than tests that use concrete
-values, as they can instead make assertions about all possible
-values.
+With \emph{randomized testing}, developers specify a means for
+generating the inputs to a test, and provide a function or ``oracle''
+for evaluating whether the test succeeded with those inputs. These
+test generators can more closely mirror specifications than tests that
+use concrete values, as they can instead make assertions about all
+possible values.
 
 For example, a unit test for an addition implementation might by hand
 assert that $0+0=0$, $1+0=1$, and $2^{32}+0=2^{32}$, but a random test
@@ -557,15 +557,15 @@ used are primarily other C compilers.
 
 Randomized testing is difficult for programs with complex input types
 and no readily-available oracles. However, a closely related technique
-called fuzz testing is useful for such programs. A fuzz testing tool
-generates random input, perhaps guided by initial suggestions; it then
-passes that input to the program under test and observes the
+called \emph{fuzz testing} is useful for such programs. A fuzz testing
+tool generates random input, perhaps guided by initial suggestions; it
+then passes that input to the program under test and observes the
 result. If the program crashes or violates any of its internal
 assertions, the fuzz tester reports the result and the input that
 caused it. If the program runs successfully, the fuzz tester tries
 another random input. This process is repeated continuously until it
 is stopped or, in some cases, until the fuzz tester determines that it
-has fully exercised the program. 
+has fully exercised the program.
 
 Fuzz testers use a variety of techniques to generate their test input,
 including pure randomness, genetic algorithms (mutating previous
@@ -578,9 +578,10 @@ proprietary.
 
 \subsubsection{Model-Based Testing}
 
-Another method for automatically generating test cases is model-based
-testing, where formal models of the program's behavior can be used as
-test oracles, as guides for choosing test data, or both.
+Another method for automatically generating test cases is
+\emph{model-based testing}, where formal models of the program's
+behavior can be used as test oracles, as guides for choosing test
+data, or both.
 
 Formal models of program behavior can be used as test oracles by
 compiling them into the software as \emph{runtime assertion
@@ -631,37 +632,38 @@ coverage using a minimal set of test cases.
 \subsubsection{Regression Testing}
 
 In addition to unit and integration tests written to reflect the
-specifications of a system, new tests should be added whenever a flaw
-is uncovered and fixed. Flaws tend to recur in software for a variety
-of reasons. The existence of the initial flaw implies that there is
-some subtlety to that particular code, raising the baseline likelihood
-of flaws. The fix applied to the code may have only fixed the flaw
-under the limited set of conditions that were observed at the time,
-for example in a bug report. The fix may also have depended on
-assumptions about code elsewhere in the project, and the flaw can
-recur once those assumptions change.
+specifications of a system, new tests should be added whenever a
+defect is uncovered and fixed. Defects tend to recur in software for a
+variety of reasons. The existence of the initial defect may imply that
+there is some subtlety to that particular code, raising the baseline
+likelihood of defects. The fix applied to the code may have only fixed
+the defect under the limited set of conditions that were observed at
+the time, for example in a bug report. The fix may also have depended
+on assumptions about code elsewhere in the project, and the defect
+might recur once those assumptions change.
 
-Running a regression test for every flaw in the project's history
-assures us that those flaws are not present in the current software
-artifacts, but for a long project, the weight of that history can make
-the regression suite unfeasibly large. Many longer-term projects
-therefore split their regression tests into multiple suites: a small,
-quick suite to run before each code commit, a larger suite to run
-every night, and sometimes a full suite that runs over weekends or
-before major project milestones. Since a goal of testing is to uncover
-flaws as quickly as possible, running tests less frequently is a
-tradeoff, and prioritizing and minimizing the cost of testing is an
-area of active research~\cite{yoo2012regression}.
+Running a \emph{regression test} for every defect in the project's
+history assures us that those defects are not present in the current
+software artifacts. However, for a long project, the weight of that
+history can make the regression suite unfeasibly large. Many
+longer-term projects therefore split their regression tests into
+multiple suites: a small, quick suite to run before each code commit,
+a larger suite to run every night, and sometimes a full suite that
+runs over weekends or before major project milestones. Since a goal of
+testing is to uncover defects as quickly as possible, running tests
+less frequently is a tradeoff, and prioritizing and minimizing the
+cost of testing is an area of active
+research~\cite{yoo2012regression}.
 
 \subsubsection{Integration Testing}
 
-While unit testing and regression testing detects flaws on a
-per-module granularity, integration testing detects flaws in the
-system as a whole. This type of testing can expose flaws in the way
-multiple modules interact, measure performance of the integrated
-system, reveal environmental (e.g., configuration, operating system,
-network) dependencies, and simulate the end-to-end experience of the
-system's users.
+While unit testing and regression testing find defects in individual
+modules, \emph{integration testing} finds defects in the system as a
+whole. This type of testing can expose flaws in the way multiple
+modules interact, measure performance of the integrated system, reveal
+environmental (e.g., configuration, operating system, network)
+dependencies, and simulate the overall experience of the system's
+users.
 
 The most basic integration test is simply to check that the complete
 system can be successfully built. Once built, integration tests
@@ -671,37 +673,34 @@ the system and checking for expected outcomes. In this sense,
 integration tests are frequently the first line of validation applied
 to a system.
 
-For example, one integration test might load a ballot, make
-selections, change selections, and then cast the ballot. Another
-integration test might follow the same steps, but then spoil the
-ballot and repeat with a new ballot. While each of these individual
-steps might concern only a single module, the combination of steps
-helps expose potential problems with modules interacting, for example
-if a ballot successfully loads but fails to allow the ballot to be
-marked correctly.
+For example, in an E2E-VIV system, one integration test might load a
+ballot, make selections, change selections, and then cast the
+ballot. Another integration test might follow the same steps, but then
+spoil the ballot and repeat with a new ballot. While each of these
+individual steps might concern only a single module, the combination
+of steps helps expose potential problems with module interactions.
 
-In addition to simulating end-to-end functionality, integration tests
-also test the suitability of the software in its intended
+In addition to simulating overall functionality, integration tests
+test the suitability of the software in its intended operating
 environments. This is critical for systems that are intended to work
 with multiple operating systems, with or without a network, or with
 specialized hardware peripherals like a ballot marking device. Making
 the environmental assumptions explicit in integration tests also helps
-prevent flaws from arising due to unstated assumptions. For example, a
-developer using the latest version of Linux may inadvertently write
-software that depends on that version of Linux and fails when run on
-the version of Linux used in the deployed environment. It is
-counterproductive and often infeasible for developers to use the
-deployed environment (it may not even be a general-purpose computer),
-and so the integration tests must accurately recreate that
+prevent defects from arising due to unstated assumptions. For example,
+a developer may inadvertently write software that depends on features
+that are unavailable in the deployed environment. It is
+counterproductive and often infeasible to develop in the deployed
+environment, which may not even be capable of running development
+tools; therefore, the integration tests must accurately recreate that
 environment.
 
 \subsection{Version Control}
 
-Version control systems (VCS) manage changes between the versions of a
-project as it evolves during the course of development. Revision
-control is the preferred way to share software artifacts across a
-team, but all software projects, even those developed by teams as
-small as one person should use VCS.
+A \emph{version control system} (VCS) manages changes between the
+versions of a project as it evolves during the course of
+development. Revision control is the preferred way to share software
+artifacts across a team, but all software projects, even those
+developed by teams as small as one person should use a VCS.
 
 In general, a developer uses the VCS first to ``check out'' the files
 comprising a project into her ``working copy''. Then, after making
@@ -717,27 +716,27 @@ concurrently on a single project, and is the reason that file sharing
 tools like Dropbox or Google Drive are an inadequate substitute for a
 VCS.
 
-VCS is particularly important for projects, such as critical systems,
-where the development process must be auditable. An entry to a project
-log is created every time a developer commits their work. Any file in
-the project can be inspected to show its provenance, even down to the
-level of which line was committed by which developer on what
-date. Some VCS tools also allow for commits to be cryptographically
-signed, offering assurance that, for example, the changes have been
-audited by a trusted authority before being integrated into the
-project~\cite{chacon2014pro}.
+Version control is particularly important for projects, such as
+critical systems, where the development process must be auditable. An
+entry to a project log is created every time a developer commits their
+work. Any file in the project can be inspected to show its provenance,
+even down to the level of which line was committed by which developer
+on what date. Some VCS tools also allow for commits to be
+cryptographically signed, offering assurance that, for example, the
+changes have been audited by a trusted authority before being
+integrated into the project~\cite{chacon2014pro}.
 
-Moving from simple file storage to VCS is a tremendous improvement for
-development, but poor use of VCS can negate many of the potential
-benefits. For example, the log built from the commits of developers is
-of less use to auditors if the changes in each commit are not clearly
-associated with a particular new feature or bug fix. Likewise, if
-developers commit changes that cause the system to function
-incorrectly, other developers' productivity suffers and it becomes
-more difficult later to isolate the commit that introduced a bug. Each
-VCS supports multiple workflow practices that should be adopted in
-order to limit these problems and get the most benefit from VCS
-use~\cite{atlassianworkflow,pilato2008version}.
+Moving from simple file storage to a VCS is a tremendous improvement
+for development, but poor use of a VCS can negate many of the
+potential benefits. For example, the log built from the commits of
+developers is of less use to auditors if the changes in each commit
+are not clearly associated with a particular new feature or bug
+fix. Likewise, if developers commit changes that cause the system to
+function incorrectly, other developers' productivity suffers and it
+becomes more difficult later to isolate the commit that introduced a
+bug. Each VCS supports multiple workflow practices that should be
+adopted in order to limit these problems and get the most benefit from
+VCS use~\cite{atlassianworkflow,pilato2008version}.
 
 \subsection{Continuous Integration}
 
@@ -749,11 +748,11 @@ single defect can have consequences that ripple outward across the
 entire project, making the fix much more expensive. The cheapest way
 to fix a defect, then, is to discover it as quickly as possible.
 
-Continuous integration (CI) facilitates this by discovering defects as
-part of a regular, automatic process that is not dependent on due
-diligence of individual developers. CI interleaves the quality control
-process into the development process, rather than leaving it as a
-separate phase for the end of a project after development has
+\emph{Continuous integration} (CI) facilitates this by discovering
+defects as part of a regular, automatic process that is not dependent
+on due diligence of individual developers. CI interleaves the quality
+control process into the development process, rather than leaving it
+as a separate phase for the end of a project after development has
 finished.
 
 CI tools automatically build and test the latest version of the
@@ -780,75 +779,72 @@ testing.
 \subsection{Issue Tracking}
 
 During much of the software development and maintenance process, teams
-add features and fix bugs. In an issue tracking system, each new
-feature, each reported bug, and other discrete development tasks are
-tracked as issues from creation to implementation, review, testing,
-and integration. Issues can be organized by metadata such as assignee,
-project milestone, priority, and task type. Issue trackers are
-essentially to-do lists with additional structure that is specialized
-to support effective software engineering.
+add features and fix bugs. An issue tracking system maintains records
+about each new feature, each reported bug, and other discrete
+development tasks from their creation to their implementation, review,
+testing, and integration. Issues can be organized by metadata such as
+assignee, project milestone, priority, and task type. Issue trackers
+are essentially to-do lists with additional structure, specialized to
+support effective software engineering.
 
-These issues and their metadata give team members a view into the
-status and health of the project, and facilitates the implementation
-of project management methodologies \todoacf{reference management
-  section}. For example, the issue tracker may automatically require a
-code review step before an issue can be resolved. Issue trackers help
-teams make fewer mistakes when following best-practice software
-engineering workflows.
+These issues and their metadata give team members an overview of the
+status and health of the project. For example, the issue tracker may
+automatically require a code review step before an issue can be
+resolved. Issue trackers help teams make fewer mistakes when following
+best-practice software engineering workflows.
 
 Team members can annotate issues with comments or attach supplementary
 documents, creating a record of design decisions and thought
 processes. This information is invaluable when investigating future
 bugs or making subsequent changes to a design, and is often lost when
-such discussions take place out-of-band and lose their association
-with the task that motivated them.
+such discussions take place out-of-band and lose their associations
+with the tasks that motivated them.
 
 Most issue trackers integrate with VCS in order to associate issues
-with the source code changes that were made in order to complete those
-tasks. When combined with the design discussions captured in issue
-comments and attachments, this further enhances the ability of the
-team to reliably understand and maintain the project in the future.
+with source code changes. Combined with the design discussions
+captured in issue comments and attachments, this enhances the ability
+of the team to understand and maintain the project in the future.
 
-Issue trackers not only benefit the project team, but also often serve
-as a first line of contact for users of a system when they encounter
-problems. In projects with short timelines like election systems, it
-is critical to incorporate feedback into development as quickly as
-possible. Giving users or front-line support staff the power to create
-issues directly makes the feedback loop very small.
+When issue trackers are public they can also serve as a first point of
+contact for users, providing insight into the evolution of the system
+and a well-defined process for reporting system issues. In projects
+with short development timelines, it is critical to incorporate
+feedback into development as quickly as possible. Giving users or
+front-line support staff the power to create issues directly makes the
+feedback loop very small.
 
-Keeping a public issue tracker reduces duplicated effort across both
-users and developers. If a system has a flaw, that flaw will likely
-become apparent to multiple users, and duplicate reports are less
-likely if users can check the issue tracker for other reports of
-similar problems. The development team can then coordinate an
-effective response to problems. The team can triage issues by
-importance and urgency, discuss potential solutions, assign developers
-to implement those solutions, and finally make sure the problem is
-resolved and notify the users who originally reported the problem.
+Public issue trackers also reduce duplicated effort by both users and
+developers. If a system has a problem, that problem will likely become
+apparent to multiple users; duplicate reports are less likely if users
+can check the issue tracker for other reports of similar problems. The
+development team can then triage issues by importance and urgency,
+discuss potential solutions, assign developers to implement those
+solutions, and finally make sure the problems are resolved and notify
+the users who originally reported the problems.
 
 \subsection{Code Review}
 
 Code review practices involve examining the results of the software
-development process to find flaws, identify potential improvements,
+development process to find defects, identify potential improvements,
 and increase understanding of the software throughout the engineering
 team. Reviews are also an opportunity to ensure that organizational
-code style standards are met, and that the code and its documentation
-is clear enough that it can be effectively communicated to others
-during the review. This process, like discovering flaws during
-testing and investigating issue reports, feeds back into an interative
-development process to improve the quality of the final product.
+code style standards are met and that the code and its documentation
+are easily understandable. This process, like discovering defects
+during testing and investigating issue reports, feeds back into an
+interative development process to improve the quality of the final
+product.
 
 Code review can be a manual process at varying levels of rigor. On the
 formal end, processes like Fagan inspection require a line-by-line
-inspection by many developers in an extended meeting, and catch a high
-percentage of flaws~\cite{fagan2002design}. On lightweight end, code
-review inherently occurs during pair programming, and can take place
-informally via a developer-led walkthrough or simply an email to
+inspection by many developers in an extended meeting and catch a high
+percentage of defects~\cite{fagan2002design}. On the lightweight end,
+code review occurs implicitly during pair programming and can take
+place informally via a developer-led walkthrough or an email to
 colleagues requesting feedback. Formal inspections are more costly
 than informal reviews, but may be more suitable for projects that
 require concrete audit trails for accountability. Lightweight methods,
-particularly pair programming, can find similar proportions of flaws
-for lower cost~\cite{tomayko2002comparison} and has other knock-on
+particularly pair programming, can find similar proportions of defects
+for lower cost~\cite{tomayko2002comparison} and have other positive
 effects such as higher developer job satisfaction and improved team
 dynamics~\cite{cockburn2000costs}.
 
@@ -858,52 +854,50 @@ avoid common coding mistakes and adhere to organizational style
 standards. Very lightweight static tools can be run by individual
 developers before committing their work to the VCS, and longer-running
 analyses can be part of the continuous integration and testing
-process. Such analyses are not substitutes for formal verification,
-however, as they typically are meant to discover small-scale defects
-and help developers avoid common pitfalls rather than proving overall
-properties about the correctness of a system.
+process. Such analyses are not substitutes for formal verification or
+testing, however, as they typically are meant to discover small-scale
+defects and help developers avoid common pitfalls rather than to
+validate overall properties about the correctness of a system.
 
 \subsection{Release Management and Lifecycle}
 
-Release management is the process through which software moves from
-implementation through testing, validation, and verification into a
-finished product that can be used in its intended environment. Release
-management is primarily focused on the smooth integration of the
-different aspects of the project, and on adhering to practices that
-make releases repeatable, reliable, and auditable.
+\emph{Release management} is the transformation of a set of software
+artifacts into a finished product that can be used in its intended
+environment. Release management is primarily focused on the smooth
+integration of the different aspects of the project and on adhering to
+practices that make releases repeatable, reliable, and auditable.
 
 Release management and VCS workflows are tightly connected. For
-example, release managent would be responsible for creating a new
-release branch in the Git Flow model~\cite{atlassianworkflow},
-imposing a feature freeze (no new features, only bug fixes) on that
-branch, and eventually tagging that branch upon release and merging it
-back into the main development branch.
+example, in the Git Flow model~\cite{atlassianworkflow}, release
+management would include creating a new release branch, imposing a
+feature freeze (no new features, only bug fixes) on that branch, and
+eventually tagging that branch upon release and merging it back into
+the main development branch.
 
 For a project that delivers software as a service on a web server,
-release management would be responsible for deploying the software to
-production servers. For software delivered as a binary download or CD,
-release management would be responsible for cryptographically signing
-and distributing the binary. In both of these cases, the release
-manager serves as the final line of quality assurance before the
-software is used in its intended environment, and so she must be
-fluent enough with all aspects of the project and its processes to
-release software only once the processes have been faithfully
-executed.
+release management would include deploying the software to production
+servers. For software delivered as a binary download or CD, release
+management would include cryptographically signing and distributing
+the binary. In both of these cases, a release manager serves as the
+final line of quality assurance before the software is used in its
+intended environment, and must be fluent enough with all aspects of
+the project and its processes to release software only once the
+processes have been faithfully executed.
 
 \subsection{Testable Documentation}
 
 Documentation of the design, implementation, and use of a software
 system is a standard requirement in software engineering
-methodologies. However when a system is under development and rapidly
+methodologies. However, when a system is under development and rapidly
 changing, documentation can lag behind and fall out of step with the
 latest version of the software, leading to errors and confusion.
 
 Where possible, documentation should be machine-testable (or even
 machine-generated) and integrated with the VCS rather than being a set
-of static resources maintained independently of the software
-itself. Much as testing gives the advantage of early software flaw
-detection, testable and generated documentation is less likely to
-become inconsistent with the software it describes.
+of static resources maintained independently of the software. Testable
+and generated documentation is far less likely to become inconsistent with
+the software it describes, because any such inconsistencies will be
+detected during testing.
 
 The form of testable documentation varies depending on the granularity
 of the documentation and the underlying technologies used by the
@@ -935,22 +929,22 @@ ValueError: n must be >= 0
 """
 \end{lstlisting}
 
-These executable tests should supplement, not replace, traditional
-prose documentation. Since they amount to a form of unit test, they
-suffer from the same limitations. They usually only exercise a handful
-of concrete values, and cannot test non-functional properties like
-expected performance or thread safety.
+Executable tests should supplement, not replace, traditional prose
+documentation. Since they are essentially a form of unit test, they
+suffer from the same limitations. They typically only exercise a
+handful of concrete values, and cannot test non-functional properties
+like expected performance or thread safety.
 
 \subsection{Reproducibility and Automation}
 
 A team can implement many of the techniques in this section
 manually. Tests can be run by hand on developers' machines, code can
-be sent out for review by email, issues can be tracked in mailing list
-posts, and a release manager can build and package release artifacts
-by hand for each supported platform. Each time a step in a process
-must be manually performed, the probability of human error increases,
-and reproducing steps for later quality assurance and troubleshooting
-becomes harder.
+be sent out for review by email, issues can be tracked on a mailing
+list, and a release manager can build and package release artifacts by
+hand for each supported platform. However, each time a step in a
+process must be manually performed, the probability of human error
+increases and reproducing steps for later quality assurance and
+troubleshooting becomes harder.
 
 A manual operator might skip a step or perform a step out of order,
 for example running the test suite before integrating the latest
@@ -962,30 +956,30 @@ longer than automated execution.
 
 To prevent errors, improve reproducibility, and make development more
 efficient, processes should be automated as much as possible. The
-methodologies described in this section all support automation and
+techniques described in this section all support automation and
 reproducibility or can themselves be automated to a degree, but some
-play key roles:
+play key roles.
 
 \paragraph{Version Control}
 
-The version control system is a linchpin of automation on a
-project. The versions it manages are the starting point for automated
-and reproducible continuous integration, testing, and software
-releases. The VCS can itself trigger automated processes, for example
-it could trigger a run of the test suite after every commit.
+The version control system is a linchpin of automation. The versions
+it manages are the starting point for automated and reproducible
+continuous integration, testing, and software releases. The VCS can
+itself trigger automated processes; for example, it could trigger a
+run of an automated test suite after every commit.
 
 Any automated process should be run in the context of a particular VCS
 version, and any artifacts produced by these processes should refer to
 this version. For example, if software has a built-in bug reporting
 feature, those reports should automatically include the version at the
 time the software was built. This allows engineers to easily reproduce
-the exact circumstances where the user discovered a flaw.
+the exact circumstances where a user discovered a defect.
 
-Version control can only improve reproducibility when all of the
-relevant inputs to a process are managed in the VCS. For example, a
-software build process that depends on a configuration file in the
-user's home directory would not be reproducible on a different
-computer without that home directory.
+Version control can only improve reproducibility when all relevant
+inputs to a process are managed in the VCS. For example, a software
+build process that depends on a configuration file in the user's home
+directory would not be reproducible on a different computer without
+that home directory.
 
 \paragraph{Testing}
 
@@ -1011,10 +1005,10 @@ archive the built artifacts for subsequent release management.
 
 No process has as many moving parts or cross-project concerns as
 release management, making manual release management extremely
-error-prone. The entire process from checking out a version from the
-VCS to deploying the final release artifacts should be as automatic as
-possible. The manual intervention should amount to simply deciding
-which version to release, and checking before the final release that
+error-prone. The entire process, from checking out a version from the
+VCS to deploying the final release artifacts, should be as automatic
+as possible. The manual intervention should amount to simply deciding
+which version to release and checking before the final release that
 the automated process performed as expected.
 
 Because automation is inexpensive when using continuous integration,
