@@ -2,22 +2,66 @@
 \label{cha:rigor-softw-engin}
 
 Sound engineering practices are the foundation for building reliable
-and secure software of any type. This is particularly true for
-critical systems that must be trusted to perform important tasks
-correctly, and where the consequences for failure threaten lives,
-property, or political system integrity. In this chapter, we introduce
-rigorous software engineering techniques related to specification,
-implementation, testing, maintenance, and project management that help
-reduce errors and improve confidence in software development. We also
-provide recommendations for specific technologies to use in the
-construction of critical systems such as E2E-VIV systems.
+and secure software systems. This is particularly true for critical
+systems that must be trusted to perform important tasks correctly, and
+where the consequences for failure threaten life, property, or
+political system integrity.
 
-\tododmz{A big picture of everything is missing here.  An illustration
-  is relevant.  I'm thinking something inspired by the BON book
-  appendix, augmented with formal verification and more synthesis.}
+The engineering of any software system can be roughly divided into
+four stages: specification, implementation, verification/validation,
+and maintenance. These stages are not mutually exclusive; for example,
+a specification can be refined during implementation and
+verification/validation can occur continuously during implementation
+and maintenance.
+
+Specification is the most important stage, particularly when building
+critical systems: it informs the entire development process by
+determining what must be built and what it must, and must not,
+do. Even if a system works perfectly, it is impossible to provide
+convincing evidence of its correctness without using and consistently
+maintaining a high-quality, accurate specification throughout the
+development process. Such evidence is essential for critical systems
+to which we entrust our lives, money, or votes.
+
+Implementation is the transformation, either automatic or manual
+(typically some of each), of a system's specification into executable
+code. The quality of an implementation is heavily influenced by
+choices of programming languages, coding conventions, and supporting
+tools, some of which are driven by choices made during specification.
+
+Verification and validation are closely related, but independent,
+procedures. Verification is an evaluation of whether the
+implementation is a correct realization of its specification, while
+validation is an evaluation of whether the implementation is
+satisfactory to external stakeholders. Verification and validation are
+typically carried out continuously and automatically during the
+development process, using a variety of tools and techniques; the
+results of verification and validation are the primary sources of
+evidence for the implementation's correctness.
+
+Maintenance includes tracking and fixing defects discovered in the
+implementation, modifying the specification and implementation as
+required by technical issues or feedback from external stakeholders,
+and adapting the implementation to new hardware and software platforms
+and new deployment environments. Maintenance is closely linked with
+verification and validation, since new evidence of the system's
+correctness must be provided when changes are made to either its
+specification or its implementation.
+
+In this chapter we introduce rigorous software engineering techniques
+for these stages of the software development processes. We
+particularly focus on specification, verification and validation,
+since implementation and maintenance are widely discussed throughout
+the software engineering literature; however, we do describe specific
+implementation and maintenance techniques that are particularly
+important when developing critical systems. Finally, we provide
+recommendations for specific technologies to use when constructing
+critical systems and briefly discuss the current state of elections
+technology in light of our recommendations.
+
 \tododmz{Take a full pass through to eliminate passive voice.}
 
-\section{Informal System Specifications}
+\section{Informal Specifications}
 
 An \emph{informal system specification} is a human-readable
 description of the system's purpose, functionality, and high-level
@@ -175,7 +219,7 @@ support for the formal specification and implementation
 languages---can be used to automatically generate initial formal
 specifications and implementation frameworks.
 
-\section{Formal System Specifications}
+\section{Formal Specifications}
 
 A \emph{formal system specification} is a machine-readable,
 mathematical description of the system's functionality and design. It
@@ -191,7 +235,8 @@ and run test suites, and generate part of the system documentation.
 A complete formal system specification consists of architecture,
 concept, source code, and protocol specifications; some of these, such
 as the architecture specification, may be minimal for simple
-systems.
+systems. As we describe these types of specification, we also
+introduce the verification techniques that are applicable to each.
 
 \subsection{Architecture Specifications}
 
@@ -200,7 +245,30 @@ system's architecture, formalizing both the relationships among the
 concepts in the system and the relationships between these concepts
 and the physical implementation of the system. 
 
-\todokiniry{A bit of further discussion, without talking about tools.}
+Architecture specifications describe both the software architecture
+and the hardware/network architecture on which the software runs. A
+software architecture specification describes how many instances of
+each concept exist within the system, the communication patterns among
+the concepts, and any containment relationships among the concepts. It
+also describes, at least at an abstract level, parts of the overall
+software architecture that are external to the system under
+development. For example, it may describe the relationships between
+the concepts in the system, the services provided by the operating
+system on which the software will run, and any external services (such
+as databases or web servers) on which the software depends.
+
+A hardware/network architecture specification describes the
+relationships among the various hardware components in the
+system. This includes the services provided by each component and the
+network connectivity and communication patterns among them, as
+discussed in \autoref{section:primary_architectural_variants}.
+
+Some research has been done with respect to verifying software
+implementations or hardware simulations against architectural
+specifications~\cite{Linhares07, Abdoul08} and some tool support
+exists for such verification; however, it is currently infeasible to
+verify a distributed hardware and software implementation against an
+architectural specification.
 
 \subsection{Concept Specifications}
 
@@ -372,153 +440,56 @@ this model can then be verified and validated in a modular fashion
 alongside the rest of the source code specifications to provide
 evidence that the system actually implements the verified protocol.
 
-\tododmz{Need a section wrap-up and segue to the next.}
-
 \section{Implementation Methodology}
 
-\todoacf{Introduce context with NIST, ISO standards for methodology?}
-
-\todoacf{Lay out the characteristics we want more explicitly, eg,
-  freedom from flaws, repetability, correctness}
-
-\todokiniry{Emphasize that this section covers best-practices of the
-  industry, not just for safety-critical systems.}
-
-\todokiniry{Give a big-picture of all of the facets we will cover in
-  this section and how they relate to current certification
-  standards.}
-
-\subsection{Version Control}
-
-Version control systems (VCS) manage changes between the versions of a
-project as it evolves during the course of development. Revision
-control is the preferred way to share software artifacts across a
-team, but all software projects, even those developed by teams as
-small as one person should use VCS.
-
-In general, a developer uses the VCS first to ``check out'' the files
-comprising a project into her ``working copy''. Then, after making
-changes to those files, the developer ``checks in'' or ``commits'' the
-changes to the VCS. After committing, those changes are available for
-other developers to integrate into their working copies.
-
-When different sets of changes have been made by multiple developers,
-the VCS can merge those changes either automatically or by using
-developer input to ensure the project remains consistent. The ability
-to merge changes is critical for teams of developers who work
-concurrently on a single project, and is the reason that file sharing
-tools like Dropbox or Google Drive are an inadequate substitute for a
-VCS.
-
-VCS is particularly important for projects that must be audited. An
-entry to a project log is created every time a developer commits their
-work. Any file in the project can be inspected to show its provenance,
-even down to the level of which line was committed by which developer
-on what date. Some VCS tools also optionally allow for commits to be
-cryptographically signed, offering assurance that, for example, the
-changes have been audited by a trusted authority before being
-integrated into the project~\cite{chacon2014pro}.
-
-Moving from simple file storage to VCS is a tremendous improvement for
-development, but poor use of VCS can negate many of the potential
-benefits. For example, the log built from the commits of developers is
-of less use to auditors if the changes in each commit are not clearly
-associated with a particular new feature or bug fix. Likewise if
-developers commit changes in a broken state, other developers'
-productivity suffers and it becomes more difficult later to isolate
-which commit introduced a bug. Each VCS supports multiple workflow
-practices that should be adopted in order to limit these problems and
-get the most benefit from VCS
-use~\cite{atlassianworkflow,pilato2008version}.
-
-\subsection{Issue Tracking}
-
-During much of the software development and maintenance process, teams
-add features and fix bugs. In an issue tracking system, each new
-feature, each reported bug, and other discrete development tasks are
-tracked as issues from creation to implementation, review, testing,
-and integration. Issues can be organized by metadata such as assignee,
-project milestone, priority, and task type. Issue trackers are
-essentially to-do lists with additional structure that is specialized
-to support effective software engineering.
-
-These issues and their metadata give team members a view into the
-status and health of the project, and facilitates the implementation
-of project management methodologies \todoacf{reference management
-  section}. For example, the issue tracker may automatically require a
-code review step before an issue can be resolved. Issue trackers help
-teams make fewer mistakes when following best-practice software
-engineering workflows.
-
-Team members can annotate issues with comments or attach supplementary
-documents, creating a record of design decisions and thought
-processes. This information is invaluable when investigating future
-bugs or making subsequent changes to a design, and is often lost when
-such discussions take place out-of-band and lose their association
-with the task that motivated them.
-
-Most issue trackers integrate with VCS in order to associate issues
-with the source code changes that were made in order to complete those
-tasks. When combined with the design discussions captured in issue
-comments and attachments, this further enhances the ability of the
-team to reliably understand and maintain the project in the future.
-
-Issue trackers not only benefit the project team, but also often serve
-as a first line of contact for users of a system when they encounter
-problems. In projects with short timelines like election systems, it
-is critical to incorporate feedback into development as quickly as
-possible. Giving users or front-line support staff the power to create
-issues directly makes the feedback loop very small.
-
-Keeping a public issue tracker reduces duplicated effort across both
-users and developers. If a system has a flaw, that flaw will likely
-become apparent to multiple users, and duplicate reports are less
-likely if users can check the issue tracker for other reports of
-similar problems. The development team can then coordinate an
-effective response to problems. The team can triage issues by
-importance and urgency, discuss potential solutions, assign developers
-to implement those solutions, and finally make sure the problem is
-resolved and notify the users who originally reported the problem.
+Once initial informal and formal specifications are developed, the
+remaining stages of the software development process can begin. In
+this section we describe some best practices for software
+implementation, validation and maintenance that apply not only to
+critical systems, but to software systems in general. These include
+testing (the primary component of validation), version control and
+continuous integration, issue tracking and code review, release
+management, documentation practices, and process automation. This set
+of practices is not exhaustive---we do not, for example, discuss code
+standard choices or the relative merits of various Agile development
+methods, as these are primarily matters of development team preference
+and have little bearing on the reliability of the resulting
+software. Instead, we focus on practices that are directly relevant to
+building and maintaining critical systems and generating evidence of
+their correctness.
 
 \subsection{Testing}
 
 Software testing practices are a key component of any software
 engineering methodology. Even when parts of a system are formally
-verified, testing helps provide additional assurance that the system:
+verified, testing can provide additional assurance that the system
+satisfies its requirements, behaves as expected for particular inputs,
+works correctly in diverse environments, and has sufficient
+performance.
 
-\begin{itemize}
-\item satisfies its requirements,
-\item behaves as expected for particular inputs,
-\item works correctly in diverse environments,
-\item and has sufficient performance.
-\end{itemize}
-
-Testing serves the key functions of uncovering flaws quickly, and
-ensuring that previously-fixed flaws do not recur in later
-versions. The assurance testing provides comes from performing these
-functions. It is impossible for testing to reveal all possible flaws
-in any realistic program---the number of possible inputs for any such
+Testing serves the key functions of uncovering flaws quickly and
+ensuring that previously-fixed flaws do not recur in later software
+versions. It is impossible for testing to reveal all possible flaws in
+any realistic program---the number of possible inputs for any such
 system is so large that an exhaustive test would effectively run
 forever---but tests that successfully reveal and prevent recurrences
-of some flaws provide more assurance than an untested system.
+of some flaws provide some evidence for a system's correctness.
 
-Formal verification and testing should not be viewed as opposing
+Verification and testing should not be viewed as opposing
 alternatives, but rather as complementary techniques that together
 provide assurance in the developed software. It is not feasible to
 exhaustively test every possible input and every possible path through
-any non-trivial program, while formal techniques offer guarantees over
-all possible inputs. However, formal techniques usually cannot scale
-to provide those guarantees for entire systems, and sometimes must
+any non-trivial program, while verification offers guarantees over all
+possible inputs. However, verification usually cannot scale to provide
+those guarantees for entire systems; verification tools must sometimes
 make simplifying assumptions about the environment in which software
-runs, or reason about a simplified model of the actual system. Since
-testing can use the real system in a real environment, it can uncover
-flaws that are beyond the scope or capability of the formal
-techniques.
+runs or reason about a simplified model of the actual system. Since
+testing can exercise the real system in a real environment, it can
+uncover flaws that are beyond the scope or capability of verification.
 
 Different testing practices provide complementary types of assurance;
-no single testing practice is sufficient to cover the above
-list. Instead, multiple types of testing should be used in
-combination on every project.
+no single testing practice is sufficient. Instead, multiple types of
+testing should be used in combination on every project.
 
 \subsubsection{Unit Testing}
 
@@ -532,23 +503,23 @@ Unit tests are usually written to reflect the specification of the
 unit under test. For example, a unit that implements a specification
 of addition might have unit tests that check the associativity and
 commutativity of the implementation. Most software specifications are
-too abstract to translate directly into unit tests, so for a property
+too abstract to translate directly into unit tests so, for a property
 like associativity, developers must choose particular concrete values
-to test. The shortcoming here is that developers might not choose the
-particular values that would expose a flaw, and so the test suite
-will succeed despite the presence of that flaw.
+to test. Unfortunately, developers might not choose the particular
+values that would expose a flaw; when they fail to do so, the test
+suite will succeed despite the presence of that flaw.
 
 Developer intuition and understanding of the implementation increases
 the likelihood that unit tests will exercise code containing a flaw,
 but tests still cannot be exhaustive. Code coverage, the percentage of
 lines of code exercised by a given test suite, is often used to
-measure the effectiveness of unit tests. In practice, high coverage
-percentages have not been shown to necessarily uncover more
+measure the effectiveness of unit tests. In practice, high code
+coverage percentages have not been shown to necessarily uncover more
 flaws~\cite{inozemtseva2014coverage}, however more sophisticated
 coverage measures such as branch coverage are more
 promising~\cite{gligoric2013comparing}.
 
-\subsubsection{Randomized Testing}
+\subsubsection{Randomized and Fuzz Testing}
 
 Manually-written tests can only exercise a small fraction of the
 potential inputs to a program. When test cases can be generated
@@ -584,15 +555,26 @@ development of the C test program generator has itself been the
 subject of extensive research~\cite{yang2011finding}, and the oracles
 used are primarily other C compilers.
 
-Because it is difficult to apply random testing to programs with
-complex input types and no readily-available oracles, random testing
-is most commonly found in unit tests. Random testing can still be
-useful in such cases by relaxing the requirements of the input
-generator and oracle, and simply observing whether a program crashes
-or violates internal assertions when presented with a random, possibly
-malformed input. This variant of random testing is known as
-``fuzzing'', and should be used as a complement to other forms of
-testing.
+Randomized testing is difficult for programs with complex input types
+and no readily-available oracles. However, a closely related technique
+called fuzz testing is useful for such programs. A fuzz testing tool
+generates random input, perhaps guided by initial suggestions; it then
+passes that input to the program under test and observes the
+result. If the program crashes or violates any of its internal
+assertions, the fuzz tester reports the result and the input that
+caused it. If the program runs successfully, the fuzz tester tries
+another random input. This process is repeated continuously until it
+is stopped or, in some cases, until the fuzz tester determines that it
+has fully exercised the program. 
+
+Fuzz testers use a variety of techniques to generate their test input,
+including pure randomness, genetic algorithms (mutating previous
+inputs to generate new ones)~\cite{DeMott07}, and symbolic execution
+with constraint solving (calculating new inputs to avoid repeating
+execution paths that have already been
+tested)~\cite{Godefroid08}. Fuzz testing has exposed many critical
+security issues in widely-used software, both open-source and
+proprietary.
 
 \subsubsection{Model-Based Testing}
 
@@ -713,45 +695,136 @@ deployed environment (it may not even be a general-purpose computer),
 and so the integration tests must accurately recreate that
 environment.
 
+\subsection{Version Control}
+
+Version control systems (VCS) manage changes between the versions of a
+project as it evolves during the course of development. Revision
+control is the preferred way to share software artifacts across a
+team, but all software projects, even those developed by teams as
+small as one person should use VCS.
+
+In general, a developer uses the VCS first to ``check out'' the files
+comprising a project into her ``working copy''. Then, after making
+changes to those files, the developer ``checks in'' or ``commits'' the
+changes to the VCS. After committing, those changes are available for
+other developers to integrate into their working copies.
+
+When different sets of changes have been made by multiple developers,
+the VCS can merge those changes either automatically or by using
+developer input to ensure the project remains consistent. The ability
+to merge changes is critical for teams of developers who work
+concurrently on a single project, and is the reason that file sharing
+tools like Dropbox or Google Drive are an inadequate substitute for a
+VCS.
+
+VCS is particularly important for projects, such as critical systems,
+where the development process must be auditable. An entry to a project
+log is created every time a developer commits their work. Any file in
+the project can be inspected to show its provenance, even down to the
+level of which line was committed by which developer on what
+date. Some VCS tools also allow for commits to be cryptographically
+signed, offering assurance that, for example, the changes have been
+audited by a trusted authority before being integrated into the
+project~\cite{chacon2014pro}.
+
+Moving from simple file storage to VCS is a tremendous improvement for
+development, but poor use of VCS can negate many of the potential
+benefits. For example, the log built from the commits of developers is
+of less use to auditors if the changes in each commit are not clearly
+associated with a particular new feature or bug fix. Likewise, if
+developers commit changes that cause the system to function
+incorrectly, other developers' productivity suffers and it becomes
+more difficult later to isolate the commit that introduced a bug. Each
+VCS supports multiple workflow practices that should be adopted in
+order to limit these problems and get the most benefit from VCS
+use~\cite{atlassianworkflow,pilato2008version}.
+
 \subsection{Continuous Integration}
 
-The expense of fixing software flaws increases over time as other
-parts of a program accumulate over time around those flaws. When a
-flawed feature is new, developers have not had a chance to write other
-code that depends on the flawed code. Once those dependencies exist, a
-fix for a single flaw can have consequences that ripple outward across
-the entire project, making the fix much more expensive. The cheapest
-way to fix a flaw, then, is to discover the flaw as quickly as
-possible.
+The expense of fixing software defects increases over time as other
+parts of the software evolve around those defects. When a defect is
+new, developers have not had a chance to write other code that depends
+on the defective code. Once such dependencies exist, a fix for a
+single defect can have consequences that ripple outward across the
+entire project, making the fix much more expensive. The cheapest way
+to fix a defect, then, is to discover it as quickly as possible.
 
-Continuous integration (CI) and testing facilitate this by discovering
-flaws as part of a regular, automatic process that is not dependent on
-due diligence of individual developers. CI interleaves the quality
-control process into the development process, rather than leaving it
-as a separate phase for the end of a project after development has
+Continuous integration (CI) facilitates this by discovering defects as
+part of a regular, automatic process that is not dependent on due
+diligence of individual developers. CI interleaves the quality control
+process into the development process, rather than leaving it as a
+separate phase for the end of a project after development has
 finished.
 
 CI tools automatically build and test the latest version of the
-software in the VCS system on a regular basis, such as every night, or
+software in the VCS system on a regular basis, such as every night or
 after every VCS commit. Because the software is built from the VCS, it
 is important for developers to frequently commit their work to the
 VCS. The VCS integration ensures the tests are always run on the
-canonical version of the software, and that any discovered flaws can
-be linked to a particular version in the VCS system. Instead of
-potentially having to search the entire codebase for the cause of a
-flaw, isolating the failing version focuses the efforts of developers
-on the set of changes introduced in that version, saving time.
+canonical version of the software, and that any discovered defect can
+be linked to a particular version in the VCS system. Isolating the
+failing version focuses the efforts of developers on the set of
+changes introduced in that version, often saving considerable time.
 
-CI systems substantially replace manual effort and the risk of manual
-mistakes when releasing software. Since the CI system is building the
-project on a nightly basis, it can also post the artifacts of those
-builds for users and testers to quickly adopt. When an official
-release like ``Version 1.0'' is ready for release, developers can
-simply run the CI system to produce the final artifact. Because the
-same system is responsible for both the continuous testing and
-validation of the system and the creation of the final release, it is
-less likely that the final release will have flaws that would have
-been caught through earlier testing.
+CI systems substantially replace manual effort and the risk of
+mistakes when releasing software. Since the CI system builds the
+project on a nightly basis, it can post the artifacts of those builds
+for users and testers to quickly adopt. When an official release like
+``Version 1.0'' is ready, developers can simply run the CI system to
+produce the relevant artifacts. Because the same system is responsible
+for both the continuous testing and validation of the system and the
+creation of the final release, it is less likely that the final
+release will have defects that would have been caught through earlier
+testing.
+
+\subsection{Issue Tracking}
+
+During much of the software development and maintenance process, teams
+add features and fix bugs. In an issue tracking system, each new
+feature, each reported bug, and other discrete development tasks are
+tracked as issues from creation to implementation, review, testing,
+and integration. Issues can be organized by metadata such as assignee,
+project milestone, priority, and task type. Issue trackers are
+essentially to-do lists with additional structure that is specialized
+to support effective software engineering.
+
+These issues and their metadata give team members a view into the
+status and health of the project, and facilitates the implementation
+of project management methodologies \todoacf{reference management
+  section}. For example, the issue tracker may automatically require a
+code review step before an issue can be resolved. Issue trackers help
+teams make fewer mistakes when following best-practice software
+engineering workflows.
+
+Team members can annotate issues with comments or attach supplementary
+documents, creating a record of design decisions and thought
+processes. This information is invaluable when investigating future
+bugs or making subsequent changes to a design, and is often lost when
+such discussions take place out-of-band and lose their association
+with the task that motivated them.
+
+Most issue trackers integrate with VCS in order to associate issues
+with the source code changes that were made in order to complete those
+tasks. When combined with the design discussions captured in issue
+comments and attachments, this further enhances the ability of the
+team to reliably understand and maintain the project in the future.
+
+Issue trackers not only benefit the project team, but also often serve
+as a first line of contact for users of a system when they encounter
+problems. In projects with short timelines like election systems, it
+is critical to incorporate feedback into development as quickly as
+possible. Giving users or front-line support staff the power to create
+issues directly makes the feedback loop very small.
+
+Keeping a public issue tracker reduces duplicated effort across both
+users and developers. If a system has a flaw, that flaw will likely
+become apparent to multiple users, and duplicate reports are less
+likely if users can check the issue tracker for other reports of
+similar problems. The development team can then coordinate an
+effective response to problems. The team can triage issues by
+importance and urgency, discuss potential solutions, assign developers
+to implement those solutions, and finally make sure the problem is
+resolved and notify the users who originally reported the problem.
 
 \subsection{Code Review}
 
@@ -952,15 +1025,15 @@ performing an ordinary nightly build and test, it is less likely that
 problems will arise only at the release stage when it is much more
 costly to address those problems.
 
-\section{Technologies}
+\section{Technology Recommendations}
 \label{sec:technologies}
 
 Here, we provide some recommendations about specific technologies
 that, at present, are well suited (and in some cases, \emph{not} well
 suited) to performing rigorous software engineering of the type we
 have described. These recommendations are based on experience applying
-these methods over the last 15+ years; however, they are not meant to
-be a rigid set of rules or to unconditionally exclude technologies not
+these methods over the last 15+ years, but they are not meant to be a
+rigid set of rules or to unconditionally exclude technologies not
 mentioned here. The landscape of software development languages and
 tools is constantly changing; new languages and tools appear, while
 old languages and tools disappear, are marginalized, or evolve in
@@ -1032,7 +1105,7 @@ filled arrowhead) as compared to UML's proliferation of arrow types
 (solid and dashed lines, filled and empty arrowheads, diamonds, and
 circles, and additional connection markings). 
 
-While we recommend BON based on our own experience, it is not the only
+While we recommend BON based on our experience, it is not the only
 reasonable choice for domain analysis in a rigorous software
 engineering context. The Vienna Development Method (VDM)~\cite{VDM},
 Z~\cite{Zed}, the B Method~\cite{BMethod}, and the Rigorous Approach
@@ -1040,16 +1113,16 @@ to Industrial Software Engineering (RAISE)~\cite{RAISE} are all
 well-established domain analysis methods with textual representations,
 well-defined semantics, and tool support.
 
-\subsection{Specification Languages}
+\subsection{Formal Specification}
 
-In addition to its use for domain and architecture modeling, BON can
-also be used as an architecture specification and concept
-specification language and we recommend its use as such. Once written,
-BON specifications can be refined further into architectural
-specification languages for expressing detailed architectural
-properties, source code specification languages for integration with
-particular implementation languages, and protocol specification
-languages for formalizing interactions within the system.
+In addition to its use for domain modeling, BON can also be used as an
+architecture specification and concept specification language and we
+recommend its use as such. Once written, BON specifications can be
+refined further into architectural specification languages for
+expressing detailed architectural properties, source code
+specification languages for integration with particular implementation
+languages, and protocol specification languages for formalizing
+interactions within the system.
 
 UML is the most commonly used tool for architecture specification, but
 is not well suited to rigorous software engineering because it lacks
@@ -1057,7 +1130,12 @@ semantics. We recommend using BON for high-level architecture
 specification and a dedicated architecture specification language,
 such as the SAE Architecture Analysis and Design Language
 (AADL)~\cite{AADL} or the OMG Systems Modeling Language
-(SysML)~\cite{SysML}, for low-level architecture specification.
+(SysML)~\cite{SysML}, for low-level architecture
+specification. Several tools support the creation and manipulation of
+AADL and SysML specifications and automatic generation of code from
+architectural models; some tools, like
+OSATE2-Ocarina~\cite{OSATE2-Ocarina} for AADL, also support automated
+verification.
 
 Programming languages for which there is an obvious best choice of
 source code specification language include Java
@@ -1083,14 +1161,19 @@ extent possible.
 
 There are also several language-neutral specification languages and
 associated development tools, such as Alloy~\cite{Alloy},
-VDM~\cite{VDM}, Z~\cite{Zed} and Event-B~\cite{Abrial10}, which
-themselves support refinement to various implementation
-languages. These can be used effectively, either by themselves or
-alongside other specification languages, in a rigorous software
-engineering process. 
+Coq~\cite{Coq}, Event-B~\cite{Abrial10}, VDM~\cite{VDM}, and
+Z~\cite{Zed}, which themselves support refinement to various
+implementation languages. Most have associated tools for
+\emph{model-based synthesis}, the process of automatically
+transforming formal models into conforming executable
+implementations. These languages and tools can be used effectively,
+either by themselves or alongside other specification languages, in a
+rigorous software engineering process; they are especially useful for
+specifying, verifying, and automatically generating small, critical
+system components.
 
 Finally, any of several protocol specification languages can be used
-to specify the interaction protocols within the system. These include
+to specify interaction protocols within the system. These include
 the High-Level Protocol Specification Language (HLSPL) used by
 Avispa~\cite{Avispa}, typed $\pi$-calculus as used by
 ProVerif~\cite{ProVerif} and CryptoVerif~\cite{CryptoVerif},
@@ -1103,7 +1186,7 @@ dictates the choice of language for specifying that protocol (or
 vice-versa), and it may be appropriate to use different tools for
 different protocols within the system.
 
-\subsection{Implementation Languages}
+\subsection{Implementation Language}
 
 The choice of implementation language is clearly important, and there
 are many possible choices; hundreds (possibly thousands) of
@@ -1117,10 +1200,10 @@ the language or well-established external libraries available for use
 with the language, on which developers can rely while building the
 implementation. 
 
-Implementation languages are distinguished by different programming
-styles, different methods for error handling, different security
-guarantees, and different ways in which programmers can make mistakes
-(both minor and catastrophic). For rigorous software engineering, we
+Implementation languages are distinguished by different styles,
+different methods for error handling, different security guarantees,
+and different ways in which programmers can make mistakes (both minor
+and catastrophic). For rigorous software engineering, we generally
 recommend languages with strong type systems that actively prevent
 programmers from making any of a large class of errors. We also
 recommend languages that automatically handle memory allocation and
@@ -1134,13 +1217,13 @@ safe subset of C, specified with ACSL, and verified with various
 tools---but it is significantly more difficult to do so.
 
 The nine implementation languages we currently recommend for rigorous
-software engineering are (in alphabetical order) C (in a safe subset
-such as C$_{0}$~\cite{C0} or the C dialect supported by the Verified
+software engineering are (in alphabetical order) C (a safe subset such
+as C$_{0}$~\cite{C0} or the C dialect supported by the Verified
 Software Toolchain~\cite{VST}), C\# (excluding unsafe code), Eiffel,
 Erlang, Gallina (the executable specification language for the Coq
 proof assistant~\cite{Coq}), Haskell, Java, OCaml, and SPARK. No
 single implementation language is ideal for every project, and it is
-often appropriate to use multiple languages in the same project; for
+often appropriate to use multiple languages in the same project. For
 example, it would be reasonable to write the computational core of a
 voting system in a pure functional language like Haskell and the
 voter-facing user interface components in an object-oriented language
@@ -1148,10 +1231,10 @@ like Java.
 
 \subsection{Static Analysis}
 
-Static analysis tools process the system's source code to provide
-information about the system without executing the code.  There are
-many forms of static analysis, ranging from simple syntactic checks to
-full functional verification of source code specifications. The
+Static analysis tools process the system's source code and
+specifications to provide information about the system without
+executing the code.  There are many forms of static analysis, ranging
+from simple syntactic checks to full functional verification. The
 following set of recommendations is not exhaustive, and in particular
 does not discuss specific tools covering all the recommended types of
 static analysis for all the recommended programming languages; many
@@ -1264,27 +1347,44 @@ integrated into their respective development environments.
 
 \subsection{Model Checking}
 
-\tododmz{Alloy, PVS, SPIN, UPPAAL}
+Model checkers attempt to determine whether a formal model of a
+software system fulfills some specification, such as a requirement
+that a concurrent system must not deadlock. If a model checker
+determines that a model fulfills a specification, then we can conclude
+that an implementation fulfills the specification if we can prove that
+the implementation's behavior conforms to the model. Many of the
+protocol verification tools mentioned previously use model checking
+techniques.
 
-\subsection{Model-Based Synthesis}
+The most widely-used model checking languages/tools are
+Alloy~\cite{Alloy}, PVS~\cite{PVS}, Spin~\cite{Spin}, and
+UPPAAL~\cite{UPPAAL}. Developers can write models in these languages
+by hand, but it is more efficient to automatically \emph{extract}
+models from existing implementation code; this guarantees that
+properties proved about the model hold for the implementation. Model
+extraction is supported for a number of implementation languages,
 
-\todokiniry{I'm not really up-to-date on the tools for model-based
-  synthesis. -dmz} 
-\todokiniry{The main options here are VDM, Event-B, and Coq.}
+Model checking requires an exhaustive search of the model's reachable
+states to determine whether any violate the specification. There are
+several ways to reduce the complexity of this search, such as by
+exploring multiple states with simultaneously in a symbolic fashion,
+but model checking remains intractable for large software systems. We
+therefore recommend that model checking be used sparingly, for only
+the most critical subsystems, and that it be used primarily for
+protocol verification.
 
 \subsection{Version Control}
 
-For version control we recommend using either Git or Mercurial. Both
+We recommend using either Git or Mercurial for version control. Both
 are current-generation distributed version control systems, supporting
 various models of collaboration, and both are well-supported. Both
-also have associated services---GitHub~\cite{GitHub} for Git,
-BitBucket~\cite{BitBucket} for Mercurial, and
+also have associated services---including GitHub~\cite{GitHub} for
+Git, BitBucket~\cite{BitBucket} for Mercurial, and
 SourceForge~\cite{SourceForge} for either one---that provide
 repository hosting, issue tracking, web hosting, and wiki
 functionality. Git is currently the more popular of the two by a
-significant margin, but they are both good options for new projects,
-and the choice between them is mainly one of developer personal
-preference.
+significant margin, but both are good options for new projects and the
+choice between them is mainly one of developer preference.
 
 We recommend against using older, centralized version control systems
 such as Subversion and CVS. In general, their mechanisms for handling
@@ -1296,12 +1396,12 @@ for developers to work offline.
 
 \subsection{Issue Tracking}
 
-There are several good choices for issue tracking. If the version
-control repository is hosted by one of the well-known hosting services
+Many good issue tracking tools are available. If the version control
+repository is hosted by one of the well-known hosting services
 (GitHub, BitBucket, SourceForge), the obvious choice is to use the
 issue tracker integrated with that service. Otherwise, there are
-several choices, both proprietary and open-source, for either cloud
-hosted or locally installed issue tracking.
+several proprietary and open-source choices for either cloud hosted or
+locally installed issue tracking.
 
 Atlassian's JIRA~\cite{JIRA}, JetBrains's YouTrack~\cite{YouTrack},
 and Fog Creek Software's FogBugz~\cite{FogBugz} are all hosted issue
@@ -1322,73 +1422,107 @@ commercial options.
 
 \subsection{Testing}
 
-Testing is an integral part of the development process, and many
-different tools exist to automate the generation of unit tests and the
-execution of unit, regression and integration tests. In general we
-recommend that tests be run as often as possible, preferably both as
-part of a continuous integration process and by individual developers
-as they implement specific parts of the system. 
+Testing is an integral part of the development process, and many tools
+exist to automate the generation of unit tests and the execution of
+unit, regression and integration tests. In general we recommend that
+tests be run as often and as non-interactively as possible, preferably
+both as part of a continuous integration process and by individual
+developers as they implement specific parts of the system.
 
-The use of a test automation framework is essential. Many unit test
-automation frameworks take the same form, originated by the
-SUnit~\cite{SUnit} framework for Smalltalk in the late 1990s, and are
-typically referred to as \emph{xUnit} frameworks. Test cases are
-written in a special format, combined into test suites, and executed
-by a test execution program that gathers information about which tests
-pass, which tests fail, and how any test failures occur. This
-information is then presented to the developer in a textual or
-graphical format.  JUnit~\cite{JUnit} and TestNG~\cite{TestNG} for
-Java, NUnit~\cite{NUnit} for C\#, and HUnit-Plus~\cite{HUnit-Plus} for
-Haskell are examples of such frameworks. We strongly recommend the use
-of an xUnit framework for test automation, especially for complex
-scenario tests that cannot be automatically generated by other testing
-tools.
+Test automation frameworks are essential. Many unit test automation
+frameworks take the same form, originated by the SUnit~\cite{SUnit}
+framework for Smalltalk in the late 1990s, and are typically referred
+to as \emph{xUnit} frameworks. Developers write (or generate) test
+cases in a special format, combine them into test suites, and execute
+them using a test execution program that gathers information about
+which tests pass, which tests fail, and how any test failures
+occur. The test execution program then presents this infromation to
+the developer in a textual or graphical format.  JUnit~\cite{JUnit}
+and TestNG~\cite{TestNG} for Java, NUnit~\cite{NUnit} for C\#, and
+HUnit-Plus~\cite{HUnit-Plus} for Haskell are examples of such
+frameworks. We strongly recommend the use of an xUnit framework for
+test automation, especially for complex scenario tests that cannot be
+automatically generated by other testing tools.
 
 Randomized testing tools, such as the original
 QuickCheck~\cite{QuickCheck} for Haskell and the many QuickCheck-like
 tools developed for other languages (most of which are named
 ``QuickCheck for X'' or ``X-QuickCheck''), automatically generate
-random unit tests. Some of these tools are guided in their test data
+random unit tests. Many of these tools are guided in their test data
 choices by performing constraint solving on existing source code
 specifications; others require manual guidance on the part of the
-developer. We recommend that random testing be used in most projects,
-especially for automatic generation of simple unit tests that would
-otherwise require significant developer effort.
+developer. We recommend that randomized testing be used in most
+projects, especially for automatic generation of simple unit tests
+that would otherwise require significant developer effort.
+
+Fuzz testing tools are particularly useful for exposing security
+issues. These tools intentionally test invalid, unexpected, and random
+data in an attempt to induce failures. Fuzz testing is primarily
+applicable to software modules that directly process external input,
+such as command line tools and Internet servers, and we strongly
+recommend performing fuzz testing on all such modules in a
+system. Fuzz testing tools with varying levels of speed and
+effectiveness are available for most languages; the most prominent
+example is AFLFuzz~\cite{AFLFuzz}, which was originally designed for C
+but is runnable (at the cost of some efficiency) on binaries compiled
+from any language. AFLFuzz is extremely effective and has revealed
+bugs in many widely used software packages, including several critical
+security issues.
 
 Since all systems implemented using rigorous software engineering
-techniques have at least some formal specifications, we recommend that
-some form of model-based testing be used if appropriate tools are
+techniques have at least some formal specifications, we also recommend
+that some form of model-based testing be used if appropriate tools are
 available for the implementation and specification languages. Several
 test frameworks use model-based testing techniques to automatically
 generate and run tests, including JMLUnitNG~\cite{ZimmermanNagmoti10}
 for Java/JML, AutoTest~\cite{AutoTest10} for Eiffel, and
 PEX~\cite{PEX08} for C\#.
 
-\tododmz{Add a discussion of fuzzing, particularly security fuzzers
-  like \url{http://lcamtuf.coredump.cx/afl/} and John's work at
-  \url{http://www.cs.utah.edu/~regehr/papers/}}
-
 \subsection{Roots of Trust}
 
-All computing systems are built with multiple layers of abstraction;
-the bottom layer is the hardware on which the system runs, followed by
-the firmware, the operating system (which may itself have multiple
-layers), and finally the applications. In general, higher layers of
-the system must trust that lower layers are not malicious and are
-performing according to their specifications. The \emph{roots of
-  trust} in a computing system are the hardware and software
-components of the system that are inherently trusted. 
+All computing systems have multiple layers of abstraction; the lowest
+layer is the hardware on which the system runs, followed by the
+firmware, the operating system (which may itself have multiple
+layers), and finally the application software. In general, higher
+layers of the system must trust that lower layers are not malicious
+and are performing according to their specifications. The \emph{roots
+  of trust} in a computing system, also knoare the hardware and software
+components of the system that are inherently trusted.
 
 For example, in current general-purpose computers, the boot
 firmware---the first code that executes when the machine is powered
 on---is a root of trust. If the boot firmware is secure, the system
-can use it to ``bootstrap'' trust; for example, the system can use
-trusted cryptographic functions to verify the integrity of software
-modules before loading them. However, if the boot firmware is
-compromised in some way, it can inject malicious software into any
-code that it loads, and no other part of the system can be trusted.
+can use it to ``bootstrap'' a chain of trust; for example, the system
+can use trusted cryptographic functions to verify the integrity of
+software modules before loading them, and the loaded modules can then
+be trusted to perform other functions. However, if the boot firmware
+is compromised in some way, it can inject malicious code into any
+software that it loads, and as a result none of the system can be
+trusted. It is therefore critical to ensure that the boot firmware,
+and any other roots of trust in a system, are protected from
+tampering.
 
-\tododmz{further explanation here}
+Currently, the only available way to ensure the integrity of a
+system's roots of trust is by using a piece of dedicated hardware
+called a Trusted Platform Module (TPM)~\cite{TPMSpec}. A TPM can check
+the integrity of the device's boot firmware before allowing it to run,
+and can also provide secure storage for encryption keys to protect the
+contents of a machine's disk and authenticate authorized users before
+allowing the machine to boot. By design, the integrity of a TPM can
+only be compromised by a direct attack on its hardware such as
+physical delamination of the TPM chip or direct measurement of its
+radiation output. Thus, if the hardware has not been physically
+tampered with, the TPM and the functionality embedded within it can be
+considered secure and used to bootstrap trust at higher levels of
+abstraction.
+
+TPM functionality is embedded into many of today's computing
+systems. However, the availability of TPM functionality is not enough;
+the layers of software above a TPM must use it properly in order to
+provide any assurance. Therefore, when building an E2E-VIV system, it
+is essential that the roots of trust of the system be explicitly
+enumerated and that the chain of trust for each originates in secure
+hardware.
 
 \section{Evidence-based Elections Technology}
 
