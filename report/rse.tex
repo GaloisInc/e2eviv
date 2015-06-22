@@ -48,18 +48,20 @@ verification and validation, since new evidence of the system's
 correctness must be provided when changes are made to either its
 specification or its implementation.
 
-In this chapter we introduce rigorous software engineering techniques
-for these stages of the software development processes. We
-particularly focus on specification, verification and validation,
-since implementation and maintenance are widely discussed throughout
-the software engineering literature; however, we do describe specific
+This chapter introduces rigorous software engineering techniques for
+these stages of the software development processes. We particularly
+focus on specification, verification and validation, since
+implementation and maintenance are widely discussed throughout the
+software engineering literature; however, we do describe specific
 implementation and maintenance techniques that are particularly
-important when developing critical systems. Finally, we provide
-recommendations for specific technologies to use when constructing
-critical systems and briefly discuss the current state of elections
-technology in light of our recommendations.
+important when developing critical systems. Finally, we recommend
+specific technologies to use when constructing critical systems and
+briefly discuss the current state of elections technology in light of
+our recommendations.
 
-\tododmz{Take a full pass through to eliminate passive voice.}
+\todo{Fix that last sentence depending on what the end of the chapter
+  actually ends up looking like, and figure out what to do about the
+  word ``we'' throughout.}
 
 \section{Informal Specifications}
 
@@ -450,13 +452,13 @@ critical systems, but to software systems in general. These include
 testing (the primary component of validation), version control and
 continuous integration, issue tracking and code review, release
 management, documentation practices, and process automation. This set
-of practices is not exhaustive---we do not, for example, discuss code
-standard choices or the relative merits of various Agile development
-methods, as these are primarily matters of development team preference
-and have little bearing on the reliability of the resulting
-software. Instead, we focus on practices that are directly relevant to
-building and maintaining critical systems and generating evidence of
-their correctness.
+of practices is not mean to be exhaustive. For example, we do not
+discuss particular code standard choices or the relative merits of
+various Agile development methods, as these are primarily matters of
+development team preference and have little bearing on the reliability
+of the resulting software. Instead, we focus on practices that are
+directly relevant to building and maintaining critical systems and
+generating evidence of their correctness.
 
 \subsection{Testing}
 
