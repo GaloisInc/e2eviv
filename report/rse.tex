@@ -778,6 +778,32 @@ creation of the final release, it is less likely that the final
 release will have defects that would have been caught through earlier
 testing.
 
+\subsection{Configuration Management}
+
+Complex software systems may depend on many components outside their
+own implementations, including database servers, application servers,
+web servers, authentication systems, etc. They may also need to run on
+several different target platforms with different operating systems
+and capabilities, or on multiple commercial cloud infrastructures with
+different deployment and management processes.
+
+\emph{Configuration management} is the tracking of dependencies and
+deployment characteristics for a system, and is typically automated by
+multiple tools. A \emph{build automation tool} handles dependency
+tracking for building and packaging the software, and is used both by
+developers and by the continuous integration system. A
+\emph{deployment automation tool} handles the setup and configuration
+of the (already built) software for a particular execution
+environment, such as an operating system/platform combination or a
+specific set of nodes at a specific cloud provider, including the
+configuration of the individual machines on which the software will
+run.
+
+Configuration management saves significant manual effort and greatly
+reduce the risks of mistakes when building and deploying software, and
+should be used in all projects that have external dependencies or
+target multiple deployment platforms.
+
 \subsection{Issue Tracking}
 
 During much of the software development and maintenance process, teams
@@ -1003,6 +1029,16 @@ usually automated by using these tools. For example, after building
 the integrated software, a CI tool should run the test suite and
 archive the built artifacts for subsequent release management.
 
+\paragraph{Configuration Management}
+
+Configuration management is another area where automation is
+critical. Tracking the software's dependencies and handling the
+details of its deployment on various platforms should be left to
+automated build and deployment automation tools to the extent
+possible, and these tools should be run frequently. Typically,
+configuration management tools are used by the continuous integration
+system in addition to being used in release management.
+
 \paragraph{Release Management}
 
 No process has as many moving parts or cross-project concerns as
@@ -1013,13 +1049,13 @@ as possible. The manual intervention should amount to simply deciding
 which version to release and checking before the final release that
 the automated process performed as expected.
 
-Because automation is inexpensive when using continuous integration,
-it is a good practice to have CI tools perform parts of the release
-management process on a regular basis, even when software is not ready
-for a release. If the process of producing a release is the same as
-performing an ordinary nightly build and test, it is less likely that
-problems will arise only at the release stage when it is much more
-costly to address those problems.
+Because automation is inexpensive when using continuous integration
+and configuration management, it is a good practice to have those
+tools perform parts of the release management process on a regular
+basis, even when software is not ready for a release. If the process
+of producing a release is the same as performing an ordinary nightly
+build and test, it is less likely that problems will arise only at the
+release stage when it is much more costly to address those problems.
 
 \section{Technology Recommendations}
 \label{sec:technologies}
@@ -1415,6 +1451,42 @@ which can be installed locally and used for free. They are also
 reasonable choices when installed and managed appropriately, though
 their user interfaces are generally less polished than those of the
 commercial options.
+
+
+\subsection{Continuous Integration and Configuration Management}
+
+Using continuous integration and configuration management tools is
+critical to a reliable software build process, and multiple good
+options are available. Specific choices of build and deployment
+automation tools are dependent on a project's implementation languages
+and deployment scenarios; we list a selection of widely-used tools
+here.
+
+Jenkins~\cite{Jenkins} is a well-supported and
+widely-used continuous automation tool; it is open source, supports
+many languages and build automation tools, and integrates with many
+development environments, issue trackers, and version control
+systems. 
+
+Some generic build automation tools are available, such as the
+venerable GNU Make~\cite{GNUMake}, but most build automation tools
+are developed to primarily support specific implementation
+languages. For example, Apache Maven~\cite{ApacheMaven} and
+Gradle~\cite{Gradle} primarily support Java development but can be
+extended through plug-ins to support other implementation languages,
+and Cabal~\cite{Cabal} supports Haskell development.
+
+Several good choices exist for deployment
+automation. Ansible~\cite{Ansible} and Puppet~\cite{Puppet} enable the
+deployment of software across multiple machines running a variety of
+operating systems, and also handle configuration of the execution
+environments on those machines. Docker~\cite{Docker} takes a different
+approach, automating the deployment of software inside virtualized
+\emph{containers}; this effectively gives each deployed application
+its own clean environment, preconfigured with all its dependencies,
+without the overhead of creating and maintaining a large set of
+physical or virtual machines. Unlike Ansible and Puppet, Docker only
+supports deployment to Linux systems. 
 
 \subsection{Testing}
 
