@@ -204,6 +204,7 @@ weeks) and, speculatively, are constructed using a peer-to-peer
 network model.
 
 \subsection{Operational}
+\label{sec:operational}
 
 Finally, from a technical standpoint, we have the question of
 operational feasibility.  Namely, presume an E2E-VIV system is created
@@ -252,66 +253,249 @@ feasible.
 %=====================================================================
 \section{Non-Technical Feasibility Analysis}
 
-\todokiniry{If E2E-VIV it is technically feasible, and yet the law,
-  politics, or boots-on-the-ground deep it infeasible, then it is
-  DOA.}
+Non-technically, feasibility of E2E-VIV systems boils down to matters
+of matters of a decidedly social and psychological nature.  Law,
+politics, money, public perception, and business interests are the
+primary forces that will either mandate or forbid the use of E2E-VIV
+systems. 
+
+In particular, if any one of these actors is fundamentally opposed to
+any of the key features of E2E-VIV systems, then deployment of E2E-VIV
+systems is infeasible. Exemplars of such concerns are included below.
+These examples are based mainly upon past discussions within the
+verifiable elections activist community, media reporting about IV, and
+and reflections of past activities within legislatures around the
+world.
 
 \subsection{Law}
 
-\todokiniry{Ensure we discuss other legal frameworks; e.g., caselaw, SOS
-  directives, national law and policy wrt the use of federal funds,
-  etc.}
+For the most part, the legal framework of elections must be changed in
+every jurisdiction that wishes to use IV.  Historically legislatures
+are comfortable with opening up the possibility of trials in IV,
+particularly for UOCAVA voters.  Likewise, facilitating disabled voters
+with technology is commonplace.
+
+Unfortunately, history also shows that legislatures often permit or
+mandate the use of new elections technologies with little restriction
+on their form, substance, and impact.  Legalizing IV without mandating
+E2E-VIV is a recipe for disaster.  Likewise, permitting the unbounded
+rollout of IV without attuning its use according to objective,
+evidence-based evaluations of IV's use and impact is a frightenly
+slippery slope.
+
+Consequently, based upon historical evidence, the gradual evolution of
+state and local election law, particularly facilitated due to the
+local nature of elections, seems feasible in a 5--10 year time
+frame. 
+
+Moreover, we recommend that any phase two of this project must include
+the drafting of concrete legal recommendations to state and local
+legislators.  These recommendations must ensure that the legal
+framework for IV deployment is rational, evidence-based, and legally
+mandates the requirements set forth in this report.
 
 \subsection{Politics}
 
-\todokiniry{In the main, politicians want internet voting come hell or
-  highwater.  How does phase 2 and 3 look given that vendors are
-  selling product and that politicians do not care about nuances?}
+In the main, politicians and elected officials such as County Clerks
+want to be perceived as forward-thinking and modern.  Thus, it is not
+uncommon for those running for office to support new election
+technologies such as IV, so long as they do not have to pick up the
+tab.  On the other hand, political parties and powerful political
+special interest groups are motivated by other factors.
+
+The hypothetical implications of widespread trustworthy use of
+E2E-VIV---particularly that of increased broad-spectrum voter
+participation--- are potentially at odds with the agendas of some
+political actors.
+
+As a result, it is an open question if E2E-VIV is politically
+feasible.  Only time will tell.
 
 \subsection{Fiscal}
 \label{sec:fiscal}
 
-\todokiniry{Reflect upon the cost of previous experiements in developing
-  and trialing internet voting systems.  What is the current static
-  state-of-affairs wrt election budgets at the local, state, and
-  national level. There is little more HAVA money, jurisdictions are
-  having to make-do with what they have, and there is little appetite for
-  purchasing new equipment from the existing vendors that they
-  dislike.  They really want an inexpensive outsourced product that is
-  secure and usable.}
+The cost of developing and deploying previous non-E2E IV systems is
+often not part of the public record.  Evidence indicates that the cost
+of each voting system deployed in the U.S.A. (SERVE), The Netherlands
+(KOA and RIES), Norway (with Scytl), Estonia, France, Switzerland, and
+Australia (iVote in NSW and vVote in VEC) ranges from approximately
+1.5 to 10s of millions dollars.  
+
+Consequently, it is reasonable to expect that creating an E2E-VIV
+system as stipulated in this report will cost several million dollars.
+
+Given the amount of money that has flowed into elections over the past
+fifteen years, one would think that designing and developing an
+E2E-VIV system is fiscally feasible.
+
+After all, just over 3 billion dollars has been spent on elections via
+HAVA, the cost of non-E2E voting machines from traditional vendors is
+several thousand dollars per machine, and the average cost per vote
+in today's elections ranges from \$2 to \$10 per vote, depending
+upon the jurisdiction.  
+
+Thus, the hypothesis that an open source E2E-VIV system, even if
+licensed and supported at reasonable costs by commercial
+organizations, will be extremely cost-effective in the medium-to-long
+term is reasonable.
+
+Unfortunately, today is exactly the wrong time to look for federal and
+state funding for elections technology.  Congress has no interest in
+expanding budgets for elections. In fact, congress is even debating
+eliminating the EAC whose yearly budget is only just over ten million
+dollars. States and local municipalities are also in a budget pinch,
+so we cannot expect any single state or municipality to fund any
+future phases of the E2E-VIV project.
+
+Accordingly, the fiscal feasibility of E2E-VIV is contingent upon
+actors outside of government with both financial resources and an
+interest in the speculative impact of widely available E2E-VIV.  These
+actors include non-profit foundations, wealthy individuals, and
+existing and new vendors willing to invest millions of dollars of R\&D
+into E2E-VIV.
 
 \subsection{Research}
 
-\todokiniry{What are the open research challenges?  Crafting a custom E2E
-  VIV protocol which pays attention to practical security,
-  development, deployment, and usability.  A long-term UX study
-  framework for running dozens/hundreds of microstudies to find the
-  right story of E2E-VIV for the masses.}
+Several research challenges are highlighted in the technical chapters
+of this report.  Foremost among them is the open question of whether or
+not it is possible to develop a bespoke E2E-VIV protocol for
+U.S. elections whose requirements includes universal design
+properties. 
 
-\subsection{Development}
+The general consensus of the cryptography and usability experts is
+that this is a feasible goal, though will require a significant amount
+of work in mechanical formalization and verification and usability
+testing.
 
-\todokiniry{How feasible is to to design and develop a high-assurance E2E
-  VIV using modern tools, technologies, and theory?}
+As such, the timeline of a phase two of this project is likely to be
+dependent upon the usability team's ability to design, run, and
+evaluate multiple concurrent usability testing runs.  
 
-\subsection{Operational}
+After discussing the complexity of these two research challenges, it
+is generally agreed that it is feasible to perform this work in a
+speculative phase two of the project in a two year time-frame.
 
-\todokiniry{How feasible is integration with local election systems and
-  processes, especially given how many jursidictions have rolled their
-  own EMSs?}
+\subsection{Integration}
+
+Considering the discussion focusing on operational issues above
+in~\autoref{sec:operational}, is it feasible to speculate that
+jurisdictions' IT staff or their contractors
+(see~\autoref{sec:business} below) are capable of integrating an
+E2E-VIV system into their existing technical and election workflow?
+
+Existing IV products witness serious integration challenges given the
+plethora of proprietary data formats and protocols in Election
+Management Systems and IV products.  This situation is, in part, the
+motivation for the interoperability requirements found
+in~\autoref{sec:interoperability} that open protocols and data
+standards must be used and respected in any E2E-VIV system.
+
+This idea is further strengthened by the velocity of the
+standardization work going on under the auspices of the IEEE 1622
+working group that focuses on standardizing election data formats and
+protocols~\cite{IEEE1622}. As such, existing and up-in-coming vendors
+are planning to revise their products to conform to said standards,
+especially since the speculation is that a future VSSG revision will
+mandate such.
+
+For this reason, integration between E2E-VIV systems and existing
+local and state elections systems looks feasible.
+
+\subsection{Business}
+\label{sec:business}
+
+Election officials historically are reluctant to develop their own
+technology or to rely upon technologies that do not have a significant
+commercial support business infrastructure. There is a cornucopia of
+business needs that surround any new IT system, namely system
+evolution, support, maintenance, integration, training,
+etc. 
+
+Consequently, if an open source E2E-VIV system is released and yet
+there is no corporate market of Value-Added Resellers (akin to
+Unisys), Business Integrators (the likes of IBM and Accenture), or
+straightforward SLA-focused companies willing to support an open
+source product (e.g., businesses like Red Hat and Hewlett-Packard),
+then it is infeasible to believe that E2E-VIV systems will ever be
+accepted and deployed.
+
+Is it feasible to conclude that such a market will come to exist?
+Moreover, will it be a competitive market so that LEOs will witness
+competition in E2E-VIV support RFPs?  
+
+Given recent shifts in the elections marketplace, especially with the
+entrance of a new generation of vendors and technologists like
+ClearBallot, Everyone Counts, Democracy Works, and the OSET
+Foundation, we believe that it is a feasible to conclude that a health
+business ecosystem will come to exist over the next decade.
 
 \subsection{Public Acceptance}
 
-\subsection{Business}
+The final, and most crucial feasibilty facet of E2E-VIV is the
+question of public acceptance.  Independent of any technological or
+political decision, if the voting public does not trust their election
+system, they do not trust their elected leaders or their democracy.
 
-\todokiniry{Pay attention particularly to LEO considerations.  They want
-  a product that is double-click deployable, integrates with their
-  existing EMSs, and is easy and cheap to maintain and deploy,
-  primarily through a set of competitive companies that provides
-  various SLAs.}
+Our initial usability study, as well case studies in the U.S.A. and
+elsewhere, has revealed that the general public is very accomodating
+to the introduction of new technology for elections.  In general,
+voters presume that election officials know what they are doing and,
+if they have chosen to deploy a new elections technology, then the
+decision must be a good one.
+
+This baseline of faith, though, is complemented and complicated by the
+fragile nature of trust.  IT systems that are responsible for citizen
+data or services, especially in the face of a growing public
+understanding of, and sensitivity to, the security failures of
+government systems, are currently looked upon with distrust.
+
+Government agencies responsible for these systems have an even harder
+time with earning and maintaining the trust.  Distrust is prevelent
+both in government employees that must use those systems and in
+citizens whose private information is housed in government systems.
+
+As such, earning and maintaining public trust in E2E-VIV systems
+requires an extraordinary amount of transparency, strategy, and is a
+proactive public relations exercise.  
+
+At its core, since E2E-VIV systems' correctness and security rely upon
+deep mathematical and computer science foundations, very few citizens
+can directly understand them and come to trust them through objective
+evidence. Consequently, the measure of trustworthiness that E2E-VIV
+systems have will always be a delegated trust in the hands of a few
+experts. The feasibility of public acceptance thus comes down to the
+trustworthiness of those experts and the evidence that they, and the
+E2E-VIV system itself, can produce which bears witness to public
+trust.
 
 %=====================================================================
 \section{Integrated Feasibility Analysis}
 
-\todokiniry{Roll together the above analysis into a final overall
-  framework for determining feasibilty and make a recommendation.}
+This chapter's feasibility analysis provides us with the components of
+an evaluation of the overall feasibility of pursuing a practical
+E2E-VIV system for U.S. elections.
+
+All technical dimensions---engineering for correctness and security,
+design and engineering for usability, availability, operational---have
+been deemed feasible, though difficult.
+
+Non-technical dimensions' feasibility ranges from unknown to wholly
+feasible.  The feasible-but-cautious position with respect to law is
+contingent upon legislators, election officials, and social pressure
+from voters.  Happily, this is complemented by the matters of
+financial, research, integration, and business are relatively
+straightforward, and thus feasible.
+
+The biggest open question relates to the core challenge of any modern
+IT system: how do people and software relate?
+
+The politics and public acceptance of internet voting is an open
+question, but we believe that only through the disciplined,
+transparent, scientific, and practical pursuit of E2E-VIV can we hope
+to influence that dialog and give evidence to the public that we, and
+E2E-VIV systems, deserve their trust.
+
+As such, given the context of IV systems in the U.S.A., we deem it
+feasible to pursue future phases of this project, and thus make our
+final recommendation (``MOVE-FORWARD'') in our concluding chapter.
 
