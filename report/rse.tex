@@ -1722,11 +1722,70 @@ context of E2E-VIV systems.
 In conclusion, independent of the evolution of the VVSG, the evaluation
 of the quality of any E2E-VIV system, as mandated by one of the
 recommendations in the concluding chapter of this report, should
-reside upon objective machine-interpretable evidence.
+principly reside upon objective machine-interpretable evidence.
 
-\subsection{Interpreting Evidence for the Non-expert}
+\subsection{Interpreting Evidence for the Layperson}
 
-\todokiniry{To be written.}
+Today the layperson must delegate trust in the quality of their voting
+equipment.  The voter delegates their trust to their election
+official.  Election officials delegate trust to their certification
+authority at the state or federal level.  Certification authorities
+delegate their trust to one of three accredited test
+laboratories~\cite{VVSG-labs}.  Test laboratories, which are hired by
+vendors to certify their products, certify a specific voting system
+release against a specific VVSG version. In the main this means that
+the lab manually evaluates the voting system against an enormous
+checklist and produces reams of documentation, but little-to-no
+third-party checkable evidence of the system's correctness and
+security.
+
+This chain of delegated trust that eventually rests in a paid test
+laboratory that does not produce publicly digestible or publicly
+checkable evidence is clearly not sufficient for the certification of
+E2E-VIV systems.
+
+In order to give verifiable evidence of an E2E-VIV system's
+correctness and security to the layperson we must continue to rely
+upon delegated trust.  But, critically, \emph{the roots of that trust
+  must be up to the layperson}.
+
+In the E2E-VIV setting, this transparent, multi-party delegated trust
+is contingent upon the definition and realization of several
+requirements found in this report.  The key requirements mandated
+herein are that any E2E-VIV system must:
+\begin{enumerate}
+\item have a formally specified, machine-checked, E2E protocol,
+\item use only publicly documented, and preferably standards-based,
+  data file and wire protocol formats,
+\item produce third-party verifiable artifacts (such as ZKPs,
+  independently-checkable hashchains, etc.),
+\item include a comprehensive set of traceable automated functional
+  and non-functional tests, and
+\item have formal, preferably mechanically-checked, proofs of the
+  correctness and security of the E2E protocol and its realization.
+\end{enumerate}
+
+By mandating the these evidence-generating requirements the trust in
+an E2E-VIV system need not be delegated to subjectively untrusted
+individuals or organizations. Any organization or individual with
+either the requisite skills (say, a computer science Ph.D. or a
+talented software engineer) or reasonable resources (with which to
+hire a group of trusted technical experts) can now objectively
+evaluate the quality of an E2E-VIV system.  
+
+Given the vast political variety of individual experts, think tanks,
+IT corporations, finding those with the requisite skills should be
+straightforward.  
+
+Moreover, given the wealth of well-organized, sometimes enormously
+well-funded, entities whose focus is entirely on public elections, it
+is reasonable to expect that third-party certification of E2E-VIV
+systems is tractable.  Hypothetically, only a small set of key
+organizations---say the DNC, RNC, a small set of independent top
+computer scientists and cryptographers involved with the Elections
+Verification Network or the Verified Voting Foundation, and a PAC
+aligned with each candidate---is necessary to earn the trust of
+virtually every voter in America.
 
 %%% Local Variables:
 %%% mode: latex
