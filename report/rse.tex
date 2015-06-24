@@ -806,7 +806,39 @@ target multiple deployment platforms.
 
 \subsection{Software Product Lines}
 
-Placeholder for Joe. \todokiniry{Finish this part}
+Developing software that has to be changed in many ways, small and
+large, for different target audiences, be they mobile phone models or
+jurisdictions, has historically been a nightmare.  Each different
+version of such a software is called a \emph{variant}, and the
+decision-points in the software or its build system that derive
+variants are called \emph{variation points}. This style of software
+development is called \emph{software product lines}, or SPL for
+short~\cite{SPL}.
+
+Traditionally, one would either develop such software with programming
+languages that have either (a)~support for conditional compilation,
+usually in the form of C-like \texttt{#ifdefs} or Lisp-like macros, or
+(b) inheritance and use sub-typing and sub-classing as a means by which
+to choose variants.  If one were to use process to effect the same
+goal then typically a large tree of branches are created in a VCS,
+where each branch is a mostly-separately maintained variant.
+
+All of these styles of software development, without additional
+supporting technology, have been shown to be unfit for this
+purpose~\cite{OldSPLBad}.  Such software often ends up being an
+impenetrable ball of mud that is extremely difficult to maintain.
+
+The alternative way of developing SPLs is to use declarative means by
+which to specify variants.  The academic literature highlights three
+solid solutions to this problem: a specification technique called
+\emph{feature models}~\cite{FMs}, using a specification language for
+expressing variants in the world of model-driven development (MDD)
+(e.g., Clafer or the OMG's Common Variability Language~\cite{CVL}), or
+embedded domain specific languages (EDSLs)~\cite{EDSL}.
+
+Product support for feature modeling and CVL is in its infancy, but is
+rapidly evolving as the industry demands better support for developing
+SPL-based software systems.
 
 \subsection{Issue Tracking}
 
