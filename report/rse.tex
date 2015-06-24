@@ -1682,7 +1682,51 @@ officials and the general public?
 
 \subsection{Measuring and Assessing Quality}
 
+There are numerous techniques covered in the peer-reviewed software
+engineering literature for measuring and assessing the quality of a
+software system~\cite{QualityA,QualityB,QualityC}.  
+
+Several existing standards, as mentioned above, have been discounted
+as directly contributing to software quality, and thus should not be
+used in the assessment of such for E2E-VIV system.  These include
+ISO-9000, CMMI, IEC 62304, and FIPS
+140-2~\cite{ISO9000,CMMI,IEC-62304,FIPS-140-2}.
+
+Several current and past international standards---namely the Common
+Criteria Certification~\cite{ISO-IEC-15408}, Future Airborne Capability
+Environment (FACE)~\cite{FACE}, Avionics Application Standard Software
+Interface (ARINC) 653~\cite{ARINC653}, and the Software Considerations
+in Airborne Systems and Equipment Certification (DO-178B and
+DO-178C)~\cite{DO178B,DO178C} among others---do directly address the
+necessary theoretical and technical foundations for what constitutes a
+quality software system.  As such, we recommend that these existing
+standards should be practically evolved and adopted by NIST in future
+versions of the VVSG.
+
+Two certification frameworks, one general-purpose and one exemplar,
+provide a reasonable ground for future voting systems certification
+standards.
+
+The general framework is the NIST risk management framework (NIST SP
+800-37 and NIST SP 800-53~\cite{NIST-800-37,NIST-800-53}).  It
+constitutes an excellent high-level characterization of the means by
+which the risks to secure system should be evaluated and mitigated.
+
+Exemplars include standards from the Payment Cards Industry Security
+Standards Council, such as their PCI Data Security Standard (PCI
+DSS)~\cite{PCI-DSS}.  The PCI DSS, much like the highest levels of
+FIPS 140-2, helps developers carefully specify exactly the trusted
+code base of mission-critical systems; a fundamental exercise in the
+context of E2E-VIV systems.
+
+In conclusion, independent of the evolution of the VVSG, the evaluation
+of the quality of any E2E-VIV system, as mandated by one of the
+recommendations in the concluding chapter of this report, should
+reside upon objective machine-interpretable evidence.
+
 \subsection{Interpreting Evidence for the Non-expert}
+
+\todokiniry{To be written.}
 
 %%% Local Variables:
 %%% mode: latex
