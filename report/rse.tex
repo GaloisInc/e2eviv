@@ -1630,11 +1630,55 @@ hardware.
 
 \section{Evidence-based Elections Technology}
 
-\tododmz{Reflect upon the fact that no voting systems in existence
-  today use even the basics that we have covered. Reflect on why this
-  is the case: lack of capability in existing vendors, no pressure
-  from NIST/EAC to do better, etc. Reflect upon how different this is
-  in safety-critical domains like at JML and Airbus.}
+Many of the technologies covered in this chapter produce, either as a
+side-effect of their intended use or directly based upon their design,
+machine-generated and machine-checkable evidence of systems
+correctness or security.  Consequently, it seems sensible that federal
+and state certification standards, particularly those issued by NIST
+and adopted by the EAC, should at least mandate the production of such
+evidence, and at most proscribe the use of specific processes,
+methodologies, and technologies.  
+
+Unfortunately, this is not the case.  Current and draft federal
+standards, called the Voluntary Voting System Guidelines (VVSG), that
+stipulate the means by which voting systems are tested and certified
+for use in public elections mandate the use of no evidence-producing
+techniques whatsoever.  Moreover, the certification gauntlet that
+voting systems must survive, which focuses on process and checklists,
+is based upon thirty year old thinking dismissed in both the academic
+literature and in the industrial software engineering community. Any
+system that is meant to be correct and secure developed using a
+``quality process'' that produces a pile of paperwork is simply
+unacceptable to researchers and developers in security and correctness
+R\&D communities.
+
+Based upon observations of the development methods practiced at
+existing and past vendors, mainly via public audits of voting systems,
+it also is clear that vendors do not use virtually all of the
+concepts, tools, and techniques discussed in this chapter.  The
+paucity of use of quality-centric software engineering and
+evidence-generating technologies is not indicative of ignorance.  The
+fact of the matter is that there is zero business pressure from
+governments or the market, thus existing vendors have no reason to
+do anything differently in the near future.
+
+This state of affairs is radically different in other safety- and
+mission-critical systems areas: software systems for aeronautics,
+avionics, control systems, biomedical, nuclear energy, and spacecraft,
+just to name a few, have stringent standards on the development and
+certification of such software systems.  One might argue that public
+election systems are no different, especially if they are to be used
+for national public elections.
+
+Discussions within and with NIST show that they are knowledgeable about
+many of the concepts, tools, and technologies discussed in this
+chapter and are quite keen on relying up more evidence-generating
+techniques for voting system certification.  The question is, even if
+VVSG evolves, and presuming that a future version of the VVSG covers
+IV systems, how should third parties measure and assessment the
+quality of E2E-VIV systems?  And, more importantly, how can and should
+that evidence be interpreted by non-experts, particularly election
+officials and the general public?
 
 \subsection{Measuring and Assessing Quality}
 
