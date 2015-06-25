@@ -4,6 +4,7 @@
 \tododmwit{signposting; some content is here, but we need an intro and
 transitions explaining what content is about to happen}
 
+%=====================================================================
 \section{Goals}
 Typical Internet voting election processes have six phases:
 
@@ -141,6 +142,7 @@ verifiability, so that a voter can convince themselves that these properties
 hold even if they suspect that the system or election officials have been
 corrupted.
 
+%=====================================================================
 \section{Shortcomings and Expectations of E2E-VIV}
 
 As discussed in \autoref{chapter:remote_voting}, there are several
@@ -171,12 +173,14 @@ is common to all Internet voting systems is the need for voters to have
 Internet access. This is not necessarily possible for all overseas and
 military voters.\tododmwit{would be nice to have some hard data about this}
 
+%=====================================================================
 \section{E2E-VIV in Practice}
 
 A number of practical voting systems have been developed based on the
 principles of E2E-VIV. This section describes several systems that
 have been used in a real election or in a pilot.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{RIES}
 \label{sec:ries} 
 
@@ -250,6 +254,7 @@ In the wake of these critical reports, plans to use RIES in the 2008
 Dutch parliamentary elections were scrapped, and Internet voting as a
 whole was banned in the Netherlands.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Prêt à Voter}
 \label{sec:pret-voter}
 
@@ -294,6 +299,7 @@ because the voter no longer has the part of the ballot linking
 candidate names to ballot positions, the voter cannot prove to anyone
 else how the ballot was voted.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Punchscan}
 \label{sec:punchscan}
 
@@ -323,6 +329,7 @@ be audited, and the key to tabulating the votes is that there is a
 cryptographically secure mapping from the ballot serial numbers to the
 apparent random order of the candidate voting positions.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Scantegrity II}
 \label{sec:scantegrity-ii}
 
@@ -356,6 +363,7 @@ ink may use the public bulletin board to check that their ballot was
 indeed tabulated, though this information is not sufficient to prove
 that they voted a particular way.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Remotegrity}
 \label{sec:remotegrity}
 Remotegrity~\cite{zagorski2013} is a remote coded voting system that
@@ -408,6 +416,7 @@ voting, Remotegrity ballots can be mailed in, and voters can check for
 their codes on the election website to be assured that their vote
 correctly reached election officials.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Helios}
 
 Helios~\cite{adida2008,adida2009} is a system developed for web-based
@@ -440,6 +449,7 @@ bulletin board so that voters may check that their ballots have been
 correctly recorded. Similarly, after the polls close, the decryption
 and vote tally may be checked.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Norwegian System}
 
 Between 2011 and 2014, the Norwegian government ran an Internet remote
@@ -481,6 +491,7 @@ system~\cite{carter2013}.
 Scytl and the
 Norwegian government assert that this is an E2E system. However, the paper says that, if the voter's encryption software colludes with the return code generator (both presumably run on software written by Scytl), it can lead the voter into believing her vote was cast accurately even when it is not. Thus its property of voter-verifiability relies on voting system software behaving honestly. Additionally, the system does not provide a proof of the tally and hence the tally is not universally verifiable. Finally, there is no information that enables a voter to know which of her votes was counted (if she casts multiple vote to ward off coercion). Because the correctness of the tally is not possible without the correct votes being included in the count, the voting public also does not have the information to determine that only one vote was counted for each voter. For all these reasons, Scytl as used in the Norwegian elections is not considered an E2E system. 
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Wombat}
 
 The Wombat voting system~\cite{rosen2011} has been used for multiple
@@ -493,6 +504,7 @@ ciphertext is posted online, and she casts the unencrypted vote in the
 ballot box (this may be manually counted) and takes the ciphertext
 home. The votes are tallied using a verifiable mixnet.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{DEMOS}
 
 DEMOS~\cite{kiayias2014} is a coded vote system where the voter is
@@ -515,6 +527,7 @@ standard manner.
 A pilot study of DEMOS was carried out during the 2014 European
 Elections in Greece.
 
+%=====================================================================
 \section{Limitations of Existing Systems}
 \label{sec:limit-exist-syst}
 
@@ -541,6 +554,7 @@ In this section, we examine the limitations of E2E systems with a
 particular focus on the limitations that are unique to or exacerbated
 by E2E characteristics.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Voter Secrecy}
 
 Systems like Prêt à Voter (\autoref{sec:pret-voter}) and Punchscan
@@ -591,6 +605,7 @@ RIES judged this violation to be no more severe than the threats to
 ballot secrecy inherent in postal voting, and therefore worth
 accepting for the benefit to verifiability.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Ballot Stuffing}
 
 As when ensuring voter secrecy, many E2E systems depend on correct
@@ -614,6 +629,7 @@ voter registration rolls. However having a fixed set of ballot IDs can
 make it harder to replace lost, stolen, or spoiled ballots, or to
 providing for late or same-day voter registration.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Dispute Resolution}
 
 Note that E2E systems provide voter verifiability: they enable a voter to determine if her vote was accurately recorded. However, in the instance when the vote is not accurately recorded, not all E2E systems provide the voter with evidence that she may use to convince an independent party of the problem. This presents a loophole that may be exploited by dishonest voters, who may claim that their vote is not accurately recorded when it is, calling into question an honest election. 
@@ -623,7 +639,7 @@ An E2E system with the dispute resolution property enables a voter to present ev
 All cryptographic protocols in the literature that provide dispute resolution require either paper or a second channel (such as a smartphone) in addition to the machine the voter votes from, whether in a polling booth or remotely. (We consider only protocols intended for use by voters voting from machines that are not trusted). 
 
 This implies that any existing voting system with dispute resolution needs the use of a second electronic channel or paper.  
-
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Infrastructure \& Equipment}
 
 Election equipment fails in practice. An E2E system must be resilient
@@ -659,6 +675,7 @@ arise due to operating systems or web browser versions, and the
 network infrastructure between the voter and the central election
 system might be compromised with a man-in-the-middle attack.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Usability}
 
 Traditional election systems struggle with usability. Most often, however, the problems can be addressed with special attention to user interface design. Verifiable
@@ -695,6 +712,8 @@ can be a Pyhrric victory when the resulting system is unusable for
 non-expert voters.
 
 The results of the Rice study have been challenged by McBurnett et al~\cite{mcburnett2014}. 
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Accessibility}
 
 There are ability requirements for many E2E systems in various stages
@@ -729,6 +748,7 @@ election. The additional requirement of trusting an assistive device is not a fl
 % By requiring an expanded base of trust in order to be
 % accessible, the existing E2E systems undermine their E2E properties.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Social \& Political}
 
 Novel election systems face a difficult bootstrapping problem: in
