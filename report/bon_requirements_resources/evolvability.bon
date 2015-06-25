@@ -1,1 +1,15 @@
-../../requirements/evolvability.bon
+scenario_chart EVOLVABILITY_REQUIREMENTS
+indexing
+  partof: "NON_FUNCTIONAL_REQUIREMENTS"
+explanation
+  "General requirements on the evolvability of digital election \
+ \ systems."
+ 
+scenario
+  "ELECTORAL_AUTHORITY_UPDATE"
+description
+  "The electoral authority has the right and ability to update \
+ \ election systems to conform to changes in applicable law, \
+ \ available techology, or the system threat model."
+ 
+end

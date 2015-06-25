@@ -1,1 +1,76 @@
-../../requirements/functional.bon
+scenario_chart FUNCTIONAL_REQUIREMENTS
+indexing
+  partof: "TECHNICAL_REQUIREMENTS"
+explanation
+  "General functional requirements for digital election systems."
+
+scenario
+  "CASTING_ATOMIC" -- @ref David Jefferson
+description
+  "Ballot casting shall be atomic with respect to server failures."
+
+scenario
+  "DETERMINISTIC_VOTING_PROCESS" -- @ref David Jefferson
+description
+  "If a server side failure occurs, no voter's balloting can be \
+ \ left in an unknown state."
+
+scenario
+  "BALLOT_FINAL_STATES" -- @ref David Jefferson
+description
+  "Either a ballot is securely and completely cast and the \
+ \ voter is marked as having voted, or no ballot is recorded and the \
+ \ voter is not marked as having voted."
+
+scenario
+  "VOTE_RECORD_MONOTONICITY" -- @ref David Jefferson
+description
+  "If the system and the law allows a voter to cast multiple votes \
+ \ with only the last one counting, or to cast a partial ballot with \
+ \ the option of modifying it later, then each voting session must be \
+ \ atomic with respect to server failures. If a failure occurs during the \
+ \ voter's last session, then the votes cast as of his or her previous \
+ \ session will count."
+
+scenario
+  "RECEIPT_FREEDOM" -- @ref David Jefferson
+description
+  "There must be no way for voters to prove to another party any \
+ \ information regarding how they voted in any race (beyond what is \
+ \ mathematically deducible from the final distribution of votes)."
+  
+scenario
+  "VALID_BALLOT_PROVENANCE" -- @ref David Jefferson
+description
+  "Once it is determined that a ballot will be counted, the ballot \
+ \ shall be irrevocably separated from the identification of the \
+ \ voter who cast it."
+ 
+scenario
+  "MULTI_BALLOT_RECORD" -- @ref David Jefferson
+description
+  "If the voting system permits voters to modify or replace their \
+ \ previously cast ballots, only the latest vote by each voter in \
+ \ each race shall be counted in the final tally."
+
+scenario
+  "NO_DOUBLE_VOTE" -- @ref David Jefferson
+description
+  "But for systems supporting MULTI_BALLOT_RECORD, the voting system \
+ \ shall not record more than one vote for any voter in any race."
+
+scenario
+  "NO_ADVERTISING" -- @ref David Jefferson
+description
+  "The voting system client must not display or permit the display of \
+ \ any advertising or commercial logos in the window that contains the \
+ \ voting session, other than those of the election jurisdiction \
+ \ itself."
+
+scenario
+  "NO_EXTERNAL_LINKS" -- @ref David Jefferson
+description
+  "The voting system client must not display any links to other sites \
+ \ except for help in the mechanics of voting."
+
+end

@@ -1,1 +1,16 @@
-../../requirements/maintenance.bon
+scenario_chart MAINTENANCE_REQUIREMENTS
+indexing
+  partof: "NON_FUNCTIONAL_REQUIREMENTS"
+explanation
+  "General requirements relating to the maintainence of digital election \
+ \ systems."
+ 
+scenario
+  "ELECTORAL_AUTHORITY_PATCH"
+description
+  "The electoral authority has the right and ability to patch \
+ \ election systems to correct flaws discovered in the algorithms, \
+ \ implementation, or deployment."
+
+end
+
