@@ -447,7 +447,7 @@ transcript.
 
 \subsection{Demos}
 
-Demos is a system that was recently put forth in \cite{demos}. The
+Demos is a system that was recently put forth in \cite{kiayias2014}. The
 central construction idea views the administrator as operating in a
 three move protocol known as a Sigma protocol. At the initial stage,
 the administrator precomputes a sequence of encodings that contain all
@@ -485,19 +485,19 @@ any of the unused ballot encodings in the public bulletin board. In
 order to attack verifiability effectively the administrator will have
 to guess the choice made by the voters in the A-B decision. While this
 may be feasible for just a handful of voters, it is shown in
-\cite{demos} that the probability of not getting caught drops
+\cite{kiayias2014} that the probability of not getting caught drops
 exponentially in the distance of the deviation of the final tally from
 the calculated tally (in our present terminology).
 
 Demos (or a Demos variant) has potential has the potential to realize
 some useful instantiation of the template ideal functionality given
-the proof arguments presented in \cite{demos} assuming there is
+the proof arguments presented in \cite{kiayias2014} assuming there is
 sufficient entropy in the A-B decision that is performed by the
 voters.
 
 \subsection{Helios}
 
-Helios is a system that was introduced in \cite{helios} and culminates
+Helios is a system that was introduced in \cite{adida2008helios} and culminates
 a long sequence of previous works that used client side encryption
 combined with a ciphertext processing stage that breaks the connection
 between the identity of the voter and her choices during ballot
@@ -544,7 +544,7 @@ The current implementation of Helios utilizes encryption with an
 additive homomorphic property so that vote tallying can be executed
 over the submitted ciphertexts. An alternative implementation that
 utilizes mix-nets for ciphertext processing has been proposed
-\cite{zeus}.
+\cite{tsoukalas2013helios}.
 
 Helios (or a Helios variant) has the potential to realize some useful
 instantiation of the template ideal functionality given that it can
@@ -592,9 +592,9 @@ would be preferable to be avoided if possible).
 
 \subsection{Remotegrity}
 
-Remotegrity \cite{remotegrity} is a front-end system for Internet
+Remotegrity \cite{zagorski2013remotegrity} is a front-end system for Internet
 voting that can be combined with a back-end (such as Scantegrity-II
-\cite{scantegrity2} ) to offer a complete e-voting system with
+\cite{chaum2008scantegrity} ) to offer a complete e-voting system with
 end-to-end verifiability guarantees.
 
 During initialization the system administrator precomputes a number of
@@ -664,7 +664,7 @@ implementation of the ideal functionality.
 
 \subsection{Wombat}
 
-The wombat system \cite{wombat} falls in the same category as Helios
+The wombat system \cite{ben2012new} falls in the same category as Helios
 and Zeus with the exception that it uses an onsite ballot-casting
 setup that also preserves the original voter intent in paper. The
 voters generate ciphertexts with the aid of a device with a printer
@@ -691,8 +691,8 @@ into account the fact that wombat is an on-site system).
 \subsection{vVote/\PaV}
 
 The vVote system is an adaptation of the \PaV system for the
-Australian state of Victoria elections \cite{vvote}. It retains the
-general structure of \PaV \cite{pret-a-voter}
+Australian state of Victoria elections \cite{culnane2014vvote}. It retains the
+general structure of \PaV \cite{ryan2009pret}
 while it modifies the way the encryption of voter choices is performed
 so that it suits the style of elections of Victoria.
 
@@ -899,7 +899,7 @@ for novel research directions in E2E protocol design. They also
 described because some naive proposals for election systems include
 the use of these tools, and should be identified and rejected.
 
-\paragraph{Hashchains and blockchains.} A hash chain is a data store
+\paragraph{Hashchains and blockchains.} A hashchain is a data store
 that holds a ledger of sequential records in a cryptographically
 secure fashion~\cite{HC}. Hashchains are commonly used to record a
 sequence of causally dependent events with cryptographic integrity and
@@ -939,7 +939,7 @@ plentiful~\cite{blockchains-for-elections}, but have been shown to be
 naive in most instances and inappropriate as a foundation for a public
 election E2E protocol. The only reasonable proposal for the use of
 blockchains for parts of an election protocol is from Clark and
-Essex~\cite{CommitCoin}.
+Essex~\cite{clark2012commitcoin}.
 
 \paragraph{Multi-party computation and linear secret sharing.} Secure
 multi-party computation (MPC) is a collaborative privacy-preserving
@@ -971,7 +971,7 @@ in the use of MPC for E2E elections.
 \paragraph{Functional encryption.} Functional encryption (FE) is a
 kind of public-key cryptography in which possessing a secret key
 permits one to learn a function of what the ciphertext is encrypting,
-and nothing more~\cite{FE}.
+and nothing more~\cite{boneh2011functional}.
 
 More precisely, a FE scheme for a given functionality $F$ consists of
 the following four algorithms:
@@ -988,14 +988,14 @@ the following four algorithms:
 
 FE's primary use is in encrypted databases whose security properties
 are determined, in part, by the computations permitted on its
-encrypted data~\cite{CryptDB}. Consequently, FE may prove useful in
+encrypted data~\cite{popa2011cryptdb}. Consequently, FE may prove useful in
 the storing of, or computing on, election data like ballots, audit
 logs, and more.
 
 FE encryption generalizes several existing primitives including
 identity-based encryption (IBE) and attribute-based encryption (ABE),
 both of which may be useful in the context of authentication in E2E
-protocols~\cite{IBE,ABE}.
+protocols~\cite{shamir1985identity,goyal2006attribute}.
 
 \paragraph{Fully homomorphic encryption.} Fully homomorphic encryption
 (FHE) is a more powerful version of the aforementioned partial
@@ -1020,7 +1020,7 @@ computation was performed correctly.
 Several technologies exist to help verify that a computation performed
 by untrusted workers is correct, including the use of secure
 coprocessors, Trusted Platform Modules (TPMs), interactive proofs, and
-more~\cite{TPM-stuff}. These verifications are either interactive,
+more~\cite{king2013trusted,perez2006vtpm,sparks2007security}. These verifications are either interactive,
 which require the client to interact with the worker to verify the
 correctness proof, or are non-interactive protocols which can be
 proven in the random oracle model.
@@ -1166,7 +1166,7 @@ the end of the election when the tally is announced, a sample of
 precincts is randomly elected at the state level and a manual hand
 count is performed. The results of the hand count are audited and a
 statistical analysis is conducted to confirm the e-voting tally at a
-certain confidence level.  See \cite{connecticut-audit} for more
+certain confidence level.  See \cite{antonyan2009state} for more
 details regarding the procedure that is followed.
 
 %connecticut-audit
