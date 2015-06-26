@@ -221,13 +221,13 @@ website includes a voting application written in JavaScript; the
 voting application is a ``client-side'' application, which means that
 it runs on the voter's computer and not on the election server. The
 client-side application processes the voter's authorization code and
-the public identification of the candidate to create an encrypted
+the public ID of the candidate to create an encrypted
 vote. The encrypted vote is then placed on a public online ``bulletin
 board'' that serves as a ballot box.
 
 At the close of the polls, the election authority releases the final
 vote tallies along with a codebook containing the encryptions of all
-valid credentials and all candidate identifications.
+valid credentials and all candidate IDs.
 
 The algorithms and protocols used by RIES are public, and each voter
 has access to all of the inputs and outputs. In principle, each voter
@@ -371,84 +371,99 @@ voting, along with Remotegrity (\autoref{sec:remotegrity}) for
 absentee voting. The 2009 Takoma Park election was the first use of an
 E2E-V system with ballot privacy in binding governmental elections.
 
-Before the election, officials generate a random seed\footnote{A
-  \emph{random seed} is used by software that generates sequences of
-  pseudorandom numbers. Every time the software is started with the
-  same seed, it generates the same sequence of numbers.\todo{This
-    explanation may need to be better/more complete/perhaps integrated
-    into the text}} using a ``secret sharing'' scheme; each official
-inputs a piece of secret information (such as a password) into the
-system, and the system combines these pieces into a single result. The
-system then generates three-letter alphanumeric codes are created for
-each choice on each printed ballot using this seed. It also creates
-additional tables so that interested parties can later confirm that
-the system computed the tally correctly.
+Before the election, a random seed\footnote{It is very difficult to
+  generate truly random sequences of numbers, so computers use
+  programs called \emph{pseudorandom number generators} to generate
+  sequences of numbers that appear random. Pseudorandom number
+  generators use a \emph{random seed} when they start generating a
+  sequence; every time the same generator is started with the same
+  seed, it generates the same sequence. The selection of good random
+  seeds is very important in secure computing systems.}\todo{This
+  explanation may need to be better/perhaps integrated into the text}
+is generated and shared among election officials using a secret
+sharing scheme.\footnote{In a \emph{secret sharing scheme}, a computer
+  ``splits'' a piece of secret information---in this case, a random
+  seed---into multiple parts and distributes these parts to multiple
+  people. Combining some required number of the parts---this could be
+  all the parts, or some smaller number, depending on the secret
+  sharing scheme---reveals the secret information, but combining fewer
+  than the required number of parts reveals nothing.}\todo{Again,
+  integrate this into the text?} Using this seed, the system generates
+a three-letter alphanumeric code for each choice on each printed
+ballot. It also generates additional tables so that interested parties
+can later confirm that the system computed the tally correctly.
 
 During the election, the voter experience is nearly identical to that
 of conventional optical-scan paper ballots. When a voter marks a
 choice, the ink in the pen reacts with invisible ink on the paper to
 disclose the three-letter code in the marked voting target. The ballot
-identification number and the displayed code are posted to a public
+ID number and the displayed code are posted to a public
 online bulletin board.
 
-After the election, public verification of the final tally proceeds
-with the public bulletin board in a manner similar to that of
-Punchscan and Prêt à Voter.
-
-In addition to the public verification, individual voters can record
-their ballot ID numbers and the codes revealed from the invisible
-ink. They can then use the public bulletin board to check that their
-ballots were tabulated. This information, however, is not sufficient
-to prove that they voted a particular way.
+After the election, members of the public can verify the final tally
+using the public bulletin board in a manner similar to that of
+Punchscan and Prêt à Voter. In addition to this public verification,
+individual voters can record their ballot ID numbers and the codes
+revealed from the invisible ink. They can then use the public bulletin
+board to check that their ballots were tabulated. This information,
+however, is not sufficient to prove that they voted a particular way.
 
 \subsection{Remotegrity}
 \label{sec:remotegrity}
-Remotegrity~\cite{zagorski2013} is a remote coded voting system that
-was used for absentee voting alongside Scantegrity
-(\autoref{sec:scantegrity-ii}) for in-person voting for the 2011
-Takoma Park, Maryland municipal elections.
+Remotegrity~\cite{zagorski2013} is a code voting system\footnote{A
+  \emph{code voting system} is one where voters enter a
+  cryptographically-generated code corresponding to a candidate in
+  order to vote for that candidate. Each voter gets a different set of
+  codes, so external observers cannot learn which candidate a voter
+  selected from the code the voter entered.}\todo{Yet again... Maybe
+  we need a section for ``definitions'' before we discuss the voting
+  systems?} that was used for absentee voting alongside Scantegrity
+(\autoref{sec:scantegrity-ii}) in the 2011 Takoma Park, Maryland
+municipal elections.
 
-Remotegrity voters receive a coded voting ballot and an authentication
-card in the mail. The codes on the ballot can be covered by a
-lottery-style scratch-off field. The authentication card contains
-several authentication codes under scratch-off, a lock-in code under
-scratch-off, and an acknowledgment code. Both cards have serial
-numbers. The voter can be sent two ballots so that she can use one for
-auditing purposes.
+With Remotegrity, voters receive a code voting ballot and an
+authentication card in the mail. The codes on the ballot are covered
+by a lottery-style ``scratch-off'' field. The authentication card
+contains several authentication codes under scratch-off fields, a
+lock-in code under a scratch-off field, and an acknowledgment
+code. Both cards have serial numbers. Election officials can send each
+voter two ballots so that one can be used for auditing purposes.
 
-To vote, the voter enters both serial numbers, the codes corresponding
-to her choices, and an authentication code obtained after
-scratching-off a surface chosen at random.
+To vote, a voter enters both serial numbers, the codes corresponding
+to her choices, and an authentication code obtained after scratching
+off a field chosen at random.
 
-She returns to the election website a few hours later to check if her
-codes are correctly represented, and to see if the election authority
-has posted her acknowledgment code next to the codes. This indicates
-to her that the election officials received valid codes for her
-ballot.
+The voter can returns to the election website a few hours later to
+check if her codes are correctly represented, and to see if the
+election authority has posted her acknowledgment code next to her
+voting codes. This indicates to the voter that the election officials
+received valid codes for her ballot. She then scratches off the
+lock-in code and posts it on the website. This affirms to the election
+officials, observers and other voters that her vote is correctly
+represented on the website.
 
-She scratches off the lock-in code and posts it on the website. This
-affirms to the election officials, observers and other voters that her
-vote is correctly represented on the website.
-
-Among all of the systems discussed here, this is the first one that
-asks the voter to take positive action to confirm that the vote was
+Among all the systems discussed here, this is the first one that asks
+the voter to take positive action to confirm that the vote was
 correctly posted.
 
-As with RIES, if we assume that there is no communication between the
-computer used to print the credentials and the computer used to
-collect the votes, the latter computer does not know the mapping
-from codes to candidates, so the vote is not revealed to the
-computer. Further, because the computer does not know a valid code
-corresponding to another candidate on the ballot, it cannot change the
-vote. Finally, and uniquely, because the computer does not know the
-acknowledgment code, its presence on the election website assures the
-voter that the election officials received a valid code for her
-ballot.
+Part of the security of Remotegrity comes from a separation between
+the computer that generates the authentication codes and voting codes
+(the ``generator'') and the computer that collects the votes (the
+``vote collector''). Because the generator and the vote collector
+share no information, the vote collector does not know what codes
+correspond to what candidates. It therefore has no information (other
+than codes) about how any voter voted and, because it has no
+information about what codes are valid, cannot change any cast
+votes. In addition, the vote collector has no information about
+acknowledgement codes; when a voter's correct acknowledgement code
+appears on the website, she knows that the election officials have
+received a valid code for her ballot because only the election
+officials could have posted the correct acknowledgement code.
 
-The tally is computed from the codes in a verifiable manner that
-corresponds to the coded voting system used.
+The tally in Remotegrity is computed from the codes in a verifiable
+manner that corresponds to the code voting system used.
 
-If a jurisdiction is nervous about using the Internet for remote
+If a jurisdiction is concerned about using the Internet for remote
 voting, Remotegrity ballots can be mailed in, and voters can check for
 their codes on the election website to be assured that their vote
 correctly reached election officials.
@@ -456,111 +471,132 @@ correctly reached election officials.
 \subsection{Helios}
 
 Helios~\cite{adida2008,adida2009} is a system developed for web-based
-Internet voting. It was used for the election of a Belgian university
-president in March 2009 and by numerous universities and associations
-since then, including the Association for Computing Machinery and the
-International Association for Cryptologic Research.
+E2E-V Internet voting. It was used for the election of a Belgian
+university president in March 2009 and has been adopted by numerous
+universities and associations since then, including the Association
+for Computing Machinery and the International Association for
+Cryptologic Research.
 
-Before a Helios election, officials input the email addresses of the
-voters who will be participating. The system emails the voters their
-randomly-generated login information and the link to the election
-website.
+Before an election, officials input the email addresses of the voters
+who will be participating into the Helios system. The system emails
+each voter unique randomly-generated login information and the link to
+the election website.
 
-During the election, the voter enters their choices on the
-website. After entering her choices, the voter has an option to spoil
-their ballot in order to verify that it was recorded correctly. Upon
-completing a non-spoiled ballot, the system sends an email confirming
-the receipt of their vote, though not their choices. At any time
-before the close of the election, the voter can repeat these steps and
-the new vote will replace the old vote.
+During the election, a voter enters her choices on the website. After
+entering her choices, the voter has an option to ``spoil'' their
+ballot and request a new one. This invalidates the ballot, so that it
+is not counted in the final tally, but still allows the voter to
+verify that it was cast as intended. Spoiling a ballot is also a way
+to practice using the system and gain confidence in its accuracy. Once
+the voter casts a ballot that she does not declare to be spoiled, the
+system sends an email confirming the receipt of her vote, but does not
+include her choices in the email. At any time before the close of the
+election, the voter can repeat these steps and the new vote will
+replace the old vote.
 
-After the election, Helios uses homomorphic vote tallying with the
-optional addition of mixers and mixnets in some
-derivatives~\cite{bulens2011,tsoukalas2013}.
+After the election, Helios uses cryptographic techniques to tally the
+votes without revealing how individual voters
+voted~\cite{bulens2011,tsoukalas2013}.
 
-Voter authentication is not required until after the voter decides to
-cast the ballot, so any interested party may prepare and audit
-ballots. All cast ballots are posted in encrypted form on a public
-bulletin board so that voters may check that their ballots have been
-correctly recorded. Similarly, after the polls close, the decryption
-and vote tally may be checked.
+Helios does not require voter authentication until after the voter
+decides to cast a ballot, so any interested party may prepare and
+audit ballots. All cast ballots are posted in encrypted form on a
+public online bulletin board so that voters may check that their
+ballots have been correctly recorded. Similarly, after the polls
+close, the decryption and vote tally may be checked.
 
 \subsection{Norwegian System}
 
-Between 2011 and 2014, the Norwegian government ran an Internet remote
+Between 2011 and 2014, the Norwegian government ran a remote Internet
 voting trial~\cite{gjosteen2012} using a cryptographic protocol
-designed by Scytl, a commercial voting system vendor. 
-% If the claim is
-% accurate, this is among the first efforts by commercial voting system vendors to
-% enable E2E elections. (Note that Remotegrity has also been commercialized and it was used in 2011). 
+designed by Scytl, a commercial voting system vendor.  The Norwegian
+system uses a combination of postal mail, the Internet, and SMS text
+messaging. 
 
-The Norwegian system uses a three-channel model involving postal mail,
-the Internet, and SMS text messaging. Before the election, the voter
-receives authorization codes to cast a ballot via postal mail.
-
-During the election, the voter uses a computer to cast an encrypted
-ballot. The voter can cast multiple ballots; only the last ballot cast
-is counted, and if a voter votes both on paper at a polling place and
-by Internet, the paper ballot overrides the Internet ballot. After
-casting a ballot, the voter receives a confirmation code offering a
-partial end-to-end proof via an SMS message.
+Before the election, the voter receives authorization codes to cast a
+ballot via postal mail. During the election, the voter uses a computer
+to cast an encrypted ballot. The voter can cast multiple ballots, but
+only the last ballot cast is counted. If a voter votes both on paper
+at a polling place and by Internet, the paper ballot overrides the
+Internet ballot. After casting a ballot, the voter receives a
+confirmation code offering a partial verification via an SMS text
+message.
 
 Available descriptions of the Norwegian system are incomplete, so it
 is not possible to analyze the system in depth. However the system's
-claims to protect voter privacy are weak: ``If the voter's computer
-and the return code generator are both honest, the content of the
-voter's ballot remains private.'' In addition, the receipt delivered
-to the voter proves only that the encrypted ballot was received as
-cast, not that it was counted as cast or that the encrypted vote
-matches the voter's intent.
+claims with respect to voter privacy are weak: ``If the voter's
+computer and the return code generator are both honest, the content of
+the voter's ballot remains private.''\footnote{This claim is part of
+  the voting protocol description for the Norwegian
+  system~\cite{gjosteen2012}. ``Honest'' means that the software on
+  the computers in question has not been corrupted in an attempt to
+  subvert the election.} In addition, the receipt delivered to the
+voter proves only that the encrypted ballot was received as cast, not
+that it was counted as cast or that the encrypted vote matches the
+voter's intent.
 
-The system evolved significantly between its first use in 2011 and
-2013, with added complexity to attempt to assure voters that their
-ballots were stored as cast. In 2013, the Carter Center mounted a
-serious effort to observe the Norwegian system in action. Their
-report on the operation of the system and the problems
+The Norwegian system evolved between its first use in 2011 and
+2013. Significant complexity was added in an attempt to assure voters
+that their ballots were stored as cast. In 2013, the Carter Center
+mounted a serious effort to observe the Norwegian system in
+action. Their report on the operation of the system and the problems
 they had observing it offers useful insight into the administration of
-E2E systems in general as well as the particulars of the Norwegian
-system~\cite{carter2013}.
+E2E-V systems in general, as well as the particulars of the Norwegian
+system~\cite{carter2013}. Scytl and the Norwegian government assert
+that this is an E2E-V system. However, if a voter's encryption
+software and the return code generator share information, they can
+lead her to believe that her vote was cast accurately even when it was
+not. As such, the Norwegian system's property of voter verifiability
+relies on the voting system software functioning properly. True E2E-V
+systems can not rely on the correctness of the voting system software
+for verifiability.
 
-Scytl and the
-Norwegian government assert that this is an E2E system. However, the paper says that, if the voter's encryption software colludes with the return code generator (both presumably run on software written by Scytl), it can lead the voter into believing her vote was cast accurately even when it is not. Thus its property of voter-verifiability relies on voting system software behaving honestly. Additionally, the system does not provide a proof of the tally and hence the tally is not universally verifiable. Finally, there is no information that enables a voter to know which of her votes was counted (if she casts multiple vote to ward off coercion). Because the correctness of the tally is not possible without the correct votes being included in the count, the voting public also does not have the information to determine that only one vote was counted for each voter. For all these reasons, Scytl as used in the Norwegian elections is not considered an E2E system. 
+The Norwegian system also does not provide a proof of the tally, and
+is therefore not universally verifiable. If a voter casts multiple
+ballots to avoid coercion, she cannot verify which ballot was
+counted. Since the tally cannot be correct if the correct votes are
+not included in the count, the voting public also does not have the
+information to determine that only one vote was counted for each
+voter. For all these reasons, the Scytl software implementation used
+in the Norwegian elections is not considered an E2E-V system.
 
 \subsection{Wombat}
 
-The Wombat voting system~\cite{rosen2011} has been used for multiple
-pilot elections in Israel. It is an in-person voting system where the
-voter votes on a touch-screen and obtains a printout of her vote with
-an encryption of it. The voter can choose to cast or audit the
-encrypted vote. If she chooses to audit the vote, she may check if the
-vote was correctly encrypted. If she chooses to cast it, the
-ciphertext is posted online, and she casts the unencrypted vote in the
-ballot box (this may be manually counted) and takes the ciphertext
-home. The votes are tallied using a verifiable mixnet.
+The Wombat in-person voting system~\cite{rosen2011} has been used for
+multiple pilot elections in Israel. A voter fills out her ballot on a
+touch-screen and receives a printout of both encrypted and unencrypted
+versions of her vote. She can then choose either to cast or to audit
+the encrypted vote. If she chooses to audit the vote, she may check
+that the vote was correctly encrypted. If she chooses to cast it, the
+unencrypted vote goes into the ballot box and the encrypted vote is
+posted on an online bulletin board; the voter can take her copy of the
+encrypted vote home to verify that it was posted. The encrypted votes
+are tallied cryptographically, and the unencrypted votes in the
+ballot box can also be hand-counted. 
 
 \subsection{DEMOS}
 
-DEMOS~\cite{kiayias2014} is a coded vote system where the voter is
-given a two-part coded ballot; she audits one part and uses the other
-to vote. Associated with each choice on the ballot is a vote
-code---the encryption of the vote, which is entered in the voting
-machine by the voter, and a receipt code which the voter does not
-enter, but which is posted online next to the vote code.
+DEMOS~\cite{kiayias2014} is a code voting system where the voter is
+given a two-part coded ballot. She uses one part for auditing and the
+other to vote. Associated with each choice on the ballot is a vote
+code; the vote code includes the encryption of the vote, which is
+entered in the voting machine by the voter, and a receipt code, which
+the voter does not enter, but which is posted online next to the vote
+code.
 
 The voter can check the receipt to ensure her vote reached the
 election authorities. The ballot also has a QR code containing all the
-information on the ballot which can be scanned by the voter if she
+information on the ballot, which can be scanned by the voter if she
 prefers not to manually enter the vote code. Once the ballot is
-entirely represented on the computer, the voter can then make her
-choices. Note that if the voter scans the QR code, the scanning
-computer knows how she voted. The vote codes represent homomorphic
-encryptions of the votes and the verifiable tally is obtained in a
-standard manner.
+entirely represented on the computer, the voter can make her
+choices. If the voter scans the QR code, the scanning computer knows
+how she voted. The vote codes are encryptions of the votes, and a
+verifiable tally is obtained in a standard manner.
 
 A pilot study of DEMOS was carried out during the 2014 European
 Elections in Greece.
 
-\section{Limitations of Existing Systems}
+\section{Limitations and Tradeoffs of Existing E2E Systems}
 \label{sec:limit-exist-syst}
 
 E2E systems inherit many of the limitations of traditional voting
@@ -569,72 +605,67 @@ insiders, and accessibility are all problems with traditional
 in-person voting systems. For remote systems, the integrity of postal
 systems, turnaround time for mailed materials, access to Internet or
 fax technology, and reliability of Internet servers are all
-well-documented obstacles to voting. \todoacf{reference other sections
-  about this}
+well-documented obstacles to voting. 
 
-Existing E2E systems mitigate some of these limitations. For example,
-code voting limits the ability for attacks against postal mail systems
-to change the candidates marked on voted ballots. However if an
-attacker simply intercepts and destroys the voted ballot, a
-replacement might not arrive in time for that voter to participate in
-the election. To mitigate this, election officials might choose to
-instead accept voted ballots via fax, email, or website, but such
-expedient measures often trade off the verifiability that makes an E2E
-system desirable in the first place.
-
-In this section, we examine the limitations of E2E systems with a
-particular focus on the limitations that are unique to or exacerbated
-by E2E characteristics.
+Existing E2E systems mitigate some of these limitations, but have
+other limitations of their own. In this section, we examine the
+limitations of E2E systems with a particular focus on those that are
+unique to or exacerbated by E2E characteristics.
 
 \subsection{Voter Secrecy}
 
 Systems like Prêt à Voter (\autoref{sec:pret-voter}) and Punchscan
-(\autoref{sec:punchscan}) rely on a randomized candidate order or a code
-on printed ballots to ensure voter secrecy. Voted ballots must appear
-on a public bulletin board in order to verify the election results,
-and so to protect secrecy only the selected position or code is
-visible on the final ballot along with a ballot ID.
+(\autoref{sec:punchscan}) rely on a randomized candidate order or a
+code on printed ballots to ensure voter secrecy. Voted ballots must
+appear on a public online bulletin board in order to verify the
+election results. To protect secrecy, only the selected position or
+code is visible on the final ballot along with a ballot ID.
 
 If an insider is able to review the printed ballots before the
 election, they can record how the candidate positions are arranged for
-each ballot ID and therefore identify which candidate is marked on the
-voted ballots, thus violating secrecy~\cite{burton2012}.
+each ballot ID. The insider could then violate secrecy by identifying
+the candidates marked on the voted ballots~\cite{burton2012}.
 
-Recent writing on Prêt à Voter recommends printing ballots on demand
-at polling places in order to limit this
-possibility~\cite{ryan2009}. Printing on demand introduces additional
-problems and expense compared to centralized printing. More printing
-equipment is required at each polling place, that equipment can break
-or be difficult to operate, and the printing equipment must have some
-way of communicating with the rest of the election infrastructure to
-ensure it has, for example, the correct cryptographic seeds for
-generating new ballots.
+Recent work on Prêt à Voter recommends printing ballots on demand at
+polling places in order to limit this
+possibility~\cite{ryan2009}. However, printing on demand introduces
+additional problems and expense compared to centralized printing. More
+printing equipment is required at each polling place, and that
+equipment can break or be difficult to operate. The printing equipment
+must also have some way of communicating with the rest of the election
+infrastructure to ensure that it has the correct cryptographic seeds
+for generating new ballots.
 
-Scantegrity II (\autoref{sec:scantegrity-ii}) uses invisible ink to hide
-the vote codes on unvoted ballots, and Remotegrity
-(\autoref{sec:remotegrity}) can use scratch-off fields to hide vote codes
-and other information required to cast a ballot. These techniques
-limit the opportunity for insiders to learn secrecy-compromising
-information without being detected through the presence of a marked or
-damaged ballot.
+Scantegrity II (\autoref{sec:scantegrity-ii}) uses invisible ink to
+hide the vote codes on unvoted ballots, and Remotegrity
+(\autoref{sec:remotegrity}) can use scratch-off fields to hide vote
+codes and other information required to cast a ballot. These
+techniques limit the opportunity for insiders to learn
+secrecy-compromising information without being detected through the
+presence of a marked or damaged ballot.
 
 Even with techniques to mitigate insider foreknowledge of the ballots,
-secrecy still can depend on voters and poll workers correctly
-following procedures. A voter can leave the polling place with a
-complete Prêt à Voter ballot, for example, failing to shred the half
-with the candidate order. With both halves of their ballot, they can
-prove how they voted, losing receipt-freedom.
+secrecy can still depend on voters and poll workers correctly
+following procedures. An important aspect of secrecy is \emph{receipt
+  freedom}: voting systems should not provide receipts (akin to
+purchase receipts) that allow voters to prove how they voted, because
+these enable both coercion and vote selling. However, some E2E systems
+are only receipt free because of procedure; for example, a voter can
+leave the polling place with a complete Prêt à Voter ballot, failing
+to shred the half with the candidate order. With both halves of the
+ballot, she can prove how she voted.
 
 RIES (\autoref{sec:ries}) makes a deliberate secrecy tradeoff by
-weakening the receipt-freeness requirement in exchange for providing
+weakening the receipt freedom requirement in exchange for providing
 universal verifiability and a degree of individual verifiability. The
-results of an entire election can be independently audited with only
-the information publicly available after the election. However if a
-voter discloses her credential or her encrypted vote, the same public
-information may be used to violate ballot secrecy. The developers of
-RIES judged this violation to be no more severe than the threats to
-ballot secrecy inherent in postal voting, and therefore worth
-accepting for the benefit to verifiability.
+results of an entire election can be independently audited using only
+the information that is publicly available after the
+election. However, if a voter discloses her credential or her
+encrypted vote, the same public information may be used to violate
+ballot secrecy. The developers of RIES judged this violation to be no
+more severe than the threats to ballot secrecy inherent in postal
+voting, and therefore worth accepting for the benefit to
+verifiability.
 
 \subsection{Ballot Stuffing}
 
@@ -642,174 +673,214 @@ As when ensuring voter secrecy, many E2E systems depend on correct
 procedures to defend against ballot stuffing. For example, during the
 University of Ottawa elections using Punchscan, more ballots were cast
 than voters recorded in the pollbook. In this case, ballot stuffing
-can be caught after the fact by poll workers, but is not an inherently
-verifiable property of the system, and requires trust in the accuracy
-of the poll workers.
+can be caught after the fact by poll workers, but it is not an
+inherently verifiable property of the system and it requires trust in
+the accuracy of the poll workers.
 
-In the Helios system, officials can enter voters by email address, and
-so there is limited protection against insider ballot stuffing. Helios
-relies on individual voters verifying their votes. While an interested party may verify the tally for the entire election by checking that the collection of encrypted votes is counted correctly,
-there is no provision for the interested party to determine if votes were fraudulently cast on behalf of voters who had not voted~\cite{orion2009}.
+In the Helios system officials can register voters in the system by
+email address, so there is limited protection against insider ballot
+stuffing. Helios relies on individual voters verifying their
+votes. However, while an interested party may verify the tally for the
+entire election by checking that the collection of encrypted votes is
+counted correctly, no provision exists to determine if votes were
+fraudulently cast on behalf of register voters who did not
+vote~\cite{orion2009}.
 
 A pre-election step that publicly publishes tables of valid ballot IDs
 can help mitigate this problem, but also creates others. All votes in
-the final tally have an (anonymized) provenance that can be traced
-back to before the election began and presumably cross-checked with
-voter registration rolls. However having a fixed set of ballot IDs can
-make it harder to replace lost, stolen, or spoiled ballots, or to
-providing for late or same-day voter registration.
+the final tally, even though they are anonymized, can be traced back
+to before the election began and cross-checked with voter registration
+rolls. However, having a fixed set of ballot IDs can make it harder to
+replace lost, stolen, or spoiled ballots, or to provide for late or
+same-day voter registration.
 
 \subsection{Dispute Resolution}
 
-Note that E2E systems provide voter verifiability: they enable a voter to determine if her vote was accurately recorded. However, in the instance when the vote is not accurately recorded, not all E2E systems provide the voter with evidence that she may use to convince an independent party of the problem. This presents a loophole that may be exploited by dishonest voters, who may claim that their vote is not accurately recorded when it is, calling into question an honest election. 
+E2E systems provide voter verifiability: they enable a voter to
+determine if her vote was accurately recorded. However, when the vote
+is not accurately recorded, not all E2E systems provide the voter with
+evidence that can be used to convince an independent party of the
+problem. This creates a vulnerability that dishonest voters could
+exploit. For example, a dishonest voter could raise doubts about the
+legitimacy of the election by incorrectly claiming that their vote is
+not accurately recorded.
 
-An E2E system with the dispute resolution property enables a voter to present evidence to support claims of election fraud. As a result, it enables a third party to resolve a dispute between a voter (claiming her vote is inaccurately recorded) and the voting system (claiming it is accurate). 
+An E2E system with dispute resolution enables a voter to present
+evidence to support claims of election fraud. It also enables a third
+party to resolve a dispute between a voter who claims her vote is
+inaccurately recorded and the voting system that claims it is accurate.
 
-All cryptographic protocols in the literature that provide dispute resolution require either paper or a second channel (such as a smartphone) in addition to the machine the voter votes from, whether in a polling booth or remotely. (We consider only protocols intended for use by voters voting from machines that are not trusted). 
+All cryptographic protocols in the academic literature that provide
+dispute resolution\footnote{This includes only the protocols intended
+  for use by voters who vote from untrusted machines.}  require either
+paper or a second electronic method, such as a smartphone, in addition
+to the machine the voter uses. This is true whether the voter votes in
+a polling booth or remotely. Therefore, any voting system with dispute
+resolution should use either paper or a second electronic method.
 
-This implies that any existing voting system with dispute resolution needs the use of a second electronic channel or paper.  
+\subsection{Infrastructure and Equipment}
 
-\subsection{Infrastructure \& Equipment}
-
-Election equipment fails in practice. An E2E system must be resilient
-to failures while not giving up E2E properties. A system that lacks
-robust fallback mechanisms is not itself robust, but is only as strong
-as its weakest fallback. For example, if a remote voting website fails
-and election officials resort to accepting voted ballots by email, E2E
-guarantees are lost for all of the emailed ballots.
+Election equipment can fail in practice. An E2E system must be
+resilient to failures while not giving up E2E properties. A system
+that lacks recovery mechanisms is not robust; it is only as strong as
+its weakest recovery mechanism. For example, if a remote voting
+website fails and election officials resort to accepting voted ballots
+by email, E2E guarantees are lost for all the emailed ballots.
 
 In addition to being more sensitive to failures, verifiable election
 systems often require more sophisticated equipment than traditional
 systems. For in-person voting, a verifiable system might require
-ballots to be printed on demand, a high-quality shredder for two-part
-ballots, and more sophisticated assistive devices. This complexity
-incurs additional cost and poll worker training requirements.
+ballot printers for on-demand printing, a high-quality shredder for
+two-part ballots, and more sophisticated assistive devices. This adds
+cost and increases poll worker training requirements.
 
-Many E2E systems post encrypted ballots during an election to a public
-bulletin board. In order to update the bulletin board in real time,
-these election systems are distributed systems, networked via
-traditional means or via a manual air gap. Depending on the networking
-scheme this can open equipment to distributed denial of service (DDoS)
-attacks, network partitions, inconsistency, and other problems
-inherent to distributed systems.
+Many E2E systems post encrypted ballot information to a public online
+bulletin board during the election. In order to update the bulletin
+board in real time, these election systems are distributed systems;
+they can be networked via traditional means, or information transfer
+among machines can be carried out manually by election officials using
+USB flash drives or similar devices. Depending on the networking
+scheme, this can leave the system vulnerable to various security
+threats and denial of service attacks. At least part of the system
+must be connected to the public Internet, which increases the
+possibilities for malicious attacks.
 
-Internet systems compound the difficulties of distributed systems by
-requiring the systems to be accessible via the public Internet,
-increasing the possibilities for DDoS and other malicious
-attacks. Furthermore, many systems allow voters to use their own
-computers to vote, leading to pitfalls inherent when election
-officials lack control over the voting environment. Malware on the
-voter's computer might undermine security, incompatibilites might
-arise due to operating systems or web browser versions, and the
-network infrastructure between the voter and the central election
-system might be compromised with a man-in-the-middle attack.
+Many systems allow voters to use their own computers to vote. While
+convenient for voters, this can cause problems because election
+officials cannot control the voting environment on voters'
+computers. Threats include:
+
+\begin{itemize}
+\item malware on the voter's computer, which can undermine security;
+\item incompatibilities that arise because of the voter's operating
+  system or web browser versions; and
+\item compromised network infrastructure between the voter and the
+  central election system, which can allow votes to be intercepted or
+  changed by third parties.
+\end{itemize}
 
 \subsection{Usability}
 
-Traditional election systems struggle with usability. Most often, however, the problems can be addressed with special attention to user interface design. Verifiable
-systems add more steps and complexity, presenting usability complications that have not been fully studied. The mechanics of marking a ballot become more complex with
-code voting as in Remotegrity, and position or shape matching as in
-Prêt à Voter and Punchscan. Individual verification, not even possible
-in traditional systems, is an entirely new process that voters must
-master to take full advantage of E2E guarantees. Many E2E systems have attempted to reduce the additional effort for voters who are not interested in participating in election verifiability. 
+Traditional election systems struggle with usability. Most often,
+however, the problems can be addressed with special attention to user
+interface design. Verifiable systems add steps and complexity to the
+voting process, presenting usability complications that researchers
+have not fully studied or overcome. For example, marking a ballot is
+more complex with code voting, as with Remotegrity, and with position
+or shape matching, as in Prêt à Voter and Punchscan. 
 
-In 2014, a team of researchers from Rice University undertook a
-quantitative, experimental study of the usability of Helios, Prêt à
-Voter, and Scantegrity II~\cite{acemyan2014usability}. They aimed to
-quantify usability using the ISO 9241-11 standard axes of
-effectiveness, efficiency, and satisfaction. Their results show that
-these systems broadly fail on these axes even for typical voters who
-are uninterested in performing additional verification steps.
+Individual vote verification, not possible with traditional voting
+systems, is an entirely new process that voters must master in order
+to take full advantage of the positive E2E-V properties. Many E2E
+systems have attempted to reduce the additional effort for voters who
+are not interested in verifying their cast votes.
 
-The Rice study found the systems were not effective as significant
-number of voters failed to cast a ballot with each
-system. Troublingly, many of those voters thought they had in fact
-successfully cast a ballot; in a real election they would have left
-the voting process unfinished without even knowing to ask a poll
-worker for assistance. By contrast, traditional systems have
-near-100\% success rates~\cite{byrne2007usability}.
+In 2014, a team of researchers from Rice University studied the
+usability of three E2E-V systems: Helios, Prêt à Voter, and
+Scantegrity II~\cite{acemyan2014usability}. They sought to measure
+usability by examining effectiveness, efficiency, and
+satisfaction. Their results show that these systems broadly fail in
+the area of usability, even for typical voters who are not interested
+in performing additional verification steps.
 
-The systems also lacked efficiency, as they all required significantly
-more time -- almost twice as long -- to complete as a traditional
-system.
+The researchers found that a significant number of voters failed to
+cast a ballot with each of these three systems, rendering them
+ineffective. Many of those voters thought they had successfully cast a
+ballot, only to discover that the process had failed them. In a real
+election, those voters would have left the voting process unfinished
+without realizing that there was any problem. Traditional voting
+systems have success rates close to 100\%~\cite{byrne2007usability}.
 
-The usability of an election system is crucial for that system to not
-disenfranchise voters, and for voters to generally have confidence in
-the election results. The Rice study shows that adding E2E guarantees
-can be a Pyhrric victory when the resulting system is unusable for
-non-expert voters.
+The E2E-V also lacked efficiency. They all required significantly more
+time for voting. It took almost twice as long to vote with the E2E-V
+systems as with a traditional system.
 
-The results of the Rice study have been challenged by McBurnett et al~\cite{mcburnett2014}. 
+The usability aspects of an election system are crucial. An election
+system must not disenfranchise voters; on the contrary, it should
+make voting easy and assist voters in completing the process. Voters
+must also be confident in the election results. The Rice study
+shows that adding E2E guarantees can add verifiability at the expense
+of usability, resulting in a voting system that is unusable by
+voters. Some researchers do not agree with the Rice
+study~\cite{mcburnett2014}; however, it is an important reference
+point for E2E-V development. 
+
 \subsection{Accessibility}
 
-There are ability requirements for many E2E systems in various stages
-of the voting process. For example, a sighted voter is able to see the
-correspondence between candidate position and marking position on a
-Punchscan ballot, but a non-sighted voter cannot without
-assistance. In addition to obstacles to marking a ballot, some schemes with
-individual verification lack provisions for disabled voters to
-participate in individual verification without assistance. Information
+Many E2E systems have requirements for voters' abilities. For example,
+a typical voter can see where to make a mark for a particular
+candidate on a Punchscan ballot, but a sight impaired voter cannot do
+the same without help. In addition to obstacles to marking a ballot,
+some types of E2E systems lack features to allow disabled voters to
+participate in individual vote verification without help. Information
 required for verification is frequently delivered through a paper
-receipt, an invisible ink code, or requires writing down receipt
-data.
+receipt, an invisible ink code, or receipt data that a voter must
+write down.
 
-Accessible verification protocols have been proposed that take care to
-protect voter secrecy and allow participation in individual
-verification~\cite{chaum2009accessible}. However, these protocols
-require using accessibility equipment with an audio, sip-puff, or
-switch interface to read and mark the unencrypted ballot. The device
-must therefore be trusted not to record the votes, which would violate
-voter secrecy. The device must also represent the ballot faithfully to
-the voter so that votes are recorded as intended.
+Researchers have proposed accessible verification protocols that
+protect voter secrecy and allow voters to participate in individual
+vote verification~\cite{chaum2009accessible}. These protocols require
+using accessible devices with an audio, sip-puff, or switch interface
+to read and mark the unencrypted ballot. The voter must trust that any
+special device she is using will not create a record of how she voted,
+which would violate voter secrecy. The device must also represent the
+ballot faithfully to the voter so that votes are recorded as intended.
 
-Requiring trust in assistive devices is not unique to E2E
-systems~\cite{runyan2007improving}. In non-E2E systems, though, voters are required to trust many aspects of the election. In the context of having to trust the
-chain of custody of ballots, the integrity of poll workers, and the
-outcomes of any audits, having to trust an assistive device is a
-relatively small concession to make in an already-flawed system.
+Requiring trust in accessible devices is not unique to E2E
+systems~\cite{runyan2007improving}. In non-E2E systems, voters are
+required to trust many aspects of the election. Because voters must
+trust the chain of custody of ballots, the integrity of poll workers,
+and the outcomes of any audits, having to trust an accessible device
+is a relatively small concession to make in an already-flawed system.
 
 On the other hand, a well-designed E2E system requires a much smaller
-base of trust for voters to have confidence in the results of an
-election. The additional requirement of trusting an assistive device is not a flaw of the E2E system, but, instead, a limitation inherent to the use of assistive devices. It may be mitigated by enabling the voter with the need for assistance to use multiple assistive devices, and by requiring that all voters, whether in need of assistance or not, use similar assistive devices or a universal interface. This ensures that the assistive device and/or interface is tested by multiple users. 
-% By requiring an expanded base of trust in order to be
-% accessible, the existing E2E systems undermine their E2E properties.
+base of trust for voters to be confident in the election results. The
+additional requirement of trusting an accessible device is not a flaw
+of the E2E system; it is part of the nature of using accessible
+devices. This vulnerability may be lessened by allowing voters to use
+multiple accessible devices, or by requiring all voters---both those
+who need help and those who don't---to use similar accessible devices
+or a universal interface. This ensures that multiple users test the
+accessible devices or interfaces.
 
-\subsection{Social \& Political}
+\subsection{Social and Political}
 
-Novel election systems face a difficult bootstrapping problem: in
-order to be adopted in large-scale elections, they must have a
-successful track record. However in order to build up that track
-record, systems must be successful despite the limited resources
-available during small-scale pilot programs. With limited resources,
-corners are cut in the implementation of the election system leading
-to a greater chance that problems with equipment, software, and
-support will undermine confidence in the system.
+New election systems face a difficult problem. In order to be adopted
+in large-scale elections, they must have a successful track
+record. Building a record of success, given the limited financial and
+human resources available for early small-scale pilot programs, is a
+major challenge. With limited resources, election officials may be
+forced to compromise on some aspects of the election systems they
+implement. This increases the risk that problems with equipment,
+software, and support will undermine confidence in the system.
 
-This confidence in election systems generally, and E2E systems in
-particular, is fragile in the eyes of the public. When election
-systems fail during an election or are revealed to have substantial
-integrity issues, the perception of all similar systems is tainted, no
-matter the differences between specific systems or the reassurance of
-E2E guarantees. Failure of a legacy computerized system can poison the
-well and make the public reject a novel system by association.
+Public confidence in election systems in general, and E2E systems in
+particular, is fragile. When election systems fail during an election
+or are revealed to have substantial integrity issues, people may
+believe that all similar systems are flawed. It does not matter if the
+E2E systems are very different from each other, or if the E2E systems
+provide guarantees. Failure of an older E2E system can cause the
+public to reject a new system.
 
-For example, The Federal Constitutional Court of Germany issued a
-decision in 2009 in the wake of a hacking demonstration on electronic
-voting machines used in previous elections~\cite{germany2009decision}.
-They decided that electronic systems may only be used in elections if
-``the result can be examined reliably and without any specialist
-knowledge of the subject'', a standard which E2E systems have not been
-able to meet in practice~\cite{byrne2007usability}. Similarly after
-reports critical of RIES, a popular movement successfully advocated
-for a ban on Internet voting in the Netherlands.
+In 2009, there was a hacking demonstration on electronic voting
+machines used in previous elections~\cite{germany2009decision}. As a
+result, the Federal Constitutional Court of Germany decided that
+electronic systems may only be used in elections if ``the result can
+be examined reliably and without any specialist knowledge of the
+subject.'' In practice, this is a standard that E2E systems have not
+been able to meet~\cite{byrne2007usability}. Similarly, after reports
+critical of RIES were released in the Netherlands, a popular movement
+successfully advocated for a ban on Internet voting in that country as
+well.
 
-Broader computer security concerns are becoming topics of household
-conversation with vulnerabilities like Heartbleed and droves of
-personal data compromises making the headlines. These concerns rightly
-make the public wary of any system with a computerized component, even
-if the Internet is not involved. The challenge for E2E systems is to
-overcome this broader skepticism by demonstrating integrity in a way
-accessible to non-experts without making it more difficult to vote.
+Many people are aware of computer security concerns and
+vulnerabilities, and are worried by them. Hacking, malicious code, and
+large amounts of personal data being stolen electronically are almost
+weekly news. These concerns rightly make people wary of any system
+with a computerized component, even if the Internet is not
+involved. The challenge for E2E systems is to overcome this broader
+skepticism by demonstrating integrity in a way that anyone can
+understand without making it more difficult to vote.
 
 %%% Local Variables:
 %%% mode: latex
