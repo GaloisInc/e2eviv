@@ -1,21 +1,25 @@
 \chapter{Remote Voting\ifdraft{ (Philip) (100\%)}{}}
 \label{chapter:remote_voting}
 
+%=====================================================================
 \section{Rationale}
 Remote voting is becoming increasingly common, necessitated by the growing
 and diverse needs of voters. It is used to enable overseas
 citizens and military personnel to participate in elections, reduce
 access related discrimination domestically, and decrease expensive
-administrative overhead of polling locations. In the United States,
-fewer than 5\% of ballots cast in general elections during the 1980s
-were cast before Election Day. By the 2012 general election, 31\% of
-all ballots were cast early, and 17\% were cast by mail. The states of
-Washington, Oregon, and most recently Colorado have entirely switched
-over to all-mail voting. For an election system to fully enfranchise the
-electorate, it must treat remote voting as a first-class capability
-rather than as a backup system with second-class effectiveness, speed,
-security, and integrity.
+administrative overhead of polling locations. 
 
+In the United States, fewer than 5\% of ballots cast in general
+elections during the 1980s were cast before Election Day. By the 2012
+general election, 31\% of all ballots were cast early, and 17\% were
+cast by mail. The states of Washington, Oregon, and most recently
+Colorado have entirely switched over to all-mail voting. For an
+election system to fully enfranchise the electorate, it must treat
+remote voting as a first-class capability rather than as a backup
+system with second-class effectiveness, speed, security, and
+integrity.
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Accessibility}
 According to the International Center for Disability Information and
 the National Institute on Disability and Rehabilitation Research, 20\%
@@ -28,14 +32,16 @@ accessibility needs.
 %The Help America Vote Act (HAVA) of 2002 requires that all polling places in elections for federal office, anywhere in the United States have at least one voting system  \ldots
 %\ldots 20\% of U.S. adults with disabilities say they have been unable to vote in presidential or congressional elections due to barriers at or getting to the polls.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Overseas and Military Voters}
 In 1986, Congress enacted the Uniformed and Overseas Citizens Absentee
 Voting Act (UOCAVA) to address the needs of citizens in the uniformed
 services, merchant marines, and other overseas civilians. UOCAVA
-mandates that these overseas and military voters (UOCAVA voters) be able to register and vote remotely in
-federal elections. It is difficult to calculate the exact number of
-"UOCAVA eligible" voters, but \autoref{fig:uocava_populations} lists a
-recent estimate of the total.
+mandates that these overseas and military voters (UOCAVA voters) be
+able to register and vote remotely in federal elections. It is
+difficult to calculate the exact number of "UOCAVA eligible" voters,
+but \autoref{fig:uocava_populations} lists a recent estimate of the
+total.
 
 \todoacf{Ask Philip for context on these numbers. Statewise breakdown
   doesn't seem to add much, and the difference between what the two
@@ -68,14 +74,15 @@ Estimated Total & 4,972,217 & 1,042,523
 \label{fig:uocava_populations} % change to table?
 \end{figure}
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Domestic Absentee}
-Domestic absentee voters are those who vote early in-person, or cast
+Domestic absentee voters are those who vote early in-person or cast
 their votes by mail because they are unable, or do not want, to be
-present at polling locations on Election Day (this excludes UOCAVA
-voters, and voters in states that vote exclusively by
-mail). 21,853,762 or 16.6\% of all votes cast in the 2012 US general
-elections were from domestic absentee voters \cite{eac2012survey}. As
-of 2015, 27 states allow voters to apply for an absentee ballot
+present at polling locations on Election Day; this excludes UOCAVA
+voters and voters in states that vote exclusively by mail. Of all
+votes cast in the 2012 U.S. general election, 21,853,762 (16.6\%) were
+cast by domestic absentee voters~\cite{eac2012survey}. As of this
+writing, 27 states allow voters to apply for an absentee ballot
 without providing a justification, known as ``no-excuse absentee
 voting''.
 
@@ -111,6 +118,7 @@ Vermont & 20.4\%\\
 \label{fig:domestic_populations}
 \end{figure}
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Expectations}
 
 In 1952, a study by the American Political Science Association defined
@@ -121,23 +129,26 @@ the expectations of all remote voters through UOCAVA and other
 subsequent legislation. Among these rights are:
 
 \begin{enumerate}
-  \item To vote without registering in person.
+  \item To vote without registering in person;
   \item To vote without paying a poll tax or having to meet
-    unreasonable requirements
-  \item To use the Federal postcard application both to register and
-    to request a ballot, rather than having to use state-specific
-    paperwork.
-  \item To receive ballots for primary and general elections in time to vote.
-  \item To be protected in the free exercise of their voting rights.
+    unreasonable requirements;
+  \item To use the Federal Postcard Application\footnote{Federal
+      Postcard Application is the Department of Defense name for the
+      official UOCAVA voter registration and absentee ballot request
+      form.} both to register and to request a ballot, rather than
+    having to use state-specific paperwork;
+  \item To receive ballots for primary and general elections in time to vote;
+  \item To be protected in the free exercise of their voting rights;
+    and 
   \item To receive essential information needed to vote.
 \end{enumerate}
 
 These rights first found their way into law in the Federal Voting
-Assistance Act of 1955 (FVAA), but due to partisan struggles, the
-rights were watered down from requirements into recommendations,
-leaving much of the decisions about final implementation to the
+Assistance Act of 1955 (FVAA) but, due to partisan struggles, the
+rights were watered down from requirements into recommendations; this
+left most of the decisions about final implementation to the
 states. Over time, subsequent legislation has strengthened these
-recommendations into guarantees and requirements, and has expanded
+recommendations into guarantees and requirements and has expanded
 rights to include participation by non-English speakers and people
 with disabilities.
 
@@ -163,97 +174,99 @@ with disabilities.
 % (VVPAT); while preserving the privacy of the voter and the secrecy
 % of the cast ballot.
 
-
+%=====================================================================
 \section{History}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Armed Forces Voting}
-Before the American Civil War, US citizens primarily voted in their
-places of residence, and many states legally barred the casting of
+Before the American Civil War, U.S. citizens primarily voted in their
+places of residence and many states legally barred the casting of
 votes from outside state borders. There was little effort from any
-state to accommodate absentee voting. However, in 1864, with the Civil
-War displacing soldiers from their residences, Lincoln's re-election
-was at risk. With much lobbying on behalf of the Republican Party (and
+state to accommodate absentee voting. In 1864, however, the Civil War
+displaced soldiers from their residences and Lincoln's re-election was
+at risk. With much lobbying on behalf of the Republican Party (and
 opposition from the Democratic Party), nineteen Union states adopted
 absentee voting procedures for military voters in time for the
 election. Since the motivation for passing these laws was to secure
 Lincoln's re-election rather than permanently expand voting access,
-many absentee military voter laws were treated as temporary and
-repealed after the war.
+many states treated absentee military voter laws as temporary and
+repealed them after the war.
 
-For the 1918 midterm elections, the US War Department decided that it
-was not ready to support the military vote, going so far as to
-prohibit individual states from canvassing overseas soldiers serving
-in the First World War. The Second World War inspired another push for
-the military vote in hopes of supporting the re-election of the
-presidential incumbent. This prompted the Soldier Voting Act (1942),
-which, although passed too late for the 1942 midterm elections, gave
+For the 1918 midterm elections, the U.S. War Department decided that
+it was not ready to support the military vote; the Department
+prohibited individual states from canvassing overseas soldiers serving
+in World War I. World War II inspired another push for the military
+vote in hopes of supporting the re-election of the presidential
+incumbent. This prompted the Soldier Voting Act (1942).  Although it
+was passed too late for the 1942 midterm elections, this law gave
 military personnel absentee voting rights for federal elections during
-times of war without subjugation to voting tax or postage
-costs. Nonetheless, the act was notable for mandating that all
+times of war without being required to pay a voting tax or postage
+costs. The act has continuing significance: it stated that all
 overseas voting would be regulated at the federal level and
 implemented at the state level, a structure that continues to this
 day. By 1944, partisan politics led to the weakening of the state
 mandate from a requirement to a recommendation, leading to a 29.1\%
 turnout rate vs. the 60\% domestic turnout rate~\cite{smith2015}.
 
-
-
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Remote Civilian Voting}
 
 Progress for civilian absentee voters lagged behind progress for
 military voters. In 1896, states began to introduce civilian absentee
 voting legislation. By 1924, only three states had no absentee voting
-legislation, but state laws were a confusing and inconsistent
-patchwork, lowering absentee turnout. Major progress for civilian
+legislation. State laws, however, were a confusing and inconsistent
+patchwork that limited absentee turnout. Major progress for civilian
 absentee voters would only come with legislation motivated primarily
 by military voters such as the FVAA.
 
 In the 1960s, lobbying from overseas civilian groups led to amendments
-to the Voting Assistance Act expanding the number of civilians covered
-by the law, though those amendments were once again voluntary
+to the FVAA. This effort expanded the number of civilians covered by
+the law, though the amendments were once again voluntary
 recommendations to the states. As lobbying pressure increased further,
-the Overseas Citizens Voting Rights Act (OCVRA) passed in 1974 and for the first
-time guaranteed, rather than merely recommended, absentee voting
-rights for overseas civilians.
+the Overseas Citizens Voting Rights Act (OCVRA) passed in 1974.  OCVRA
+was the first law to guarantee, rather than only recommend, absentee
+voting rights for overseas civilians.
 
-In 1986, the Uniformed and Overseas Citizens Absentee Voting Act
-(UOCAVA) [Note - UOCAVA was defined earlier in this chapter - see line 31] was passed, combining and replacing the FVAA and the OCVRA
-and making the rights recommended by the previous acts into
-requirements for both military and overseas civilian voters.
+In 1986, legislators passed UOCAVA, which combined and replaced FVAA
+and OCVRA. UOCAVA made the rights recommended by the previous acts
+into requirements for both military and overseas civilian voters.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Disabled Civilian Voting}
-The Voting Rights Act (VRA) of 1965 was the first legislation to
-enfranchise voters with disabilities. The VRA granted voters who
-require assistance to vote by reason of blindness, disability, or
-inability to read or write, to receive the assistance by a person of the voter's
-choice.
+The Voting Rights Act (VRA) of 1965 was the first legislation to allow
+voters who require assistance to vote---because of blindness,
+disability, or inability to read or write---to receive help from a
+person of their choice.
 
 The Voting Accessibility for the Elderly and Handicapped Act of 1984
-(VAEHA) was passed to improve access for disabled and elderly
-individuals. However, as with the recommendations of FVAA and OCVRA,
-states were left to set their own standards of access, and limited the
-disabled voters group to those with {\em physical disabilities}. The
-VAEHA did, however, mandate that ``no notarization of medical certification
-shall be required of a voter with a disability with respect to an
-absentee ballot or application for such ballot.''
+(VAEHA) improved access for disabled and elderly individuals.  Like
+FVAA and OCVRA, VAEHA did not specify standards of access; individual
+states set their own standards. VAEHA also limited the disabled voters
+group to those with {\em physical disabilities}. It did, however,
+mandate that ``no notarization of medical certification shall be
+required of a voter with a disability with respect to an absentee
+ballot or application for such ballot.''
 
-The 1990 American Disabilities Act (ADA) requires that people with
-disabilities have access to basic public services, including the right
-to vote. The ADA does not strictly require that polling locations are
-accessible, however it did extend the definition of disability to:
+The 1990 Americans with Disabilities Act (ADA) requires that people
+with disabilities have access to basic public services, including the
+right to vote. ADA does not strictly require that polling locations
+are accessible, however it did extend the definition of disability to
 \begin{quote}
-``a person who has a physical or mental impairment that substantially limits
-one or more major life activities, a person who has a history or record of such
-an impairment, or a person who is perceived by others as having such an
-impairment.''
+  ``a person who has a physical or mental impairment that
+  substantially limits one or more major life activities, a person who
+  has a history or record of such an impairment, or a person who is
+  perceived by others as having such an impairment.''
 \end{quote}
 
-The majority of federal laws passed to protect voting rights of
-disabled citizens have struggled to clearly define a representative
-range of disabilities, and are often focused on in-person access to
-physical polling locations, which is expensive for states to
-implement. Additionally, state-defined policies often ignore rights to
-voting privacy, and exclude persons with multiple disabilities for
-which assistive technologies are not yet available.
+Over the years, legislators have passed a number of federal laws to
+protect voting rights of disabled citizens. The majority of these laws
+have struggled to clearly define a representative range of
+disabilities. The laws often focus on in-person access to physical
+polling locations, which is expensive for states to
+implement. State-defined policies often ignore rights to voting
+privacy, and exclude people who have multiple disabilities because
+technologies that may help them vote are not yet available.
+
 
 % Unfortunately most states claim to be unable to handle the costs
 % associated with providing appropriate voting technologies.  much of
@@ -261,31 +274,34 @@ which assistive technologies are not yet available.
 % restrictions on physical polling locations.  With the passage of the
 % American Disabilities Act (ADA) in Voting Accessibility for the
 % Elderly and Handicapped Act of 1984 VVPAT
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Modern Remote Voting}
 
 In 2002, Congress passed the Help America Vote Act (HAVA) in response
 to problems found in gathering, counting, and auditing ballots in the
 2000 presidential election. HAVA requires that all polling places in
 elections for federal office anywhere in the United States have at
-least one voting system capable of assisting disabled voters,
-addressing some accessibility concerns.
+least one voting system capable of assisting disabled voters. This
+requirement addresses some accessibility concerns.
 
-HAVA is also a response to the large number of rejected ballots in the
-2000 election and an inability to sufficiently audit ballots. HAVA
-recommends election systems produce a Verifiable Voter Paper Audit
-Trail (VVPAT) while preserving the privacy of the voter and the
-secrecy of the cast ballot. HAVA also created the federal Election
-Assistance Commission (EAC) to oversee the development of new voting
-machine standards, and released the Voluntary Voting System Guidelines
-to aid in this transition.
+HAVA was also a response to the large number of rejected ballots in
+the 2000 election and an inability to sufficiently audit ballots. HAVA
+recommends that election systems produce a Verifiable Voter Paper
+Audit Trail (VVPAT) while preserving the privacy of the voter and the
+secrecy of the cast ballot. HAVA also created the United States
+Election Assistance Commission (EAC) to oversee the development of new
+voting machine standards. The National Institute of Standards and
+Technology (NIST) released the Voluntary Voting System Guidelines
+(VVSG) to aid in this transition.
 
-The Military and Overseas Voter Empowerment (MOVE) Act of 2009
-addresses barriers to overseas voter participation, specifically
-attempting to reduce the number of ballots that were not counted due
-to late receipt. The MOVE Act requires states to transmit absentee
-ballots at least 45 days before Election Day, make all registration
-material and blank ballots available electronically, and remove
-notarization requirements on voting applications and ballots.
+The Military and Overseas Voter Empowerment Act of 2009 (MOVE)
+addresses barriers to overseas voter participation, and specifically
+attempts to reduce the number of ballots that are not counted due to
+late receipt. MOVE requires states to send absentee ballots at least
+45 days before Election Day, make all registration material and blank
+ballots available electronically, and remove notarization requirements
+on voting applications and ballots.
 
 %\subsection{Integration with Local Elections}
 
@@ -294,31 +310,32 @@ notarization requirements on voting applications and ballots.
 % distributed to potential UOCAVA voters.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Historically, legislative progress on absentee voting moves
-slowly. Existing voter rights regulations are enforced at a state
-level and are hampered by local political attitudes. In 2010, the
-Uniform Law Commission, a nonprofit organization, oversaw drafting of
-the Uniform Military Services and Overseas Civilian Absentee Voters
-Act (UMOVA). UMOVA is designed to identify and standardize the
-important protections and benefits found in federal legislation like
-UOCAVA and MOVE in state and local elections. As of April 2015,
-fourteen states and the District of Columbia have enacted UMOVA.
+Because state governments enforce existing voting regulations, these
+regulations are hampered by local political attitudes. In 2010, the
+Uniform Law Commission oversaw drafting of the Uniform Military
+Services and Overseas Civilian Absentee Voters Act (UMOVA). UMOVA is
+designed to identify and standardize the important protections and
+benefits found in federal legislation like UOCAVA and MOVE in state
+and local elections. As of April 2015, fourteen states and the
+District of Columbia have enacted UMOVA.
 
+%=====================================================================
 \section{Shortcomings of Current Practice}
 
 Despite years of progressively stronger legislation addressing the
-needs of remote voters, there are many shortcomings of current
+needs of remote voters, many shortcomings still exist in current
 election practices. The topics listed below draw from specific
-concerns that have a large impact on remote voting participants.
+concerns that negatively affect remote voting participants.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Use of Communication Technologies}
-The majority of remote voting takes place via postal mail, which is
-subject to many inherent faults that are exacerbated for voters. The
-2008 Post-Election UOCAVA Survey Report and Analysis found that 52\%
-of attempted UOCAVA votes were not counted due to problems in the mail
-delivery process. Additionally, maintaining correct voter registration
-information for military voters and others who frequently change
-addresses while abroad is expensive and prone to error.
+The majority of remote voting takes place via postal mail, which has
+many inherent faults that affect the voting process. The 2008
+Post-Election UOCAVA Survey Report and Analysis found that voting
+boards did not count 52\% of attempted UOCAVA votes due to problems in
+the mail delivery process. In addition, maintaining correct voter
+registration information for military voters and others who frequently
+change addresses while abroad is expensive and prone to error.
 
 % \begin{quote} {\em \ldots want to make comment about Florida, but concerned that it may be taken as political}\end{quote}
 
@@ -327,12 +344,20 @@ addresses while abroad is expensive and prone to error.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 To address differences between states' absentee registration and
-voting practices, the Federal Voting Assistance Program (FVAP) provides a
-Voting Assistance Guide (VAG) for registration forms. Unfortunately, this is
-very large and difficult to follow. For states without streamlined
-online registration, there have been many failed voter registration
-attempts.
+voting practices, the Federal Voting Assistance Program (FVAP)
+provides a Voting Assistance Guide (VAG) to support UOCAVA voter
+registration and ballot request. The VAG supports military Voting
+Action Officers who assist their units with voter registration
+instructions. 
 
+Since MOVE was passed in 2009, online registration has expanded
+significantly. OVF and the FVAP offer online voter services to UOCAVA
+voters through their websites, as do many states and counties. Online
+blank ballot transmission is becoming routine, and email
+communications between election officials and voters are flourishing.
+
+Unfortunately, the problem of late ballot receipt and rejection has
+not been solved.
 \todoacf{doesn't the Federal Postcard Application address this?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -342,47 +367,49 @@ attempts.
 %\end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Accessibility and Usability}
 
 In 2007, 20\% of Americans with disabilities said they were unable to
-vote in a presidential or congressional election due to barriers at or
-getting to the polls~\cite{runyan2007improving}. This is frequently a
-consequence of the voting technologies used and the physical location
-of polling places. In the 2000 presidential election, 56\% of randomly
-sampled polling places in the United States had at least one
-identified impediments for disabled voters~\cite{united2001voters}.
+vote in a presidential or congressional election due to difficulty
+getting to the polls or barriers at polling
+locations~\cite{runyan2007improving}. The voting technologies used,
+and the physical locations of polling places, often cause such
+problems. In the 2000 presidential election, 56\% of randomly sampled
+polling places in the United States had at least one barrier to
+disabled voters~\cite{united2001voters}.
 
-For in-person voting, disabled persons often forfeit privacy in order
-to receive assistance from an aide, often because polling locations
-have insufficient assistive technology, or because the assistive
-technology in place is too difficult for voters and poll workers
-to use. Remote voting still presents obstacles: those with dexterity
-impairments often have problems with handling and marking paper
-absentee ballots.
+Voters with disabilities often forfeit privacy in order to have
+someone help them with in-person voting. Polling locations often lack
+technology that can help, and the assistive technology that is
+available is often too difficult for voters and poll workers to
+use. Remote voting still presents obstacles: those with dexterity
+impairments often have problems handling and marking paper absentee
+ballots.
 
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Auditing}
 
-Although it is believed that voter fraud is fairly uncommon, it is a
-major concern in a bipartisan system. It is very difficult to detect
-voter fraud without depressing turnout or disenfranchising legitimate
-voters. Policies intended to reduce fraud or protect identities, such
-as increasingly prevalent and strict voter ID requirements, often
-result in a higher rate of rejected ballots. This is the case even for remote voters. In
-the 2012 general election, over 20\% of absentee ballots were rejected
-due to non-matching signatures or unmet ID
-requirements~\cite{eac2012survey}.
+Although voter fraud is fairly uncommon, it is a major concern in a
+bipartisan system. Voter fraud is very difficult to detect without
+reducing turnout or disenfranchising legitimate voters. Policies
+intended to reduce fraud or protect identities, such as increasingly
+prevalent and strict voter ID requirements, often lead to a higher
+rate of rejected ballots. This is the case even for remote voters. In
+the 2012 general election, voting boards rejected over 20\% of
+absentee ballots due to non-matching signatures or insufficient
+identification~\cite{eac2012survey}.
 
-% Ten states explicitly require a privacy waver if a voter uses fax or e-mail to return a voted ballot''
-
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Voter Privacy}
 
-Voter privacy is a key expectation of a fair voting system. Privacy
-promotes voter independence, and helps prevent voter coercion and vote
-buying. Most remote voting practices require that voters forfeit
-independence or privacy due to the physical reality that election
-officials cannot enforce privacy in voters' locations outside the polling 
-place. Several states require that voters sign a voter privacy
-waiver when casting a remote ballot~\cite{smithtime}.
+A fair voting system must ensure voter privacy. Privacy promotes voter
+independence and helps prevent voter coercion and vote buying. Most
+remote voting practices require that voters forfeit independence or
+privacy because election officials cannot enforce privacy when voting
+takes place outside of polling locations. Several states require
+voters to sign a voter privacy waiver when casting a remote
+ballot~\cite{smithtime}.
 
 % In several jurisdictions, UOCAVA votes are
 % not counted until it is determined that they may sway the election.

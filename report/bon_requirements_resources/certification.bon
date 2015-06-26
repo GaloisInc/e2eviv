@@ -1,1 +1,76 @@
-../../requirements/certification.bon
+scenario_chart CERTIFICATION_FUNCTIONAL_REQUIREMENTS
+indexing
+  partof: "TECHNICAL_REQUIREMENTS"
+explanation
+  "Requirements relating to the functional certification of digital \
+ \ election systems and elections."
+
+scenario "AUTOMATED_TESTING" -- @ref Kiniry/Zimmerman
+description
+  "Each functional requirement must have an associated set of automated \
+ \ tests that provide evidence that the requirement is fulfilled."
+  
+scenario "ELECTION_PROTOCOL_PROOFS" -- @ref Kiniry/Zimmerman
+description
+  "The election protocol shall have associated formal proofs of correctness \
+ \ and security."
+end
+
+scenario_chart CERTIFICATION_NON_FUNCTIONAL_REQUIREMENTS
+indexing
+  partof: "NON_FUNCTIONAL_REQUIREMENTS"
+explanation
+  "Requirements relating to the non-functional certification of \
+ \ election systems and elections."
+
+-- @ref Rec(2004)11 Certification
+scenario "CERTIFICATION_PROCESSES" -- @ref Rec(2004)11 Appendix III, F. 111.
+description
+  "The electoral authority shall introduce certification processes that allow \
+ \ for any ICT (Information and Communication Technology) component to \
+ \ be tested and certified as being in conformity with technical \
+ \ requirements."
+
+scenario
+  "CERTIFICATION_PARTIES_COMPETENCE" -- @ref David Jefferson
+description
+  "Any E2EV Internet voting system should be certified by competent \
+ \ professionals."
+
+scenario
+  "CERTIFICATION_REPORT_TRANSPARENCY" -- @ref David Jefferson
+description
+  "Any and all certification reports issued by certification \
+ \ professionals must be public, whether they recommend \
+ \ certification or not."
+
+scenario
+  "RECERTIFICATION_CONDITIONS" -- @ref David Jefferson
+description
+  "Any time there is a change in the voting system client or server \
+ \ side or the E2EV system, all of the requirements must \
+ \ be re-established and recertified.  Changes that mandate \
+ \ re-certification include, but are not limited to: new supported \
+ \ hardware platforms, OS's, browsers, etc.; bug fixes and security \
+ \ patches to voting client and/or server; changes or upgrades to \
+ \ voting client or server in response to detected bugs or security \
+ \ vulnerabilities, changes in law, or changes in threat environment."
+
+scenario
+  "RECERTIFICATION_PERIODICITY" -- @ref David Jefferson
+description
+  "The requirements must be re-established and recertified every \
+ \ election cycle even if there are no changes."
+
+scenario
+  "VALIDATION_PLATFORM_COVERAGE" -- @ref David Jefferson
+description
+  "The system must be extensively tested on a wide range of platform \
+ \ and software combinations."
+
+scenario
+  "PUBLIC_VALIDATION_PLATFORM_COVERAGE_RESULTS" -- @ref David Jefferson
+description
+  "All test procedures and results for platform coverage must be public."
+
+end

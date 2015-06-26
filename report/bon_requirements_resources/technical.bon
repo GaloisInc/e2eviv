@@ -1,1 +1,6 @@
-../../requirements/technical.bon
+scenario_chart TECHNICAL_REQUIREMENTS
+indexing
+  partof: "E2EVIV_REQUIREMENTS";
+explanation
+  "General technical requirements for digital elections systems."
+end

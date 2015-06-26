@@ -806,40 +806,41 @@ target multiple deployment platforms.
 
 \subsection{Software Product Lines}
 
-Developing software that has to be changed in many ways, small and
-large, for different target audiences, be they mobile phone models or
-jurisdictions, has historically been a nightmare.  Each different
-version of such a software is called a \emph{variant}, and the
-decision-points in the software or its build system that derive
+Developing software that has to be changed in many ways for different
+target audiences has historically been a nightmare.  Each different
+version of such a piece software is called a \emph{variant}, and the
+decision points in the software or its build system that derive
 variants are called \emph{variation points}. This style of software
-development is called \emph{software product lines}, or SPL for
-short~\cite{czarnecki2005model,northrop2001software,clements2002software}.
+development is called \emph{software product lines}
+(SPL)~\cite{czarnecki2005model,northrop2001software,clements2002software}.
 
-Traditionally, one would either develop such software with programming
+Traditionally, one would develop such software with programming
 languages that have either (a)~support for conditional compilation,
-usually in the form of C-like \texttt{\#ifdefs} or Lisp-like macros, or
-(b) inheritance and use sub-typing and sub-classing as a means by which
-to choose variants.  If one were to use process to effect the same
-goal then typically a large tree of branches are created in a VCS,
-where each branch is a mostly-separately maintained variant.
+usually in the form of C-like \texttt{\#ifdef}s or Lisp-like macros,
+or (b) inheritance, using sub-typing and sub-classing as a means of
+selecting variants. Using the development process to achieve the same
+goal typically results in a large tree of branches in a VCS, where
+each branch is a (mostly) separately maintained variant.
 
-All of these styles of software development, without additional
+These traditional styles of software development, without additional
 supporting technology, have been shown to be unfit for this
 purpose~\cite{linden2007software,kastner2008granularity,chen2009variability}.
-Such software often ends up being an impenetrable ball of mud that is
+The resulting software is typically an impenetrable mess that is
 extremely difficult to maintain.
 
-The alternative way of developing SPLs is to use declarative means by
-which to specify variants.  The academic literature highlights three
-solid solutions to this problem: a specification technique called
-\emph{feature models}~\cite{FMs}, using a specification language for
-expressing variants in the world of model-driven development (MDD)
-(e.g., Clafer or the OMG's Common Variability Language~\cite{haugen2012cvl}), or
-embedded domain specific languages (EDSLs)~\cite{EDSL}.
+An alternative way of developing SPLs is to specify variants by
+declarative means.  The academic literature highlights three good
+solutions to this problem: a specification technique called
+\emph{feature models}~\cite{FMs}; expressing variants using a
+specification language in the context of model-driven development
+(MDD) (e.g., Clafer~\cite{Clafer} or the OMG's Common Variability
+Language (CVL)~\cite{haugen2012cvl}); and embedded domain specific languages
+(EDSLs)~\cite{EDSL}.
 
 Product support for feature modeling and CVL is in its infancy, but is
 rapidly evolving as the industry demands better support for developing
-SPL-based software systems~\cite{bosch2002maturity,bockle2004calculating}.
+SPL-based software
+systems~\cite{bosch2002maturity,bockle2004calculating}.
 
 \subsection{Issue Tracking}
 
@@ -1631,163 +1632,158 @@ hardware.
 
 \section{Evidence-based Elections Technology}
 
-Many of the technologies covered in this chapter produce, either as a
-side-effect of their intended use or directly based upon their design,
-machine-generated and machine-checkable evidence of systems
-correctness or security.  Consequently, it seems sensible that federal
-and state certification standards, particularly those issued by NIST
-and adopted by the EAC, should at least mandate the production of such
-evidence, and at most proscribe the use of specific processes,
-methodologies, and technologies.  
+Many of the technologies discussed in this chapter produce, either
+directly or as a side-effect of their intended use, machine-generated
+and machine-checkable evidence of system correctness or security.
+Consequently, it seems sensible for federal and state certification
+standards---particularly those issued by NIST and adopted by the
+EAC---to at least mandate the production of such evidence, if not
+require the use of specific processes, methodologies, and
+technologies.
 
 Unfortunately, this is not the case.  Current and draft federal
-standards, called the Voluntary Voting System Guidelines (VVSG), that
-stipulate the means by which voting systems are tested and certified
-for use in public elections mandate the use of no evidence-producing
-techniques whatsoever.  Moreover, the certification gauntlet that
-voting systems must survive, which focuses on process and checklists,
-is based upon thirty year old thinking dismissed in both the academic
-literature and in the industrial software engineering community. Any
-system that is meant to be correct and secure developed using a
-``quality process'' that produces a pile of paperwork is simply
-unacceptable to researchers and developers in security and correctness
-R\&D communities.
+standards called the Voluntary Voting System Guidelines (VVSG), which
+describe how voting systems should be tested and certified for use in
+public elections, do not mandate the production of any such
+evidence. Moreover, the certification gauntlet that voting systems
+must survive, which focuses on processes and checklists, is based upon
+thirty-year-old thinking that has long since been dismissed both in
+the academic literature and by the industrial software engineering
+community. Researchers and developers in the security and correctness
+communities consider a ``quality process'' that produces nothing but a
+pile of paperwork unacceptable for developing systems that are meant
+to be correct and secure.
 
 Based upon observations of the development methods practiced at
 existing and past vendors, mainly via public audits of voting systems,
-it also is clear that vendors do not use virtually all of the
-concepts, tools, and techniques discussed in this chapter.  The
-paucity of use of quality-centric software engineering and
+it is also clear that vendors use virtually none of the concepts,
+tools, and techniques discussed in this chapter.  The fact that they
+do not use quality-centric software engineering and
 evidence-generating technologies is not indicative of ignorance.  The
-fact of the matter is that there is zero business pressure from
-governments or the market, thus existing vendors have no reason to
-do anything differently in the near future.
+fact of the matter is that there is no business pressure to do so from
+governments or the market, which gives existing vendors no compelling
+reason to change their practices in the near future.
 
-This state of affairs is radically different in other safety- and
+This is a stark contrast to the state of affairs in other safety- and
 mission-critical systems areas: software systems for aeronautics,
-avionics, control systems, biomedical, nuclear energy, and spacecraft,
-just to name a few, have stringent standards on the development and
-certification of such software systems.  One might argue that public
-election systems are no different, especially if they are to be used
-for national public elections.
+avionics, biomedical, nuclear energy, and spacecraft applications, to
+name a few, must conform to stringent development and certification
+standards.  One might argue that election systems are at least as
+important, especially if they are to be used for national public
+elections.
 
-Discussions within and with NIST show that they are knowledgeable about
+Discussions with NIST have shown that they are knowledgeable about
 many of the concepts, tools, and technologies discussed in this
-chapter and are quite keen on relying up more evidence-generating
-techniques for voting system certification.  The question is, even if
-VVSG evolves, and presuming that a future version of the VVSG covers
-IV systems, how should third parties measure and assessment the
-quality of E2E-VIV systems?  And, more importantly, how can and should
-that evidence be interpreted by non-experts, particularly election
-officials and the general public?
+chapter and are quite eager to require more evidence-generating
+techniques for voting system certification. This raises two obvious
+questions. First, if the VVSG evolves and a future version covers
+Internet voting systems, how should third parties measure and assess
+the quality of E2E-VIV systems?  And second, how can non-experts,
+particularly election officials and the general public, interpret that
+evidence?
 
 \subsection{Measuring and Assessing Quality}
 
-There are numerous techniques covered in the peer-reviewed software
-engineering literature for measuring and assessing the quality of a
-software
+The peer-reviewed software engineering literature describes many
+techniques for measuring and assessing the quality of a software
 system~\cite{meyer2003grand,gao2002testing,briand2000exploring,nagappan2008influence,kan2002metrics}.
 
-Several existing standards, as mentioned above, have been discounted
-as directly contributing to software quality, and thus should not be
-used in the assessment of such for E2E-VIV system.  These include
-ISO-9000, CMMI, IEC 62304, and FIPS
-140-2~\cite{ISO9000,herbsleb1997software,IEC-62304,FIPS-140-2}.
+Several existing standards fall into the paperwork-based ``quality
+process'' category mentioned above, and should not be used in the
+assessment of software quality for E2E-VIV systems.  These include
+ISO-9000~\cite{ISO9000}, CMMI~\cite{herbsleb1997software}, IEC
+62304~\cite{IEC-62304}, and all but the highest levels of FIPS
+140-2~\cite{FIPS-140-2}.
 
-Several current and past international standards---namely the Common
+Several current and past international standards directly address the
 Criteria Certification~\cite{ISO-IEC-15408-1,ISO-IEC-15408-2,ISO-IEC-15408-3}, Future Airborne Capability
-Environment (FACE)~\cite{FACE}, Avionics Application Standard Software
-Interface (ARINC) 653~\cite{ARINC653}, and the Software Considerations
-in Airborne Systems and Equipment Certification (DO-178B and
-DO-178C)~\cite{DO178B,DO178C} among others---do directly address the
 necessary theoretical and technical foundations for what constitutes a
-quality software system.  As such, we recommend that these existing
-standards should be practically evolved and adopted by NIST in future
-versions of the VVSG.
+quality software system. These include the Common Criteria
+Certification~\cite{ISO-IEC-15408}, the Future Airborne Capability
+Environment (FACE) Approach~\cite{FACE}, the Avionics Application
+Standard Software Interface (ARINC) 653~\cite{ARINC653}, and the
+Software Considerations in Airborne Systems and Equipment
+Certification (DO-178B and DO-178C)~\cite{DO178B,DO178C}. As such, we
+recommend that these existing standards should be evolved and adopted
+by NIST in future versions of the VVSG.
 
-Two certification frameworks, one general-purpose and one exemplar,
-provide a reasonable ground for future voting systems certification
-standards.
+Two certification frameworks provide a reasonable starting point for
+future voting systems certification standards. The first is the NIST
+risk management framework, consisting of NIST Special Publications
+800-37 and 800-53~\cite{NIST-800-37,NIST-800-53}), which is an
+excellent high-level characterization of ways to evaluate and mitigate
+the risks to secure system. The second is the Payment Card Industry
+Data Security Standard (PCI DSS)~\cite{PCI-DSS}, issued by the Payment
+Card Industry Security Standards Council. The PCI DSS, like the
+highest levels of FIPS 140-2, helps developers carefully specify
+exactly the trusted code base of mission-critical systems; this is an
+essential exercise in the context of E2E-VIV systems.
 
-The general framework is the NIST risk management framework (NIST SP
-800-37 and NIST SP 800-53~\cite{NIST-800-37,NIST-800-53}).  It
-constitutes an excellent high-level characterization of the means by
-which the risks to secure system should be evaluated and mitigated.
+Independent of the evolution of the VVSG, the evaluation of the
+quality of any E2E-VIV system---as mandated by one of the
+recommendations in the concluding chapter of this report---should
+primarily rely upon objective, machine-interpretable evidence.
 
-Exemplars include standards from the Payment Cards Industry Security
-Standards Council, such as their PCI Data Security Standard (PCI
-DSS)~\cite{PCI-DSS}.  The PCI DSS, much like the highest levels of
-FIPS 140-2, helps developers carefully specify exactly the trusted
-code base of mission-critical systems; a fundamental exercise in the
-context of E2E-VIV systems.
+\subsection{Interpreting Evidence for Voters}
 
-In conclusion, independent of the evolution of the VVSG, the evaluation
-of the quality of any E2E-VIV system, as mandated by one of the
-recommendations in the concluding chapter of this report, should
-principly reside upon objective machine-interpretable evidence.
-
-\subsection{Interpreting Evidence for the Layperson}
-
-Today the layperson must delegate trust in the quality of their voting
-equipment.  The voter delegates their trust to their election
-official.  Election officials delegate trust to their certification
-authority at the state or federal level.  Certification authorities
-delegate their trust to one of three accredited test
+Today, voters must delegate trust in the quality of their voting
+equipment.  They delegate trust to their election officials; election
+officials delegate trust to certification authorities at the state or
+federal level; and certification authorities delegate trust to one of
+three (at the time of this writing) accredited test
 laboratories~\cite{VVSG-labs}.  Test laboratories, which are hired by
 vendors to certify their products, certify a specific voting system
-release against a specific VVSG version. In the main this means that
+release against a specific VVSG version. Essentially, this means that
 the lab manually evaluates the voting system against an enormous
-checklist and produces reams of documentation, but little-to-no
-third-party checkable evidence of the system's correctness and
-security.
+checklist and produces reams of documentation, but almost no evidence
+of the system's correctness and security that can be checked by third
+parties. This chain of delegated trust, which ends in a paid test
+laboratory that does not produce publicly checkable evidence, is
+clearly not sufficient for the certification of E2E-VIV systems.
 
-This chain of delegated trust that eventually rests in a paid test
-laboratory that does not produce publicly digestible or publicly
-checkable evidence is clearly not sufficient for the certification of
-E2E-VIV systems.
-
-In order to give verifiable evidence of an E2E-VIV system's
-correctness and security to the layperson we must continue to rely
-upon delegated trust.  But, critically, \emph{the roots of that trust
-  must be up to the layperson}.
+In order to provide voters with verifiable evidence of an E2E-VIV
+system's correctness and security, we must continue to rely upon
+delegated trust. However, \emph{the voters must determine the roots of
+  that trust}.
 
 In the E2E-VIV setting, this transparent, multi-party delegated trust
 is contingent upon the definition and realization of several
-requirements found in this report.  The key requirements mandated
-herein are that any E2E-VIV system must:
+requirements found in this report.  The key requirements are that any
+E2E-VIV system must:
 \begin{enumerate}
-\item have a formally specified, machine-checked, E2E protocol,
+\item have a formally specified, machine-checked, E2E protocol;
 \item use only publicly documented, and preferably standards-based,
-  data file and wire protocol formats,
-\item produce third-party verifiable artifacts (such as ZKPs,
-  independently-checkable hashchains, etc.),
+  data file and wire protocol formats;
+\item produce third-party verifiable artifacts (such as zero-knowledge
+  proofs and independently-checkable hashchains);
 \item include a comprehensive set of traceable automated functional
-  and non-functional tests, and
-\item have formal, preferably mechanically-checked, proofs of the
-  correctness and security of the E2E protocol and its realization.
+  and non-functional tests; and
+\item have formal, preferably mechanically-checked, proofs of
+  correctness and security for both the E2E protocol and its
+  realization.
 \end{enumerate}
 
-By mandating the these evidence-generating requirements the trust in
-an E2E-VIV system need not be delegated to subjectively untrusted
-individuals or organizations. Any organization or individual with
-either the requisite skills (say, a computer science Ph.D. or a
-talented software engineer) or reasonable resources (with which to
-hire a group of trusted technical experts) can now objectively
-evaluate the quality of an E2E-VIV system.  
+Given these evidence-generating requirements, the trust in an E2E-VIV
+system need not be delegated to subjectively untrusted individuals or
+organizations. Any organization or individual with either the
+requisite skills (for example, a computer science graduate student or
+a talented software engineer) or sufficient resources to hire a group
+of trusted technical experts can \emph{objectively} evaluate the
+quality of an E2E-VIV system. The wide variety of individual experts,
+think tanks, and IT corporations across the political spectrum should
+make it straightforward to find enough evaluators with the necessary
+skills.
 
-Given the vast political variety of individual experts, think tanks,
-IT corporations, finding those with the requisite skills should be
-straightforward.  
-
-Moreover, given the wealth of well-organized, sometimes enormously
-well-funded, entities whose focus is entirely on public elections, it
-is reasonable to expect that third-party certification of E2E-VIV
-systems is tractable.  Hypothetically, only a small set of key
-organizations---say the DNC, RNC, a small set of independent top
-computer scientists and cryptographers involved with the Elections
-Verification Network or the Verified Voting Foundation, and a PAC
-aligned with each candidate---is necessary to earn the trust of
-virtually every voter in America.
+Moreover, given the number of well-organized and sometimes enormously
+well-funded entities whose focus is entirely on public elections,
+trusted third-party certification of E2E-VIV systems should be
+achievable. Certification by a small set of key
+organizations---perhaps the Democratic and Republican National
+Committees, a small set of independent top computer scientists and
+cryptographers involved with the Elections Verification Network or the
+Verified Voting Foundation, and a Political Action Committee aligned
+with each candidate---should be sufficient to earn the trust of
+virtually every American voter.
 
 %%% Local Variables:
 %%% mode: latex

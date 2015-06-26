@@ -4,75 +4,83 @@
 \tododmwit{signposting; some content is here, but we need an intro and
 transitions explaining what content is about to happen}
 
-\section{Goals}
-Typical Internet voting election processes have six phases:
+\section{Election Process and Goals}
+A typical Internet voting election process has six phases:
 
 \begin{description}
-  \item[Setup] During the setup phase, the election officials gather the
-    information needed to run an election. This includes gathering
-    registration information for all voters, identifying the issues and
-    races that will be voted on, designing and specializing ballots,
-    sending instructions and other information about the election to voters,
-    and so on.
-  \item[Distribution] Once the election has been set up, election officials
-    must distribute ballots to the voters. Different voting system
-    architectures use different mechanisms, including postal mail, email, or
-    by having voters interact with a website\footnote{We distinguish between
-    sending instructions to voters and distributing ballots; there is no
-    hard and fast rule for the distinction, but a rule of thumb is that
-    instructions are applicable to many voters, whereas anything that has
-    been specialized for a single voter is part of the ballot and falls
-    under the distribution phase.}.
-  \item[Voting] Voters then fill out their ballots, often with the help of
+  \item[Setup] During the setup phase, election officials gather 
+    information needed to run the election. This includes:
+    \begin{itemize}
+     \item gathering registration information for all voters;
+     \item identifying the issues and races that will be voted on;
+     \item designing ballots, often in multiple languages, for all
+       precincts participating in the election;
+     \item sending instructions and other information about the
+       election to voters; and so on.
+    \end{itemize}
+  \item[Distribution] Different voting systems use different
+    mechanisms to distribute ballots to voters, such as postal mail,
+    email, or a website that provides downloadable ballots.
+  \item[Voting] Voters fill out their ballots, often with the help of
     software installed on their own computers.
-  \item[Casting] Completed ballots are then returned to the election
-    officials; as with distribution, different architectures use different
-    mechanisms.
-  \item[Tallying] The tallying phase includes the remainder of the election
-    finalization tasks: counting votes and announcing the election outcome
-    are common to almost every process, though some include other
-    miscellaneous tasks like publishing certain information needed for
-    audits.
-  \item[Auditing] Some elections will inevitably be disputed; in such cases,
-    there is a final phase in which interested parties look for evidence
-    that the election outcome is correct (or not!).
+  \item[Casting] Election officials receive the completed ballots. As
+    with distribution, different voting systems use different ballot
+    casting mechanisms.
+  \item[Tallying] The tallying phase includes the remainder of the
+    tasks that finalize the election. Counting votes and announcing
+    the election outcome are common to almost every election system,
+    though some include other tasks such as publishing information
+    needed for audits.
+  \item[Auditing] Some elections will inevitably be disputed. In such
+    cases, there is a final phase in which interested parties look for
+    evidence that the election outcome is correct (or incorrect).
 \end{description}
 
 One major concern for Internet voting involves ballot integrity during the
 distribution, voting, and casting phases. For the election outcome to be
-correct, it is important that the ballot that is received by and displayed
-to the voter match the ballot that was created and sent by the election
-officials; that the computer used to fill out the ballot faithfully reports
-the intention of the voter; and that the filled out ballot be received by
-the election officials exactly as it was when it was sent by the voter.
-Typical Internet communications involve not just the computers owned by the
-two parties communicating, but also many intermediary computers controlled
-by neither party. A good election system needs to account for this, making
-it impossible for these intermediates to intercept ballots for viewing or
-modification during transit. 
+correct, it is important that:
+\begin{itemize}
+\item the blank ballot that is received by and displayed to the voter
+  match the ballot created and sent by the election officials;
+\item the computer used to fill out the ballot faithfully reports the
+  intention of the voter; and
+\item the filled out ballot received by the election officials is the
+  same as it was when the voter sent it.
+\end{itemize}
+Typical Internet communications involve not just the computers owned
+by the two parties communicating, but also many intermediary computers
+controlled by neither party. For example, an email you send from
+anywhere in the world will travel through multiple servers on its way
+to its destination. At any point, one of these servers could intercept
+and modify the email without your knowledge. A good election system
+needs to account for this, making it impossible for these
+intermediaries to intercept ballots for viewing or modification during
+transit.
 
-Another concern is that voters computers are
-rarely administered by system administration professionals, and as a result many of them are compromised
-by outside forces. One consequence of this is that the voting phase itself
-may become corrupted: even if the ballot arrives unchanged to the voter,
-malware on the voter's computer may change the way the ballot is displayed
-or the way the vote is recorded before casting the ballot. It can be difficult
-to design a system that is resistant to this kind of attack without
-seriously sacrificing the usability of the system. Some systems use
-alternative distribution mechanisms as cross-checks; for example, sending
-a code to the voter by postal mail which can be used to check that the
-ballot displayed by their computer is correct.
+Another concern is that most voters are not system administration
+experts, and many of their computers are compromised by malware. A
+compromised computer may corrupt the voting phase: even if the voter
+receives an unaltered ballot, malware may change the way the ballot is
+displayed or the way the vote is recorded before casting the
+ballot. It can be difficult to design a system that can resist this
+kind of attack without significantly reducing the usability of the
+system. Some systems, referred to as dual (or triple) channel systems,
+use alternative distribution mechanisms as cross-checks. For example,
+election officials may send a code by postal mail that a voter can use
+to check that a displayed ballot is correct.
 
-To the extent that it is possible, it is desirable for Internet voting to be
-private and anonymous. Voters should feel comfortable voting they way they
-like (and not feeling pressured to vote for a particular candidate or to
-vote a particular way on some issue); the fewer people who know or can find
-out the way a given voter voted, the more comfortable they can feel. On the
-other hand, election officials only want to record votes from people who are
-registered to vote, and even then want to record only one vote from each
-voter. Thus there is a tension during the vote casting phase between
-retaining the anonymity of votes and ensuring that a vote is coming from
-somebody who ought to be able to vote.
+As much as possible, Internet voting should be private and
+anonymous. It is essential that voters are free to vote the way they
+choose, and do not feel pressured to vote for a particular candidate
+or vote a particular way on any issue. The fewer people who know or
+can find out how a voter voted, the more comfortable the voter can
+feel about privacy.
+
+At the same time, election systems must only record votes from people
+who are registered to vote, and must only record one vote from each
+voter. Election systems must balance the need to keep votes anonymous
+agsinst the need to ensure that a vote is coming from somebody who
+should to be able to vote.
 % I keep struggling with the fact that I think vote and ballot are two different things and that you are using them 
 % interchangeably. A ballot can have many votes on it... I think people cast "ballots". 
 % Is it "vote casting" or as I would say it ballot casting - they vote by casting a ballot,
@@ -81,218 +89,243 @@ somebody who ought to be able to vote.
 % or maybe, I am using this language wrong - just thought I would note it. 
 \tododmwit{ask Joe for a reference to the audit that showed that voting
 terminal logs retained exactly who voted for what}
-One popular approach to this problem in existing systems is to initially
-require each vote to be tied to the voter who cast it long enough to decide
-whether to include the vote in the later tally or not; then to keep the vote
-but delete the information about who cast the vote. This approach can work;
-however, audits of systems that take this approach show that it is all too
-easy to accidentally retain the connection between votes and voters longer
-than intended, and make this information much more widely visible than
-intended. From the privacy side of the tradeoff, it would be better if the
-voter could be confident that there was no connection stored because the
-information they send to the election officials during the casting phase
-does not include any personally identifying material.
 
-There is a subtle distinction being made here. We certainly want our
-Internet voting systems to be correct, private, secure, and so forth. It is
-important for the people developing these systems to verify that they are
-correct and take an active role in seeking out and eliminating defects in
-the system. But the goal of verifiable Internet voting is to go even
-farther: not just correct, but \emph{visibly} correct. That is, it must be
-possible for the parties using the system to be able to \emph{check} that
-the system is behaving correctly, without trusting in the abilities of the
-people who created the system to avoid bugs or trusting in the inability of
-third parties to influence the behavior of the system. As applied to
-anonymity: since it is not easy to prove to somebody else that you have
-deleted some information, one must simply avoid giving them that information
-in the first place. 
+One popular approach to this problem in existing systems is to require
+that each vote be tied to the voter who cast it long enough to decide
+whether to include the vote in the later tally or not. After it is
+decided to include the vote, the system records the vote and deletes
+the information about who cast it. This approach can work; however,
+audits of systems that take this approach have shown that it is easy
+to accidentally retain the connection between votes and voters longer
+than intended. This makes information much more widely visible than
+intended. It would be better if voters could be confident that the
+system does not store any connections between their votes and their
+identities. To accomplish this, the information a voter returns during
+the ballot casting phase must not include any personally identifying
+material.
 
-This theme---of being not just correct, but
-verifiable---is one of the central ones of verifiable Internet voting, and
-is a critical part of the defense against the software bugs, security
-vulnerabilities, and sophisticated cybercrimes that history tells us are
-sure to crop up.\tododmwit{do we need some evidence of security
-vulnerabilities and cybercrime\ldots?}
+This is a subtle, but crucial, distinction. The overall objective is
+for Internet voting systems to be correct, private, secure, and so
+forth. It is important for the people who develop these systems to
+verify that they are correct and take an active role in seeking out
+and eliminating defects in the system. However, verifiable Internet
+voting goes even farther: the system must be \emph{visibly}
+correct. That is, voters using the system must be able to \emph{check}
+that it is behaving correctly, without trusting that the system has no
+bugs or trusting that the system's behavior has not been influenced by
+third parties. It is especially difficult to prove to voters that
+their personal information has been deleted in order to protect their
+privacy, so voters may not want to provide their information in the
+first place.
 
-The tallying process provides a particularly good example of the difference
-between correctness and verifiability. We certainly want the election system
-to count the votes correctly; but the goal of verifiability is to provide
-some evidence to voters that the election outcome is correct. For example,
-some systems allow voters to check that their vote was included in the
-election outcome; some allow voters to check that the system is recording
-the content of their votes correctly; some even allow voters to check that
-the number of people that voted for a given candidate is accurately
-calculated without revealing any of the individual votes. Meeting these
-verification goals without violating the anonymity and privacy goals can be
-a balancing act.
+This is why it is critical that an Internet voting system not only be
+correct, but \emph{verifiably} correct. Verifiability is one of the
+central concerns of Internet voting, and is a critical part of the
+defense against the software bugs, security vulnerabilities, and
+sophisticated cybercrimes that history tells us are sure to occur.
 
-Each of these individual goals contribute to a single top-level goal:
-end-to-end verifiability. The ``end-to-end'' property is that the whole
-election process produces a result that matches the intentions of the
-voters. The subgoals of this are summarized with the catchphrase, ``Cast as
-intended; recorded as cast; and counted as recorded.'' This recapitulates
-the concerns discussed above; ``cast as intended'' is the demand that
-casting use secure communications and other mechanisms to ensure that
-malware and outsiders cannot change the vote, ``recorded as cast'' is the
-demand that the election system itself correctly interprets a vote, and
-``counted as recorded'' is the demand that the tallying process be faithful;
-and all of these demands are subject to not just correctness but
-verifiability, so that a voter can convince themselves that these properties
-hold even if they suspect that the system or election officials have been
-corrupted.
+The tallying process provides a particularly good example of the
+difference between correctness and verifiability. Voters certainly
+want the election system to count the votes correctly, but the goal of
+verifiability is to provide some \emph{evidence} to voters that the
+election outcome is correct. Different systems attempt this in
+different ways. For example, they may allow voters to check that:
+
+\begin{itemize}
+\item their vote was included in the election outcome; 
+\item the system is recording the content of their
+votes correctly; or
+\item the number of people that voted for a given candidate is
+  accurately calculated (this must be proven without revealing any of
+  the individual votes).
+\end{itemize}
+
+Meeting these verification objectives without violating anonymity and
+privacy is a balancing act. Each of these individual objectives
+contribute to a single top-level goal: \emph{end-to-end verifiability}.
+``End-to-end'' means that the whole election process produces a result
+that matches the intentions of the voters.
+
+The verification objectives can be summarized with the catchphrase,
+``Cast as intended; recorded as cast; and counted as recorded.''
+
+\begin{itemize}
+\item ``Cast as intended'' is the demand that casting use secure
+  communications and other mechanisms to ensure that malware and
+  outsiders cannot change the vote.
+\item``Recorded as cast'' is the demand that the election system
+  itself correctly interprets a vote.
+\item ``Counted as recorded'' is the demand that the tallying process
+  be accurate.
+\end{itemize}
+
+These demands are subject not only to correctness but also to
+verifiability, so that voters can believe these properties hold even
+if they suspect that the systems, or the election officials, are
+corrupt.
 
 \section{Shortcomings and Expectations of E2E-VIV}
 
-As discussed in \autoref{chapter:remote_voting}, there are several
-difficulties with current voting processes: voters with disabilities cannot
-vote unassisted, communication channels with remote voters are slow and
-unreliable, vote tallying is labor-intensive and error-prone, and
-election audits are costly. Additionally, there is little visibility into
-the election process, meaning that individual voters and, in some cases,
-even auditors, must trust the reports of election officials and voting
-hardware vendors on election outcomes and processes. Internet voting may be
-able to alleviate some of these concerns. Voters with disabilities could
-potentially use their own familiar hardware, such as Braille displays,
-screen readers, sip-and-puff input devices, and so on, to participate in the
-election. Internet communications are traditionally speedy (seconds per
-message rather than weeks) and relatively robust compared to overseas postal
-mail. In most systems, tallying is automated and fast. Auditing can still be
-a challenge, though there is some hope that verifiable systems can make
-elections more transparent for this purpose, too.
+As discussed in \autoref{chapter:remote_voting}, several difficulties
+exist with current voting processes:
 
-There are also some serious challenges in rolling out an Internet voting
-system. \autoref{chapter:architecture} discusses the feasibility of
-producing a system that meets the security and verifiability goals we have
-touched on above. In addition to those concerns, the ability of normal
-voters to use the system to cast their vote in the way they intend to vote
-is a major goal; as we discuss below, current systems do not meet this goal
-very well. One component of this is the system itself; though another that
-is common to all Internet voting systems is the need for voters to have
-Internet access. This is not necessarily possible for all overseas and
-military voters.\tododmwit{would be nice to have some hard data about this}
+\begin{itemize}
+\item voters with disabilities cannot vote unassisted; 
+\item communication channels with remote voters are often slow and
+  unreliable;
+\item vote tallying is labor-intensive and error-prone; 
+\item election audits are costly; and
+\item there is little visibility into the election process, so voters
+  (and, in some cases, even auditors) must trust the reports of
+  election officials and voting hardware vendors on election outcomes
+  and processes.
+\end{itemize}
+
+Internet voting may be able to alleviate some of these
+concerns. Voters with disabilities could potentially use their own
+familiar hardware, such as Braille displays, screen readers,
+sip-and-puff input devices, and others, to participate in the
+election. Internet communications are traditionally speedy (taking
+seconds rather than weeks) and relatively robust compared to overseas
+postal mail. In most systems, tallying is automated and fast. Auditing
+can still be a challenge, though it is expected that verifiable
+systems can make elections more transparent for this purpose. However,
+implementation of Internet voting has its own challenges. A system
+that properly addresses privacy and security concerns may be too
+complex to use and maintain or too costly to deploy.\todo{I think I
+  managed to get the best of both the original and Susan/LIsa's
+  version into here, but it may be missing something or not say quite
+  what we want. Somebody else should check it. -dmz}
 
 \section{E2E-VIV in Practice}
 
 A number of practical voting systems have been developed based on the
 principles of E2E-VIV. This section describes several systems that
-have been used in a real election or in a pilot.
+communities have used in real elections or pilot tests.
 
 \subsection{RIES}
 \label{sec:ries} 
 
 RIES, the Rijnland Internet Election System~\cite{hubbers2004}, was
 first used in 2004 to support elections to the Rijnland water
-management board, supplementing the system of postal voting used by
-the water board. A subsequent version was used to allow expatriate
-voters to participate in the Dutch parliamentary elections
-\cite{gonggrijp2009}.
+management board. RIES supplemented the system of postal voting
+already in use. Election officials used a later version of RIES to
+allow expatriate voters to participate in the Dutch parliamentary
+elections~\cite{gonggrijp2009}.
 
-Before a RIES election, credentials are mailed to every voter in the
-form of a very long number. The same mailing also includes
-instructions for the voter.
+Before a RIES election, credentials---in the form of a very long
+number---and instructions are sent by postal mail to every voter.
 
-During the election, voters log into an election web site that
-includes a client-side voting application written in JavaScript. The
-client-side application encrypts the vote by passing the voter
-authorization code and the public ID of the candidate through a
-one-way function to create the encrypted vote. The encrypted vote is
-then placed on a public bulletin board that serves as a ballot box.
+During the election, each voter logs into the election website. The
+website includes a voting application written in JavaScript; the
+voting application is a ``client-side'' application, which means that
+it runs on the voter's computer and not on the election server. The
+client-side application processes the voter's authorization code and
+the public identification of the candidate to create an encrypted
+vote. The encrypted vote is then placed on a public online ``bulletin
+board'' that serves as a ballot box.
 
 At the close of the polls, the election authority releases the final
 vote tallies along with a codebook containing the encryptions of all
-valid credentials with all candidate IDs.
+valid credentials and all candidate identifications.
 
-The algorithms and protocols used by RIES are public, and each voter,
-having access to all of the inputs and outputs, may (in principle)
-check the computations. This is weaker than the desired individual
-verifiability, but nonetheless, far stronger than conventional voting
-systems.
+The algorithms and protocols used by RIES are public, and each voter
+has access to all of the inputs and outputs. In principle, each voter
+may check the computations. This level of verifiability is weaker than
+the desired individual verifiability of E2E-VIV, but is nonetheless
+far stronger than conventional voting systems.
 
-The Organization for Security and Co-operation in Europe (OSCE) sent
-an election assessment team to observe the use of RIES in 2006. Their
-report contains observations of critical security features of the
-system that could not be observed \cite{osce2007}. Further
-weaknesses were revealed by the Eindhoven Institute for the Protection
-of Systems and Information (EiPSI) in 2008 \cite{hubbers2008},
-notably that:
+In 2006, the Organization for Security and Co-operation in Europe
+(OSCE) sent an election assessment team to observe the use of
+RIES. Their report~\cite{osce2007} stated that they could not observe
+many critical security features of the system, and therefore could not
+be certain of their effectiveness. In 2008, the Eindhoven Institute
+for the Protection of Systems and Information (EiPSI) revealed several
+weaknesses in RIES~\cite{hubbers2008}:
 
 \begin{itemize}
-  \item the procedure of voter self-check is quite complicated,
-  \item the two-channel (mail and Internet) voting makes system less
-    transparent,
+  \item the voter self-check procedure is quite complicated;
+  \item the two-channel (mail and Internet) voting makes the system
+    less transparent;
   \item too much power is given to the election administrator and the
-    system's Internet host,
+    system's Internet host;
   \item issues arise when modifying the codebook due to a revoked
-    ballot, and
-  \item there are realistic ways to forge votes via cryptographic hash
-    collisions.
+    ballot; and
+  \item realistic ways to forge votes via cryptographic means (in
+    particular, using hash collisions) exist.
 \end{itemize}
 
 One of the more important lessons learned through RIES is that when
-voter authorizations are distributed long in advance of the election,
-a mechanism must be provided allowing voters to obtain replacement
-credentials and invalidate lost credentials. The mechanism adds
+voter authorizations are distributed far in advance of the election, a
+mechanism must be provided that allows voters to obtain replacement
+credentials and invalidate lost credentials. This mechanism adds
 significant complexity to the system, and is a source of some of the
 problems reported in the OSCE and EiPSI reports.
 
-Another feature of RIES rife with tradeoffs is the ability to perform
-testing during the election: pre-invalidated test ballots are
-deliberately added to the bulletin board in order to test the network
-path from selected Internet clients to the server. While such testing
-in principle can increase confidence in the election integrity, in
-practice it opens the system to spoofing and denial of service
-attacks. Furthermore in the RIES implementation the system is aware of
-the fact that it is processing a testing ballot, and all of the test
-ballots were voted identically from the same computer, limiting the
-confidence added at the expense of these vulnerabilities.
+Another feature of RIES, which has significant tradeoffs, is the
+ability to perform testing during the election: pre-invalidated test
+ballots are deliberately added to the bulletin board in order to test
+the network path from selected Internet clients to the server. While
+such testing can, in principle, increase confidence in the election
+integrity, in practice it opens the system to spoofing and denial of
+service\footnote{A \emph{spoofing} attack deceives the target into
+  believing that an Internet communication came from somewhere other
+  than its actual source. A \emph{denial of service} (DoS) attack is
+  an attempt to make an Internet server unavailable to its intended
+  users.} attacks. Moreover, the RIES implementation is aware when it
+is processing test ballots rather than real ballots, and all of the
+test ballots are typically voted identically from the same
+computer. This significantly limits the confidence provided by such
+testing, at the expense of increased system vulnerability.
 
-In the wake of these critical reports, plans to use RIES in the 2008
-Dutch parliamentary elections were scrapped, and Internet voting as a
-whole was banned in the Netherlands.
+Because of these critical reports, election officials discontinued
+plans to use RIES in the 2008 Dutch parliamentary elections, and the
+Netherlands banned Internet voting.
 
 \subsection{Prêt à Voter}
 \label{sec:pret-voter}
 
-The state of Victoria in Australia held a governmental election in
-November 2014, using a version of the Prêt à Voter
-system~\cite{chaum2005, burton2012}. An attempt was also made to use
-Prêt à Voter in a student election at the University of Surrey in
-February 2007~\cite{bismark2007}. The failure of this attempt
-illustrates many of the pitfalls of adapting a research system to an
-actual election, such as a short timetable, a lack of clear
-requirements, and the need for rigorous implementation practices.
+In 2007, the University of Surrey in Victoria, Australia attempted to
+use the Prêt à Voter system~\cite{chaum2005, burton2012} in a student
+election~\cite{bismark2007}. The failure of this attempt illustrated
+many of the pitfalls of adapting a research system to an actual
+election, such as a short timetable, a lack of clear requirements, and
+the need for rigorous implementation practices.
 
-Prêt à Voter uses two-part paper ballots with the candidate names on
-one part and the voting targets plus a ballot ID number or barcode on
-the other part. Typically, the two parts are printed as a single sheet
-with a perforation to divide the sheet after voting.
+Prêt à Voter uses two-part paper ballots. Candidate names appear on
+one part and voting targets---the areas that voters must mark to cast
+their votes---appear with a ballot ID number or barcode on the other
+part. Typically, the two parts are printed as a single sheet with a
+perforation to divide the sheet after voting.
 
 From the voter's perspective, the order of the candidate names on the
-ballot appears to be random. The voter marks her choice next to the
-candidate name of her choice, separates the two parts of the ballot,
-and destroys the candidate names. She may take a copy of the voted
+ballot is random. The voter makes a mark next to the candidate name
+she chooses, separates the two parts of the ballot, and destroys the
+part containing the candidate names. She may take a copy of the voted
 part home for later verification.
 
-For tabulation, there is a cryptographically secure mapping from the
-ballot ID numbers to the apparent random order of the candidate voting
-positions. Multiple custodians using a mixnet or similar technique use
-this mapping to decode cast ballots into anonymized plain-text ballots
-which are then posted to a bulletin board.
+For tabulation, a cryptographically secure mapping exists from the
+ballot ID numbers to the apparently-random orderings of the
+candidates. The system uses this mapping to decode the cast ballots
+into readable ballots with candidate names, while removing the
+associations between ballots and their ID numbers. The decoded ballots
+are then posted to a public bulletin board.
 
 Unvoted ballots may be audited before, during and after the election
 to ensure that the decoding of cast ballots is being correctly
 performed. Randomly selected stages in the decoding can be challenged
-to prove the integrity of the count, and the plain-text decoded
-ballots are easily counted for verification by any interested party.
+to prove the integrity of the count, and any interested party can
+easily count the decoded ballots for verification.
 
-An individual voter may also search for their voted ballot ID on the
+Individuals may also search for their voted ballot IDs on the public
 bulletin board. This reveals the positions that were marked on that
-ballot, but crucially, it does not show the corresponding candidate
-names. The voter may therefore verify that the positions marked at the
-polling place were correctly recorded by the election officials, but
-because the voter no longer has the part of the ballot linking
-candidate names to ballot positions, the voter cannot prove to anyone
-else how the ballot was voted.
+ballot but, crucially, does not show the corresponding candidate
+names. A voter can verify that the positions she marked at the polling
+place were correctly recorded by the system, but because she no longer
+has the part of the ballot linking candidate names to ballot
+positions, she cannot prove to anyone else how she voted.
+
+\todo{Need some text about why the attempt failed!}
 
 \subsection{Punchscan}
 \label{sec:punchscan}
@@ -303,58 +336,70 @@ in 2007~\cite{essex2007}. It is likely the first E2E voting system
 with ballot privacy used in a binding election.
 
 The election experience for a Punchscan voter is very similar to that
-of Prêt à Voter. The system uses a two-part paper ballot where the top
-part has candidate names and candidate numbers (or letters) and the
-bottom part has numbered (or lettered) voting targets. Holes punched
-in the top part expose the voting targets below. The order of the
-voting targets for each race appears random to the voter. Both halves
-of the ballot bear an identical serial number.
+of Prêt à Voter. Punchscan also uses a two-part paper ballot, but the
+two parts are overlaid one atop the other. The top part has candidate
+names and candidate numbers (or letters), and the bottom part has
+numbered (or lettered) voting targets; both parts have an identical
+serial number. The voting targets on the bottom part are visible
+through holes punched in the top part. The order of the voting targets
+for each race appears random to the voter.
 
-The voter casts their vote by marking her choice with a bingo dauber,
-and the two halves are separated. Either side can be scanned (since
-the bingo dauber marked both through the hole and around it) as the
-cast ballot. The other side is destroyed, and a copy of the cast side
-may be retained by the voter.
+The voter casts a vote by marking a choice with a bingo dauber---a
+thick marker used to fill in circles on bingo cards--- and the two
+halves are separated. Either side can be cast as a ballot, since the
+bingo dauber marks both: one through the hole and the other around
+it. The uncast side is destroyed, and the voter may retain a copy of
+the cast side.
 
-A curious voter may inspect the public record of any cast ballot
-exactly as with Prêt à Voter. It does not matter which half of the
-ballot the voter retained; neither half contains the information necessary to determine the vote. Again, individual ballots may
-be audited, and the key to tabulating the votes is that there is a
+Anybody may inspect the public record of any cast ballot, exactly as
+with Prêt à Voter; this allows voters to verify that their receipts
+match the public record. It does not matter which half of the ballot a
+voter retains, since neither half by itself contains the necessary
+information to determine the vote. Like Prêt à Voter, Punchscan uses a
 cryptographically secure mapping from the ballot serial numbers to the
-apparent random order of the candidate voting positions.
+apparently-random orderings of the candidate voting positions to
+decode the ballots for counting. Individual ballots may be audited to
+ensure that the decoding process is carried out correctly.
 
 \subsection{Scantegrity II}
 \label{sec:scantegrity-ii}
 
 Scantegrity II (Invisible Ink)~\cite{chaum2008,chaum2009} was used in
 the Takoma Park, Maryland municipal elections in
-2009~\cite{carback2010}. In 2011, it was used for in-person voting
-with Remotegrity (\autoref{sec:remotegrity}) used for absentee voting. The
-2009 Takoma Park election was the first use of an E2E system with
-ballot privacy in binding governmental elections.
+2009~\cite{carback2010}. It was also used in 2011 for in-person
+voting, along with Remotegrity (\autoref{sec:remotegrity}) for
+absentee voting. The 2009 Takoma Park election was the first use of an
+E2E-V system with ballot privacy in binding governmental elections.
 
-Before the election, officials generate the seed to a pseudorandom
-number generator using a secret sharing scheme. Three-letter
-alphanumeric codes are created for each choice on each printed ballot
-using this seed, and additional tables are created so that interested
-parties can later confirm that the tally was computed correctly.
+Before the election, officials generate a random seed\footnote{A
+  \emph{random seed} is used by software that generates sequences of
+  pseudorandom numbers. Every time the software is started with the
+  same seed, it generates the same sequence of numbers.\todo{This
+    explanation may need to be better/more complete/perhaps integrated
+    into the text}} using a ``secret sharing'' scheme; each official
+inputs a piece of secret information (such as a password) into the
+system, and the system combines these pieces into a single result. The
+system then generates three-letter alphanumeric codes are created for
+each choice on each printed ballot using this seed. It also creates
+additional tables so that interested parties can later confirm that
+the system computed the tally correctly.
 
 During the election, the voter experience is nearly identical to that
-of conventional optical-scan paper ballots. When the voter marks their
+of conventional optical-scan paper ballots. When a voter marks a
 choice, the ink in the pen reacts with invisible ink on the paper to
 disclose the three-letter code in the marked voting target. The ballot
-ID number and the displayed code are posted to a public bulletin
-board.
+identification number and the displayed code are posted to a public
+online bulletin board.
 
 After the election, public verification of the final tally proceeds
 with the public bulletin board in a manner similar to that of
 Punchscan and Prêt à Voter.
 
-In addition to the public verification, an individual voter who takes
-note of their ballot ID number and the code revealed from invisible
-ink may use the public bulletin board to check that their ballot was
-indeed tabulated, though this information is not sufficient to prove
-that they voted a particular way.
+In addition to the public verification, individual voters can record
+their ballot ID numbers and the codes revealed from the invisible
+ink. They can then use the public bulletin board to check that their
+ballots were tabulated. This information, however, is not sufficient
+to prove that they voted a particular way.
 
 \subsection{Remotegrity}
 \label{sec:remotegrity}
