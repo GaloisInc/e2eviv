@@ -261,39 +261,41 @@ Internet voting. \emph{Defining an appropriate pace, milestones, and
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Research Challenges}
 
-The key research challenges highlighted in this report are twofold,
-focusing on the standard balance between security and usability.
+The key research challenges highlighted in this focus on the balance
+between security and usability.
 
-First, the critical definition of an E2E-VIV protocol for
-U.S. elections is very challenging. In particular, the research
-community does not immediately know how to solve four key challenges:
-(1) how to handle large-scale dispute resolution; (2) how to make
-verifiability comprehensible and useful to the average voter; (3) how
-to authenticate voters for public elections; and (4) how to avoid
-voter coercion and vote selling in the context of digital observation
-of voting and verification.
+Although E2E-V is necessary for a viable Internet voting system, use
+of E2E-V does not ensure that an Internet voting system is free from
+vulnerabilities. Also, the critical definition of an E2E-VIV protocol
+for U.S. elections is very challenging. In particular, the research
+community does not immediately know how to solve five key challenges:
+
+\begin{itemize}
+\item how to handle large-scale dispute resolution;
+\item how to authenticate voters for public elections;
+\item how to defend an E2E-VIV system against denial-of-service
+  attacks and automated attacks that aim to disrupt large numbers of
+  votes;
+\item how to make verifiability comprehensible and useful to the
+  average voter; and
+\item how to avoid voter coercion and vote selling in the context of
+  digital observation of voting and verification.
+\end{itemize}
 
 Second, the usability facets of E2E-VIV are also challenging. The main
-issues with usability are (5) how to ensure usable vote privacy in the
-presence of client-side malware and (6) how to ensure that
-verification is usable and accessible to the typical set of voters.
+issues with usability are:
 
-Although we feel that E2E-verifiability is necessary for a viable
-Internet voting system, we must emphasize that use of
-E2E-verifiability does not ensure that an Internet voting system is
-free from vulnerabilities.  A suitable Internet voting system must
-also include good means for authenticating that voters are who they
-claim to be, defenses or back-up procedures to respond to
-denial-of-service attacks, and protections against automated attacks
-that disrupt large numbers of votes.  In addition, E2E-verifiability
-enables the detection of fraud, but does not prevent it; without a
-mechanism to resolve claims by voters that their votes have been
-incorrectly recorded, it is difficult to assess whether claims of
-improper recording of votes are sufficient to call the election
-results into question.  While some of these issues can be addressed by
-current technologies, further research would be necessary to determine
-if all of these concerns can be adequately addressed, as discussed at
-length in the preceding chapters and as codified in our requirements.
+\begin{itemize}
+\item how to ensure usable vote privacy in the presence of client-side
+  malware and
+\item how to ensure that verification is usable and
+  accessible to the typical set of voters.
+\end{itemize}
+
+While some of these issues can be addressed by current technologies,
+further research is necessary to determine if all of these concerns
+can be adequately addressed, as discussed at length in the preceding
+chapters and as codified in our requirements.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Engineering Challenges}
