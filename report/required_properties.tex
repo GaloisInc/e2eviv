@@ -300,9 +300,11 @@ The system must accurately count the votes, and the counting process
 must be reproducible. The system must also maintain the availability
 and integrity of all information used to generate the final tally and
 all information regarding the counting process itself for as long as
-required. Vote tabulation must be \emph{software independent}; it must
-be possible to reconstruct a correct tally from some record even if
-the election system software is compromised.
+required. Vote tabulation must be \emph{strongly software
+  independent}; it must be possible to detect any compromise of the
+election system software that causes a change in the tally, and to
+reconstruct a correct tally from some record in the event of such a
+compromise.
 
 A deployed E2E-VIV system will likely be an attractive target for
 highly capable adversaries who wish to influence election results or
