@@ -1,9 +1,6 @@
 \chapter{E2E-VIV Explained\ifdraft{ (Philip/Daniel/Adam) (100\%)}{}}
 \label{chapter:e2e_viv_explained}
 
-\tododmwit{signposting; some content is here, but we need an intro and
-transitions explaining what content is about to happen}
-
 \section{Election Process and Goals}
 A typical Internet voting election process has six phases:
 
@@ -87,8 +84,8 @@ should to be able to vote.
 % election officials record one ballot to a voter, but that ballot could contain
 % many votes on it... isn't the ballot tied to the voter, and then the votes to the ballot,
 % or maybe, I am using this language wrong - just thought I would note it. 
-\tododmwit{ask Joe for a reference to the audit that showed that voting
-terminal logs retained exactly who voted for what}
+%\tododmwit{ask Joe for a reference to the audit that showed that voting
+%terminal logs retained exactly who voted for what}
 
 One popular approach to this problem in existing systems is to require
 that each vote be tied to the voter who cast it long enough to decide
@@ -192,10 +189,7 @@ can still be a challenge, though it is expected that verifiable
 systems can make elections more transparent for this purpose. However,
 implementation of Internet voting has its own challenges. A system
 that properly addresses privacy and security concerns may be too
-complex to use and maintain or too costly to deploy.\todo{I think I
-  managed to get the best of both the original and Susan/LIsa's
-  version into here, but it may be missing something or not say quite
-  what we want. Somebody else should check it. -dmz}
+complex to use and maintain or too costly to deploy.
 
 \section{E2E-VIV in Practice}
 
@@ -325,7 +319,7 @@ place were correctly recorded by the system, but because she no longer
 has the part of the ballot linking candidate names to ballot
 positions, she cannot prove to anyone else how she voted.
 
-\todo{Need some text about why the attempt failed!}
+%\todo{Need some text about why the attempt failed!}
 
 \subsection{Punchscan}
 \label{sec:punchscan}
@@ -371,27 +365,29 @@ voting, along with Remotegrity (\autoref{sec:remotegrity}) for
 absentee voting. The 2009 Takoma Park election was the first use of an
 E2E-V system with ballot privacy in binding governmental elections.
 
-Before the election, a random seed\footnote{It is very difficult to
-  generate truly random sequences of numbers, so computers use
-  programs called \emph{pseudorandom number generators} to generate
-  sequences of numbers that appear random. Pseudorandom number
-  generators use a \emph{random seed} when they start generating a
-  sequence; every time the same generator is started with the same
-  seed, it generates the same sequence. The selection of good random
-  seeds is very important in secure computing systems.}\todo{This
-  explanation may need to be better/perhaps integrated into the text}
-is generated and shared among election officials using a secret
-sharing scheme.\footnote{In a \emph{secret sharing scheme}, a computer
-  ``splits'' a piece of secret information---in this case, a random
-  seed---into multiple parts and distributes these parts to multiple
-  people. Combining some required number of the parts---this could be
-  all the parts, or some smaller number, depending on the secret
-  sharing scheme---reveals the secret information, but combining fewer
-  than the required number of parts reveals nothing.}\todo{Again,
-  integrate this into the text?} Using this seed, the system generates
-a three-letter alphanumeric code for each choice on each printed
-ballot. It also generates additional tables so that interested parties
-can later confirm that the system computed the tally correctly.
+Before the election, a \emph{random seed} is generated and shared
+among election officials. Note that it
+is very difficult to generate truly random sequences of numbers, so
+computers use programs called \emph{pseudorandom number generators} to
+generate sequences of numbers that appear random. Pseudorandom number
+generators use a \emph{random seed} when they start generating a
+sequence; every time the same generator is started with the same seed,
+it generates the same sequence. The selection of good random seeds is
+very important in secure computing systems.
+
+The sharing of this generated random seed is done using a secret
+sharing scheme.  In a \emph{secret sharing scheme}, a computer
+``splits'' a piece of secret information---in this case, a random
+seed---into multiple parts and distributes these parts to multiple
+people. Combining some required number of the parts---this could be
+all the parts, or some smaller number, depending on the secret sharing
+scheme---reveals the secret information, but combining fewer than the
+required number of parts reveals nothing.
+
+Using this seed, the system generates a three-letter alphanumeric code
+for each choice on each printed ballot. It also generates additional
+tables so that interested parties can later confirm that the system
+computed the tally correctly.
 
 During the election, the voter experience is nearly identical to that
 of conventional optical-scan paper ballots. When a voter marks a
@@ -410,16 +406,15 @@ however, is not sufficient to prove that they voted a particular way.
 
 \subsection{Remotegrity}
 \label{sec:remotegrity}
-Remotegrity~\cite{zagorski2013} is a code voting system\footnote{A
-  \emph{code voting system} is one where voters enter a
-  cryptographically-generated code corresponding to a candidate in
-  order to vote for that candidate. Each voter gets a different set of
-  codes, so external observers cannot learn which candidate a voter
-  selected from the code the voter entered.}\todo{Yet again... Maybe
-  we need a section for ``definitions'' before we discuss the voting
-  systems?} that was used for absentee voting alongside Scantegrity
-(\autoref{sec:scantegrity-ii}) in the 2011 Takoma Park, Maryland
-municipal elections.
+Remotegrity~\cite{zagorski2013} is a code voting system.  A \emph{code
+  voting system} is a common scheme used in voting systems that use an
+untrusted voting terminal.  In this scheme voters enter a
+cryptographically-generated code corresponding to a candidate in order
+to vote for that candidate. Each voter gets a different set of codes,
+so external observers cannot learn which candidate a voter selected
+from the code the voter entered.  Remotegrity was used for absentee
+voting alongside Scantegrity (\autoref{sec:scantegrity-ii}) in the
+2011 Takoma Park, Maryland municipal elections.
 
 With Remotegrity, voters receive a code voting ballot and an
 authentication card in the mail. The codes on the ballot are covered
@@ -749,7 +744,6 @@ Many systems allow voters to use their own computers to vote. While
 convenient for voters, this can cause problems because election
 officials cannot control the voting environment on voters'
 computers. Threats include:
-
 \begin{itemize}
 \item malware on the voter's computer, which can undermine security;
 \item incompatibilities that arise because of the voter's operating
@@ -758,6 +752,16 @@ computers. Threats include:
   central election system, which can allow votes to be intercepted or
   changed by third parties.
 \end{itemize}
+
+In general, it is widely recognized that any E2E-VIV system must be
+\emph{software independent}~\cite{RivestWack}.  A voting system is
+\emph{software independent} if an undetected change or error in its
+software cannot cause an undetectable change or error in an election
+outcome. A voting system is\emph{strongly software independent} if, in
+addition to being software independent, it enables a detected change
+or error in an election to be corrected without re-running the entire
+election.  A requirement contained in this report insists that any
+future E2E-VIV system must be strongly software independent.
 
 \subsection{Usability}
 
