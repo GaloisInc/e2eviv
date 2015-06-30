@@ -3,7 +3,7 @@
 
 In Chapters 2 through 5 of this report, we described the motivation
 for, history of, and requirements on a remote voting system that
-experts can approve and the public can trust. Then, in Chapters 6
+experts can approve and the public can trust. In Chapters 6
 through 8, we described the necessary cryptographic, architectural,
 and engineering foundations, tools, and techniques necessary to design
 and build a system that fulfills the requirements set forth in Chapter
@@ -11,78 +11,88 @@ and build a system that fulfills the requirements set forth in Chapter
 develop such a system does not mean that it is \emph{feasible} to do
 so.
 
-This chapter analyzes the question of feasibility in several
-dimensions, some of which are \emph{technical} (correctness, security,
-usability, availability) and others \emph{non-technical} (law,
-politics, fiscal, research, development, operational, and
-business). After discussing each of these dimensions, we summarize
-with an integrated feasibility analysis, focusing on the question:
-``Is it practical to tackle the problem of E2E-VIV at this time?''
+This chapter analyzes the question of feasibility in several areas,
+some of which are \emph{technical} (correctness, security, usability,
+availability) and others \emph{non-technical} (law, politics, fiscal,
+research, development, operational, and business). After discussing
+each of these areas, we summarize with an integrated feasibility
+analysis, focusing on the question: ``Is it practical to tackle the
+problem of E2E-VIV at this time?''
 
-In what follows, feasibility is determined by a principled examination
-of the current state of affairs based upon the peer-reviewed
-literature, extensive conversations with those responsible for
-elections, multi-year dialogues with election verification activists,
-and decades of experience in the design and development of secure
-high-assurance systems.
+To determine feasibility, we took multiple approaches. We examined
+current knowledge of these systems as discussed in peer-reviewed
+literature. We talked extensively with people who are responsible for
+elections, and we had discussions over multiple years with both
+election verification activists and other experts who have decades of
+experience designing and developing secure, high-assurance systems.
 
-The final determination of feasibility is not up to us, as authors of
-this report. This is a decision that, for the most part, must be made
-by those organizations with resources that can be brought to bear on
-this problem. Other stakeholders in that decision---primarily the
-activist community and legislatures---while important, are not
-critical at this point in time given how quickly unverifiable Internet
-voting systems are being deployed worldwide.
+The final determination of feasibility must be made by those
+organizations with adequate resources who must examine the challenges
+and work with each community to determine that for themselves.  Other
+stakeholders in that decision---primarily the activist community and
+legislatures---while important, are not critical at this point in
+time, given how quickly unverifiable Internet voting systems are being
+deployed worldwide.
 
 %=====================================================================
 \section{Technical Feasibility Analysis}
 
 We first examine technical feasibility. If designing and constructing
-a formally verified, secure E2E-VIV system is not possible, we need
-not analyze any other feasibility dimension.
+a formally verified, secure E2E-VIV system is not possible, analyzing
+any other feasibility area is unnecessary.
+
+Since this section focuses on technical feasibility, it refers back to
+the technical chapters of this report.  If you are reading the
+non-technical version of this report, or you are a reader uninterested
+in technical matters, then we recommend skipping
+to~\autoref{sec:non-technical-feasibility-analysis}.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Engineering for Correctness and Security}
 
-As previously mentioned, the state of the art in formal verification
-has advanced tremendously over the past fifteen years. High-assurance
-or formally verified operating systems and hypervisors such as
-seL4~\cite{klein2009sel4}, Mirage, and HaLVM were only a pipe dream in the year
-2000. The same is true of formally verified compilers (such as
-CompCert~\cite{CompCert}), static analysis tools (such as Verasco),
+As previously mentioned, formal verification capabilities has advanced
+tremendously over the past fifteen years. Scientist were just
+imagining high-assurance or formally verified operating systems and
+hypervisors such as seL4~\cite{klein2009sel4}, Mirage, and HaLVM in
+the year 2000. The same is true of formally verified compilers (such
+as CompCert~\cite{CompCert}), static analysis tools (such as Verasco),
 verification tools (such as VST~\cite{VST}), and verification-centric
 programming languages (such as Dafny~\cite{Dafny}). All of this
 technology is supported by incredible advances in mechanical theorem
 proving, particularly for SAT, SMT, constraint solving, and logical
 frameworks.
 
-The state of the art in the design, development, and analysis of
-secure systems has also progressed tremendously. Powerful open source
-static analysis tools (such as Uno~\cite{holzmann2002static}), fuzzers (such as
+Design, development, and analysis of secure systems has also
+progressed tremendously. Powerful open source static analysis tools
+(such as Uno~\cite{holzmann2002static}), fuzzers (such as
 AFLFuzz~\cite{AFLFuzz}), and protocol specification and reasoning
 frameworks (such as EasyCrypt~\cite{EasyCrypt} and F\*~\cite{Fstar})
 are all publicly available and can be applied to commercial systems.
 
 The only thing preventing the design and development of
-formally-verified correct and secure evidence-based systems is market
+formally verified correct and secure evidence-based systems is market
 pressure. Only a very small number of organizations have the necessary
 resources---primarily in the form of people and knowledge---to tackle
 such challenges, and they cannot do it without clients who provide
 requirements, funding, and time.
 
 As such, \emph{designing and developing an E2E-VIV system is
-  technically feasible}.  In fact, we can estimate---based upon the
-size and complexity of the relevant protocols and subsystems---the
-effort necessary to accomplish such a goal, as effort relates directly
-to fiscal demands. Such an analysis is provided below
+  technically feasible}.  We can estimate---based upon the size and
+complexity of the relevant protocols and subsystems---the effort
+necessary to build an E2E-VIV system.  We can determine cost based on
+the estimate of effort. Such an analysis is provided below
 in~\autoref{sec:fiscal}.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Design and Engineering for Usability}
 
-Recall that security and usability are often opposed to each other.
-This conflict is especially prevelent in early E2E-V election systems
-such as Helios, Prêt à Voter, and RIES.
+Striving for security and usability often presents conflicts. Design
+features that offer security often decrease usability, and features
+that offer usability often decrease security. This problem is very
+apparent in early E2E-V election systems such as Helios, Prêt à Voter,
+and RIES. Because of this conflict, scientists are faced with a
+difficult question. Is it feasible to design and develop an E2E-VIV
+system that is secure and usable?
 
 Thus, the following question arises: Is it feasible to design and
 develop an E2E-VIV system that follows universal design principles?
@@ -90,65 +100,45 @@ This question demands that we speculate, as there is little objective
 evidence that such a presupposition is valid.
 
 Usability experts claim that universal design of election systems is a
-reasonable and obvious thing to do. Several organizations have
+reasonable and necessary thing to do. Several organizations have
 extensive experience in this area, such as those led by Whitney
 Quesenbery and Dana Chisnell. Some voting systems that are under
 development, such as Los Angeles County's VSAP project and Travis
-County's STAR-Vote system, mandate universal design. In fact, in the
-case of the Los Angeles system, several million dollars have already
-been spent on such work.
+County's STAR-Vote system, mandate universal design. Los Angeles has
+already spent several million dollars on the design of their own
+voting system that has universal design.
 
-Consequently, while there are open research questions about certain
-aspects of usable E2E-VIV systems---particularly those of voter ritual
-and verifiability---usability experts agree that a universal design
-for an E2E-VIV system is possible in principle. It is agreed that, in
-order to achieve such a universal design, a long-term, in-depth,
-qualitative and quantitative usability study based upon a working
-demonstration system is necessary.
+While researchers are still studying certain aspects of usable E2E-VIV
+systems---particularly those of voter ritual and
+verifiability---usability experts agree that a universal design for an
+E2E-VIV system is possible in principle. It is agreed that, in order
+to achieve such a universal design, a long-term, in-depth, qualitative
+and quantitative usability study based upon a working demonstration
+system is necessary.
 
-% Text to move starts here...
+\paragraph{Qualitative Experiments.}
+In an interactive, \emph{qualitative} experiment, a facilitator and a
+voter communicate using a video chat system such as Skype. The voter
+shares their desktop with the facilitator. The facilitator should be
+very familiar with the issues of E2E-VIV systems. The facilitator
+should also have usability and accessibility knowledge. The voter uses
+one of several versions of the E2E-VIV system.  While using the
+system, the voter shares their thoughts and feelings about the
+experience in real-time. After the voter has finished participating in
+the demonstration election, the facilitator uses a script to ask the
+voeter what he or she thought.
 
-In order to effect this goal, a demonstration system that mimics a
-voter's interaction with an E2E-VIV system has been developed by
-Galois. That system is a variant of the STAR-Vote system designed by
-Wallach et al.~\cite{star-vote}. STAR stands for Secure, Transparent,
-Auditable, and Reliable. STAR-Vote is an end-to-end verifiable ballot
-marking device. As such, it is not designed for, or meant to be used
-for, Internet voting. But insofar as its voting process is identical
-to that of most of E2E-VIV election schemes in the literature, we
-decided to use it as a demonstration vehicle for usability and
-accessibility experiments.
-
-The Galois STAR-Vote implementation has a web-based UI, so it can be
-used and demonstrated remotely for interactive and non-interactive
-experiments to gather both qualitative and quantitative feedback.
-Several variants of STAR-Vote have been implemented for user
-experience (UX) testing.  These variants include simple changes---
-different typeface choices and sizes, background colors, supporting
-images, help text, mouse pointer graphics, etc.---as well as more
-complex changes like different voter, challenge, and audit workflows.
-
-In an interactive, qualitative experiment, a facilitator and a voter
-communicate using a video chat system such as Skype and the voter
-shares their desktop with the facilitator. Optimally, the facilitator
-is someone who is deeply familiar with the issues of E2E-VIV systems,
-is familiar with STAR-Vote, and has expertise in usability and
-accessibility. The voter then uses one of several variants of
-STAR-Vote, voicing their thoughts and feelings about the experience
-in real-time. After the voter has completed their participation in the
-demonstration election, the facilitator uses a script to query them
-about their impressions.
-
-For a non-interactive, quantitative experiment, voters will be
+\paragraph{Quantitative Experiments.}
+For a non-interactive, \emph{quantitative} experiment, voters are
 solicited via social media, mailing lists, etc. to experiment with
-(variants of) STAR-Vote. Sample voters in these experiments will be
-given ample information about what kinds of information is being
-collected about their behavior so they can make a fully-informed
+(variants of) an E2E-VIV system. Sample voters in these experiments
+will be given ample information about what kinds of information is
+being collected about their behavior so they can make a fully-informed
 judgement about their participation.
 
 Various quantitative measures related to voter participation and
 interaction can be measured automatically, both within voters' web
-browsers and on the STAR-Vote server. Most of this data is similar to
+browsers and on the E2E-VIV server. Most of this data is similar to
 the analytics that any professional website collects about its users:
 How do voters navigate the site?  Where does a voter pause for a long
 time and read?  When does a voter ask for help?  When does a voter
@@ -167,81 +157,81 @@ websites are notoriously unreliable in this regard, especially
 during a distributed denial-of-service (DDoS) attack or just after a
 security breach.
 
-However, commercial websites for major corporations whose very
-business depends upon having a highly available presence on the
-Internet have effectively solved this problem. Companies like Amazon,
-Google, and Facebook have uptimes comparable to that which would be
-necessary to run a public election, even in the face of serious DDoS
-threats.
+Many companies whose businesses depend on having highly available and
+secure websites have effectively solved this problem. Companies like
+Amazon, Google, and Facebook have uptimes comparable to that which is
+necessary to run a public election, even if threatened by DDoS
+attacks.
 
 The necessary network, server, and security infrastructure---and the
 consequent cost---to fulfill the availability demands of these
-companies and their customers is significant. In fact, this cost is so
-significant that every government that has attempted to build or
-colocate a facility dedicated to running Internet elections has spent
-many millions of dollars per election.
+companies and their customers is significant. The cost is so
+significant that every government that has attempted to build a
+facility dedicated to running Internet elections has spent many
+millions of dollars per election.
 
 Today, however, there are many robust, inexpensive, public and private
 cloud computing platforms built on top of pre-existing
-infrastructure. Moreover, a number of companies, such as CloudFlare,
-provide robust, large-scale DDoS protection services. Since E2E-VIV
-systems need not run on dedicated, physically secure hardware so long
-as suitable roots of trust are available, it should be possible to run
-highly available elections systems on already-provisioned hardware.
+infrastructure. A number of companies, such as CloudFlare, provide
+strong, large-scale DDoS protection services. Because E2E-VIV systems
+do not need to run on dedicated, physically secure hardware---as long
+as suitable roots of trust are available---it should be possible to
+run highly available elections systems on already existing hardware.
 
-As such, we believe that a highly available E2E-VIV system can be
-deployed and maintained given the current state of the art in
-highly-available networked services. This is especially true if
-elections are run over a reasonable time frame (e.g., many days to a
-few weeks) and, speculatively, are constructed using a peer-to-peer
+We believe a highly available E2E-VIV system can be deployed and
+maintained with current highly-available networked services. This is
+especially true if elections are run over a reasonable time frame
+(such as many days to a few weeks) and are built using a peer-to-peer
 network model.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Operational}
 \label{sec:operational}
 
-Finally, from a technical standpoint, we must address operational
-feasibility. Creating a correct, secure, usable E2E-VIV system that
-can be deployed in a highly-available fashion is not enough. If that
-system is too difficult or expensive to integrate into existing
-election workflows, or is too complex for LEO IT staff to understand
-and support, it will not be used.
+Operational feasibility presents other challenges. Creating a correct,
+secure, usable E2E-VIV system that can be deployed in a highly
+available fashion is not enough. If that system is too difficult or
+expensive to integrate into existing election workflows, or is too
+complex for LEO IT staff to understand and support, it will not be
+used.
 
-Traditionally, software like an Internet voting system is delivered
-for deployment as a bundle of source code with manifold
-dependencies. That stack of software must be hand-built, carefully
-customized, and installed on a server.  Because of the complexity of
-Internet voting systems, the core application typically depends on
-dozens of other large pieces of software.  These dependencies include
-databases, application servers, web servers, authenticatation servers,
-etc., plus dozens of libraries for processing configuration files,
-communicating over networks, performing cryptography, etc.
+Software such as an Internet voting system is usually delivered for
+deployment as a bundle of source code with many dependencies. That
+stack of software must be hand-built, carefully customized, and
+installed on a server.  Because of the complexity of Internet voting
+systems, the core application typically depends on dozens of other
+large pieces of software.  These dependencies include databases,
+application servers, web servers, authenticatation servers, and dozens
+of libraries for processing configuration files, communicating over
+networks, and performing cryptography.
 
-Unfortunately, the vast majority of jurisdictions has neither the
-expertise nor the resources to deploy such a system. Consequently,
-deploying a traditionally designed and developed Internet voting
-system is clearly infeasible.
+The vast majority of jurisdictions has neither the expertise nor the
+resources to deploy such a system. Deploying a traditionally designed
+and developed Internet voting system is clearly not feasible.
 
-However, packaging and delivering complex distributed processing
-systems in cloud deployments has become commonplace in recent years.
+Packaging and delivering complex distributed processing systems in
+cloud deployments, however, has become commonplace in recent years.
 Complex deployments by non-technical staff are now possible and widely
 available due to the creation of new technologies invented
 specifically to fulfill this need.
 
 The key technologies that solve this problem are discussed in
-\autoref{cha:rigor-softw-engin}.  More specifically, the necessary
-technologies include continuous integration systems, configuration
-managements tools for development and deployment, and cloud deployment
-and management technologies like those available from major cloud
-providers such as Amazon, Google, Microsoft, and Heroku.
+\autoref{cha:rigor-softw-engin}.  These include continuous integration
+systems and configuration managements tools for development and
+deployment.  They also include cloud deployment and management
+technologies, such as those available from major cloud providers such
+as Amazon, Google, Microsoft, and Heroku and other major cloud
+providers.
 
 If an E2E-VIV system is constructed using these specific technologies,
 then point-and-click deployment and management becomes a possibility
-even for IT-poor LEO offices.  Consequently, at least in this
-technical setting, the operational aspects of E2E-VIV are feasible.
+even for LEO offices that have limited IT resources.  Consequently, at
+least in this technical setting, the operational aspects of E2E-VIV
+are feasible.
 
 %=====================================================================
 \section{Non-Technical Feasibility Analysis}
+\lable{sec:non-technical-feasibility-analysis}
 
 Non-technical feasibility of E2E-VIV systems boils down to matters of
 a decidedly social and psychological nature.  Law, politics, money,
