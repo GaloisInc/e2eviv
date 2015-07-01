@@ -11,10 +11,11 @@ Following are results, recommendations, and possible next steps.
 \section{Results}
 
 The primary deliverable of this project is the ``whole product
-solution'' specification contained
-in~\autoref{chapter:required_properties}. The specification, in the
-form of a set of mandatory requirements, is useful to several
-audiences, including:
+solution'' specification described
+in~\autoref{chapter:required_properties} and included in full detail
+as~\autoref{appendix:bon_requirements}. The specification, in the form
+of a set of mandatory requirements, is useful to several audiences,
+including:
 \begin{itemize}
 \item \emph{legislators} and their staffs who will craft laws that
   relate to remote elections, particularly Internet elections and
@@ -28,7 +29,8 @@ audiences, including:
 \item \emph{standards bodies} that will standardize various classes of
   Internet voting technologies, and specify the level of rigor for
   certifying Internet voting systems;
-\item \emph{technologists} who will implement E2E-VIV systems.
+\item \emph{researchers and engineers} who will continue working
+  toward viable E2E-VIV systems.
 \end{itemize}
 
 Several other deliverables---useful to a subset of these
@@ -44,16 +46,15 @@ audiences---include:
 \item a framing for an ongoing discussion about the feasibility of
   designing, constructing, certifying, legalizing, and deploying
   E2E-VIV systems~(\autoref{chapter:feasibility}), and
-\item an analysis of the outstanding issues that must be tackled in
-  future stages of E2E-VIV development, including political, legal,
-  research, engineering, and business
-  challenges~(\autoref{sec:next-steps}).
+\item a reflection upon the outstanding issues that must be addressed
+  in future stages of E2E-VIV development, including political, legal,
+  research, and engineering challenges~(\autoref{sec:next-steps}).
 \end{itemize}
 
 %=====================================================================
 \section{Recommendations}
 
-The E2E-VIV Project team \emph{does not} assert that Internet voting
+The E2E-VIV Project team does not assert that Internet voting
 \emph{must} be pursued, nor does it assert that Internet voting must
 \emph{never} be pursued. There is no consensus among the team members
 for either of these positions. With this understanding, the project
@@ -75,10 +76,10 @@ over the Internet must be E2E-VIV systems.
   communities have widely deployed end-to-end verifiable poll-site
   voting systems and gained experience from their use.}
 
-It is clearly prudent to gain experience with E2E-V in the simpler
-in-person setting before attempting to deploy it in the vastly more
-complex Internet setting. Using E2E-V for in-person elections will
-also improve the integrity of existing in-person voting systems.
+It is critical to gain experience with E2E-V in the simpler in-person
+setting before attempting to deploy it in the vastly more complex
+Internet setting. Using E2E-V for in-person elections will also
+improve the integrity of existing in-person voting systems.
  
 If election officials and election system vendors ignore these first
 two recommendations, we expect that deficient, unverifiable Internet
@@ -92,12 +93,14 @@ already been done.
 In making these first two recommendations, we realize that we have
 created a difficult path to follow. We assert that no attempt at
 Internet voting should deviate from this path.  Building an in-person
-E2E-V system is no small task. Building an E2E-VIV system is even more
-ambitious, and it will take considerable time. However, the time and
-effort will be worth it: any E2E-VIV system will be far better than
-the vulnerable Internet voting alternatives. 
+E2E-V system is no small task. Building an E2E-VIV system that
+satisfies the requirements in this report is even more ambitious; it
+may even be impossible. However, if it is possible, the resulting
+system will be far better than the vulnerable Internet voting
+alternatives.
 
 \vspace{12pt} 
+
 \textbf{\emph{Recommendation: HIGH ASSURANCE.} \ E2E-VIV systems must
   be designed, constructed, verified, certified, operated, and
   supported as high-assurance systems according to the most rigorous
@@ -113,10 +116,10 @@ the following:
 \item \textbf{Privacy violations.} While E2E-V systems can identify
   and mitigate issues of election integrity, they cannot do the same
   for privacy issues. A poorly-implemented E2E-V system will allow
-  observers to detect when something goes wrong with the election
-  (such as a vote disappearing because of a bug or a malicious
-  attack), but not when voter identification details are stolen from
-  an insufficiently secured server.
+  observers to detect certain issues with the election (such as votes
+  not being counted correctly), but not to detect when voter
+  identification details are stolen from an insufficiently secured
+  server.
 \item \textbf{Programming errors.} A low-quality E2E-V system is far
   more likely than a high-quality one to have software engineering
   flaws in design, functionality, security or other areas that trigger
@@ -151,7 +154,7 @@ engineering tools and techniques.
 % as we maintain the thrust of the justification. -JRK
 % I have made some minor such edits. -DMZ
 
-\vspace{12pt} \textbf{\emph{Recommendation: UNIVERSAL DESIGN} \
+\vspace{12pt} \textbf{\emph{Recommendation: UNIVERSAL DESIGN.} \
   E2E-VIV systems must be usable and accessible to able and disabled
   voters.}
 
@@ -184,29 +187,26 @@ develop a usable, accessible E2E-VIV system.
 
 \vspace{12pt} 
 
-\textbf{\emph{Recommendation: MOVE FORWARD.} \ A recognized, dedicated
-  group of qualified subject matter specialists with credentials in
-  the appropriate subject areas (such as verifiable elections,
-  cryptography, cybersecurity, high-assurance systems engineering, and
-  the universal design of election systems) should be chosen to design
-  and prototype a customized open source E2E-VIV system that fulfills
-  the requirements included in this report.}
+\textbf{\emph{Recommendation: MOVE FORWARD.} \ Many challenges remain
+  in building a usable, reliable, and secure E2E-VIV system. Research
+  and development efforts should continue, with the goal of overcoming
+  those challenges.}
 
-The resulting prototype system should be objectively evaluated, using
-appropriate validation and verification tools and techniques, against
-the requirements discussed in this report. Only by making an E2E-VIV
-system publicly available and open to peer review can we see a path
-forward to using Internet voting for public elections.
+Building a usable, reliable, and secure E2E-VIV system may be
+impossible. Solving the remaining challenges, however, would have
+enormous impact on the world. Continued research and development
+efforts must be conducted transparently, with all results and
+artifacts open to peer review.
 
 %=====================================================================
 \section{Next Steps}
 \label{sec:next-steps}
 
-To carry out these recommendations, legislators, researchers,
-engineers, and businesses face several challenges.
+To carry out these recommendations, legislators, researchers, and
+engineers face several challenges.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Political/Legal Challenges}
+\subsection{Political and Legal Challenges}
 
 The greatest concern voiced by election verification scientists,
 election integrity advocates, and E2E-V researchers is that
@@ -237,7 +237,7 @@ Internet voting. \emph{Defining an appropriate pace, milestones, and
   primary focus of any next phase of this project.}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Research Challenges}
+\subsection{Research and Engineering Challenges}
 
 Although E2E-V is necessary for a viable Internet voting system, use
 of E2E-V does not ensure that an Internet voting system is free from
@@ -270,30 +270,27 @@ with usability are:
 While some of these issues can be addressed by current technologies,
 further research is necessary to determine if all of these concerns
 can be adequately addressed, as discussed at length in the preceding
-chapters and as codified in our requirements. Until researchers
-adequately address these challenges, Internet voting systems should
-not be used in public elections.
+chapters and as codified in our requirements. \emph{Until researchers
+  adequately address these challenges, Internet voting systems should
+  not be used in public elections.}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Engineering Challenges}
+%\subsection{Engineering Challenges}
 
 The development and deployment of a high-assurance distributed system
 of the scale and import of a public E2E-VIV election system has never
-been attempted, and involves considerable engineering
-challenges. Addressing these challenges is straightforward for
-organizations with expertise in high-assurance distributed systems.
-
-Given the size, complexity, and nature of verified software systems
-currently being deployed in military, intelligence, scientific, and
-civilian settings, a public E2E-VIV election system can be built by
-the right team with appropriate resources.
+been attempted. It involves considerable engineering challenges in
+addition to the fundamental research challenges already
+mentioned. \emph{If the research issues can be solved, current best
+practices for building high-assurance distributed systems should be
+sufficient to address the engineering issues.}
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\subsection{Business Opportunities}
+\section*{Coda}
 
-Finally, the business opportunities surrounding an E2E-VIV
-system, and the potential positive impact on the world that such a
-system could have, are enormous motivators.
+%Finally, the business opportunities surrounding an E2E-VIV
+%system, and the potential positive impact on the world that such a
+%system could have, are enormous motivators.
 
 Imagine a world where inexpensive elections have high participation
 rates by a well-informed, engaged public. Imagine elections where the
