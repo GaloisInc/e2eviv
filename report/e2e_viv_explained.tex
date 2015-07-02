@@ -305,7 +305,7 @@ ballot ID numbers to the apparently-random orderings of the
 candidates. The system uses this mapping to decode the cast ballots
 into readable ballots with candidate names, while removing the
 associations between ballots and their ID numbers. The decoded ballots
-are then posted to a public bulletin board.
+are then posted to a public online bulletin board.
 
 Unvoted ballots may be audited before, during and after the election
 to ensure that the decoding of cast ballots is being correctly
@@ -313,13 +313,13 @@ performed. Randomly selected stages in the decoding can be challenged
 to prove the integrity of the count, and any interested party can
 easily count the decoded ballots for verification.
 
-Individuals may also search for their voted ballot IDs on the public
-bulletin board. This reveals the positions that were marked on that
-ballot but, crucially, does not show the corresponding candidate
-names. A voter can verify that the positions she marked at the polling
-place were correctly recorded by the system, but because she no longer
-has the part of the ballot linking candidate names to ballot
-positions, she cannot prove to anyone else how she voted.
+Individuals may also search for their voted ballot IDs on the bulletin
+board. This reveals the positions that were marked on that ballot but,
+crucially, does not show the corresponding candidate names. A voter
+can verify that the positions she marked at the polling place were
+correctly recorded by the system, but because she no longer has the
+part of the ballot linking candidate names to ballot positions, she
+cannot prove to anyone else how she voted.
 
 \subsection{Punchscan}
 \label{sec:punchscan}
@@ -397,12 +397,12 @@ ID number and the displayed code are posted to a public
 online bulletin board.
 
 After the election, members of the public can verify the final tally
-using the public bulletin board in a manner similar to that of
-Punchscan and Prêt à Voter. In addition to this public verification,
-individual voters can record their ballot ID numbers and the codes
-revealed from the invisible ink. They can then use the public bulletin
-board to check that their ballots were tabulated. This information,
-however, is not sufficient to prove that they voted a particular way.
+using the bulletin board in a manner similar to that of Punchscan and
+Prêt à Voter. In addition to this public verification, individual
+voters can record their ballot ID numbers and the codes revealed from
+the invisible ink. They can then use the bulletin board to check that
+their ballots were tabulated. This information, however, is not
+sufficient to prove that they voted a particular way.
 
 \subsection{Remotegrity}
 \label{sec:remotegrity}
@@ -564,10 +564,10 @@ versions of her vote. She can then choose either to cast or to audit
 the encrypted vote. If she chooses to audit the vote, she may check
 that the vote was correctly encrypted. If she chooses to cast it, the
 unencrypted vote goes into the ballot box and the encrypted vote is
-posted on an online bulletin board; the voter can take her copy of the
-encrypted vote home to verify that it was posted. The encrypted votes
-are tallied cryptographically, and the unencrypted votes in the
-ballot box can also be hand-counted. 
+posted on a public online bulletin board; the voter can take her copy
+of the encrypted vote home to verify that it was posted. The encrypted
+votes are tallied cryptographically, and the unencrypted votes in the
+ballot box can also be hand-counted.
 
 \subsection{DEMOS}
 
@@ -730,15 +730,21 @@ two-part ballots, and more sophisticated assistive devices. This adds
 cost and increases poll worker training requirements.
 
 Many E2E systems post encrypted ballot information to a public online
-bulletin board during the election. In order to update the bulletin
-board in real time, these election systems are distributed systems;
-they can be networked via traditional means, or information transfer
-among machines can be carried out manually by election officials using
-USB flash drives or similar devices. Depending on the networking
-scheme, this can leave the system vulnerable to various security
-threats and denial of service attacks. At least part of the system
-must be connected to the public Internet, which increases the
-possibilities for malicious attacks.
+bulletin board during the election. Most of these systems assume that
+the bulletin board is \emph{write-only}. On a write-only bulletin
+board, information can never be removed or changed once it has been
+posted. Moreover, the order in which items are listed on the bulletin
+board cannot be changed.
+
+In order to update such an online bulletin board in real time, these
+E2E systems are distributed systems; they can be networked via
+traditional means, or information transfer among machines can be
+carried out manually by election officials using USB flash drives or
+similar devices. Depending on the networking scheme, this can leave
+the system vulnerable to various security threats and denial of
+service attacks. At least part of the system must be connected to the
+public Internet, which increases the possibilities for malicious
+attacks.
 
 Many systems allow voters to use their own computers to vote. While
 convenient for voters, this can cause problems because election
