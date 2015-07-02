@@ -117,14 +117,16 @@ be true even when the voter can create digital evidence of her actions
 by, for example, video recording the ballot casting process or
 photographing a completed ballot. 
 
-There is no E2E-VIV protocol in existing scientific literature that
-has receipt freedom. Since the process of casting any individual
-ballot can be recorded, a protocol with receipt freedom must allow the
-voter to vote multiple times but only count the last ballot a voter
-casts. However, it must also ensure that an observer watching any
-recorded ballot casting process can independently verify that the
-ballot was cast. This represents a significant research challenge for
-E2E-VIV protocol designers.
+No usable E2E-VIV protocol in existing scientific literature has
+receipt freedom when the voting computer is untrusted. Since the
+process of casting any individual ballot can be recorded, a protocol
+with receipt freedom must allow the voter to vote multiple times but
+only count the last ballot a voter casts. However, it must also ensure
+that an observer watching any recorded ballot casting process can
+independently verify that the ballot was cast. This must be ensured
+even when the voting computer is not trusted to follow protocol, and
+in a manner that is easy to use and accessible. This represents a
+significant research challenge for E2E-VIV protocol designers.
 
 In some elections, voters are allowed to cast multiple ballots with
 only the last cast ballot counting toward the final election tally. In
