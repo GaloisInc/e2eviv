@@ -16,19 +16,19 @@ in~\autoref{chapter:required_properties} and included in complete
 detail as~\autoref{appendix:bon_requirements}, is useful to several
 audiences:
 \begin{itemize}
-\item \emph{legislators} and their staffs who will craft laws that
+\item \emph{legislators} and their staffs who may craft laws that
   relate to remote elections, particularly Internet elections and
   elections for overseas, military, and disabled voters;
-\item \emph{election officials} who will specify, evaluate, or
+\item \emph{election officials} who may specify, evaluate, or
   purchase Internet voting products or services;
 \item \emph{activists} who wish to better understand, and advocate
   for, E2E-VIV systems;
-\item \emph{testing organizations} that will certify Internet voting
-  systems;
-\item \emph{standards bodies} that will standardize various classes of
+\item \emph{standards bodies} that may standardize various classes of
   Internet voting technologies, and specify the level of rigor for
   certifying Internet voting systems;
-\item \emph{researchers and engineers} who will continue working
+\item \emph{testing organizations} that may test Internet voting
+  systems for compliance with technical standards;
+\item \emph{researchers and engineers} who may continue working
   toward viable E2E-VIV systems.
 \end{itemize}
 
@@ -68,7 +68,7 @@ team recommends the following.
 The use of Internet voting systems without end-to-end
 verifiability---including all Internet voting systems that
 jurisdictions are experimenting with and using at the time of this
-writing---is irresponsible. All voting systems used to conduct public
+writing---is irresponsible. Any voting systems used to conduct public
 elections over the Internet must be E2E-VIV systems.
 
 \vspace{12pt} \textbf{\emph{Recommendation: SUPERVISED FIRST.} \ No
@@ -144,17 +144,12 @@ deployment.
 \vspace{12pt} \textbf{\emph{Recommendation: UNIVERSAL DESIGN.} \
   E2E-VIV systems must be usable and accessible.}
 
-Designing and building a voting system that is usable and accessible
-to every voter that exists is not a good choice. The
-one-in-ten-thousand voter who has serious sight, mobility, or
-mental challenges would be assisted at the expense of creating a more
-usable system that can serve 99.99\% of the population.
-
-Instead, our target audience should include voters who have challenges
-in vision, hearing, comprehension, and motion yet can still use some
-kind of computing device. We should use a qualitative and quantitative
-testing-based experimentation platform to assess usability and
-accessibility, and follow best
+It is not feasible to make voting easy for voters with the most
+extreme disabilities. However, it is essential that we at least serve
+voters who have challenges in vision, hearing, comprehension, or
+motion yet can still use some kind of computing device. We should use
+a qualitative and quantitative testing-based experimentation platform
+to assess usability and accessibility, and follow best
 practices~\cite{materials-at-elections.itif.org},
 recommendations~\cite{WAI,Section508,WAVE}, and
 standards~\cite{ADAStandards} in accessible UI design and
@@ -208,15 +203,15 @@ tempered by a clear understanding that voters' trust in their
 elections is hard-won and easily lost.
 
 Scientists and election integrity advocates are also very concerned
-that election systems will be deployed at an inappropriate pace due to
-irrational motivations. For example, directors of elections,
-secretaries of state, or legislators may make promises about election
-modernization to win an election or to look better than a sister state
-or jurisdiction. Perhaps a technology like Internet voting will be
-deployed, seemingly successfully, at the local level for an
-inconsequential election and, based upon that ``success'', election
-officials will decide to reuse the same technology in the next federal
-election.
+that well-meaning legislators and election officials will push to
+deploy Internet voting systems too early and too quickly, based on
+misleading information from prospective vendors and other advocates
+that is not balanced with \emph{independent} advice from cybersecurity
+experts.  They may also misunderstand how the security risks grow with
+the scale and significance of the election, and how these risks change
+over time as the threat environment changes. Such misjudgments may
+sometimes induce legistators and election officials to weigh political
+goals more highly than the security risks.
 
 The political and legal challenges---and related
 opportunities---should focus on how to legislate the evidence-based
@@ -248,8 +243,8 @@ community must determine how to address five key challenges:
 The usability facets of E2E-VIV are also challenging. The main issues
 with usability are:
 \begin{itemize}
-\item how to ensure usable vote privacy in the presence of client-side
-  malware and
+\item how to ensure usable vote privacy and vote integrity in the
+  presence of client-side malware and
 \item how to ensure that verification is usable and accessible to the
   typical set of voters.
 \end{itemize}
