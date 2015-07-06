@@ -159,14 +159,14 @@ component and by minimizing potential attack surfaces once the
 components are deployed. 
 
 \paragraph{Secure Multi-Party Computation (MPC).} A common situation
-in distributed computing systems is that a number of systems, each
+in distributed computing systems is that a multiple systems, each
 having its own secret information, want to collaboratively compute a
 result based on all their secret information without sharing the
 secret information itself. Secure multi-party computation (MPC)
 enables exactly this, letting the individual parties to a computation
 keep their local secrets while computing global functions. MPC
 functionality can be useful in distributing trust among multiple
-individuals or organizations in a complex system, mitigating a number
+individuals or organizations in a complex system, mitigating several
 of possible threats; we describe the distribution of trust in more
 detail in the following section.
 
@@ -631,7 +631,7 @@ for 99.9\% uptime during election periods and the ability to recover
 from generalized (i.e., not caused by natural disaster or malicious
 attack on the system) failures in under 10 minutes, and higher
 availability---including in the face of malicious attack---would be
-preferable. There are a number of techniques for ensuring high
+preferable. There are several techniques for ensuring high
 availablity of systems, including the use of services like those
 provided by Cloudflare to handle traffic spikes and distributed denial
 of service attacks. The system architecture should be constructed in a
@@ -863,15 +863,14 @@ The architectural dimensions we have identified are the following:
 \section{Primary Architectural Variants}
 \label{section:primary_architectural_variants}
 
-Given the many dimensions of the architectural feature model, and
-number of choices in each, the number of possible architectural
-variants for the system is large. Here, we briefly discuss a few of
-the primary system variants that can be described by the feature
-model. Since we are only describing them at a high level, some of the
-variants correspond to many possible feature selections in the feature
-model (for example, they might have any of the different types of
-correctness evidence or any of the different key distribution
-methods).
+Given the many dimensions of the architectural feature model, and the
+number of choices in each, the system has many possible architectural
+variants. Here, we briefly discuss a few of the primary system
+variants that can be described by the feature model. Since we are only
+describing them at a high level, some of the variants correspond to
+many possible feature selections in the feature model (for example,
+they might have any of the different types of correctness evidence or
+any of the different key distribution methods).
 
 \subsection{Mirrored Servers}
 
@@ -1055,7 +1054,7 @@ computational work of the system is distributed across all the
 participants and there is no clearly defined distinction between
 ``client'' and ``server''. For example,
 \autoref{figure:arch-peer-to-peer} depicts a peer-to-peer system with
-a number of peers belonging to individual voters, some belonging to
+some peers belonging to individual voters, some belonging to
 political parties (A, B and C), and some belonging to the electoral
 authority. The double-headed arrows in the figure represent
 communication links among the peers; for example, if the upper-left

@@ -373,7 +373,7 @@ techniques, that implementations satisfy their formal specifications
 without actually executing the code. This verification is
 \emph{modular}, meaning that individual components of the
 implementation are verified in isolation. For example, when verifying
-the postcondition of a feature $X$ the verifier makes a number of
+the postcondition of a feature $X$ the verifier makes three
 assumptions: first, that $X$'s precondition is satisfied when $X$ is
 invoked; second, that all invariants applicable to $X$ are satisfied
 when $X$ is invoked; and third, that all features invoked by $X$
@@ -1432,7 +1432,7 @@ UPPAAL~\cite{UPPAAL}. Developers can write models in these languages
 by hand, but it is more efficient to automatically \emph{extract}
 models from existing implementation code; this guarantees that
 properties proved about the model hold for the implementation. Model
-extraction is supported for a number of implementation languages,
+extraction is supported for several implementation languages,
 
 Model checking requires an exhaustive search of the model's reachable
 states to determine whether any violate the specification. There are

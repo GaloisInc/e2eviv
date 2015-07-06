@@ -127,7 +127,7 @@ closing of the polls, this interface allows voters to verify that
 their votes were correctly recorded and included in the final tally. 
 
 The \emph{adversary interface} enables the adversary to learn and
-influence how the ideal functionality operates in a number of ways. It
+influence how the ideal functionality operates in multiple ways. It
 enables the adversary to corrupt any party that is involved in the
 process. Corrupted parties are assumed to be under the control of the
 adversary. The identities of corrupted parties are kept by the ideal
@@ -142,12 +142,12 @@ The following is a general template describing how the functionality
 reacts when receiving input from any of its available interfaces. This
 should be interpreted as a general guide for expressing the syntax and
 properties of an ideal functionality for an E2E-V system, rather than
-as a definitive final formulation. Using this template as a basis, a
-number of different functionalities may be derived that share the same
+as a definitive final formulation. Using this template as a basis,
+several different functionalities may be derived that share the same
 interfaces but differ slightly in the way they operate when receiving
 inputs.
 
-The functionality recognizes a number of parties, some of which are
+The functionality recognizes multiple parties, some of which are
 given the special role of administrator. Furthermore, it is
 parameterized by a predicate $P(.,.)$ that determines the
 \emph{precision} of the functionality, i.e., how sensitive it is to
@@ -232,7 +232,7 @@ These are the actions taken by the functionality.
 \subsubsection{Security Characteristics}
 
 Using the template ideal functionality of the above section, we
-describe how a number of required properties are captured. We examine
+describe how several required properties are captured. We examine
 the properties individually.
 
 \paragraph{Voter Privacy.}  The ideal functionality ensures voter
@@ -383,7 +383,7 @@ to real persons (e.g., by selecting a small random sample of them and
 performing in-person interviews).
 
 \paragraph{Privacy beyond the voters' choices.} The functionality
-leaks a number of specific aspects of voter behavior to the adversary,
+leaks some specific aspects of voter behavior to the adversary,
 including the time that each voter casts their ballot and the final
 list of voters who have participated in the election. As mentioned
 above, this is a security feature; it enables the auditors to identify
@@ -496,7 +496,7 @@ be verified visually or by hand, and the voter is required to keep
 this information and verify it using a second device; in order for the
 check to be meaningful, this auditing device should run code that is
 independent from the voter's main device. After the voter has
-performed a number of audits and kept the results she can cast her
+performed some audits and kept the results she can cast her
 encrypted ballot, which is posted to the public bulletin board. With
 each ciphertext that is produced, ``smart ballot tracker''
 information--- a hash of the ciphertext---is provided. This can be
@@ -574,8 +574,8 @@ voting that can be combined with a back-end system (such as
 Scantegrity-II \cite{chaum2008scantegrity}) to offer a complete
 e-voting system with end-to-end verifiability guarantees.
 
-During initialization, the system administrator precomputes a number
-of encoded ballotsand commits to a properly formed set of tables of
+During initialization, the system administrator precomputes many
+encoded ballots and commits to a properly formed set of tables of
 commitments in a public bulletin board. For each candidate choice, a
 unique vote code is assigned to each voter; the tables commit to a
 correspondence between vote codes and candidates. During the cast
@@ -700,7 +700,7 @@ the case for open protocols and software independence.
 
 \subsection{Commonly Used Cryptographic Tools}
 
-A number of cryptographic tools play an important role in the design
+Several cryptographic tools play an important role in the design
 of e-voting schemes. We present some of these tools, which have been
 used in the designs of the systems discussed in the previous section.
 
@@ -878,7 +878,7 @@ $H^{k}=h(x_{k} \otimes h(...h(x_{2} \otimes h(x_{1} \otimes h(\perp
 \otimes \perp)))))$
 where each (identical) hash $h$ is applied to a fusion $\otimes$
 (often defined as xor) of the previous hashchain and a new ledger
-element $x$. The bottom element $\perp$ can be one of a number of
+element $x$. The bottom element $\perp$ can be one of several
 potential root values (e.g., a prefix of the public key of a given
 election), depending upon the context of the application of the
 hashchain. 
