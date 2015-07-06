@@ -1,158 +1,261 @@
-\chapter{Executive Summary\ifdraft{ (Joe K./Susan) (100\%)}{}}
+\chapter*{Executive Summary\ifdraft{ (Joe K./Susan) (100\%)}{}}
 \label{chapter:executive_summary}
 
-Internet voting was first proposed over thirty years ago. In the
-intervening years, a handful of companies and a twenty-odd governments
-have created Internet voting technology that has been used in
-thousands of elections to collect millions of votes all around the
-world except, until very recently, in the U.S.A.
+\section*{THE FUTURE OF VOTING: END-TO-END VERIFIABLE INTERNET VOTING
+  SPECIFICATION AND FEASIBILITY}
 
-Every month, while one government experiments with a new computing
-technology into their elections, another decides that their last
-experiment was a failure and they shut down yet another very expensive
-failed IT project. All the while, a dedicated group of scientists and
-activists---hackers, cryptographers, cyber-security geeks, usability
-experts---have fought tooth-and-nail against the use of insecure
-voting systems around the world.
+\noindent A PROJECT OF U.S. VOTE FOUNDATION \\
+\noindent WRITTEN AND PRODUCED BY GALOIS, INC.\\
 
-Their fight, and those governments' excitement, is particularly
-focused on Internet voting. After all, voter turnout is at a seventy
-year low, many millennials are politically disengaged, and voting
-equipment purchased with HAVA funds is falling apart and there is
-little state and federal funding to replace it. This is the a perfect
-storm for our democracy, and Internet voting seems to be the silver
-bullet.
+\newpage
 
-After all, the Internet permeates our lives. Smart phones. Social
-media. Online banking. Streaming music and
-movies. Google. Bitcoin. Online gaming. Why not voting?
+\noindent \textbf{U.S. VOTE FOUNDATION}\\
+\noindent \textbf{SUSAN DZIEDUSZYCKA-SUINAT, PRESIDENT AND CHIEF
+  EXECUTIVE OFFICER}\\
+\noindent \textbf{JUDY MURRAY, PH.D.}\\
 
-Imagine a world where inexpensive elections have high participation
-rates by a well-informed, engaged public. Imagine elections where the
-disabled and abled have equal vote and equal opportunity. Imagine
-elections where corrupt electoral authorities or governments have no
-ability to manipulate the outcome. Imagine elections that truly
-capture the voice of the people and increase their confidence and
-trust in their government. Many imagine Internet voting as the
-solution that takes us to this democratic utopia.
+\vspace{1cm}
 
-Then imagine a world where millions have voted, we are about to
-tabulate a hundred million digital votes, and suddenly the electoral
-authority discovers intruders in their servers.
+\noindent \textbf{GALOIS, INC.}\\
+\noindent \textbf{JOSEPH R. KINIRY, PH.D. }\\
+\noindent \textbf{DANIEL M. ZIMMERMAN, PH.D. }\\
+\noindent \textbf{DANIEL WAGNER, PH.D. }\\
+\noindent \textbf{PHILIP ROBINSON}\\
+\noindent \textbf{ADAM FOLTZER}\\
 
-Or worse yet, imagine that exit polls show that the outcome is razor
-thin between candidates “Alice Democrat” and “Bob Republican”, those
-responsible for the election push the button to ask their election
-server who has won, and the machine says “Charlie Communist”' and
-hundreds of politicians, electoral officials, and reporters look at
-each other with wide-eyed disbelief.
+\section*{ACKNOWLEDGMENTS}
 
-Today's Internet voting technology guarantees these kinds of horrific
-failures. Digital activists self-identifying as Anonymous with a
-grudge, Super PAC-contracted blackhat hackers, and enemy nation states
-will use their nearly unlimited resources to ensure such.
+This project and report would not have been possible without the
+commitment and tireless hard work of the team at Galois, Inc. Our
+special acknowledgment and appreciation goes most especially to
+Joseph Kiniry, who brought his decades of knowledge, skill, experience
+and leadership to the project, broadened its scope and lead the
+technical team and writing; and with him, the Galois team members
+Daniel Zimmerman, Daniel Wagner, Philip Robinson, Adam Foltzer,
+Shpatar Morina and Leah Daniels. We are indebted to Rob Wiltbank for
+the Galois engineering contribution, and the long leash he gave to
+this project. 
 
-The only possible solution to this digital democratic dilemma is
-End-to-End Verifiable Internet Voting, or E2E-VIV for short. How to
-create an E2E-VIV for the American public is the focus of the report
-you hold in your hands.
+We would also like to thank the research and technical members of the
+E2E-VIV Project Team for their contributions to this project  from its
+conception to its completion, with special thanks to Josh Benaloh,
+Candice Hoke, Keith Instone, David Jefferson, Doug Jones, Aggelos
+Kiayias, Judith Murray, Ron Rivest, Barbara Simons, and Poorvi Vora. 
 
-E2E-VIV systems hold the promise of secure, trustworthy
-elections. They do so by giving voters, elections officials, and the
-general public the ability to observe an election and determine that
-it is well-run, not manipulate, and has a trustworthy outcome. 
+Equally vital and integral to this report were the reflections,
+insights and advice from election officials who joined our team, most
+especially Lori Augino, Judd Choate, Dana Debeauvoir, Mark Earley,
+Stuart Holmes, Dean Logan, Tammy Patrick, Roman Montoya, and Lois
+Neuman.
 
-E2E-VIV system provide these verifiability guarantees by permitting
-(1) voters to check that their vote was recorded correctly, (2) voters
-to check that their vote was included in the final tally, (3) election
-officials to determine if there was any election manipulation or
-errors and mitigate such, and (4) the general public to count the vote
-and double-check the announced outcome of the election. 
+We also thank Sean Beggs, Randall Trzeciak, and Andrew Wasser,
+Carnegie Mellon University, Heinz College Master of Information
+Systems Management for their support through the CMU ISM Capstone
+Program. 
 
-Meanwhile, while providing all of these guarantees, voter privacy is
-preserved and vote selling and voter coercion are avoided and attempts
-at such can be detected. 
+We are grateful for the generous financial support of The Democracy
+Fund, as well as their support of collaborative efforts in the realm
+of civic tech development. 
 
-In other words, we maintain the security and privacy of today's
-paper-based elections, and yet increase the trustworthiness of our
-elections.
+For additional information on U.S. Vote Foundation, please visit
+www.usvotefoundation.org.   
 
-While the promise of E2E-VIV is decades old, our ability to design and
-build such a system, especially in the face of enormous security
-threats, is only recently possible with recent advances in computer
-science and cyber-security.  High-assurance software engineering,
-software formal verification, formal computer-assisted verification of
-advanced cryptographic protocols and algorithms—none of these were
-practical, and some where not even possible, as recent as ten years
-ago.
+For additional information on the Overseas Vote Initiative, please
+visit www.overseasvote.org. 
 
-Internet voting must be not only end-to-end verifiable, but it must
-also be usable, accessible, and open source.  As such, this report
-contains over one hundred requirements that must be satisfied by any
+For additional information on Galois, Inc., please visit
+www.galois.com.
+
+For additional information on the Democracy Fund, please visit
+www.democracyfund.org.  
+
+\newpage
+
+\section*{INTRODUCTION}
+
+Societies have conducted elections for thousands of years, but
+technologies used to cast and tally votes have varied and evolved
+tremendously over that time. In 2015 many of our essential services
+have moved online, and some people want elections to follow this
+trend. Overseas voters are particularly interested in an online
+approach, as their voting process suffers from longer delays and
+sometimes requires extra effort.
+
+Internet voting systems currently exist, but independent auditing has
+shown that these systems do not have the level of security and
+transparency needed for mainstream elections. Security experts advise
+that end-to-end verifiability—lacking in current systems—is one of the
+critical features needed to guarantee the integrity, openness, and
+transparency of election systems.
+
+In this report, we examine the future of voting and the possibility of
+conducting secure elections online. Specifically, we explore whether
+End-to-End Verifiable Internet Voting (E2E-VIV) systems are a viable
+and responsible alternative to traditional election systems.
+
+This project combines the experience and knowledge of a diverse group
+of experts committed to election integrity. The technical team,
+comprised of academic and scientific specialists, has long term,
+proven experience in end-to-end verifiable technology, cryptography,
+high-assurance systems development, usability, and testing.
+
+\section*{INTERNET VOTING TODAY}
+
+Internet voting was first proposed over thirty years ago. Since then,
+many governments and businesses have created Internet voting
+technologies that have been used in hundreds of elections to collect
+millions of votes.
+
+However, computer scientists, cryptographers, and cybersecurity
+experts warn that no current Internet voting system is sufficiently
+secure and reliable for use in public elections.
+
+Part of the problem is that existing systems do not allow third
+parties to observe the election system and independently verify that
+the results are correct.  In fact, most companies explicitly forbid
+such oversight.
+
+\noindent \textbf{SECRET}
+
+No existing commercial Internet voting system is open to public
+review. Independent parties cannot verify that these systems function
+and count correctly, nor can they audit and verify election results.
+
+\textbf{INSECURE}
+
+Elections for public office are a matter of national
+security. Researchers have shown that every publicly audited,
+commercial Internet voting system to date is fundamentally insecure.
+
+\noindent \textbf{NO GUARANTEES}
+
+No existing system guarantees voter privacy or the correct election
+outcomes.  Election vendors are rarely held liable for security
+failures or election disasters.
+
+\newpage
+
+\section*{END-TO-END VERIFIABILITY}
+
+An end-to-end verifiable voting system allows voters to:
+\begin{itemize}
+\item check that the system recorded their votes correctly,
+\item check that the system included their votes in the final tally,
+  and
+\item count the recorded votes and double-check the announced outcome
+  of the election. An internet voting system that is end-to-end
+  verifiable is an E2E-VIV system.
+\end{itemize}
+
+The concept of E2E-VIV is decades old. However, most of the required
+computer science and engineering techniques were impractical or
+impossible before recent advances. Designing and building an E2E-VIV
+system in the face of enormous security threats remains a significant
+challenge. It is currently unclear whether it is possible to construct
+an E2E-VIV system that fulfills the set of requirements contained in
+this report.
+
+\section*{INTERNET VOTING REQUIREMENTS}
+
+Internet voting must be end-to-end verifiable. It must also be secure,
+usable, and transparent.
+
+\noindent \textbf{SECURE}
+
+Security is a critical requirement for Internet voting, and also one
+of the most challenging. An Internet voting system must guarantee the
+integrity of election data and keep voters’ personal information
+safe. The system must resist large-scale coordinated attacks, both on
+its own infrastructure and on individual voters’ computers. It must
+also guarantee vote privacy and allow only eligible voters to vote.
+
+\noindent \textbf{USABLE}
+
+Nearly all E2E-VIV protocols designed to date focus on security at the
+expense of usability. Election officials and voters will not adopt a
+secure but unusable system. Cryptographers have started to recognize
+usability as a primary requirement when designing new protocols, and
+usability is a serious challenge that any future work in this area
+must address. Any public Internet voting system must be usable and
+accessible to disabled voters.
+
+\noindent \textbf{TRANSPARENT}
+
+It is not enough for election results to be correct. To be worthy of
+public trust, an election process must give voters and observers
+compelling evidence that allows them to check for themselves that the
+election result is correct and the election was conducted
+properly. Open public review of the entire election system and its
+operation, including all documentation, source code, and system logs,
+is a critical part of that evidence.
+
+\vspace{1cm}
+
+End-to-end verifiability, security, usability, and transparency are
+only four of many important requirements. This report contains the
+most complete set of requirements to date that must be satisfied by
+any Internet voting system for public elections.
+
+\newpage
+
+\section*{RECOMMENDATIONS}
+
+The five key recommendations of this report are:
+\begin{itemize}
+\item Any public elections conducted over the Internet must be
+  end-to-end verifiable.
+\item No Internet voting system of any kind should be used for
+  public-sector elections before end-to-end verifiable poll-site
+  voting systems have been widely-deployed and experience has been
+  gained from their use.
+\item E2E-VIV systems must be designed, constructed, verified,
+  certified, operated, and supported according to the most rigorous
+  engineering requirements of mission- and safety-critical systems.
+\item E2E-VIV systems must be usable and accessible to abled
+  and disabled voters.
+\item Many challenges remain in building a usable, reliable, and
+  secure E2E-VIV system. They must be overcome before using Internet
+  voting in public elections. Research and development efforts toward
+  overcoming those challenges should continue.
+\end{itemize}
+
+Building a usable, reliable, and secure E2E-VIV system may be
+impossible. Solving the remaining challenges, however, would have
+enormous impact on the world.
+
+\section*{OUTCOMES}
+
+The full report contains the following:
+
+\noindent \textbf{REQUIREMENTS}
+
+We identify a complete set of requirements for an E2E-VIV system.
+
+\noindent \textbf{ARCHITECTURES}
+
+We review a number of ways to build, deploy, and run an E2E-VIV system
+and the associated engineering issues.
+
+\noindent \textbf{ENGINEERING AND TECHNOLOGY}
+
+We present a set of rigorous engineering methodologies, technologies,
+and tools that are fundamental to building a correct and secure
 E2E-VIV system.
 
-Security and usability are always at odds. Nearly all E2E-VIV
-protocols designed to date focus on security at the expense of
-usability.  Only recently have cryptographers started to consider
-usability as a primary requirement when designing new protocols.  It
-is a recognized serious challenge that an future work in this area
-must address.
+\noindent \textbf{SECURITY}
 
-Software is only trusted by security professionals if its description,
-including all of its documentation and source code, is publicly
-peer-reviewed.  This does not, of course, mean that anyone can change
-the code.  It does mean that anyone can read and comment on it,
-improving its clarity, elegance, and correctness for the benefit of
-all.
+We lay the foundation for developing a cryptographic system that
+reflects the ideal functionality of an end-to-end verifiable system,
+and discuss the technologies that should be used to implement that
+system.
 
-This report contains the plan for executing on this difficult but
-worthwhile mission.  The cryptographic, architectural, and engineering
-foundations on which this edifice must be built are spelled out in
-this report.  How must cryptographic protocols be created, evaluated,
-and certified?  What kinds of architectures facilitate deploying the
-system for different sorts of electoral authorities, including
-considerations for their certification constraints, finances, and
-existing electoral processes.  What are the best practices in the
-design and development of mission-critical systems, as public
-elections are obviously nationally critical?
+\noindent \textbf{USABILITY}
 
-The four key recommendations made in this report are:
-\begin{enumerate}
-\item Public elections should not be conducted over the Internet using
-  systems that are not end-to-end verifiable.
+We present the results of an initial usability study showing that
+significant effort is needed to develop usable E2E-VIV systems.
 
-\item  End-to-end verifiable Internet voting systems should not be used
-  before end-to-end verifiable poll-site voting systems have been
-  widely-deployed and experience has been gained from their use.
+\vspace{1cm}
 
-\item  E2E-VIV systems must be designed, constructed, verified, certified,
-  operated, and supported as high-assurance systems according to the
-  most rigorous engineering requirements of mission- and
-  safety-critical systems.
+\section*{FULL REPORT}
 
-\item  E2E-VIV systems must be usable and accessible to the typical set of
-  abled and disabled voters.
-\end{enumerate}
-
-Living up to these recommendations, while fulfilling the requirements
-contained in this report, is an incredibly challenging, but is also an
-enormous opportunity to do good for the world.  America is known for
-tackling the most difficult problems, as well as for striving to help
-other democratic countries.  Moreover, America has most of the best
-minds and companies is the world that are capable of fulfilling this
-mission.
-
-The future of End-to-End Verifiable Internet Voting is clear: we must
-move to a second phase of this project and tackle the recommendations
-head-on.  We must create a usable, secure, correct prototype E2E-VIV
-system that fulfills the requirements contained in this report so that
-electoral authorities countrywide can begin to experiment with
-Internet voting, first for their UOCAVA and disabled voters, and
-perhaps later, only after those experiments are an unmitigated
-success, for the general public.
-
-Now is the time.  We must take this opportunity.  The alternative is a
-future where Internet voting is a reality, but we have no confidence
-in our elections or democracy.
-
-
+Download the full report at \url{www.usvotefoundation.org/E2E-VIV}
