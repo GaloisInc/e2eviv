@@ -90,19 +90,19 @@ relationships to other concepts. A good domain model provides a shared
 vocabulary and gives a big picture view of the concepts involved in
 the system upon which all the stakeholders can agree.
 
-For example, the domain model for E2E-VIV systems (see
-\autoref{appendix:domain_model}) includes, among many others, the
-concepts ``election'', ``contest'', ``ballot question'', and
-``choice''. It describes an election as ``a formal process of
-selecting choices in one or more contests'', and says that a ballot
-question is a specific type of contest, namely ``a decision among two
-or more courses of action''. The relationship between a ballot
-question and a contest is an inheritance relationship: a ballot
-question \emph{is a} specific type of contest, with a certain set of
-characteristics. One relationship among elections, choices, and
-contests is that an election \emph{has}, or \emph{is a client of}, at
-least one choice and at least one contest, because the description of
-an election explicitly refers to choices and contests.
+For example, the domain model for E2E-VIV systems
+\cite{E2EVIVDomainModel} includes, among many others, the concepts
+``election'', ``contest'', ``ballot question'', and ``choice''. It
+describes an election as ``a formal process of selecting choices in
+one or more contests'', and says that a ballot question is a specific
+type of contest, namely ``a decision among two or more courses of
+action''. The relationship between a ballot question and a contest is
+an inheritance relationship: a ballot question \emph{is a} specific
+type of contest, with a certain set of characteristics. One
+relationship among elections, choices, and contests is that an
+election \emph{has}, or \emph{is a client of}, at least one choice and
+at least one contest, because the description of an election
+explicitly refers to choices and contests.
 
 Importantly, while a good domain model comprehensively identifies and
 defines the concepts and relationships in a system, it does not
@@ -127,7 +127,8 @@ privacy of individuals.'' and ``All voter authentication secrets must
 be changed at least once in every election cycle.'' are examples of
 E2E-VIV requirements; the full set of requirements is described in
 \autoref{chapter:required_properties}, and the informal requirements
-document itself is in \autoref{appendix:bon_requirements}.
+themselves are available in a separate
+document~\cite{E2EVIVRequirements}.
 
 There are several different kinds of requirement, but they can be
 broadly divided into two basic types: \emph{functional} and
@@ -1162,10 +1163,10 @@ original domain analysis and architecture design.
 Fourth, BON supports high-level domain modeling using natural
 language, making it easy to communicate models not only among software
 developers but also with other stakeholders in the development
-process. The BON representation of the E2E-VIV requirements in
-\autoref{appendix:bon_requirements} consists almost entirely of simple
-English sentences; it is therefore far more accessible to a wide
-audience than an equivalent set of UML diagrams would be.
+process. The BON representation of the E2E-VIV
+requirements~\cite{E2EVIVRequirements} consists almost entirely of
+simple English sentences; it is therefore far more accessible to a
+wide audience than an equivalent set of UML diagrams would be.
 
 Finally, BON is \emph{simple}. Its specification is a fraction of the
 size of the UML specification, and its graphical representation is
