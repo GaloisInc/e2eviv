@@ -77,7 +77,8 @@ E2E-verifiability should be deployed in the less risky and more
 manageable scenario of in-person poll-site voting before it is
 deployed in the wilds of the Internet.
 
-\section{David Jefferson (and Barbara Simons, Concurring)}
+\section{David Jefferson (Ronald L. Rivest, Barbara Simons, Philip
+  Stark, and Vanessa Teague, Concurring)}
 
 \subsection{Election security is national security}
 
@@ -184,21 +185,21 @@ the following fundamental security properties:
 These powerful E2E-V security properties are not shared by any
 traditional voting system. In a precinct voting context they make
 E2E-V systems essentially invulnerable to ordinary software bugs, to
-deliberately malicious code, to transient hardware faults, and to most
-kinds of insider fraud (at least without a large conspiracy). Any lost
-or modified ballots, and any miscounts will be quickly detected when
-anyone runs a verification program. This is in strong contrast to
-other forms of purely electronic voting systems which are
-unverifiable, and in which bugs or malicious logic can cause errors
-that are totally undetectable, so that the wrong people may wind up
-taking office without anyone knowing that the election results were
-incorrect.
+malicious code inside (but not outside) the voting system, to
+transient hardware faults, and to most kinds of insider fraud (at
+least without a large conspiracy). Any lost or modified ballots, and
+any miscounts will be quickly detected when anyone runs a verification
+program. This is in strong contrast to other forms of purely
+electronic voting systems which are unverifiable, and in which bugs or
+malicious logic can cause errors that are totally undetectable.  The
+wrong people may wind up taking office without anyone knowing that the
+election results were incorrect.
 
 For these reasons it is appropriate to consider E2E-V systems in any
 electronic voting situation. E2E-V adds truly powerful security
 guarantees, particularly in a precinct voting situation where voter
 authentication is done in person and where we have good reason to
-presume that the certain software in the voting machines are not
+presume that the certified software in the voting machines is not
 malicious.
 
 But as we explain in the next section, these E2E-V security guarantees
@@ -216,11 +217,12 @@ guarantees begin once the voters' choices are safely input to the
 E2E-V system, but not before. Unfortunately, when an E2E-V system is
 embedded into the Internet voting context as an E2E-VIV system, new
 security problems appear that the E2E-V guarantees do not address and
-that cannot, with current technology, be fixed. The most serious
-problems with E2E-VIV systems arise \emph{before the votes even enter
-  the system}. In this section we enumerate the remaining difficult
+that cannot, with any current technology, be fixed. The problems with
+E2E-VIV systems arise \emph{before the votes even enter the
+  system}. In this section we enumerate the remaining difficult
 security problems that will have to be solved definitively before we
 can consider deploying an E2E-VIV system.
+
 
 \subsubsection{Voter authentication}
 
@@ -329,7 +331,7 @@ voting systems. No device is safe from malware infection. No software
 safeguards such as commercial antivirus systems are very effective
 against it. There are hundreds of ways that malware can infect a
 voting platform, sometimes by sophisticated technical means and
-sometimes by simply tricking users into doing unsafe things. There are
+sometimes by tricking users into taking unsafe actions. There are
 hundreds of places in the huge multilayered software ecosystem of a PC
 or mobile device where malware can hide and be launched from. There
 are thousands of places in the runtime logic of operating system,
@@ -342,10 +344,10 @@ contain software elements from a hundred different companies or open
 source development groups, any one of which may either be malicious or
 contain critical vulnerabilities that enables malicious code. Such
 vulnerabilities are so numerous that more are discovered all the time
-and vendors release security update on a regular basis to plug the
+and vendors release security updates on a regular basis to plug the
 more recently discovered holes. E2E-VIV systems have no ability to
-prevent or prevent or even detect the actions of malware before the
-votes are safely submitted into the E2E-VIV software.
+prevent or even detect the actions of malware before the votes are
+safely submitted into the E2E-VIV software.
 
 Malware in voters' computers can undermine the election in three
 fundamental ways. 
@@ -369,9 +371,9 @@ fundamental ways.
   Depending on the design of the E2E-VIV system, it may be possible
   for some voters to discover that different votes were recorded for
   them than the ones they thought they cast. But even so, there will
-  generally be no a way to prove to election officials that they did
-  not cast the votes recorded for them by mistake, or cast them
-  deliberately and just changed their minds. Whether there is a remedy
+  generally be no way to prove to election officials that the voter
+  did not cast the votes recorded for her by mistake, or cast them
+  deliberately and just changed her mind. Whether there is a remedy
   for voters who claim their votes are modified by malware and falsely
   recorded is an unresolved question.
 
@@ -436,7 +438,7 @@ fundamental ways.
   complicate the process of online voting sufficiently to be a barrier
   that will discourage many voters from voting
 
-\item \textbf{Malware denial of service:} i.	The easiest and most
+\item \textbf{Malware denial of service:} The easiest and most
   intractable malware attack is one that simply prevents the voter
   from successfully voting. That can be done by any number of
   means. The malware could make it appear that there was an error of
@@ -488,24 +490,9 @@ fundamental ways.
   might never discover until it was too late that she did not. Even if
   she did discover it, the only recourse would be to vote from a
   different, uninfected PC or device, \emph{but she almost certainly
-    not know that malware was the cause of the problem and would
+    would not know that malware was the cause of the problem and would
     likely not know to vote from a different machine!}
 
-\item Privacy violation: Malware on a voter's computer or mobile
-  device could allow her completed ballot to enter the E2EVIV system,
-  but prior to that it could also send a copy of her votes to a third
-  party. Unless a voter has considerable expertise and has special
-  instrumentation running during the voting transaction there is no
-  way for her to know whether this happened. And if the
-  instrumentation was not in place before voting there is no
-  after-the-fact test that can determine whether this happened, and
-  certainly no way to reverse the privacy violation. If the voter is
-  voting from a mobile device, as oppose to a PC, often no such
-  instrumentation even exists today.
-
-  In any remote voting situation there is always the possibility that
-  someone can physically look over a voter's shoulder and watch her
-  vote. That is a risk we live with also with paper mail-in
 \end{enumerate}
 
 Malware is a profound, absolutely fundamental problem that has been
@@ -517,14 +504,14 @@ because templates, kits, libraries, and exemplars of successful
 malware are widely available to aid attackers, and because the payoff
 far exceeds the risks of getting caught. It is estimated that anywhere
 from 10 to 30 percent of all PCs in the world are infected with
-malware, and even more when spyware is included. There are probably no
-reliable estimates as to the fraction of mobile devices similarly
-infected. 
+malware, and even more when spyware is included. And there are
+probably no reliable estimates as to the fraction of mobile devices
+similarly infected.
 
 And finally, even if a clean, easy to use, accessible workaround for
 client side malware is invented that preserves vote integrity and
 privacy, it will not be possible to prevent a malware denial of
-service attack that just prevents voting. There is no general way to
+service attack that just blocks voting. There is no general way to
 thwart such an attack, and no way for voters or election officials to
 unambiguously recognize one or, even if it is recognized, to estimate
 how many voters were affected.

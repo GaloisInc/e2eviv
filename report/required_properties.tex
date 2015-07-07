@@ -81,9 +81,9 @@ high-level overview of these.
 \end{figure}
 
 The following is a high-level description of the E2E-VIV requirement
-categories and many of the requirements;
-\autoref{appendix:bon_requirements} contains the full set of E2E-VIV
-requirements expressed in the Business Object Notation.
+categories and many of the requirements; the full set of E2E-VIV
+requirements expressed in the Business Object Notation is available as
+a separate document~\cite{E2EVIVRequirements}.
 
 %=====================================================================
 \section{Technical Requirements}
@@ -219,7 +219,7 @@ represent the broadest set of technical requirements. These include
 requirements on the E2E-VIV system itself, such as data storage and
 communications, and requirements on the voting and counting processes
 that the system enables, including voter authorization, voter privacy,
-and tally accuracy.
+vote integrity, and tally accuracy.
 
 Developers must ensure data integrity throughout the system.  No data
 can be permanently lost if the system breaks down or experiences a
@@ -284,19 +284,20 @@ voter must be able to verify that the system has presented her with an
 authentic ballot and, in the case of remote voting, that she has a
 secure connection to an official server.
 
-The system must preserve the privacy of the vote, end-to-end, to the
-maximum extent possible. Individual voters may not waive the privacy
-of their votes. In the case of remote voting, the system must preserve
-vote privacy even if the voter's computer contains malicious code
-(corrupted client software, key logging software or devices,
-etc.). Any client software used in remote voting must not send data to
-any Internet host except those associated with the E2E-VIV system or
-provide any information to third parties (such as Facebook or Twitter)
-regarding the act of voting. The system must destroy any residual
-information that could be used to discover a voter's choices after a
-ballot has been cast. If a voter uses a computer outside the control
-of election officials to cast her vote, she must be provided with
-instructions for destroying the residual information on that computer.
+The system must preserve the privacy and integrity of the vote,
+end-to-end, to the maximum extent possible. Individual voters may not
+waive the privacy of their votes. In the case of remote voting, the
+system must preserve vote privacy and integrity even if the voter's
+computer contains malicious code (corrupted client software, key
+logging software or devices, etc.). Any client software used in remote
+voting must not send data to any Internet host except those associated
+with the E2E-VIV system or provide any information to third parties
+(such as Facebook or Twitter) regarding the act of voting. The system
+must destroy any residual information that could be used to discover a
+voter's choices after a ballot has been cast. If a voter uses a
+computer outside the control of election officials to cast her vote,
+she must be provided with instructions for destroying the residual
+information on that computer.
 
 The system must accurately count the votes, and the counting process
 must be reproducible. The system must also maintain the availability
