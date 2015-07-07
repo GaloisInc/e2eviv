@@ -47,6 +47,67 @@ non-technical version of this report, or you are uninterested in
 technical matters, we recommend skipping
 to~\autoref{sec:non-technical-feasibility-analysis}.
 
+\subsection{Protocol}
+
+A secure and usable E2E-V protocol is an essential component of any
+E2E-VIV system. However, E2E-V alone does not provide many of the
+necessary properties for public election systems, including:
+
+\begin{itemize}
+\item \textbf{Coercion Resistance:} It is difficult to design a
+  coercion-resistant E2E-V protocol where the voter votes from an
+  untrusted computer. Coercion-resistant protocols exist where the
+  voter votes from a trusted computer; however, these require the
+  voter to vote multiple times, each time with a credential that
+  indicates whether or not the vote should be considered
+  valid. Current coercion-resistant protocols pose significant
+  usability and accessibility challenges.
+
+\item \textbf{Dispute Resolution:} An E2E-V protocol enables a voter
+  to determine whether her vote was correctly recorded. If she
+  discovers that it was not, the protocol does not necessarily provide
+  her with evidence to convince a third party of the problem. It is
+  therefore difficult for election officials, observers and the
+  general public to determine the extent of fraud if there are
+  multiple complaints. Existing protocols that do provide the voter
+  with evidence of fraud require the use of paper or a second
+  independent communication channel, as well as the use of physical
+  election security procedures. Such procedures cannot be used for
+  remote voting. Additionally, the use of paper or a second
+  communication channel presents usability and accessibility
+  challenges.
+
+\item \textbf{Resistance to Client Malware and Denial of Service:} If
+  a voter follows all the steps for voter verification of an E2E-V
+  protocol, she should be able to determine if her vote has been
+  manipulated by malware. However, denial of service attacks might
+  limit her ability to perform the verification
+  procedure. Additionally, if the protocol does not support dispute
+  resolution, she would not be able to provide evidence of a
+  problem. In particular, client malware could replace her vote with
+  another valid vote in many E2E-V designs. She would recognize this
+  if she were able to perform voter verification, but she would not be
+  able to prove it. The use of multiple channels or paper can provide
+  additional protection against these types of attacks, but dilutes the
+  usability and accessibility of the system.
+
+\item \textbf{Universal Design:} E2E-V protocols with a number of the
+  above properties have been developed, but the use of second channels
+  (or paper) and multiple complicated steps are difficult to achieve
+  in an accessible system. A protocol that cannot be used properly by
+  most voters is not necessarily secure, no matter how well it is
+  designed. For example, if voters find it difficult to verify their
+  votes, voter verification cannot be relied upon to contribute to the
+  correctness of the election outcome.
+\end{itemize}
+
+Experts are divided on whether a protocol that has some of these
+properties would be an improvement over existing vote-by-mail
+systems. Further, most experts agree that it is not clear how to
+develop a protocol that has all of these properties.  As such, this
+remains one of the most uncertain and challenging areas for progress
+on Internet voting.
+
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Engineering for Correctness and Security}
 
@@ -77,12 +138,12 @@ resources---primarily in the form of people and knowledge---to tackle
 such challenges, and they cannot do it without clients who provide
 requirements, funding, and time.
 
-As such, \emph{designing and developing an E2E-VIV system is
-  technically feasible}.  We can estimate---based upon the size and
-complexity of the relevant protocols and subsystems---the effort
-necessary to build an E2E-VIV system.  We can determine cost based on
-the estimate of effort. This analysis is provided below
-in~\autoref{sec:fiscal}.
+As such, if an appropriate protocol is developed, \emph{designing and
+  developing an E2E-VIV system is technically feasible}.  We can
+estimate---based upon the size and complexity of the relevant
+protocols and subsystems---the effort necessary to build an E2E-VIV
+system.  We can determine cost based on the estimate of effort. This
+analysis is provided below in~\autoref{sec:fiscal}.
 
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 \subsection{Design and Engineering for Usability}
