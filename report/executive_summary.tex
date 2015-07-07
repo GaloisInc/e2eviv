@@ -1,73 +1,34 @@
 \chapter*{Executive Summary\ifdraft{ (Joe K./Susan) (100\%)}{}}
 \label{chapter:executive_summary}
 
-\section*{THE FUTURE OF VOTING: END-TO-END VERIFIABLE INTERNET VOTING
-  SPECIFICATION AND FEASIBILITY}
+\section*{THE FUTURE OF VOTING: \\
+  END-TO-END VERIFIABLE INTERNET VOTING \\
+  SPECIFICATION AND FEASIBILITY ASSESSMENT STUDY}
 
 \noindent A PROJECT OF U.S. VOTE FOUNDATION \\
-\noindent WRITTEN AND PRODUCED BY GALOIS, INC.\\
+\noindent WRITTEN AND PRODUCED BY GALOIS \\
 
 \newpage
 
-\noindent \textbf{U.S. VOTE FOUNDATION}\\
+\noindent {\large \textbf{U.S. VOTE FOUNDATION}}\\
 \noindent \textbf{SUSAN DZIEDUSZYCKA-SUINAT, PRESIDENT AND CHIEF
   EXECUTIVE OFFICER}\\
 \noindent \textbf{JUDY MURRAY, PH.D.}\\
 
 \vspace{1cm}
 
-\noindent \textbf{GALOIS, INC.}\\
-\noindent \textbf{JOSEPH R. KINIRY, PH.D. (author and editor)}\\
-\noindent \textbf{DANIEL M. ZIMMERMAN, PH.D. (author and editor)}\\
-\noindent \textbf{DANIEL WAGNER, PH.D. (chapter author)}\\
-\noindent \textbf{ADAM FOLTZER (chapter author)}\\
-\noindent \textbf{PHILIP ROBINSON (chapter author)}\\
+\noindent {\large \textbf{GALOIS}}\\
+\noindent \textbf{JOSEPH R. KINIRY, PH.D.}\\
+\noindent \textbf{DANIEL M. ZIMMERMAN, PH.D.}
 
-\section*{ACKNOWLEDGMENTS}
+\noindent \textbf{DANIEL WAGNER, PH.D.}\\
+\noindent \textbf{PHILIP ROBINSON}\\
+\noindent \textbf{ADAM FOLTZER}\\
+\noindent \textbf{SHPATAR MORINA}
 
-This project and report would not have been possible without the
-commitment and tireless hard work of the team at Galois, Inc. Our
-special acknowledgment and appreciation goes most especially to
-Joseph Kiniry, who brought his decades of knowledge, skill, experience
-and leadership to the project, broadened its scope and led the
-technical team and writing; and with him, the Galois team members
-Daniel Zimmerman, Daniel Wagner, Philip Robinson, Adam Foltzer,
-Shpatar Morina and Leah Daniels. We are indebted to Rob Wiltbank for
-the Galois engineering contribution, and the long leash he gave to
-this project. 
+\vspace{3cm}
 
-We would also like to thank the research and technical members of the
-E2E-VIV Project Team for their contributions to this project from its 
-conception to its completion, with special thanks to Josh Benaloh,
-Candice Hoke, Keith Instone, David Jefferson, Doug Jones, Aggelos
-Kiayias, Judith Murray, Ron Rivest, Barbara Simons, and Poorvi Vora. 
-
-Equally vital and integral to this report were the reflections,
-insights and advice from election officials who joined our team, most
-especially Lori Augino, Judd Choate, Dana Debeauvoir, Mark Earley,
-Stuart Holmes, Dean Logan, Tammy Patrick, Roman Montoya, and Lois
-Neuman.
-
-We also thank Sean Beggs, Randall Trzeciak, and Andrew Wasser,
-Carnegie Mellon University, Heinz College Master of Information
-Systems Management for their support through the CMU ISM Capstone
-Program. 
-
-We are grateful for the generous financial support of The Democracy
-Fund, as well as their support of collaborative efforts in the realm
-of civic tech development. 
-
-For additional information on U.S. Vote Foundation, please visit
-www.usvotefoundation.org.   
-
-For additional information on the Overseas Vote Initiative, please
-visit www.overseasvote.org. 
-
-For additional information on Galois, Inc., please visit
-www.galois.com.
-
-For additional information on the Democracy Fund, please visit
-www.democracyfund.org.  
+\noindent July 2015
 
 \newpage
 
@@ -96,7 +57,7 @@ and responsible alternative to traditional election systems.
 This project combines the experience and knowledge of a diverse group
 of experts committed to election integrity. The technical team,
 comprised of academic and scientific specialists, has long term,
-proven experience in end-to-end verifiable technology, cryptography,
+proven experience in end-to-end verifiable systems, cryptography,
 high-assurance systems development, usability, and testing.
 
 \section*{INTERNET VOTING TODAY}
@@ -112,7 +73,7 @@ secure and reliable for use in public elections.
 
 Part of the problem is that existing systems do not allow third
 parties to observe the election system and independently verify that
-the results are correct.  In fact, most companies explicitly forbid
+the results are correct.  In fact, most vendors explicitly forbid
 such oversight.
 
 \noindent \textbf{SECRET}
@@ -153,9 +114,7 @@ The concept of E2E-VIV is decades old. However, most of the required
 computer science and engineering techniques were impractical or
 impossible before recent advances. Designing and building an E2E-VIV
 system in the face of enormous security threats remains a significant
-challenge. It is currently unclear whether it is possible to construct
-an E2E-VIV system that fulfills the set of requirements contained in
-this report.
+challenge. 
 
 \section*{INTERNET VOTING REQUIREMENTS}
 
@@ -196,7 +155,7 @@ is a critical part of that evidence.
 End-to-end verifiability, security, usability, and transparency are
 only four of many important requirements. This report contains the
 most complete set of requirements to date that must be satisfied by
-any Internet voting system for public elections.
+any Internet voting system used in public elections.
 
 \newpage
 
@@ -209,9 +168,10 @@ The five key recommendations of this report are:
 \item No Internet voting system of any kind should be used for public
   elections before end-to-end verifiable in-person voting systems have
   been widely deployed and experience has been gained from their use.
-\item E2E-VIV systems must be designed, constructed, verified,
-  certified, operated, and supported according to the most rigorous
-  engineering requirements of mission- and safety-critical systems.
+\item End-to-end verifiable systems must be designed, constructed,
+  verified, certified, operated, and supported according to the most
+  rigorous engineering requirements of mission- and safety-critical
+  systems.
 \item E2E-VIV systems must be usable and accessible.
 \item Many challenges remain in building a usable, reliable, and
   secure E2E-VIV system. They must be overcome before using Internet
@@ -219,9 +179,10 @@ The five key recommendations of this report are:
   overcoming those challenges should continue.
 \end{itemize}
 
-Building a usable, reliable, and secure E2E-VIV system may be
-impossible. Solving the remaining challenges, however, would have
-enormous impact on the world.
+It is currently unclear whether it is possible to construct an E2E-VIV
+system that fulfills the set of requirements contained in this
+report. Solving the remaining challenges, however, would have enormous
+impact on the world.
 
 \section*{OUTCOMES}
 
@@ -229,7 +190,7 @@ The full report contains the following:
 
 \noindent \textbf{REQUIREMENTS}
 
-We identify a complete set of requirements for an E2E-VIV system.
+We identify a comprehensive set of requirements for an E2E-VIV system.
 
 \noindent \textbf{ARCHITECTURES}
 
@@ -259,3 +220,58 @@ significant effort is needed to develop usable E2E-VIV systems.
 \section*{FULL REPORT}
 
 Download the full report at \url{www.usvotefoundation.org/E2E-VIV}
+\newpage
+
+\section*{ACKNOWLEDGMENTS}
+
+This project and report would not have been possible without the
+commitment and tireless hard work of the team at Galois, Inc. Our
+special acknowledgment and appreciation goes most especially to Joseph
+Kiniry, who brought his decades of knowledge, skill, experience and
+leadership to the project, broadened its scope and led the technical
+team and writing; and with him, the Galois team members Daniel
+Zimmerman, Daniel Wagner, Philip Robinson, Adam Foltzer, Shpatar
+Morina and Leah Daniels. We are indebted to CEO Rob Wiltbank for the
+Galois engineering contribution and the long leash he gave to this
+project.
+
+We would also like to thank the research and technical members of the
+E2E-VIV Project Team for their contributions to this project from its 
+conception to its completion, with special thanks to Josh Benaloh,
+Candice Hoke, Keith Instone, David Jefferson, Doug Jones, Aggelos
+Kiayias, Judith Murray, Ron Rivest, Barbara Simons, and Poorvi Vora. 
+
+Equally vital and integral to this report were the reflections,
+insights and advice from election officials who joined our team, most
+especially Lori Augino, Judd Choate, Dana Debeauvoir, Mark Earley,
+Stuart Holmes, Dean Logan, Tammy Patrick, Roman Montoya, and Lois
+Neuman.
+
+We also thank Sean Beggs, Randall Trzeciak, and Andrew Wasser,
+Carnegie Mellon University, Heinz College Master of Information
+Systems Management for their support through the CMU ISM Capstone
+Program. 
+
+We are grateful for the generous financial support of the Democracy
+Fund, as well as their support of collaborative efforts in the realm
+of civic tech development. 
+
+\begin{flushright}
+\textbf{SUSAN DZIEDUSZYCKA-SUINAT} \\
+PRESIDENT AND CHIEF EXECUTIVE OFFICER \\
+U.S. VOTE FOUNDATION
+\end{flushright}
+
+\vspace{\fill}
+
+For additional information on U.S. Vote Foundation, please visit
+\url{www.usvotefoundation.org}.   
+
+For additional information on the Overseas Vote Initiative, please
+visit \url{www.overseasvote.org}. 
+
+For additional information on Galois, please visit
+\url{www.galois.com}.
+
+For additional information on the Democracy Fund, please visit
+\url{www.democracyfund.org}.  
