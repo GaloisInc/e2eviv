@@ -1,6 +1,0 @@
-scenario_chart NON_FUNCTIONAL_REQUIREMENTS
-indexing
-  partof: "E2EVIV_REQUIREMENTS"
-explanation
-  "General non-functional requirements of digital voting systems."
-end

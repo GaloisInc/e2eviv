@@ -14,18 +14,10 @@ description
  \ of installation and a brief description. A procedure shall be established \
  \ for updating the manifest to reflect changes to the installed software."
  
-scenario "PRIVATE_SYSTEM_MANIFEST" -- @ref derived from Rec(2004)11 Appendix III, C. 69.
-description
-  "The electoral authority shall maintain a manifest of all software, \
- \ including data protection software, used in the system. This manifest \
- \ shall contain at least the same information as the public manifest. \
- \ A procedure shall be established for updating the manifest to reflect \
- \ changes to the installed software."
-
 scenario "MANIFEST_ACCURACY" -- @ref derived from Rec(2004)11 Appendix III, C. 69.
 description
   "It shall be possible for the electoral authority to check the installed \
- \ software against the system manifests at any time."
+ \ software against the system manifest at any time."
 
 scenario "SYSTEM_FAILOVER_INVARIANTS" -- @ref Rec(2004)11 Appendix III, C. 70.
 description
