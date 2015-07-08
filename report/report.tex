@@ -4,7 +4,11 @@
 % chapter assignments, and completion percentages
 \documentclass[]{report}
 
-\usepackage{times}
+%\usepackage{times}
+% Fourier for math | Utopia (scaled) for rm | Helvetica for ss | Latin Modern for tt
+\usepackage{fourier} % math & rm
+\usepackage[scaled=0.875]{helvet} % ss
+\renewcommand{\ttdefault}{lmtt} %tt
 
 \usepackage{ifpdf}
 \usepackage{ifdraft}
@@ -230,7 +234,7 @@
 % items in the document
 \listoftodos[List of To Do Items]
 }{}
-\input{executive_summary} % Joe K./Susan
+%\input{executive_summary} % Joe K./Susan
 \input{acknowledgments} 
 \input{introduction} % Joe K./Susan
 \input{remote_voting} % Philip
