@@ -5,6 +5,7 @@
 \documentclass[]{report}
 
 \usepackage[margin=1in]{geometry}
+\usepackage{xcolor}
 
 % Fourier for math | Utopia (scaled) for rm | Helvetica for ss | Latin Modern for tt
 \usepackage{fourier} % math & rm
@@ -12,6 +13,23 @@
 \renewcommand{\ttdefault}{lmtt} %tt
 
 \usepackage[final]{listings} % always include listings, even in draft mode
+
+
+% custom colors
+\colorlet{darkgreen}{green!35!black}
+\colorlet{darkred}{red!45!black}
+
+% shades of red and green that are distinguishable even with the most common
+% kinds of color blindness
+\colorlet{accessiblegreen}{green!55!black!70!blue!40!white}
+\colorlet{accessiblered}{red!80!black!80!yellow!30!white}
+
+\ifpdf
+\usepackage[draft=false,pdftex,colorlinks=true,urlcolor=blue,linkcolor=darkred,citecolor=darkgreen,bookmarks=false]{hyperref}
+\else
+\usepackage[dvips]{hyperref}
+\fi
+
 
 % BON listing style
 \include{style/bon}
@@ -23,9 +41,62 @@
 
 \begin{document}
 
+\hypersetup{pageanchor=false}
 \maketitle
+\hypersetup{pageanchor=true}
 
 \tableofcontents
+
+\chapter*{About This Document}
+
+This document is a part of the full report ``THE FUTURE OF VOTING:
+End-To-End Verifiable Internet Voting'', available from
+\url{https://www.usvotefoundation.org/E2E-VIV}. It presents a
+comprehensive domain model and set of requirements for an E2E-VIV
+system, using the Business Object Notation (BON). 
+
+BON, developed by Kim Wald\'{e}n and Jean-Marc Nerson and described in
+their 1995 book \emph{Seamless object-oriented software architecture:
+  Analysis and design of reliable systems}, is both a language and a
+design/refinement method encompassing informal domain analysis and
+modeling, formal modeling, and implementation-independent high- and
+medium-level specification. BON has a well-defined semantics, is easy
+to learn and write (especially the informal models, which are
+effectively collections of simple English sentences), and has
+equally-expressive textual and graphical notations. BON was originally
+developed for use with the Eiffel programming language; however, it
+can be used with other specification and implementation languages. We
+use BON for domain modeling for several reasons.
+
+First, BON's equivalently expressive textual and graphical notations
+are easy to work with and manipulate.
+
+Second, BON's semantics are an integral part of the language and
+method and are easily understandable. 
+
+Third, BON explicitly supports (and encourages) \emph{seamlessness}
+and \emph{reversibility}. Seamlessness is the property that allows a
+BON model to be smoothly (and, in many cases, completely
+automatically) refined to lower-level specification languages, and
+further to executable implementations. Reversibility is the property
+that allows consistency to be maintained between the BON model, which
+is an important part of the system documentation, and the resulting
+implementation---when the implementation is changed, that change can
+be (again, often completely automatically) propagated back up to the
+BON model. Seamlessness and reversibility are both useful properties
+for ensuring that the final software product accurately reflects the
+original domain analysis and architecture design.
+
+Fourth, BON supports high-level domain modeling using natural
+language, making it easy to communicate models not only among software
+developers but also with other stakeholders in the development
+process. The BON representation of the E2E-VIV requirements consists
+almost entirely of simple English sentences; it is therefore far more
+accessible to a wide audience than an equivalent set of box-and-arrow
+diagrams would be.
+
+Finally, BON is \emph{simple}. Its specification is small, and it is
+easy to understand.
 
 \input{bon_requirements} %Dan/Joe K.
 \input{bon_domain_model} %Dan/Joe K.

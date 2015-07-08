@@ -2,13 +2,18 @@
 
 % Turning off "draft" mode on the report class turns off to do notes,
 % chapter assignments, and completion percentages
-\documentclass[]{report}
+\documentclass[oneside]{book}
+
+\usepackage{pdfpages}
 
 %\usepackage{times}
 % Fourier for math | Utopia (scaled) for rm | Helvetica for ss | Latin Modern for tt
 \usepackage{fourier} % math & rm
-\usepackage[scaled=0.875]{helvet} % ss
+\usepackage[scaled=0.870]{helvet} % ss
 \renewcommand{\ttdefault}{lmtt} %tt
+
+\usepackage[hang]{footmisc}
+\setlength{\footnotemargin}{2mm}
 
 \usepackage{ifpdf}
 \usepackage{ifdraft}
@@ -16,7 +21,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{fnpct}
 \usepackage{xcolor}
-\usepackage[final]{graphicx} % always include images, even in draft mode
+\usepackage{graphicx} % always include images, even in draft mode
 \usepackage{xspace}
 \usepackage{colortbl}
 \usepackage{longtable}
@@ -39,6 +44,9 @@
  ,doi=true            % prints doi
  ,natbib=true         % if you need natbib functions
 ]{biblatex}
+\DefineBibliographyStrings{english}{%
+  bibliography = {References},
+}
 \addbibresource{bibliography.bib}
 
 \setcounter{biburllcpenalty}{7000}
@@ -57,6 +65,12 @@
 % kinds of color blindness
 \colorlet{accessiblegreen}{green!55!black!70!blue!40!white}
 \colorlet{accessiblered}{red!80!black!80!yellow!30!white}
+
+% E2E-VIV Report Colors
+\definecolor{DarkGreen}{HTML}{00AB8E}
+\definecolor{LightGreen}{HTML}{A4D65E}%{B3D78B}
+\definecolor{DarkBlue}{HTML}{041E42}%{002D62}
+\definecolor{Red}{HTML}{9D2235} %{B20738}
 
 \usepackage[margin=1in]{geometry}
 \usepackage[defaultlines=4,all]{nowidow}
@@ -91,7 +105,7 @@
 \newcommand{\todogeneric}[1]{\todocount[color=todogeneric]{#1}}
 
 \ifpdf
-\usepackage[draft=false,pdftex,colorlinks=true,urlcolor=blue,linkcolor=darkred,citecolor=darkgreen,bookmarks=false]{hyperref}
+\usepackage[draft=false,pdftex,colorlinks=true,urlcolor=DarkGreen,linkcolor=DarkGreen,citecolor=DarkGreen,bookmarks=false]{hyperref}
 \else
 \usepackage[dvips]{hyperref}
 \fi
@@ -204,25 +218,71 @@
 \def\Result{\mathtt{Result}}
 \def\ElectionFail{\mathtt{ElectionFail}}
 
-% End of preamble
+% Modified Chapter/Section/Subsection Headings And Text Formats
+\usepackage[compact,explicit]{titlesec}
 
-\title{The E2E-VIV Report}
-\author{Many People}
+\renewcommand{\chaptername}{CHAPTER}
+\titleformat{\chapter}[display]{\Huge\bfseries\sffamily}{\textcolor{DarkGreen}{\chaptertitlename\ \thechapter}}{20pt}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
+\titleformat{\section}[display]{\Large\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\thesection\quad\MakeUppercase{#1}}}
+\titleformat{name=\subsection,numberless}[display]{\large\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
+\titleformat{\subsection}[display]{\large\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\thesubsection\quad\MakeUppercase{#1}}}
+\titleformat{\paragraph}[runin]{\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
+
+\usepackage{tocloft}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+% light-grey headers with section names/subsections, footers with page numbers
+\fancyhead{}
+\fancyhead[L]{\sffamily\small\textcolor{gray}{\leftmark}}
+\fancyhead[R]{\sffamily\small\textcolor{gray}{\rightmark}}
+\fancyfoot[C]{\sffamily\thepage}
+
+% redefine boldface to sans-serif and green
+\DeclareTextFontCommand{\textbf}{\bfseries\sffamily\color{DarkGreen}}
+% redefine italics to sans-serif and green (two forms)
+\DeclareTextFontCommand{\textit}{\itshape\sffamily\color{DarkGreen}}
+\DeclareTextFontCommand{\emph}{\itshape\sffamily\color{DarkGreen}}
+
+% end of preamble
 
 \begin{document}
-
 % The title page has no visible page number, and the report resets page
 % numbering on the next page so that the visible page numbers start from 1.
 % One unfortunate side effect of this is that hyperref sees two different
 % pages both named "1" and gets confused. See also
 % http://tex.stackexchange.com/q/18924/16779
-\hypersetup{pageanchor=false}
-\maketitle
-\hypersetup{pageanchor=true}
+\frontmatter
 
+\hypersetup{pageanchor=false}
+\includepdf[pages=1-2]{executive_summary}
+
+% \hypersetup{pageanchor=false}
+% \maketitle
+% \hypersetup{pageanchor=true}
+
+\renewcommand{\contentsname}{\textcolor{DarkGreen}{CONTENTS}}
+\renewcommand{\cfttoctitlefont}{\Huge\bfseries\sffamily}
+\renewcommand{\cftchapfont}{\bfseries\sffamily}
+\renewcommand{\cftsecfont}{\sffamily}
+\renewcommand{\cftsubsecfont}{\sffamily}
+\renewcommand{\cftsubsubsecfont}{\sffamily}
+\renewcommand{\cftfigfont}{\sffamily}
+\renewcommand{\cfttabfont}{\sffamily}
+\renewcommand{\cftchappagefont}{\bfseries\sffamily}
+\renewcommand{\cftsecpagefont}{ \sffamily}
+\renewcommand{\cftsubsecpagefont}{ \sffamily}  
+\renewcommand{\cftsubsubsecpagefont}{ \sffamily}
+\renewcommand{\cftfigpagefont}{ \sffamily}
+\renewcommand{\cfttabpagefont}{ \sffamily}
+ 
+\pagestyle{empty}
+{ \sffamily
 \tableofcontents
+}
 
 \clearpage
+\pagestyle{fancy}
 \ifdraft{\addcontentsline{toc}{chapter}{\ \ \ \ \hl{Note: Names following
     chapter titles are the currently-assigned writers; percentages
     following writer names are very rough estimates of the
@@ -235,6 +295,8 @@
 \listoftodos[List of To Do Items]
 }{}
 %\input{executive_summary} % Joe K./Susan
+\mainmatter
+\hypersetup{pageanchor=true}
 \input{acknowledgments} 
 \input{introduction} % Joe K./Susan
 \input{remote_voting} % Philip
@@ -251,8 +313,19 @@
 %\input{bon_requirements} %Dan/Joe K.
 %\input{bon_domain_model} %Dan/Joe K.
 
-\printbibliography
 
+\newpage
+\fancyhead[R]{}
+% redefine italics back to normal for references
+\renewcommand{\textit}{\itshape}
+\renewcommand{\emph}{\itshape}
+\printbibliography[heading=bibintoc]
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{About}
+\includepdf[pages=7]{executive_summary}
+\includepdf[pages=8]{executive_summary}
 \end{document}
 
 %%% Local Variables:
