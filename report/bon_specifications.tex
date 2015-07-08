@@ -1,0 +1,33 @@
+% The U.S. Vote/OVF E2E-VIV Report
+% BON Specifications
+% Joseph R. Kiniry and Daniel M. Zimmerman
+
+\documentclass[]{report}
+
+\usepackage[margin=1in]{geometry}
+
+% Fourier for math | Utopia (scaled) for rm | Helvetica for ss | Latin Modern for tt
+\usepackage{fourier} % math & rm
+\usepackage[scaled=0.875]{helvet} % ss
+\renewcommand{\ttdefault}{lmtt} %tt
+
+\usepackage[final]{listings} % always include listings, even in draft mode
+
+% BON listing style
+\include{style/bon}
+\lstset{style=bon, columns=fullflexible, keepspaces=true, frame=lines,
+  captionpos=b, numbers=none} 
+
+\title{THE FUTURE OF VOTING \\ End-To-End Verifiable Internet Voting \\ \ \\ BON Specifications}
+\author{Joseph R. Kiniry and Daniel M. Zimmerman \\ Galois}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\input{bon_requirements} %Dan/Joe K.
+\input{bon_domain_model} %Dan/Joe K.
+
+\end{document}

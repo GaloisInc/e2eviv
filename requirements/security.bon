@@ -215,21 +215,12 @@ scenario
   "AUTOMATED_REGISTRATION_FRAUD" -- @ref David Jefferson
 description
   "Automated registration fraud must not be possible."
- -- Eligibility & Registration (online registration, automated
- -- registration fraud, and change of credentials): DJ doesn't know yet
- -- what to write here regarding requirements.  But obviously any
- -- automated registration fraud can be used to affect the outcome of
- -- elections.
 
 scenario
   "CLIENT_SIDE_AUTHENTICITY" -- @ref David Jefferson
 description
   "There must be a means by which any third party can determine if the \
  \ client-side software is genuine."
- -- Authentication of service: Not sure what requirement should be
- -- here.  The intent is to somehow ascertain that the E2EV software
- -- on the client-side is genuine.  Presumably that E2EV software will
- -- authenticate the remote server.
 
 scenario
   "AUTHENTICATION_INDEPENDENCE" -- @ref David Jefferson
@@ -364,20 +355,19 @@ description
 scenario
   "PENETRATION_ATTACKS" -- @ref David Jefferson
 description
-  "Deny penetration attacks. (DJ doesn't know what to write about \
- \ this.)"
+  "The voting system must be resistant to penetration attacks."
 
 scenario
   "APT_ATTACKS" -- @ref David Jefferson
 description
-  "Deny advanced persistent threat attacks.  (DJ doesn't know what to \
- \ write about this.)"
+  "The voting system must be resistant to advanced persistent \
+ \ threat attacks."
 
 scenario
   "INSIDER_ATTACKS" -- @ref David Jefferson
 description
-  "Something about insider attacks being impossible.  (DJ doesn't know \
- \ what to write about this.)"
+  "It should not be possible for an insider to attack the voting \
+ \ system without being detected."
 
 scenario
   "COERCION_PREVENTION" -- @ref David Jefferson
