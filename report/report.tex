@@ -149,6 +149,16 @@
   }%
   \ \textbf{#2}%
 }
+\newcommand\withicon[2]{%
+  \begin{wrapfigure}[1]{r}{0.625in}%
+    \vspace*{1.5ex}%
+    \includegraphics[width=0.75in]{#1}%
+  \end{wrapfigure}%
+  \paragraph{}%
+  \vspace*{-\parskip}%
+  #2
+  \vspace*{3ex}%
+}
 
 % Modify the autoref names to be capitalized and not sub-sub-subby.
 \renewcommand*{\chapterautorefname}{Chapter}
