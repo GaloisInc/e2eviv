@@ -1,0 +1,383 @@
+% The U.S. Vote/OVF E2E-VIV Report
+
+% Turning off "draft" mode on the report class turns off to do notes,
+% chapter assignments, and completion percentages
+\documentclass[oneside]{book}
+
+\usepackage{pdfpages}
+
+%\usepackage{times}
+% Fourier for math | Utopia (scaled) for rm | Helvetica for ss | Latin Modern for tt
+\usepackage{fourier} % math & rm
+\usepackage[scaled=0.870]{helvet} % ss
+\renewcommand{\ttdefault}{lmtt} %tt
+
+\usepackage[hang]{footmisc}
+\setlength{\footnotemargin}{2mm}
+
+\usepackage{etoolbox}
+\usepackage{ifpdf}
+\usepackage{ifdraft}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fnpct}
+\usepackage{xcolor}
+\usepackage{graphicx} % always include images, even in draft mode
+\usepackage{wrapfig}
+\usepackage{xspace}
+\usepackage{colortbl}
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage[inline]{enumitem}
+\usepackage[final]{listings} % always include listings, even in draft mode
+
+% Bibliography equipment for fancier citations of websites etc
+\usepackage[%
+  backend=bibtex      % biber or bibtex
+%,style=authoryear    % Alphabeticalsch
+ ,style=numeric-comp  % numerical-compressed
+%,sorting=none        % no sorting
+ ,sortcites=true      % some other example options ...
+ ,block=none
+ ,indexing=false
+ ,citereset=none
+ ,isbn=true
+ ,url=true
+ ,doi=true            % prints doi
+ ,natbib=true         % if you need natbib functions
+]{biblatex}
+\DefineBibliographyStrings{english}{%
+  bibliography = {References},
+}
+\addbibresource{bibliography.bib}
+
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
+% BON listing style
+\include{style/bon}
+\lstset{style=bon, columns=fullflexible, keepspaces=true, frame=lines,
+  captionpos=b, numbers=none} 
+
+% custom colors
+\colorlet{darkgreen}{green!35!black}
+\colorlet{darkred}{red!45!black}
+
+% shades of red and green that are distinguishable even with the most common
+% kinds of color blindness
+\colorlet{accessiblegreen}{green!55!black!70!blue!40!white}
+\colorlet{accessiblered}{red!80!black!80!yellow!30!white}
+
+% E2E-VIV Report Colors
+\definecolor{DarkGreen}{HTML}{00AB8E}
+\definecolor{DARKGREEN}{HTML}{00AB8E}
+\definecolor{LightGreen}{HTML}{A4D65E}%{B3D78B}
+\definecolor{DarkBlue}{HTML}{041E42}%{002D62}
+\definecolor{Red}{HTML}{9D2235} %{B20738}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[defaultlines=4,all]{nowidow}
+\usepackage[parfill]{parskip}
+
+%% To Do Notes
+\usepackage[obeyDraft, colorinlistoftodos, textwidth=\marginparwidth]{todonotes}
+
+% individual colors for To Dos, feel free to change yours
+\colorlet{tododmz}{green!50}
+\colorlet{todokiniry}{red!50}
+\colorlet{tododmwit}{orange!50}
+\colorlet{todojkr}{blue!50}
+\colorlet{todojrk}{orange!50!yellow}
+\colorlet{todoprobinson}{purple!50}
+\colorlet{todoacf}{cyan!50}
+\colorlet{todogeneric}{yellow!50}
+
+\newcounter{todocounter}
+\newcommand{\todocount}[2][]{\stepcounter{todocounter}\todo[#1]{\thetodocounter:
+    #2}}
+
+% individual commands for To Dos
+% usage: \todo<username>{Something to do.}
+\newcommand{\tododmz}[1]{\todocount[color=tododmz]{#1}}
+\newcommand{\todokiniry}[1]{\todocount[color=todokiniry]{#1}}
+\newcommand{\tododmwit}[1]{\todocount[color=tododmwit]{#1}}
+\newcommand{\todojkr}[1]{\todocount[color=todojkr]{#1}}
+\newcommand{\todojrk}[1]{\todocount[color=todojrk]{#1}}
+\newcommand{\todoprobinson}[1]{\todocount[color=todoprobinson]{#1}}
+\newcommand{\todoacf}[1]{\todocount[color=todoacf]{#1}}
+\newcommand{\todogeneric}[1]{\todocount[color=todogeneric]{#1}}
+
+\ifpdf
+\usepackage[draft=false,pdftex,colorlinks=true,urlcolor=DarkGreen,linkcolor=DarkGreen,citecolor=DarkGreen,bookmarks=false]{hyperref}
+\else
+\usepackage[dvips]{hyperref}
+\fi
+
+
+% define a macro \Autoref to allow multiple references to be passed to
+% \autoref
+\makeatletter
+\newcommand\Autoref[1]{\@first@ref#1,@}
+\def\@throw@dot#1.#2@{#1}% discard everything after the dot
+\def\@set@refname#1{%    % set \@refname to autoefname+s using \getrefbykeydefault
+    \edef\@tmp{\getrefbykeydefault{#1}{anchor}{}}%
+    \def\@refname{\@nameuse{\expandafter\@throw@dot\@tmp.@autorefname}s}%
+}
+\def\@first@ref#1,#2{%
+  \ifx#2@\autoref{#1}\let\@nextref\@gobble% only one ref, revert to normal \autoref
+  \else%
+    \@set@refname{#1}%  set \@refname to autoref name
+    \@refname~\ref{#1}% add autoefname and first reference
+    \let\@nextref\@next@ref% push processing to \@next@ref
+  \fi%
+  \@nextref#2%
+}
+\def\@next@ref#1,#2{%
+   \ifx#2@ and~\ref{#1}\let\@nextref\@gobble% at end: print and+\ref and stop
+   \else, \ref{#1}% print  ,+\ref and continue
+   \fi%
+   \@nextref#2%
+}
+
+% the short version of the report has a table of contents with one line on
+% the next page; this scrunches the top of the table to avoid that bad break
+\iftechreport\else
+\let\@starttocold\@starttoc
+\renewcommand{\@starttoc}[1]{
+  \ifstrequal{#1}{toc}{\vspace*{-6ex}}{}
+  \@starttocold{#1}
+}
+\fi
+\makeatother
+
+\usepackage{lipsum}
+\usepackage{soul}
+
+\newcommand\recommendation[2]{%
+  \vspace{12pt}%
+  \colorbox{DarkGreen}{%
+    \textbf{\emph{\textcolor{white}{Recommendation: \uppercase{#1}}}}%
+  }%
+  \ \textbf{#2}%
+}
+\newcommand\withicon[2]{%
+  \begin{wrapfigure}[1]{r}{0.625in}%
+    \vspace*{1.5ex}%
+    \includegraphics[width=0.75in]{#1}%
+  \end{wrapfigure}%
+  \paragraph{}%
+  \vspace*{-\parskip}%
+  #2
+  \vspace*{3ex}%
+}
+
+% Modify the autoref names to be capitalized and not sub-sub-subby.
+\renewcommand*{\chapterautorefname}{Chapter}
+\renewcommand*{\sectionautorefname}{Section}
+\renewcommand*{\subsectionautorefname}{Section}
+\renewcommand*{\subsubsectionautorefname}{Section}
+
+% Various definitions, from Aggelos E2E spec
+
+\newcommand{\func}[1][\relax]{\ensuremath{\mathcal{F}_{\mathsf{#1}}}}
+\newcommand{\fl}[1]{\mbox{\( \lfloor #1 \rfloor \)}}
+\newcommand{\pair}[2]{\mbox{\(\langle #1,#2 \rangle\)}}
+
+\newcommand{\mc}{\mathcal}
+\newcommand{\Pro}{\mbox{\( \mathbf{ Prob } \)}}
+
+\def\squareforqed{\hbox{\(\blacksquare\)}}
+\def\qed{\ifmmode\squareforqed\else{\unskip\nobreak\hfill\penalty50\hskip1em\null\nobreak\hfil\squareforqed\parfillskip=0pt\finalhyphendemerits=0\endgraf}\fi}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{assumption}{Complexity Assumption}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{remark}{Remark}
+\newtheorem{claim}{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newenvironment{proof}{\noindent {\em Proof.}}{\medskip}
+
+\def\PPT{{\rm PPT} }
+\def\ff{\mathbb{F}}
+\def\sbs{\subseteq}
+\def\zz{\mathbb{Z}}
+\def\E{\mathsf{E}}
+
+%Functionalities
+\newcommand{\fete}{\func[e2e]}%
+\newcommand{\fbb}{\func[bb]}%
+\newcommand{\fsauth}{\func[sauth]}%
+\newcommand{\fauth}{\func[auth]}%
+\newcommand{\fmail}{\func[mail]}%
+\newcommand{\frnd}{\func[rnd]}%
+
+%Parties
+\def\EA{\mathsf{EA}}
+\def\VT{\mathsf{V}}
+\def\RB{\mathsf{RB}}
+\def\VC{\mathsf{VC}}
+\def\AU{\mathsf{AU}}
+
+\def\Exec{\mathsf{Exec}}
+
+
+%Commands
+\def\Create{\mathtt{Create}}
+\def\Sample{\mathtt{Sample}}
+\def\FakeBallot{\mathtt{FakeBallot}}
+\def\Deliver{\mathtt{Deliver}}
+\def\Corrupt{\mathtt{Corrupt}}
+\def\Verify{\mathtt{Verify}}
+\def\Tally{\mathtt{Tally}}
+\def\Vote{\mathtt{Vote}}
+\def\RecordVote{\mathtt{RecordVote}}
+\def\Append{\mathtt{Append}}
+\def\Read{\mathtt{Read}}
+\def\Send{\mathtt{Send}}
+\def\Mail{\mathtt{Mail}}
+\def\Audit{\mathtt{Audit}}
+\def\VBB{\mathtt{VBB}}
+\def\SendInit{\mathtt{SendInit}}
+\def\GetRnd{\mathtt{GetRnd}}
+\def\Select{\mathtt{Select}}
+\def\RecordTally{\mathtt{RecordTally}}
+\def\ReadTally{\mathtt{ReadTally}}
+\def\Receipt{\mathtt{Receipt}}
+\def\Result{\mathtt{Result}}
+\def\ElectionFail{\mathtt{ElectionFail}}
+
+% Modified Chapter/Section/Subsection Headings And Text Formats
+\usepackage[compact,explicit]{titlesec}
+
+\renewcommand{\chaptername}{CHAPTER}
+\titleformat{\chapter}[display]{\Huge\bfseries\sffamily}{\textcolor{DarkGreen}{\chaptertitlename\ \thechapter}}{20pt}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
+\titleformat{\section}[display]{\Large\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\thesection\quad\MakeUppercase{#1}}}
+\titleformat{name=\subsection,numberless}[display]{\large\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
+\titleformat{\subsection}[display]{\large\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\thesubsection\quad\MakeUppercase{#1}}}
+\titleformat{name=\subsection,numberless}[display]{\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
+\titleformat{\subsubsection}[display]{\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
+\titleformat{\paragraph}[runin]{\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
+
+\usepackage{tocloft}
+\usepackage{fancyhdr}
+
+% light-grey headers with section names/subsections, footers with page numbers
+\fancyhead{}
+\fancyhead[L]{\sffamily\small\textcolor{gray}{\leftmark}}
+\fancyhead[R]{\sffamily\small\textcolor{gray}{\rightmark}}
+\fancyfoot{}
+\fancyfoot[C]{\sffamily\thepage}
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \renewcommand{\headrulewidth}{0pt}
+  \fancyfoot[C]{\sffamily\thepage}
+}
+
+% redefine boldface to sans-serif and green
+\DeclareTextFontCommand{\textbf}{\bfseries\sffamily\color{DarkGreen}}
+% redefine italics to sans-serif and green (two forms)
+\DeclareTextFontCommand{\textit}{\itshape\sffamily\color{DarkGreen}}
+\DeclareTextFontCommand{\emph}{\itshape\sffamily\color{DarkGreen}}
+
+% end of preamble
+
+\begin{document}
+% The title page has no visible page number, and the report resets page
+% numbering on the next page so that the visible page numbers start from 1.
+% One unfortunate side effect of this is that hyperref sees two different
+% pages both named "1" and gets confused. See also
+% http://tex.stackexchange.com/q/18924/16779
+\frontmatter
+
+\hypersetup{pageanchor=false}
+\includepdf[pages=1-5]{executive_summary}
+% \hypersetup{pageanchor=false}
+% \maketitle
+% \hypersetup{pageanchor=true}
+
+\renewcommand{\contentsname}{\textcolor{DarkGreen}{CONTENTS}}
+\renewcommand{\cfttoctitlefont}{\Huge\bfseries\sffamily}
+\renewcommand{\cftchapfont}{\bfseries\sffamily}
+\renewcommand{\cftsecfont}{\sffamily}
+\renewcommand{\cftsubsecfont}{\sffamily}
+\renewcommand{\cftsubsubsecfont}{\sffamily}
+\renewcommand{\cftfigfont}{\sffamily}
+\renewcommand{\cfttabfont}{\sffamily}
+\renewcommand{\cftchappagefont}{\bfseries\sffamily}
+\renewcommand{\cftsecpagefont}{ \sffamily}
+\renewcommand{\cftsubsecpagefont}{ \sffamily}  
+\renewcommand{\cftsubsubsecpagefont}{ \sffamily}
+\renewcommand{\cftfigpagefont}{ \sffamily}
+\renewcommand{\cfttabpagefont}{ \sffamily}
+ 
+\pagestyle{fancy}
+\fancyhead[R]{}
+\tableofcontents
+
+\iftechreport\else
+\vfill
+
+This document is an abridged version, prepared for non-technical audiences.
+The full report, ``THE FUTURE OF VOTING: End-To-End Verifiable Internet
+Voting'', is available from \url{https://www.usvotefoundation.org/E2E-VIV},
+and contains additional details on cryptographic foundations, architecture,
+and rigorous software engineering practices.
+\fi
+
+\clearpage
+\fancyhead[R]{\sffamily\small\textcolor{gray}{\rightmark}}
+\ifdraft{\addcontentsline{toc}{chapter}{\ \ \ \ \hl{Note: Names following
+    chapter titles are the currently-assigned writers; percentages
+    following writer names are very rough estimates of the
+    approximate percentage of completion. Some material factored 
+    into the percentages may not yet appear in the generated report 
+    because it needs to be brought in from external sources.} \\ \ \\
+  List of To Do Items}
+% temporarily here, so we have a centralized list of all the todo
+% items in the document
+\listoftodos[List of To Do Items]
+}{}
+%\input{executive_summary} % Joe K./Susan
+\mainmatter
+\hypersetup{pageanchor=true}
+\input{acknowledgments} 
+\input{introduction} % Joe K./Susan
+\input{remote_voting} % Philip
+\input{e2e_viv_explained} % Philip/Daniel
+\input{required_properties} % Dan
+\iftechreport
+\input{crypto_spec} % Aggelos
+\input{architecture} % Joe K./Dan
+\input{rse} % Joe K./Dan
+\fi
+\input{feasibility} % Poorvi/David J.
+\input{conclusion} % Joe K./Susan
+\appendix
+\input{expert_statements} %Dan/Joe K.
+%\input{usability_study} % Keith/Judy
+%\input{bon_requirements} %Dan/Joe K.
+%\input{bon_domain_model} %Dan/Joe K.
+
+
+\newpage
+\fancyhead[R]{}
+% redefine italics back to normal for references
+\renewcommand{\textit}{\itshape}
+\renewcommand{\emph}{\itshape}
+\printbibliography[heading=bibintoc]
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{About}
+\includepdf[pages=7]{executive_summary}
+\includepdf[pages=8]{executive_summary}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "report"
+%%% End:

@@ -5,6 +5,9 @@ all: report bon
 report:
 	latexmk -pdf -latexoption=-interaction=nonstopmode report
 
+report_short:
+	latexmk -pdf -latexoption=-interaction=nonstopmode report_short
+
 bon:
 	latexmk -pdf -latexoption=-interaction=nonstopmode bon_specifications
 	
