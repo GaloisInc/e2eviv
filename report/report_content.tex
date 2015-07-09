@@ -258,7 +258,6 @@
 \titleformat{\subsubsection}[display]{\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
 \titleformat{\paragraph}[runin]{\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
 
-\usepackage{tocloft}
 \usepackage{fancyhdr}
 
 % light-grey headers with section names/subsections, footers with page numbers
@@ -283,6 +282,7 @@
 % end of preamble
 
 \begin{document}
+\ifstatementsonly\else
 % The title page has no visible page number, and the report resets page
 % numbering on the next page so that the visible page numbers start from 1.
 % One unfortunate side effect of this is that hyperref sees two different
@@ -295,6 +295,7 @@
 % \hypersetup{pageanchor=false}
 % \maketitle
 % \hypersetup{pageanchor=true}
+\fi
 
 \renewcommand{\contentsname}{\textcolor{DarkGreen}{CONTENTS}}
 \renewcommand{\cfttoctitlefont}{\Huge\bfseries\sffamily}
@@ -313,6 +314,7 @@
  
 \pagestyle{fancy}
 \fancyhead[R]{}
+\ifstatementsonly\else
 \tableofcontents
 
 \iftechreport\else
@@ -354,7 +356,9 @@ and rigorous software engineering practices.
 \input{feasibility} % Poorvi/David J.
 \input{conclusion} % Joe K./Susan
 \appendix
+\fi%statementsonly
 \input{expert_statements} %Dan/Joe K.
+\ifstatementsonly\else
 \iftechreport\else
 \input{document_abridged}
 \fi
@@ -375,6 +379,7 @@ and rigorous software engineering practices.
 \addcontentsline{toc}{chapter}{About}
 \includepdf[pages=7]{executive_summary}
 \includepdf[pages=8]{executive_summary}
+\fi%statementsonly
 \end{document}
 
 %%% Local Variables:
