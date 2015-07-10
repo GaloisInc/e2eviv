@@ -282,7 +282,31 @@
 % end of preamble
 
 \begin{document}
-\ifstatementsonly\else
+\ifstatementsonly
+\title{\color{DarkGreen}\sffamily\bfseries THE FUTURE OF VOTING \\ \sffamily
+End-To-End Verifiable Internet Voting \\ \ \\ \sffamily Expert Statements}
+\date{\color{DarkGreen}\sffamily 10 July 2015}
+\hypersetup{pageanchor=false}
+\maketitle
+\hypersetup{pageanchor=true}
+
+\renewcommand{\contentsname}{\textcolor{DarkGreen}{CONTENTS}}
+\renewcommand{\cfttoctitlefont}{\Huge\bfseries\sffamily}
+\renewcommand{\cftchapfont}{\bfseries\sffamily}
+\renewcommand{\cftsecfont}{\sffamily}
+\renewcommand{\cftsubsecfont}{\sffamily}
+\renewcommand{\cftsubsubsecfont}{\sffamily}
+\renewcommand{\cftfigfont}{\sffamily}
+\renewcommand{\cfttabfont}{\sffamily}
+\renewcommand{\cftchappagefont}{\bfseries\sffamily}
+\renewcommand{\cftsecpagefont}{ \sffamily}
+\renewcommand{\cftsubsecpagefont}{ \sffamily}  
+\renewcommand{\cftsubsubsecpagefont}{ \sffamily}
+\renewcommand{\cftfigpagefont}{ \sffamily}
+\renewcommand{\cfttabpagefont}{ \sffamily}
+\tableofcontents
+\clearpage\break
+\else
 % The title page has no visible page number, and the report resets page
 % numbering on the next page so that the visible page numbers start from 1.
 % One unfortunate side effect of this is that hyperref sees two different
