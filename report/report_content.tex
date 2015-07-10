@@ -109,7 +109,7 @@
 \newcommand{\todogeneric}[1]{\todocount[color=todogeneric]{#1}}
 
 \ifpdf
-\usepackage[draft=false,pdftex,colorlinks=true,urlcolor=DarkGreen,linkcolor=DarkGreen,citecolor=DarkGreen,bookmarks=false]{hyperref}
+\usepackage[draft=false,pdftex,colorlinks=true,urlcolor=DarkGreen,linkcolor=DarkGreen,citecolor=DarkGreen,bookmarks=true]{hyperref}
 \else
 \usepackage[dvips]{hyperref}
 \fi
@@ -144,7 +144,7 @@
 % the short version of the report has a table of contents with a few lines on
 % the next page; this scrunches the top of the table to avoid that bad break
 \iftechreport\else
-\setlength\cftbeforechapskip{1ex}
+\setlength\cftbeforechapskip{0.8ex}
 \fi
 
 \usepackage{lipsum}
@@ -291,7 +291,10 @@
 \frontmatter
 
 \hypersetup{pageanchor=false}
-\includepdf[pages=1-5]{executive_summary}
+\includepdf[pages=1-2]{executive_summary}
+\phantomsection
+\addcontentsline{toc}{chapter}{Executive Summary}
+\includepdf[pages=3-5]{executive_summary}
 % \hypersetup{pageanchor=false}
 % \maketitle
 % \hypersetup{pageanchor=true}
