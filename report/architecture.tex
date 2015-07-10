@@ -36,7 +36,7 @@ Several non-functional requirements of E2E-VIV systems force the
 inclusion or consideration of specific architectural factors. We
 consider each of these in turn.
 
-\subsection{Certification}
+\withicon{certification}{\subsection{Certification}}
 
 Voting systems in most jurisdictions are subject to certification
 requirements. The EAC and NIST have developed a set of Voluntary
@@ -73,7 +73,7 @@ Architectural decisions made during the system's development must
 therefore be undertaken with great care, because major architectural
 changes will be extremely expensive.
 
-\subsection{Abstraction}
+\withicon{abstraction}{\subsection{Abstraction}}
 
 The software in an E2E-VIV system must be high assurance, and must, as
 discussed above, undergo a certification process before it can be used
@@ -88,7 +88,7 @@ component behaviors with respect to external communication can be
 formally characterized in ways that allow for verification of composed
 subsystems.
 
-\subsection{Deployment}
+\withicon{deployment}{\subsection{Deployment}}
 
 There is a wide spectrum of possible deployment scenarios for an
 E2E-VIV system, each of which leads to certain decisions about its
@@ -106,7 +106,7 @@ specifically-designated servers. The choice within this spectrum has
 significant impact on both system availability and system security
 requirements.
 
-\subsection{Threats}
+\withicon{threats}{\subsection{Threats}}
 \label{sec:threats}
 
 Mitigating the potential threats to E2E-VIV systems also leads to
@@ -171,7 +171,7 @@ of possible threats; we describe the distribution of trust in more
 detail in the following section.
 
 
-\subsection{Distributing Trust}
+\withicon{distributing_trust}{\subsection{Distributing Trust}}
 \label{sec:trust}
 
 The distribution of trust in an E2E-VIV system is critical: if the
@@ -606,7 +606,7 @@ toolchains in the technique proposed by David A. Wheeler in his
 Ph.D. thesis, ``Fully Countering Trusting Trust through Diverse
 Double-Compiling'' \cite{Wheeler09}.
 
-\subsection{Scalability}
+\withicon{scalability}{\subsection{Scalability}}
 
 An E2E-VIV system, particularly at the national level, must be able to
 handle a wide range of demand. It is human nature that many voters
@@ -623,7 +623,7 @@ utilizing public cloud resources that support elastic demand or by
 using private resources that can be brought on- and offline as
 required.
 
-\subsection{Availability}
+\withicon{availability}{\subsection{Availability}}
 
 E2E-VIV systems must exhibit high availability;
 \autoref{chapter:required_properties} stated an explicit requirement
@@ -637,7 +637,7 @@ provided by Cloudflare to handle traffic spikes and distributed denial
 of service attacks. The system architecture should be constructed in a
 way that does not foreclose the use of such techniques.
 
-\subsection{Usability}
+\withicon{usability}{\subsection{Usability}}
 
 Usability, including accessibility for disabled voters, is of
 paramount importance in an E2E-VIV system. Especially for the
