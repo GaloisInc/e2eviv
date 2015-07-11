@@ -141,12 +141,6 @@
 }
 \makeatother
 
-% the short version of the report has a table of contents with a few lines on
-% the next page; this scrunches the top of the table to avoid that bad break
-\iftechreport\else
-\setlength\cftbeforechapskip{0.8ex}
-\fi
-
 \usepackage{lipsum}
 \usepackage{soul}
 
@@ -395,12 +389,6 @@ and rigorous software engineering practices.
 \fi%statementsonly
 \input{expert_statements} %Dan/Joe K.
 \ifstatementsonly\else
-%\iftechreport\else
-%\input{document_abridged}
-%\fi
-%\input{usability_study} % Keith/Judy
-%\input{bon_requirements} %Dan/Joe K.
-%\input{bon_domain_model} %Dan/Joe K.
 
 
 \newpage
