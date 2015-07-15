@@ -1,6 +1,8 @@
 \chapter{Rigorous Software Engineering\ifdraft{ (Joe K./Dan/Adam) (95\%)}{}}
 \label{cha:rigor-softw-engin}
 
+\iftechreport
+
 Sound engineering practices are the foundation for building reliable
 and secure software systems. This is particularly true for critical
 systems that must be trusted to perform important tasks correctly, and
@@ -1785,6 +1787,14 @@ cryptographers involved with the Elections Verification Network or the
 Verified Voting Foundation, and a Political Action Committee aligned
 with each candidate---should be sufficient to earn the trust of
 virtually every American voter.
+
+\else % techreport
+
+This chapter is not included in the abridged version of the report for
+non-technical audiences. It is included in the full report,
+available from \url{https://www.usvotefoundation.org/E2E-VIV}.
+
+\fi
 
 %%% Local Variables:
 %%% mode: latex

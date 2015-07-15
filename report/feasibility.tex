@@ -5,7 +5,8 @@ In Chapters \ref{chapter:introduction} through
 \ref{chapter:required_properties} of this report, we described the
 motivation for, history of, and requirements on a remote voting system
 that experts can approve and the public can trust. In Chapters
-\ref{chapter:crypto_spec} through \ref{cha:rigor-softw-engin}, we
+\ref{chapter:crypto_spec} through
+\ref{cha:rigor-softw-engin}\iftechreport\else\ of the full report\fi, we
 described the necessary cryptographic, architectural, and engineering
 foundations, tools, and techniques necessary to design and build a
 system that fulfills the requirements set forth in
@@ -54,7 +55,7 @@ E2E-VIV system. However, E2E-V alone does not provide many of the
 necessary properties for public election systems, including:
 
 \begin{itemize}
-\item \textbf{Coercion Resistance:} It is difficult to design a
+\item \textbf{COERCION RESISTANCE.} It is difficult to design a
   coercion-resistant E2E-V protocol where the voter votes from an
   untrusted computer. Coercion-resistant protocols exist where the
   voter votes from a trusted computer; however, these require the
@@ -62,7 +63,7 @@ necessary properties for public election systems, including:
   the vote should be considered valid. Current coercion-resistant
   protocols pose significant usability and accessibility challenges.
 
-\item \textbf{Dispute Resolution:} An E2E-V protocol enables a voter
+\item \textbf{DISPUTE RESOLUTION.} An E2E-V protocol enables a voter
   to determine whether her vote was correctly recorded. If she
   discovers that it was not, the protocol does not necessarily provide
   her with evidence to convince a third party of the problem. It is
@@ -76,7 +77,7 @@ necessary properties for public election systems, including:
   communication channel presents usability and accessibility
   challenges.
 
-\item \textbf{Resistance to Client Malware and Denial of Service:} If
+\item \textbf{RESISTANCE TO CLIENT MALWARE AND DENIAL OF SERVICE.} If
   a voter follows all the steps for voter verification of an E2E-V
   protocol, she should be able to determine if her vote has been
   manipulated by malware. However, denial of service attacks might
@@ -90,7 +91,7 @@ necessary properties for public election systems, including:
   additional protection against these types of attacks, but dilutes the
   usability and accessibility of the system.
 
-\item \textbf{Universal Design:} E2E-V protocols with a number of the
+\item \textbf{UNIVERSAL DESIGN.} E2E-V protocols with a number of the
   above properties have been developed, but the use of second channels
   (or paper) and multiple complicated steps are difficult to achieve
   in an accessible system. A protocol that cannot be used properly by
@@ -271,7 +272,8 @@ available due to the creation of new technologies invented
 specifically to fulfill this need.
 
 The key technologies that solve this problem are discussed in
-\autoref{cha:rigor-softw-engin}.  These include continuous integration
+\autoref{cha:rigor-softw-engin}\iftechreport\else\ of the full report\fi.
+These include continuous integration
 systems and configuration management tools for development and
 deployment.  They also include cloud deployment and management
 technologies, such as those available from Amazon, Google, Microsoft,

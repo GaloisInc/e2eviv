@@ -1,0 +1,104 @@
+% The U.S. Vote/OVF E2E-VIV Report
+% Usability Study
+% Joseph R. Kiniry and Daniel M. Zimmerman
+
+\documentclass[]{report}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{pdfpages}
+
+% Fourier for math | Utopia (scaled) for rm | Helvetica for ss | Latin Modern for tt
+\usepackage{fourier} % math & rm
+\usepackage[scaled=0.875]{helvet} % ss
+\renewcommand{\ttdefault}{lmtt} %tt
+
+\usepackage[final]{listings} % always include listings, even in draft mode
+\usepackage[defaultlines=4,all]{nowidow}
+\usepackage[parfill]{parskip}
+
+% custom colors
+\colorlet{darkgreen}{green!35!black}
+\colorlet{darkred}{red!45!black}
+
+% E2E-VIV Report Colors
+\definecolor{DarkGreen}{HTML}{00AB8E}
+\definecolor{LightGreen}{HTML}{A4D65E}%{B3D78B}
+\definecolor{DarkBlue}{HTML}{041E42}%{002D62}
+\definecolor{Red}{HTML}{9D2235} %{B20738}
+
+% shades of red and green that are distinguishable even with the most common
+% kinds of color blindness
+\colorlet{accessiblegreen}{green!55!black!70!blue!40!white}
+\colorlet{accessiblered}{red!80!black!80!yellow!30!white}
+
+\ifpdf
+\usepackage[draft=false,pdftex,colorlinks=true,urlcolor=DarkGreen,linkcolor=DarkGreen,citecolor=DarkGreen,bookmarks=false]{hyperref}
+\else
+\usepackage[dvips]{hyperref}
+\fi
+
+% BON listing style
+\include{style/bon}
+\lstset{style=bon, columns=fullflexible, keepspaces=true, frame=lines,
+  captionpos=b, numbers=none} 
+
+% Modified Chapter/Section/Subsection Headings And Text Formats
+\usepackage[compact,explicit]{titlesec}
+
+\renewcommand{\chaptername}{CHAPTER}
+\titleformat{\chapter}[display]{\Huge\bfseries\sffamily}{\textcolor{DarkGreen}{\chaptertitlename\ \thechapter}}{20pt}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
+\titleformat{\section}[display]{\Large\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\thesection\quad\MakeUppercase{#1}}}
+\titleformat{name=\subsection,numberless}[display]{\large\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
+\titleformat{\subsection}[display]{\large\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\thesubsection\quad\MakeUppercase{#1}}}
+\titleformat{\paragraph}[runin]{\bfseries\sffamily}{}{0em}{\textcolor{DarkGreen}{\MakeUppercase{#1}}}
+
+\usepackage{tocloft}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+% light-grey headers with section names/subsections, footers with page numbers
+\fancyhead{}
+\fancyhead[L]{\sffamily\small\textcolor{gray}{\leftmark}}
+\fancyhead[R]{\sffamily\small\textcolor{gray}{\rightmark}}
+\fancyfoot[C]{\sffamily\thepage}
+
+% redefine boldface to sans-serif and green
+%\DeclareTextFontCommand{\textbf}{\bfseries\sffamily\color{DarkGreen}}
+% redefine italics to sans-serif and green (two forms)
+%\DeclareTextFontCommand{\textit}{\itshape\sffamily\color{DarkGreen}}
+%\DeclareTextFontCommand{\emph}{\itshape\sffamily\color{DarkGreen}}
+
+% end of preamble
+{ 
+\title{\color{DarkGreen}\sffamily\bfseries THE FUTURE OF VOTING \\ \sffamily End-To-End
+  Verifiable Internet Voting \\ \ \\ \sffamily Usability Study}
+
+}
+\date{\color{DarkGreen}\sffamily 10 July 2015}
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\maketitle
+\hypersetup{pageanchor=true}
+
+\renewcommand{\contentsname}{\textcolor{DarkGreen}{CONTENTS}}
+\renewcommand{\cfttoctitlefont}{\Huge\bfseries\sffamily}
+\renewcommand{\cftchapfont}{\bfseries\sffamily}
+\renewcommand{\cftsecfont}{\sffamily}
+\renewcommand{\cftsubsecfont}{\sffamily}
+\renewcommand{\cftsubsubsecfont}{\sffamily}
+\renewcommand{\cftfigfont}{\sffamily}
+\renewcommand{\cfttabfont}{\sffamily}
+\renewcommand{\cftchappagefont}{\bfseries\sffamily}
+\renewcommand{\cftsecpagefont}{ \sffamily}
+\renewcommand{\cftsubsecpagefont}{ \sffamily}  
+\renewcommand{\cftsubsubsecpagefont}{ \sffamily}
+\renewcommand{\cftfigpagefont}{ \sffamily}
+\renewcommand{\cfttabpagefont}{ \sffamily}
+ 
+ \includepdf[pages={-}]{usability_content_from_word_file}
+ 
+ \end{document}

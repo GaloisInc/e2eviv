@@ -1,12 +1,20 @@
-\chapter{Expert Statements\ifdraft{ (Dan/Joe K.) (0\%)}{}}
+\ifstatementsonly
+% skip chapter numbering, since there's only one chapter
+\renewcommand{\thesection}{\arabic{section}}
+\else
+\chapter{Expert Statements}
 \label{appendix:expert_statements}
 
 The following expert statements are all included unedited, in their
 entirety.
+\fi
 
-\section{Josh Beneloh}
+\section{Josh Benaloh and Concurring Experts}
 
-\textbf{The Viability of Responsible Internet Voting}
+{\Large\sffamily\bfseries\textcolor{DarkGreen}{\MakeUppercase{Ronald
+      L. Rivest, Philip Stark, Vanessa Teague, Concurring}}}
+
+\subsection*{The Viability of Responsible Internet Voting}
 
 Remote voting\footnote{Remote voting is defined here as voting without
   the benefit of the public monitoring that takes place in a
@@ -153,18 +161,18 @@ differing in many ways in their architecture and in the roles of
 insiders, share the following fundamental security properties:
 
 \begin{enumerate}[label={\alph*})]
-\item \textbf{Integrity:} Once a voter successfully enters her ballot
+\item \textbf{INTEGRITY.} Once a voter successfully enters her ballot
   into the E2E-V system it cannot be undetectably lost or modified in
   any way, even in the presence of bugs or malicious logic.
 
-\item \textbf{Privacy:} Once a ballot enters the E2E-V system it is
+\item \textbf{PRIVACY.} Once a ballot enters the E2E-V system it is
   encrypted, so that there is no way that the privacy of the ballot to
   be violated subsequently.
 
-\item \textbf{Counting accuracy:} The ballots cannot be miscounted
+\item \textbf{COUNTING ACCURACY.} The ballots cannot be miscounted
   without that fact being detectable.
 
-\item \textbf{Universal public verifiability:} The systems output and
+\item \textbf{UNIVERSAL PUBLIC VERIFIABILITY.} The systems output and
   publish sufficient verification data so that \emph{anyone} can
   verify that no ballots were lost or modified and that the votes were
   properly counted. The verification data provides essentially a
@@ -174,7 +182,7 @@ insiders, share the following fundamental security properties:
   trust the official verification program---you can use one from a
   source you trust, or if you have the skill you can write your own.
 
-\item \textbf{Openness and transparency:} The code for E2E-V systems
+\item \textbf{OPENNESS AND TRANSPARENCY.} The code for E2E-V systems
   is generally open source. The mathematical principles underlying the
   E2E-V security guarantees have been vetted by many cryptographic
   experts and are open and public. And the specifications for proof
@@ -352,7 +360,7 @@ Malware in voters' computers can undermine the election in three
 fundamental ways. 
 
 \begin{enumerate}[label={\roman*})]
-\item \textbf{Malware modification of votes:} Malware may actually
+\item \textbf{MALWARE MODIFICATION OF VOTES.} Malware may actually
   modify the voter’s choices surreptitiously, before they are
   submitted to the E2E-VIV system. The techniques for accomplishing
   this without tipping off the voter will depend on the detailed
@@ -389,7 +397,7 @@ fundamental ways.
   of a barrier, at least for the time being, to discourage many
   voters.
 
-\item \textbf{Malware vote privacy violation:} Malware on a voter’s
+\item \textbf{MALWARE VOTE PRIVACY VIOLATION.} Malware on a voter’s
   computer or mobile device could allow her completed ballot to enter
   the E2EVIV system unmodified, but prior to that it could \emph{also}
   send a copy of her votes to a third party. Unless a voter has
@@ -438,7 +446,7 @@ fundamental ways.
   complicate the process of online voting sufficiently to be a barrier
   that will discourage many voters from voting
 
-\item \textbf{Malware denial of service:} The easiest and most
+\item \textbf{MALWARE DENIAL OF SERVICE.} The easiest and most
   intractable malware attack is one that simply prevents the voter
   from successfully voting. That can be done in many ways. The malware
   could make it appear that there was an error of some kind, which

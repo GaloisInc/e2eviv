@@ -1,6 +1,8 @@
 \chapter{Cryptographic Foundations\ifdraft{(Aggelos, Joe) (100\%)}{}}
 \label{chapter:crypto_spec}
 
+\iftechreport
+
 No existing E2E-VIV system or E2E-V protocol fulfills the requirements
 set forth in this report. Therefore, we cannot provide a full
 cryptographic system or protocol specification.  The development and
@@ -1127,6 +1129,14 @@ count is performed. The results of the hand count are audited and a
 statistical analysis is conducted to confirm the e-voting tally at a
 certain confidence level. Antonyan et al.~\cite{antonyan2009state}
 provide more details regarding this audit procedure.
+
+\else % techreport
+
+This chapter is not included in the abridged version of the report for
+non-technical audiences. It is included in the full report,
+available from \url{https://www.usvotefoundation.org/E2E-VIV}.
+
+\fi
 
 %%% Local Variables:
 %%% mode: latex
