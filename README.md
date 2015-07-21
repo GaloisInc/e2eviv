@@ -34,7 +34,7 @@ proponents who are accidentally or willfully misinterpreting that
 content now.  This should be stopped and any and all instances of such
 misinterpretation will be aggressively rebutted by Joe Kiniry and
 expert team members.  These slides are currently archived for
-historical purposes in the "slides" subdirectory of this repository.
+historical purposes in the "slides" sub-directory of this repository.
 
 Know that *only the final report* and its Executive Summary contains
 the opinions of the team and the recommendations of the project.
