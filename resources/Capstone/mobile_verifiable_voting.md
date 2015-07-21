@@ -1,5 +1,11 @@
 # Galois Proposed Project 1 #
 
+Note to the reader: this proposal and its sister were not received by
+CMU early enough to be used as a Capstone project.  Also, the
+speculation about developing a Remotegrity variant at Galois was
+scrapped due to the pushback from the E2E-VIV team on developing such
+a system witnessed during the E2E-VIV project.
+
 ## Mobile Verifiable Voting ##
 
 Design and develop a remote verifiable voting application that runs on
