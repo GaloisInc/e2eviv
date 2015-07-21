@@ -1,4 +1,4 @@
-# Galois Proposed Project 1 #
+# Galois Proposed Project (CMU Capstone) #
 
 Note to the reader: this proposal and its sister were not received by
 CMU early enough to be used as a Capstone project.  Also, the

@@ -1,8 +1,8 @@
-# Galois Proposed Project 2 #
+# Galois Proposed CMU Capstone Project #
 
 ## Distributed Verifiable Elections ##
 
-## Problem Description and Project Purpose ##
+## Description of the Project ##
 
 Most verifiable elections systems are based upon a static
 client-server model.  Trusted parties run a set of election servers
@@ -20,7 +20,15 @@ algorithms have been developed, deployed, and exercised to determine
 their in-the-field capability and utility.  The focus of this project
 is on doing just that.
 
-## Actions and Deliverables ##
+## Description of the Client Organization ##
+
+Many election officials the world-over are hoping that verifiable
+election systems will exist as products someday.  Election officials
+typically have a small staff of election experts and a moderate budget
+with which to run elections.  They rarely have any significant IT
+expertise at their disposal.
+
+## Objectives of Project ##
 
 * Learn about a small number of novel distributed verifiable election
   schemes.
@@ -35,13 +43,7 @@ is on doing just that.
   configurations and loads (e.g., 1, 10, 100, 1000 instances with 1,
   10, 100, 1000 client interactions per second).
 
-## Resources and Support ##
-
-Galois will provide remote deep technical R&D assistance on matters
-relevant to our expertise.  Galois can pay for compute time on cloud
-services if necessary.
-
-## Expertise Necessary ##
+## Information Technologies Involved ##
 
 At least one student on a team executing on this project must have
 some distributed programming experience.
@@ -54,4 +56,19 @@ some distributed programming experience.
 [^6]: https://galois.com/project/halvm/
 [^7]: http://aws.amazon.com/
 [^8]: https://www.heroku.com/
+
+## Contact Information ##
+
+Galois will provide remote deep technical R&D assistance on matters
+relevant to our expertise and will also act as the client.  Galois can
+pay for compute time on cloud services if necessary.  The primary
+point of contact for Galois is Joe Kiniry.
+
+Joe Kiniry
+421 SW 6th Ave., Suite 300
+Portland OR 97204-1618
+United States
+<kiniry@galois.com>
++1 (503) 626-6616
+
 
